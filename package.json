@@ -1,0 +1,45 @@
+{
+  "name": "@marp-team/marp-core",
+  "version": "0.0.0",
+  "description": "The core of Marp tools",
+  "main": "lib/marp.js",
+  "repository": "https://github.com/marp-team/marp-core",
+  "author": {
+    "name": "Marp team",
+    "url": "https://github.com/marp-team"
+  },
+  "contributors": [
+    {
+      "name": "Yuki Hattori",
+      "url": "https://github.com/yhatt"
+    }
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "yarn --silent clean && tsc --noEmitOnError",
+    "check-ts": "tsc --noEmit",
+    "clean": "rimraf lib",
+    "format": "prettier \"**/*.{css,js,json,md,scss,ts}\"",
+    "format:check": "yarn --silent format -l",
+    "format:write": "yarn --silent format --write",
+    "lint": "tslint \"{src,test}/**/*.ts\"",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.0.0",
+    "jest": "^23.1.0",
+    "prettier": "^1.13.4",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^22.4.6",
+    "tslint": "^5.10.0",
+    "tslint-config-airbnb": "^5.9.2",
+    "tslint-config-prettier": "^1.13.0",
+    "typescript": "^2.9.1"
+  },
+  "dependencies": {
+    "@marp-team/marpit": "^0.0.7"
+  }
+}

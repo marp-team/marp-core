@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.11.2
+    working_directory: ~/marp-core
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "yarn.lock" }}-{{ .Branch }}
+          - v1-dependencies-{{ checksum "yarn.lock" }}-
+          - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          key: v1-dependencies-{{ checksum "yarn.lock" }}-{{ .Branch }}
+          paths:
+            - node_modules
+            - ~/.cache/yarn
+
+      - run:
+          name: Prettier formatting
+          command: yarn format:check
+
+      - run:
+          name: TSLint
+          command: yarn lint
+
+      - run:
+          name: TypeScript type checking
+          command: yarn check-ts
+
+      - run:
+          name: Jest
+          command: yarn test --coverage
