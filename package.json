@@ -35,6 +35,7 @@
     "autoprefixer": "^8.6.0",
     "github-markdown-css": "^2.10.0",
     "jest": "^23.1.0",
+    "jest-junit": "^5.0.0",
     "node-sass": "^4.9.0",
     "prettier": "^1.13.4",
     "rimraf": "^2.6.2",

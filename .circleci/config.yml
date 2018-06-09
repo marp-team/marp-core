@@ -8,7 +8,7 @@ jobs:
       - checkout
 
       - restore_cache:
-          keys:
+        keys:
           - v1-dependencies-{{ checksum "yarn.lock" }}-{{ .Branch }}
           - v1-dependencies-{{ checksum "yarn.lock" }}-
           - v1-dependencies-
@@ -16,27 +16,32 @@ jobs:
       - run: yarn install
 
       - save_cache:
-          key: v1-dependencies-{{ checksum "yarn.lock" }}-{{ .Branch }}
-          paths:
-            - node_modules
-            - ~/.cache/yarn
+        key: v1-dependencies-{{ checksum "yarn.lock" }}-{{ .Branch }}
+        paths:
+          - node_modules
+          - ~/.cache/yarn
 
       - run:
-          name: Prettier formatting
-          command: yarn format:check
+        name: Prettier formatting
+        command: yarn format:check
 
       - run:
-          name: stylelint
-          command: yarn lint:css
+        name: stylelint
+        command: yarn lint:css
 
       - run:
-          name: TSLint
-          command: yarn lint:ts
+        name: TSLint
+        command: yarn lint:ts
 
       - run:
-          name: TypeScript type checking
-          command: yarn check-ts
+        name: TypeScript type checking
+        command: yarn check-ts
 
       - run:
-          name: Jest
-          command: yarn test --coverage
+        name: Jest
+        command: yarn test --ci --coverage --runInBand --reporters=default --reporters=jest-junit
+        environment:
+          JEST_JUNIT_OUTPUT: tmp/test-results/jest.xml
+
+      - store_test_results:
+        path: tmp/test-results
