@@ -26,8 +26,12 @@ jobs:
           command: yarn format:check
 
       - run:
+          name: stylelint
+          command: yarn lint:css
+
+      - run:
           name: TSLint
-          command: yarn lint
+          command: yarn lint:ts
 
       - run:
           name: TypeScript type checking
