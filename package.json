@@ -19,18 +19,20 @@
     "access": "public"
   },
   "scripts": {
-    "build": "yarn --silent clean && tsc --noEmitOnError",
+    "build": "yarn --silent clean && rollup -c",
     "check-ts": "tsc --noEmit",
     "clean": "rimraf lib",
     "format": "prettier \"**/*.{css,js,json,md,scss,ts}\"",
     "format:check": "yarn --silent format -l",
     "format:write": "yarn --silent format --write",
     "lint": "tslint \"{src,test}/**/*.ts\"",
-    "test": "jest"
+    "test": "jest",
+    "watch": "rollup -w -c"
   },
   "devDependencies": {
     "@types/jest": "^23.0.0",
     "autoprefixer": "^8.6.0",
+    "github-markdown-css": "^2.10.0",
     "jest": "^23.1.0",
     "node-sass": "^4.9.0",
     "prettier": "^1.13.4",

@@ -7,7 +7,7 @@ describe('Marp', () => {
   describe('themeSet property', () => {
     const { themeSet } = new Marp()
 
-    it.skip('has default theme', () => {
+    it('has default theme', () => {
       expect(themeSet.default).toBeTruthy()
       expect(themeSet.default).toBe(themeSet.get('default'))
     })
