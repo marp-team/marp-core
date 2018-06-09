@@ -9,9 +9,9 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "yarn.lock" }}-{{ .Branch }}
-          - v1-dependencies-{{ checksum "yarn.lock" }}-
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "yarn.lock" }}-{{ .Branch }}
+            - v1-dependencies-{{ checksum "yarn.lock" }}-
+            - v1-dependencies-
 
       - run: yarn install
 
@@ -26,8 +26,12 @@ jobs:
           command: yarn format:check
 
       - run:
+          name: stylelint
+          command: yarn lint:css
+
+      - run:
           name: TSLint
-          command: yarn lint
+          command: yarn lint:ts
 
       - run:
           name: TypeScript type checking
@@ -35,4 +39,9 @@ jobs:
 
       - run:
           name: Jest
-          command: yarn test --coverage
+          command: yarn test --ci --coverage --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: tmp/test-results/jest.xml
+
+      - store_test_results:
+          path: tmp/test-results
