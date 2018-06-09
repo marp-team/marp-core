@@ -8,10 +8,10 @@ jobs:
       - checkout
 
       - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "yarn.lock" }}-{{ .Branch }}
-          - v1-dependencies-{{ checksum "yarn.lock" }}-
-          - v1-dependencies-
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}-{{ .Branch }}
+            - v1-dependencies-{{ checksum "yarn.lock" }}-
+            - v1-dependencies-
 
       - run: yarn install
 
