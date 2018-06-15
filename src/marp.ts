@@ -40,7 +40,7 @@ export class Marp extends Marpit {
       `<span data-marpit-emoji>${token[idx].content}</span>`
   }
 
-  highlighter(code: string, lang: string) {
+  highlighter(code: string, lang: string): string {
     if (lang) {
       return highlightjs.getLanguage(lang)
         ? highlightjs.highlight(lang, code, true).value
