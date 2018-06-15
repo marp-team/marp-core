@@ -73,14 +73,14 @@ section {
   justify-content: center;
   padding: 78.5px;
 
-  > *:first-child,
-  > header:first-child + * {
-    margin-top: 0;
-  }
-
   > *:last-child,
   &[data-footer] > :nth-last-child(2) {
     margin-bottom: 0;
+  }
+
+  > *:first-child,
+  > header:first-child + * {
+    margin-top: 0;
   }
 
   &::after {
