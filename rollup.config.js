@@ -1,4 +1,7 @@
 import autoprefixer from 'autoprefixer'
+import commonjs from 'rollup-plugin-commonjs'
+import json from 'rollup-plugin-json'
+import nodeResolve from 'rollup-plugin-node-resolve'
 import typescript from 'typescript'
 import typescriptPlugin from 'rollup-plugin-typescript'
 import path from 'path'
@@ -15,6 +18,9 @@ export default [
       format: 'cjs',
     },
     plugins: [
+      json({ preferConst: true }),
+      nodeResolve({ jsnext: true }),
+      commonjs(),
       typescriptPlugin({ typescript }),
       postcss({
         inject: false,
