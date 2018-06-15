@@ -42,12 +42,10 @@ export class Marp extends Marpit {
 
   highlighter(code: string, lang: string) {
     if (lang) {
-      if (lang === 'text' || lang === 'plain') return ''
-      if (highlightjs.getLanguage(lang)) {
-        return highlightjs.highlight(lang, code, true).value
-      }
+      return highlightjs.getLanguage(lang)
+        ? highlightjs.highlight(lang, code, true).value
+        : ''
     }
-
     return highlightjs.highlightAuto(code).value
   }
 }

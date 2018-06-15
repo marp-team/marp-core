@@ -61,8 +61,8 @@ describe('Marp', () => {
       })
     })
 
-    // Plain rendering
-    ;['text', 'plain'].forEach(lang => {
+    // Plain text rendering
+    ;['text', 'plain', 'noHighlight', 'no-highlight'].forEach(lang => {
       context(`when fence is rendered with ${lang} lang`, () => {
         const $ = cheerio.load(
           marp().markdown.render(`\`\`\`${lang}\n# test\n\`\`\``)
