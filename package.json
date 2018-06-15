@@ -33,6 +33,7 @@
   "devDependencies": {
     "@types/jest": "^23.0.0",
     "autoprefixer": "^8.6.0",
+    "codecov": "^3.0.2",
     "github-markdown-css": "^2.10.0",
     "jest": "^23.1.0",
     "jest-junit": "^5.0.0",
