@@ -1,5 +1,6 @@
 import { Marpit } from '@marp-team/marpit'
 import cheerio from 'cheerio'
+import context from './_helpers/context'
 import { Marp } from '../src/marp'
 
 describe('Marp', () => {
@@ -44,14 +45,14 @@ describe('Marp', () => {
   })
 
   describe('#highlighter', () => {
-    describe('when fence is rendered without lang', () => {
+    context('when fence is rendered without lang', () => {
       const $ = cheerio.load(marp().markdown.render('```\n# test\n```'))
 
       it('highlights code automatically', () =>
         expect($('code > [class^="hljs-"]').length).toBeGreaterThan(0))
     })
 
-    describe('when fence is rendered with specified lang', () => {
+    context('when fence is rendered with specified lang', () => {
       const $ = cheerio.load(marp().markdown.render('```markdown\n# test\n```'))
 
       it('highlights code with specified lang', () => {
@@ -62,7 +63,7 @@ describe('Marp', () => {
 
     // Plain rendering
     ;['text', 'plain'].forEach(lang => {
-      describe(`when fence is rendered with ${lang} lang`, () => {
+      context(`when fence is rendered with ${lang} lang`, () => {
         const $ = cheerio.load(
           marp().markdown.render(`\`\`\`${lang}\n# test\n\`\`\``)
         )
@@ -72,7 +73,7 @@ describe('Marp', () => {
       })
     })
 
-    describe('with overriden #highlighter', () => {
+    context('with overriden #highlighter', () => {
       const instance = marp()
 
       instance.highlighter = (code, lang) => {
