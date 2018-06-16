@@ -5,20 +5,7 @@
  */
 
 @import '~github-markdown-css';
-@import '~highlight.js/styles/github';
-
-section {
-  @extend .markdown-body;
-
-  align-items: stretch;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  font-size: 29px;
-  justify-content: center;
-  padding: 78.5px;
-}
+@import '~highlight.js/styles/github-gist';
 
 h1 {
   border-bottom: none;
@@ -47,7 +34,141 @@ h6 {
   font-size: 0.9em;
 }
 
+hr {
+  height: 0;
+  padding-top: 0.25em;
+}
+
 pre {
   border: 1px solid #999;
   line-height: 1.15;
+}
+
+header,
+footer {
+  margin: 0;
+  position: absolute;
+  left: 30px;
+  color: rgba(#666, 0.75);
+  font-size: 18px;
+}
+
+header {
+  top: 21px;
+}
+
+footer {
+  bottom: 21px;
+}
+
+section {
+  @extend .markdown-body;
+
+  align-items: stretch;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  font-size: 29px;
+  justify-content: center;
+  padding: 78.5px;
+
+  > *:last-child,
+  &[data-footer] > :nth-last-child(2) {
+    margin-bottom: 0;
+  }
+
+  > *:first-child,
+  > header:first-child + * {
+    margin-top: 0;
+  }
+
+  &::after {
+    position: absolute;
+    padding: 0;
+    right: 30px;
+    bottom: 21px;
+    font-size: 24px;
+    color: #777;
+  }
+
+  &.invert {
+    background-color: #222;
+    color: #e6eaf0;
+
+    &::after {
+      color: #999;
+    }
+
+    img {
+      background-color: transparent;
+    }
+
+    a {
+      color: #50b3ff;
+    }
+
+    h1 {
+      color: #a3c5e7;
+    }
+
+    h2,
+    h3,
+    h4,
+    h5 {
+      color: #ebeff5;
+    }
+
+    h6,
+    blockquote {
+      border-color: #3d3f43;
+      color: #939699;
+    }
+
+    hr {
+      background-color: #3d3f43;
+    }
+
+    header,
+    footer {
+      color: rgba(#999, 0.75);
+    }
+
+    code {
+      background-color: #111;
+    }
+
+    kbd {
+      background-color: #111;
+      border-bottom-color: #555;
+      border-color: #666;
+      box-shadow: inset 0 -1px 0 #555;
+      color: #e6eaf0;
+    }
+
+    table {
+      tr {
+        background-color: #12181d;
+        border-color: #60657b;
+
+        &:nth-child(2n) {
+          background-color: #1b2024;
+        }
+      }
+
+      th,
+      td {
+        border-color: #5b5e61;
+      }
+    }
+
+    pre {
+      background-color: #0a0e12;
+      border-color: #777;
+
+      code {
+        background-color: transparent;
+      }
+    }
+  }
 }
