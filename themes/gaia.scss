@@ -38,6 +38,25 @@ $color-secondary: #81d4fa;
   blockquote::after {
     color: mix($text, $bg, 80%);
   }
+
+  table {
+    th,
+    td {
+      border-color: $text;
+    }
+
+    thead th {
+      background: $text;
+      color: $bg;
+    }
+
+    tbody > tr:nth-child(odd) {
+      td,
+      th {
+        background: rgba($text, 0.1);
+      }
+    }
+  }
 }
 
 h1,
@@ -101,6 +120,8 @@ code {
 
 pre {
   display: block;
+  margin: 1em 0 0 0;
+  min-height: 2em;
   overflow: auto;
 
   code {
@@ -113,6 +134,7 @@ pre {
 }
 
 blockquote {
+  margin: 1em 0 0 0;
   padding: 0 1em;
   position: relative;
 
@@ -143,6 +165,19 @@ blockquote {
 
 mark {
   background: transparent;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin: 1em 0 0 0;
+
+  th,
+  td {
+    padding: 0.2em 0.4em;
+    border-width: 1px;
+    border-style: solid;
+  }
 }
 
 section {
@@ -201,6 +236,18 @@ section {
       > p {
         text-align: left;
       }
+    }
+
+    ul,
+    ol {
+      > li > p {
+        text-align: left;
+      }
+    }
+
+    table {
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }
