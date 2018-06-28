@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.8",
-    "@types/jest": "^23.1.2",
+    "@types/jest": "^23.1.3",
     "autoprefixer": "^8.6.4",
     "cheerio": "^1.0.0-rc.2",
     "codecov": "^3.0.2",
@@ -59,7 +59,7 @@
     "typescript": "^2.9.2"
   },
   "dependencies": {
-    "@marp-team/marpit": "^0.0.7",
+    "@marp-team/marpit": "^0.0.8",
     "highlight.js": "^9.12.0",
     "markdown-it-emoji": "^1.4.0"
   }
