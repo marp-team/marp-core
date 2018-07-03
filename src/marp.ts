@@ -5,7 +5,7 @@ import markdownItEmoji from 'markdown-it-emoji'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 
-interface MarpOptions extends MarpitOptions {
+export interface MarpOptions extends MarpitOptions {
   html?: boolean
 }
 

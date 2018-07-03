@@ -1,10 +1,10 @@
 import { Marpit } from '@marp-team/marpit'
 import cheerio from 'cheerio'
 import context from './_helpers/context'
-import { Marp } from '../src/marp'
+import { Marp, MarpOptions } from '../src/marp'
 
 describe('Marp', () => {
-  const marp = (...opts): Marp => new Marp(...opts)
+  const marp = (opts?: MarpOptions): Marp => new Marp(opts)
 
   it('extends Marpit', () => expect(marp()).toBeInstanceOf(Marpit))
 
