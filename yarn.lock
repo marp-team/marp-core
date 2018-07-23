@@ -33,16 +33,16 @@
     reflect-metadata "^0.1.12"
     tslib "^1.8.1"
 
-"@marp-team/marpit@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-0.0.8.tgz#8e07d8713d36c8e53f76eccd5071da0f8b7dda1a"
+"@marp-team/marpit@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-0.0.9.tgz#868bc4431d29887cf71ec8576336e3795238d166"
   dependencies:
     emoji-regex "^7.0.0"
     js-yaml "^3.12.0"
     lodash.kebabcase "^4.1.1"
-    markdown-it "^8.4.1"
+    markdown-it "^8.4.2"
     markdown-it-front-matter "^0.1.2"
-    postcss "^6.0.23"
+    postcss "^7.0.1"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -3314,9 +3314,9 @@ markdown-it-front-matter@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/markdown-it-front-matter/-/markdown-it-front-matter-0.1.2.tgz#e50bf56e77e6a4f5ac4ffa894d4d45ccd9896b20"
 
-markdown-it@^8.4.1:
-  version "8.4.1"
-  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.4.1.tgz#206fe59b0e4e1b78a7c73250af9b34a4ad0aaf44"
+markdown-it@^8.4.2:
+  version "8.4.2"
+  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.4.2.tgz#386f98998dc15a37722aa7722084f4020bdd9b54"
   dependencies:
     argparse "^1.0.7"
     entities "~1.1.1"
@@ -4343,6 +4343,14 @@ postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0
 postcss@^6.0.23:
   version "6.0.23"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-6.0.23.tgz#61c82cc328ac60e677645f979054eb98bc0e3324"
+  dependencies:
+    chalk "^2.4.1"
+    source-map "^0.6.1"
+    supports-color "^5.4.0"
+
+postcss@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.1.tgz#db20ca4fc90aa56809674eea75864148c66b67fa"
   dependencies:
     chalk "^2.4.1"
     source-map "^0.6.1"
