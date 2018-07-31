@@ -1,10 +1,10 @@
 import { Marpit } from '@marp-team/marpit'
 import cheerio from 'cheerio'
 import context from './_helpers/context'
-import { Marp } from '../src/marp'
+import { Marp, MarpOptions } from '../src/marp'
 
 describe('Marp', () => {
-  const marp = (): Marp => new Marp()
+  const marp = (opts?: MarpOptions): Marp => new Marp(opts)
 
   it('extends Marpit', () => expect(marp()).toBeInstanceOf(Marpit))
 
@@ -32,6 +32,24 @@ describe('Marp', () => {
       )
       expect($('h1').html()).toBe($('h2').html())
       expect($('h1 > span[data-marpit-emoji]').length).toBe(1)
+    })
+  })
+
+  describe('html option', () => {
+    it('sanitizes HTML tag by default', () => {
+      const { html } = marp().render('<b>abc</b>')
+      const $ = cheerio.load(html)
+
+      expect($('b').length).toBe(0)
+    })
+
+    context('with true', () => {
+      it('renders HTML tag', () => {
+        const { html } = marp({ html: true }).render('<b>abc</b>')
+        const $ = cheerio.load(html)
+
+        expect($('b').length).toBe(1)
+      })
     })
   })
 

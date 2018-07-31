@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
+    "lib": ["es2016"],
     "module": "commonjs",
-    "noImplicitAny": false, // TODO: Remove this line after defined Marpit's type
+    "noImplicitAny": false,
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
