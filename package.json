@@ -31,9 +31,12 @@
     "watch": "rollup -w -c"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0-beta.55",
     "@types/cheerio": "^0.22.8",
     "@types/jest": "^23.3.1",
     "autoprefixer": "^9.1.0",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "^23.4.2",
     "cheerio": "^1.0.0-rc.2",
     "codecov": "^3.0.4",
     "github-markdown-css": "^2.10.0",
