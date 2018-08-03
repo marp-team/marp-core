@@ -6,6 +6,6 @@ module.exports = {
     '^.*\\.s?css$': '<rootDir>/test/_transformers/css.ts',
   },
   testRegex: '(/(test|__tests__)/(?!_).*|(\\.|/)(test|spec))\\.[jt]s$',
-  testURL: 'http://localhost/',
+  testURL: 'http://localhost',
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
 }
