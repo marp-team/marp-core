@@ -4,9 +4,9 @@ import katexScss from './katex.scss'
 
 export function markdownItPlugin(md, katexOptions: object) {
   const opts = (mergeOpts = {}) => ({
+    throwOnError: false,
     ...katexOptions,
     ...mergeOpts,
-    throwOnError: true,
   })
 
   // Parse math syntax by using markdown-it-katex
