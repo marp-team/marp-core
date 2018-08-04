@@ -1,6 +1,6 @@
 import katex from 'katex'
 import markdownItKatex from 'markdown-it-katex'
-import katexMinCss from 'katex/dist/katex.min.css'
+import katexScss from './katex.scss'
 
 export function markdownItPlugin(md, katexOptions: object) {
   const opts = (mergeOpts = {}) => ({
@@ -39,5 +39,5 @@ export function markdownItPlugin(md, katexOptions: object) {
 
 export function css() {
   // TODO: Manipulate with PostCSS to change URL of KaTeX fonts
-  return katexMinCss
+  return katexScss
 }
