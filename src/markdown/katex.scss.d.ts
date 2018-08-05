@@ -1,2 +1,2 @@
-declare const theme: string
-export default theme
+declare const katex: string
+export default katex

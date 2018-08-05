@@ -14,6 +14,8 @@ export interface MarpOptions extends MarpitOptions {
 export class Marp extends Marpit {
   options!: MarpOptions
 
+  private renderedMath: boolean = false
+
   constructor(opts: MarpOptions = {}) {
     super({
       markdown: [
@@ -47,7 +49,9 @@ export class Marp extends Marpit {
       `<span data-marpit-emoji>${token[idx].content}</span>`
 
     // Math typesetting
-    if (this.options.math) md.use(mathMD)
+    md.use(mathMD, this, {}, isRendered => {
+      this.renderedMath = isRendered
+    })
   }
 
   highlighter(code: string, lang: string): string {
@@ -63,7 +67,7 @@ export class Marp extends Marpit {
     const base = { ...super.themeSetPackOptions() }
     const { math } = this.options
 
-    if (math) {
+    if (math && this.renderedMath) {
       // By default, we use KaTeX web fonts through CDN.
       let path: string | undefined =
         'https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/fonts/'
