@@ -8,7 +8,7 @@ import gaiaTheme from '../themes/gaia.scss'
 
 export interface MarpOptions extends MarpitOptions {
   html?: boolean
-  math?: boolean | object
+  math?: boolean | { katexFontPath?: string | false }
 }
 
 export class Marp extends Marpit {
@@ -61,10 +61,19 @@ export class Marp extends Marpit {
 
   protected themeSetPackOptions(): ThemeSetPackOptions {
     const base = { ...super.themeSetPackOptions() }
+    const { math } = this.options
 
-    if (this.options.math) {
+    if (math) {
+      // By default, we use KaTeX web fonts through CDN.
+      let path: string | undefined =
+        'https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/fonts/'
+
+      if (typeof math === 'object') {
+        path = math.katexFontPath === false ? undefined : math.katexFontPath
+      }
+
       // Add KaTeX css
-      base.before = `${mathCSS()}\n${base.before || ''}`
+      base.before = `${mathCSS(path)}\n${base.before || ''}`
     }
 
     return base

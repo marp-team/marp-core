@@ -10,7 +10,7 @@ import pkg from './package.json'
 
 export default [
   {
-    external: ['@marp-team/marpit'],
+    external: ['@marp-team/marpit', 'postcss'],
     input: `src/${path.basename(pkg.main, '.js')}.ts`,
     output: {
       name: 'marp-core',

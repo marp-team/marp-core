@@ -1,5 +1,6 @@
 import katex from 'katex'
 import markdownItKatex from 'markdown-it-katex'
+import postcss from 'postcss'
 import katexScss from './katex.scss'
 
 export function markdownItPlugin(md, katexOptions: object) {
@@ -37,7 +38,31 @@ export function markdownItPlugin(md, katexOptions: object) {
   }
 }
 
-export function css() {
-  // TODO: Manipulate with PostCSS to change URL of KaTeX fonts
-  return katexScss
+const katexDefaultFontPath = 'fonts/'
+
+const katexFontPath = (path = katexDefaultFontPath) => {
+  const pattern = `url\\(['"]?${katexDefaultFontPath}(.*?)['"]?\\)`
+  const matcher = new RegExp(pattern, 'g')
+
+  return postcss.plugin('marp-math-katex-font-path', () => css => {
+    css.walkAtRules('font-face', rule => {
+      rule.walkDecls('src', decl => {
+        decl.value = decl.value.replace(
+          matcher,
+          (matched, matchedPath) => `url('${path}${matchedPath}')`
+        )
+      })
+    })
+  })
+}
+
+const convertedCSS = {}
+
+export function css(path?: string): string {
+  if (!path) return katexScss
+
+  convertedCSS[path] =
+    convertedCSS[path] || postcss([katexFontPath(path)]).process(katexScss).css
+
+  return convertedCSS[path]
 }
