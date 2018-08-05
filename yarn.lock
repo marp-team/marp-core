@@ -2,23 +2,29 @@
 # yarn lockfile v1
 
 
-"@babel/code-frame@7.0.0-beta.55", "@babel/code-frame@^7.0.0-beta.35":
+"@babel/code-frame@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0-beta.56.tgz#09f76300673ac085d3b90e02aafa0ffc2c96846a"
+  dependencies:
+    "@babel/highlight" "7.0.0-beta.56"
+
+"@babel/code-frame@^7.0.0-beta.35":
   version "7.0.0-beta.55"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0-beta.55.tgz#71f530e7b010af5eb7a7df7752f78921dd57e9ee"
   dependencies:
     "@babel/highlight" "7.0.0-beta.55"
 
-"@babel/core@^7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.0.0-beta.55.tgz#9e17c34b5ac855e427c98f570915a17fcc6bab4a"
+"@babel/core@^7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.0.0-beta.56.tgz#cc03ffbb62564fef58fd1cefcbb3e32011c21df9"
   dependencies:
-    "@babel/code-frame" "7.0.0-beta.55"
-    "@babel/generator" "7.0.0-beta.55"
-    "@babel/helpers" "7.0.0-beta.55"
-    "@babel/parser" "7.0.0-beta.55"
-    "@babel/template" "7.0.0-beta.55"
-    "@babel/traverse" "7.0.0-beta.55"
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/code-frame" "7.0.0-beta.56"
+    "@babel/generator" "7.0.0-beta.56"
+    "@babel/helpers" "7.0.0-beta.56"
+    "@babel/parser" "7.0.0-beta.56"
+    "@babel/template" "7.0.0-beta.56"
+    "@babel/traverse" "7.0.0-beta.56"
+    "@babel/types" "7.0.0-beta.56"
     convert-source-map "^1.1.0"
     debug "^3.1.0"
     json5 "^0.5.0"
@@ -27,43 +33,43 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/generator@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.0.0-beta.55.tgz#8ec11152dcc398bae35dd181122704415c383a01"
+"@babel/generator@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.0.0-beta.56.tgz#07d9c2f45990c453130e080eddcd252a9cbd8d66"
   dependencies:
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/types" "7.0.0-beta.56"
     jsesc "^2.5.1"
     lodash "^4.17.10"
     source-map "^0.5.0"
     trim-right "^1.0.1"
 
-"@babel/helper-function-name@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/helper-function-name/-/helper-function-name-7.0.0-beta.55.tgz#16aab21380a2eabcee3328d21b9586ba3427dbef"
+"@babel/helper-function-name@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/helper-function-name/-/helper-function-name-7.0.0-beta.56.tgz#4e9c8a84ce4368b4a779409d0c4fe3f714be60ab"
   dependencies:
-    "@babel/helper-get-function-arity" "7.0.0-beta.55"
-    "@babel/template" "7.0.0-beta.55"
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/helper-get-function-arity" "7.0.0-beta.56"
+    "@babel/template" "7.0.0-beta.56"
+    "@babel/types" "7.0.0-beta.56"
 
-"@babel/helper-get-function-arity@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/helper-get-function-arity/-/helper-get-function-arity-7.0.0-beta.55.tgz#8559ded96ecd3b626f9c1f57494edc4fa3cc6a94"
+"@babel/helper-get-function-arity@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/helper-get-function-arity/-/helper-get-function-arity-7.0.0-beta.56.tgz#872864d67e25705b94d1c71afc72344aafc8dc9c"
   dependencies:
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/types" "7.0.0-beta.56"
 
-"@babel/helper-split-export-declaration@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/helper-split-export-declaration/-/helper-split-export-declaration-7.0.0-beta.55.tgz#ecb8074bf2d22c6518a252282535def137a8704f"
+"@babel/helper-split-export-declaration@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/helper-split-export-declaration/-/helper-split-export-declaration-7.0.0-beta.56.tgz#82d53382836134ba3ed0ea2394ca21fe579ec241"
   dependencies:
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/types" "7.0.0-beta.56"
 
-"@babel/helpers@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/helpers/-/helpers-7.0.0-beta.55.tgz#d0b4b9a327dba42d58890011deb905c820739617"
+"@babel/helpers@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/helpers/-/helpers-7.0.0-beta.56.tgz#a01cac1481c6fa38197ae410137539045b160443"
   dependencies:
-    "@babel/template" "7.0.0-beta.55"
-    "@babel/traverse" "7.0.0-beta.55"
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/template" "7.0.0-beta.56"
+    "@babel/traverse" "7.0.0-beta.56"
+    "@babel/types" "7.0.0-beta.56"
 
 "@babel/highlight@7.0.0-beta.55":
   version "7.0.0-beta.55"
@@ -73,36 +79,44 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@babel/parser@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.0.0-beta.55.tgz#0a527efc148c6c8cd85d5ffddacad817a2daeeb2"
-
-"@babel/template@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.0.0-beta.55.tgz#c6cab0e2722ba5e33fe034073b6d31673aba326e"
+"@babel/highlight@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/highlight/-/highlight-7.0.0-beta.56.tgz#f8b0fc8c5c2de53bb2c12f9001ad3d99e573696d"
   dependencies:
-    "@babel/code-frame" "7.0.0-beta.55"
-    "@babel/parser" "7.0.0-beta.55"
-    "@babel/types" "7.0.0-beta.55"
+    chalk "^2.0.0"
+    esutils "^2.0.2"
+    js-tokens "^3.0.0"
+
+"@babel/parser@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.0.0-beta.56.tgz#8638aa02e0130cd10b2ba4128e2b804112073ed3"
+
+"@babel/template@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.0.0-beta.56.tgz#a428197e0c9db142f8581cbfdcfa9289b0dd7fd7"
+  dependencies:
+    "@babel/code-frame" "7.0.0-beta.56"
+    "@babel/parser" "7.0.0-beta.56"
+    "@babel/types" "7.0.0-beta.56"
     lodash "^4.17.10"
 
-"@babel/traverse@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.0.0-beta.55.tgz#50be5d0fcc5cc4ac020a7b0c519be8dae345d4be"
+"@babel/traverse@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.0.0-beta.56.tgz#62fdfe69328cfaad414ef01844f5ab40e32f4ad0"
   dependencies:
-    "@babel/code-frame" "7.0.0-beta.55"
-    "@babel/generator" "7.0.0-beta.55"
-    "@babel/helper-function-name" "7.0.0-beta.55"
-    "@babel/helper-split-export-declaration" "7.0.0-beta.55"
-    "@babel/parser" "7.0.0-beta.55"
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/code-frame" "7.0.0-beta.56"
+    "@babel/generator" "7.0.0-beta.56"
+    "@babel/helper-function-name" "7.0.0-beta.56"
+    "@babel/helper-split-export-declaration" "7.0.0-beta.56"
+    "@babel/parser" "7.0.0-beta.56"
+    "@babel/types" "7.0.0-beta.56"
     debug "^3.1.0"
     globals "^11.1.0"
     lodash "^4.17.10"
 
-"@babel/types@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.0.0-beta.55.tgz#7755c9d2e58315a64f05d8cf3322379be16d9199"
+"@babel/types@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.0.0-beta.56.tgz#df456947a82510ec30361971e566110d89489056"
   dependencies:
     esutils "^2.0.2"
     lodash "^4.17.10"
@@ -125,16 +139,16 @@
     reflect-metadata "^0.1.12"
     tslib "^1.8.1"
 
-"@marp-team/marpit@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-0.0.9.tgz#868bc4431d29887cf71ec8576336e3795238d166"
+"@marp-team/marpit@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-0.0.10.tgz#a01a1a154f4a253b11e4bb40612c918250814b78"
   dependencies:
     emoji-regex "^7.0.0"
     js-yaml "^3.12.0"
     lodash.kebabcase "^4.1.1"
     markdown-it "^8.4.2"
     markdown-it-front-matter "^0.1.2"
-    postcss "^7.0.1"
+    postcss "^7.0.2"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -5347,9 +5361,9 @@ trough@^1.0.0:
   dependencies:
     glob "^6.0.4"
 
-ts-jest@^23.1.1:
-  version "23.1.1"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-23.1.1.tgz#2f2236d2e0e9e796125bb0d36833da9cc58efc46"
+ts-jest@^23.1.2:
+  version "23.1.2"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-23.1.2.tgz#34cd26f3f566924dbd385ad188ae3c3b75757f9e"
   dependencies:
     closest-file-data "^0.1.4"
     fs-extra "6.0.1"
