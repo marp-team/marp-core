@@ -1,5 +1,6 @@
 import { Marpit } from '@marp-team/marpit'
 import cheerio from 'cheerio'
+import postcss from 'postcss'
 import context from './_helpers/context'
 import { Marp, MarpOptions } from '../src/marp'
 
@@ -11,13 +12,13 @@ describe('Marp', () => {
   describe('markdown property', () => {
     it('renders breaks as <br> element', () => {
       const $ = cheerio.load(marp().markdown.render('hard\nbreak'))
-      expect($('br').length).toBe(1)
+      expect($('br')).toHaveLength(1)
     })
 
     it('has enabled table syntax', () => {
       const $ = cheerio.load(marp().markdown.render('|a|b|\n|-|-|\n|c|d|'))
-      expect($('table > thead > tr > th').length).toBe(2)
-      expect($('table > tbody > tr > td').length).toBe(2)
+      expect($('table > thead > tr > th')).toHaveLength(2)
+      expect($('table > tbody > tr > td')).toHaveLength(2)
     })
 
     it('converts URL to hyperlink', () => {
@@ -31,7 +32,7 @@ describe('Marp', () => {
         marp().markdown.render('# emoji:heart:\n\n## emoji❤️')
       )
       expect($('h1').html()).toBe($('h2').html())
-      expect($('h1 > span[data-marpit-emoji]').length).toBe(1)
+      expect($('h1 > span[data-marpit-emoji]')).toHaveLength(1)
     })
   })
 
@@ -40,7 +41,7 @@ describe('Marp', () => {
       const { html } = marp().render('<b>abc</b>')
       const $ = cheerio.load(html)
 
-      expect($('b').length).toBe(0)
+      expect($('b')).toHaveLength(0)
     })
 
     context('with true', () => {
@@ -48,7 +49,142 @@ describe('Marp', () => {
         const { html } = marp({ html: true }).render('<b>abc</b>')
         const $ = cheerio.load(html)
 
-        expect($('b').length).toBe(1)
+        expect($('b')).toHaveLength(1)
+      })
+    })
+  })
+
+  describe('math option', () => {
+    const inline = "Euler's equation is defined as $e^{i\\pi}+1=0$."
+    const block = '$$\nc=\\sqrt{a^2+b^2}\n$$'
+
+    const checkWebFont = (...urls) =>
+      postcss([
+        root => {
+          root.walkAtRules('font-face', rule => {
+            rule.walkDecls('src', decl => {
+              urls.forEach(url => expect(decl.value).toContain(url))
+            })
+          })
+        },
+      ])
+
+    it('renders math typesetting by KaTeX', () => {
+      const { html } = marp().render(`${inline}\n\n${block}`)
+      const $ = cheerio.load(html)
+
+      expect($('.katex')).toHaveLength(2)
+    })
+
+    it('injects KaTeX css with replacing web font URL to CDN', () => {
+      const { css } = marp().render(block)
+      expect(css).toContain('.katex')
+
+      return checkWebFont(
+        "url('https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/fonts/KaTeX_Mock.woff2')",
+        "url('https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/fonts/KaTeX_Mock.woff')",
+        "url('https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/fonts/KaTeX_Mock.ttf')"
+      ).process(css, { from: undefined })
+    })
+
+    context('when math typesetting syntax is not using', () => {
+      const ret = marp().render('plain text')
+
+      it('does not inject KaTeX css', () =>
+        expect(ret.css).not.toContain('.katex'))
+    })
+
+    context('with katexOption', () => {
+      it('renders KaTeX with specified option', () => {
+        const instance = marp({
+          math: { katexOption: { macros: { '\\RR': '\\mathbb{R}' } } },
+        })
+        const { html } = instance.render(`# $\\RR$\n\n## $\\mathbb{R}$`)
+        const $ = cheerio.load(html)
+
+        const h1 = $('h1')
+        h1.find('annotation').remove()
+
+        const h2 = $('h2')
+        h2.find('annotation').remove()
+
+        expect(h1.html()).toBe(h2.html())
+      })
+
+      context('when throwOnError is true', () => {
+        const instance = marp({
+          math: { katexOption: { throwOnError: true } },
+        })
+
+        it('fallbacks to plain text on raising error', () => {
+          const warnSpy = jest
+            .spyOn(console, 'warn')
+            .mockImplementation(() => {})
+
+          const inlineHTML = instance.render('# Fallback to text $}$!').html
+          const $inline = cheerio.load(inlineHTML)
+
+          expect(warnSpy.mock.calls).toHaveLength(1)
+          expect($inline('h1').text()).toBe('Fallback to text }!')
+
+          const blockHTML = instance.render('$$\n}\n$$').html
+          const $block = cheerio.load(blockHTML)
+          const blockText = $block('p').text()
+
+          expect(warnSpy.mock.calls).toHaveLength(2)
+          expect(blockText.trim()).toBe('}')
+        })
+      })
+    })
+
+    context('with katexFontPath', () => {
+      const katexFontPath = '/resources/fonts/'
+
+      it('replaces KaTeX web font URL with specified path', () => {
+        const instance = marp({ math: { katexFontPath } })
+        const { css } = instance.render(block)
+
+        return checkWebFont(
+          "url('/resources/fonts/KaTeX_Mock.woff2')",
+          "url('/resources/fonts/KaTeX_Mock.woff')",
+          "url('/resources/fonts/KaTeX_Mock.ttf')"
+        ).process(css, { from: undefined })
+      })
+
+      context('as false', () => {
+        it('does not replace KaTeX web font URL', () => {
+          const instance = marp({ math: { katexFontPath: false } })
+          const { css } = instance.render(block)
+
+          return checkWebFont(
+            'url(fonts/KaTeX_Mock.woff2)',
+            "url('fonts/KaTeX_Mock.woff')",
+            'url("fonts/KaTeX_Mock.ttf")'
+          ).process(css, { from: undefined })
+        })
+      })
+    })
+
+    context('with false', () => {
+      const instance = marp({ math: false })
+
+      it('does not render KaTeX', () => {
+        const inlineHTML = instance.render(`# ${inline}`).html
+        const $inline = cheerio.load(inlineHTML)
+
+        expect($inline('.katex')).toHaveLength(0)
+        expect($inline('h1').text()).toContain(inline)
+
+        const blockHTML = instance.render(block).html
+        const $block = cheerio.load(blockHTML)
+
+        expect($inline('.katex')).toHaveLength(0)
+        expect($block('section').text()).toContain(block)
+      })
+
+      it('does not inject KaTeX css', () => {
+        const { css } = instance.render(`${inline}\n\n${block}`)
+        expect(css).not.toContain('.katex')
       })
     })
   })
@@ -74,8 +210,8 @@ describe('Marp', () => {
       const $ = cheerio.load(marp().markdown.render('```markdown\n# test\n```'))
 
       it('highlights code with specified lang', () => {
-        expect($('code.language-markdown').length).toBe(1)
-        expect($('code > .hljs-section').length).toBe(1)
+        expect($('code.language-markdown')).toHaveLength(1)
+        expect($('code > .hljs-section')).toHaveLength(1)
       })
     })
 
@@ -87,7 +223,7 @@ describe('Marp', () => {
         )
 
         it('disables highlight', () =>
-          expect($('code > [class^="hljs-"]').length).toBe(0))
+          expect($('code > [class^="hljs-"]')).toHaveLength(0))
       })
     })
 
@@ -104,7 +240,7 @@ describe('Marp', () => {
       const $ = cheerio.load(instance.markdown.render('```markdown\ntest\n```'))
 
       it('highlights with custom highlighter', () =>
-        expect($('code > .customized').length).toBe(1))
+        expect($('code > .customized')).toHaveLength(1))
     })
   })
 })

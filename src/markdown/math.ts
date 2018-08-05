@@ -1,17 +1,15 @@
 import katex from 'katex'
 import markdownItKatex from 'markdown-it-katex'
 import postcss from 'postcss'
-import { Marp } from '../marp'
 import katexScss from './katex.scss'
 
 export function markdownItPlugin(
   md,
-  marp: Marp,
-  katexOptions = {},
-  updateRendered: (isRendered: boolean) => void = () => {}
+  katexOptions: object,
+  updateRendered: (isRendered: boolean) => void
 ) {
-  const opts = (mergeOpts = {}) => ({
-    throwOnError: false,
+  const opts = mergeOpts => ({
+    throwOnError: true,
     ...katexOptions,
     ...mergeOpts,
   })
@@ -72,7 +70,7 @@ export function markdownItPlugin(
 
 const katexDefaultFontPath = 'fonts/'
 
-const katexFontPath = (path = katexDefaultFontPath) => {
+const katexFontPath = path => {
   const pattern = `url\\(['"]?${katexDefaultFontPath}(.*?)['"]?\\)`
   const matcher = new RegExp(pattern, 'g')
 

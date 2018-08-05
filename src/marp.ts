@@ -8,7 +8,12 @@ import gaiaTheme from '../themes/gaia.scss'
 
 export interface MarpOptions extends MarpitOptions {
   html?: boolean
-  math?: boolean | { katexFontPath?: string | false }
+  math?:
+    | boolean
+    | {
+        katexOption?: object
+        katexFontPath?: string | false
+      }
 }
 
 export class Marp extends Marpit {
@@ -49,9 +54,18 @@ export class Marp extends Marpit {
       `<span data-marpit-emoji>${token[idx].content}</span>`
 
     // Math typesetting
-    md.use(mathMD, this, {}, isRendered => {
-      this.renderedMath = isRendered
-    })
+    const { math } = this.options
+
+    if (math) {
+      const opts =
+        typeof math === 'object' && typeof math.katexOption === 'object'
+          ? math.katexOption
+          : {}
+
+      md.use(mathMD, opts, isRendered => {
+        this.renderedMath = isRendered
+      })
+    }
   }
 
   highlighter(code: string, lang: string): string {
