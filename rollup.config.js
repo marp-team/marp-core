@@ -21,7 +21,10 @@ export default [
       json({ preferConst: true }),
       nodeResolve({ jsnext: true }),
       commonjs(),
-      typescriptPlugin({ typescript }),
+      typescriptPlugin({
+        resolveJsonModule: false, // JSON has already resolved by rollup-plugin-json
+        typescript,
+      }),
       postcss({
         inject: false,
         plugins: [autoprefixer()],
