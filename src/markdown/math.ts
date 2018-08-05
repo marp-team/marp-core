@@ -9,7 +9,7 @@ export function markdownItPlugin(
   updateRendered: (isRendered: boolean) => void
 ) {
   const opts = mergeOpts => ({
-    throwOnError: true,
+    throwOnError: false,
     ...katexOptions,
     ...mergeOpts,
   })
