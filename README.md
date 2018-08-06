@@ -80,7 +80,7 @@ const marp = new Marp({
 
 ### `html`: _`boolean`_
 
-Setting whether to render raw HTML in Markdown. The default value is `true`.
+Setting whether to render raw HTML in Markdown. The default value is **`false`** for security reason.
 
 Even if you are setting `false`, `<!-- HTML comment -->` is always parsed by Marpit for directives. When you are not disabled [Marpit's `inlineStyle` option](https://marpit.netlify.com/marpit#Marpit) by `false`, `<style>` tags are parsed too for tweaking theme style.
 
