@@ -61,9 +61,9 @@ $$
 </tbody>
 </table>
 
-## Constructor option
+## Constructor options
 
-You can customize a behavior of Marp parser by passing option argument to the constructor. You can also pass together with [Marpit's constructor option](https://marpit.netlify.com/marpit#Marpit).
+You can customize a behavior of Marp parser by passing an options object to the constructor. You can also pass together with [Marpit constructor options](https://marpit.netlify.com/marpit#Marpit).
 
 ```javascript
 const marp = new Marp({
@@ -78,21 +78,21 @@ const marp = new Marp({
 })
 ```
 
-### `html`: <small>`boolean`</small>
+### `html`: _`boolean`_
 
 Setting whether to render raw HTML in Markdown. The default value is `true`.
 
-Even if you are setting `false`, `<!-- HTML comment -->` is always parsed by Marpit for directives. When you are not disabled Marpit's `inlineStyle` option by `false`, `<style>` tag are parsed too for tweaking theme style.
+Even if you are setting `false`, `<!-- HTML comment -->` is always parsed by Marpit for directives. When you are not disabled [Marpit's `inlineStyle` option](https://marpit.netlify.com/marpit#Marpit) by `false`, `<style>` tags are parsed too for tweaking theme style.
 
-### `math`: <small>`boolean` | `object`</small>
+### `math`: _`boolean` | `object`_
 
 Enable or disable [math typesetting](#math-typesetting) syntax. The default value is `true`.
 
 You can modify KaTeX further settings by passing an object of sub-options.
 
-- **`katexOption`**: `object`
+- **`katexOption`**: _`object`_
   - The options passing to KaTeX. Please refer to [KaTeX document](https://khan.github.io/KaTeX/docs/options.html).
-- **`katexFontPath`**: `string` | `false`
+- **`katexFontPath`**: _`string` | `false`_
   - By default, marp-core will use [online web-font resources through jsDelivr CDN](https://cdn.jsdelivr.net/npm/katex@latest/dist/fonts/). You have to set path to fonts directory if you want to use local resources. If you set `false`, we will not manipulate the path (Use KaTeX's original path: `fonts/KaTeX_***-***.woff2`).
 
 <!-- ## [Work in progress] Themes -->
