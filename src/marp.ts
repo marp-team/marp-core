@@ -1,15 +1,27 @@
 /* tslint:disable: import-name */
-import { Marpit, MarpitOptions } from '@marp-team/marpit'
+import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
+import katexPackage from 'katex/package.json'
 import markdownItEmoji from 'markdown-it-emoji'
+import { markdownItPlugin as mathMD, css as mathCSS } from './markdown/math'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 
 export interface MarpOptions extends MarpitOptions {
   html?: boolean
+  math?:
+    | boolean
+    | {
+        katexOption?: object
+        katexFontPath?: string | false
+      }
 }
 
 export class Marp extends Marpit {
+  options!: MarpOptions
+
+  private renderedMath: boolean = false
+
   constructor(opts: MarpOptions = {}) {
     super({
       markdown: [
@@ -22,6 +34,7 @@ export class Marp extends Marpit {
           linkify: true,
         },
       ],
+      math: true,
       ...opts,
     } as MarpitOptions)
 
@@ -40,6 +53,20 @@ export class Marp extends Marpit {
     md.use(markdownItEmoji, { shortcuts: {} })
     md.renderer.rules.emoji = (token, idx) =>
       `<span data-marpit-emoji>${token[idx].content}</span>`
+
+    // Math typesetting
+    const { math } = this.options
+
+    if (math) {
+      const opts =
+        typeof math === 'object' && typeof math.katexOption === 'object'
+          ? math.katexOption
+          : {}
+
+      md.use(mathMD, opts, isRendered => {
+        this.renderedMath = isRendered
+      })
+    }
   }
 
   highlighter(code: string, lang: string): string {
@@ -49,6 +76,27 @@ export class Marp extends Marpit {
         : ''
     }
     return highlightjs.highlightAuto(code).value
+  }
+
+  protected themeSetPackOptions(): ThemeSetPackOptions {
+    const base = { ...super.themeSetPackOptions() }
+    const { math } = this.options
+
+    if (math && this.renderedMath) {
+      // By default, we use KaTeX web fonts through CDN.
+      let path: string | undefined = `https://cdn.jsdelivr.net/npm/katex@${
+        katexPackage.version
+      }/dist/fonts/`
+
+      if (typeof math === 'object') {
+        path = math.katexFontPath === false ? undefined : math.katexFontPath
+      }
+
+      // Add KaTeX css
+      base.before = `${mathCSS(path)}\n${base.before || ''}`
+    }
+
+    return base
   }
 }
 

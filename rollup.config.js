@@ -10,7 +10,7 @@ import pkg from './package.json'
 
 export default [
   {
-    external: ['@marp-team/marpit'],
+    external: ['@marp-team/marpit', 'postcss'],
     input: `src/${path.basename(pkg.main, '.js')}.ts`,
     output: {
       name: 'marp-core',
@@ -21,7 +21,10 @@ export default [
       json({ preferConst: true }),
       nodeResolve({ jsnext: true }),
       commonjs(),
-      typescriptPlugin({ typescript }),
+      typescriptPlugin({
+        resolveJsonModule: false, // JSON has already resolved by rollup-plugin-json
+        typescript,
+      }),
       postcss({
         inject: false,
         plugins: [autoprefixer()],

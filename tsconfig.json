@@ -5,6 +5,7 @@
     "module": "commonjs",
     "noImplicitAny": false,
     "outDir": "lib",
+    "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
     "target": "es2015"

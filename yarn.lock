@@ -2,23 +2,29 @@
 # yarn lockfile v1
 
 
-"@babel/code-frame@7.0.0-beta.55", "@babel/code-frame@^7.0.0-beta.35":
+"@babel/code-frame@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0-beta.56.tgz#09f76300673ac085d3b90e02aafa0ffc2c96846a"
+  dependencies:
+    "@babel/highlight" "7.0.0-beta.56"
+
+"@babel/code-frame@^7.0.0-beta.35":
   version "7.0.0-beta.55"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0-beta.55.tgz#71f530e7b010af5eb7a7df7752f78921dd57e9ee"
   dependencies:
     "@babel/highlight" "7.0.0-beta.55"
 
-"@babel/core@^7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.0.0-beta.55.tgz#9e17c34b5ac855e427c98f570915a17fcc6bab4a"
+"@babel/core@^7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.0.0-beta.56.tgz#cc03ffbb62564fef58fd1cefcbb3e32011c21df9"
   dependencies:
-    "@babel/code-frame" "7.0.0-beta.55"
-    "@babel/generator" "7.0.0-beta.55"
-    "@babel/helpers" "7.0.0-beta.55"
-    "@babel/parser" "7.0.0-beta.55"
-    "@babel/template" "7.0.0-beta.55"
-    "@babel/traverse" "7.0.0-beta.55"
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/code-frame" "7.0.0-beta.56"
+    "@babel/generator" "7.0.0-beta.56"
+    "@babel/helpers" "7.0.0-beta.56"
+    "@babel/parser" "7.0.0-beta.56"
+    "@babel/template" "7.0.0-beta.56"
+    "@babel/traverse" "7.0.0-beta.56"
+    "@babel/types" "7.0.0-beta.56"
     convert-source-map "^1.1.0"
     debug "^3.1.0"
     json5 "^0.5.0"
@@ -27,43 +33,43 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/generator@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.0.0-beta.55.tgz#8ec11152dcc398bae35dd181122704415c383a01"
+"@babel/generator@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.0.0-beta.56.tgz#07d9c2f45990c453130e080eddcd252a9cbd8d66"
   dependencies:
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/types" "7.0.0-beta.56"
     jsesc "^2.5.1"
     lodash "^4.17.10"
     source-map "^0.5.0"
     trim-right "^1.0.1"
 
-"@babel/helper-function-name@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/helper-function-name/-/helper-function-name-7.0.0-beta.55.tgz#16aab21380a2eabcee3328d21b9586ba3427dbef"
+"@babel/helper-function-name@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/helper-function-name/-/helper-function-name-7.0.0-beta.56.tgz#4e9c8a84ce4368b4a779409d0c4fe3f714be60ab"
   dependencies:
-    "@babel/helper-get-function-arity" "7.0.0-beta.55"
-    "@babel/template" "7.0.0-beta.55"
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/helper-get-function-arity" "7.0.0-beta.56"
+    "@babel/template" "7.0.0-beta.56"
+    "@babel/types" "7.0.0-beta.56"
 
-"@babel/helper-get-function-arity@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/helper-get-function-arity/-/helper-get-function-arity-7.0.0-beta.55.tgz#8559ded96ecd3b626f9c1f57494edc4fa3cc6a94"
+"@babel/helper-get-function-arity@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/helper-get-function-arity/-/helper-get-function-arity-7.0.0-beta.56.tgz#872864d67e25705b94d1c71afc72344aafc8dc9c"
   dependencies:
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/types" "7.0.0-beta.56"
 
-"@babel/helper-split-export-declaration@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/helper-split-export-declaration/-/helper-split-export-declaration-7.0.0-beta.55.tgz#ecb8074bf2d22c6518a252282535def137a8704f"
+"@babel/helper-split-export-declaration@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/helper-split-export-declaration/-/helper-split-export-declaration-7.0.0-beta.56.tgz#82d53382836134ba3ed0ea2394ca21fe579ec241"
   dependencies:
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/types" "7.0.0-beta.56"
 
-"@babel/helpers@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/helpers/-/helpers-7.0.0-beta.55.tgz#d0b4b9a327dba42d58890011deb905c820739617"
+"@babel/helpers@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/helpers/-/helpers-7.0.0-beta.56.tgz#a01cac1481c6fa38197ae410137539045b160443"
   dependencies:
-    "@babel/template" "7.0.0-beta.55"
-    "@babel/traverse" "7.0.0-beta.55"
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/template" "7.0.0-beta.56"
+    "@babel/traverse" "7.0.0-beta.56"
+    "@babel/types" "7.0.0-beta.56"
 
 "@babel/highlight@7.0.0-beta.55":
   version "7.0.0-beta.55"
@@ -73,36 +79,44 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@babel/parser@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.0.0-beta.55.tgz#0a527efc148c6c8cd85d5ffddacad817a2daeeb2"
-
-"@babel/template@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.0.0-beta.55.tgz#c6cab0e2722ba5e33fe034073b6d31673aba326e"
+"@babel/highlight@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/highlight/-/highlight-7.0.0-beta.56.tgz#f8b0fc8c5c2de53bb2c12f9001ad3d99e573696d"
   dependencies:
-    "@babel/code-frame" "7.0.0-beta.55"
-    "@babel/parser" "7.0.0-beta.55"
-    "@babel/types" "7.0.0-beta.55"
+    chalk "^2.0.0"
+    esutils "^2.0.2"
+    js-tokens "^3.0.0"
+
+"@babel/parser@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.0.0-beta.56.tgz#8638aa02e0130cd10b2ba4128e2b804112073ed3"
+
+"@babel/template@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.0.0-beta.56.tgz#a428197e0c9db142f8581cbfdcfa9289b0dd7fd7"
+  dependencies:
+    "@babel/code-frame" "7.0.0-beta.56"
+    "@babel/parser" "7.0.0-beta.56"
+    "@babel/types" "7.0.0-beta.56"
     lodash "^4.17.10"
 
-"@babel/traverse@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.0.0-beta.55.tgz#50be5d0fcc5cc4ac020a7b0c519be8dae345d4be"
+"@babel/traverse@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.0.0-beta.56.tgz#62fdfe69328cfaad414ef01844f5ab40e32f4ad0"
   dependencies:
-    "@babel/code-frame" "7.0.0-beta.55"
-    "@babel/generator" "7.0.0-beta.55"
-    "@babel/helper-function-name" "7.0.0-beta.55"
-    "@babel/helper-split-export-declaration" "7.0.0-beta.55"
-    "@babel/parser" "7.0.0-beta.55"
-    "@babel/types" "7.0.0-beta.55"
+    "@babel/code-frame" "7.0.0-beta.56"
+    "@babel/generator" "7.0.0-beta.56"
+    "@babel/helper-function-name" "7.0.0-beta.56"
+    "@babel/helper-split-export-declaration" "7.0.0-beta.56"
+    "@babel/parser" "7.0.0-beta.56"
+    "@babel/types" "7.0.0-beta.56"
     debug "^3.1.0"
     globals "^11.1.0"
     lodash "^4.17.10"
 
-"@babel/types@7.0.0-beta.55":
-  version "7.0.0-beta.55"
-  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.0.0-beta.55.tgz#7755c9d2e58315a64f05d8cf3322379be16d9199"
+"@babel/types@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.0.0-beta.56.tgz#df456947a82510ec30361971e566110d89489056"
   dependencies:
     esutils "^2.0.2"
     lodash "^4.17.10"
@@ -125,16 +139,16 @@
     reflect-metadata "^0.1.12"
     tslib "^1.8.1"
 
-"@marp-team/marpit@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-0.0.9.tgz#868bc4431d29887cf71ec8576336e3795238d166"
+"@marp-team/marpit@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-0.0.10.tgz#a01a1a154f4a253b11e4bb40612c918250814b78"
   dependencies:
     emoji-regex "^7.0.0"
     js-yaml "^3.12.0"
     lodash.kebabcase "^4.1.1"
     markdown-it "^8.4.2"
     markdown-it-front-matter "^0.1.2"
-    postcss "^7.0.1"
+    postcss "^7.0.2"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -265,6 +279,10 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-3.2.1.tgz#41fbb20243e50b12be0f04b8dedbf07520ce841d"
   dependencies:
     color-convert "^1.9.0"
+
+ansi-styles@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-1.0.0.tgz#cb102df1c56f5123eab8b67cd7b98027a0279178"
 
 anymatch@^2.0.0:
   version "2.0.0"
@@ -818,6 +836,14 @@ chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.3.0, chalk@^2.4.1:
     ansi-styles "^3.2.1"
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
+
+chalk@~0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-0.4.0.tgz#5199a3ddcd0c1efe23bc08c1b027b06176e0c64f"
+  dependencies:
+    ansi-styles "~1.0.0"
+    has-color "~0.1.0"
+    strip-ansi "~0.1.0"
 
 character-entities-html4@^1.0.0:
   version "1.1.2"
@@ -1955,6 +1981,10 @@ has-ansi@^2.0.0:
   dependencies:
     ansi-regex "^2.0.0"
 
+has-color@~0.1.0:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/has-color/-/has-color-0.1.7.tgz#67144a5260c34fc3cca677d041daf52fe7b78b2f"
+
 has-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-1.0.0.tgz#9d9e793165ce017a00f00418c43f942a7b1d11fa"
@@ -2955,6 +2985,19 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+katex@^0.10.0-beta:
+  version "0.10.0-beta"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.10.0-beta.tgz#82c9ccb21fbc92c5dbed67db3240e299969efffb"
+  dependencies:
+    match-at "^0.1.1"
+    nomnom "^1.8.1"
+
+katex@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.6.0.tgz#12418e09121c05c92041b6b3b9fb6bab213cb6f3"
+  dependencies:
+    match-at "^0.1.0"
+
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
@@ -3161,6 +3204,12 @@ markdown-it-front-matter@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/markdown-it-front-matter/-/markdown-it-front-matter-0.1.2.tgz#e50bf56e77e6a4f5ac4ffa894d4d45ccd9896b20"
 
+markdown-it-katex@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/markdown-it-katex/-/markdown-it-katex-2.0.3.tgz#d7b86a1aea0b9d6496fab4e7919a18fdef589c39"
+  dependencies:
+    katex "^0.6.0"
+
 markdown-it@^8.4.2:
   version "8.4.2"
   resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.4.2.tgz#386f98998dc15a37722aa7722084f4020bdd9b54"
@@ -3174,6 +3223,10 @@ markdown-it@^8.4.2:
 markdown-table@^1.1.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/markdown-table/-/markdown-table-1.1.2.tgz#c78db948fa879903a41bce522e3b96f801c63786"
+
+match-at@^0.1.0, match-at@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/match-at/-/match-at-0.1.1.tgz#25d040d291777704d5e6556bbb79230ec2de0540"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
@@ -3468,6 +3521,13 @@ node-sass@^4.9.2:
     sass-graph "^2.2.4"
     stdout-stream "^1.4.0"
     "true-case-path" "^1.0.2"
+
+nomnom@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/nomnom/-/nomnom-1.8.1.tgz#2151f722472ba79e50a76fc125bb8c8f2e4dc2a7"
+  dependencies:
+    chalk "~0.4.0"
+    underscore "~1.6.0"
 
 "nopt@2 || 3":
   version "3.0.6"
@@ -5012,6 +5072,10 @@ strip-ansi@^4.0.0:
   dependencies:
     ansi-regex "^3.0.0"
 
+strip-ansi@~0.1.0:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-0.1.1.tgz#39e8a98d044d150660abe4a6808acf70bb7bc991"
+
 strip-bom@3.0.0, strip-bom@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/strip-bom/-/strip-bom-3.0.0.tgz#2334c18e9c759f7bdd56fdef7e9ae3d588e68ed3"
@@ -5297,9 +5361,9 @@ trough@^1.0.0:
   dependencies:
     glob "^6.0.4"
 
-ts-jest@^23.1.1:
-  version "23.1.1"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-23.1.1.tgz#2f2236d2e0e9e796125bb0d36833da9cc58efc46"
+ts-jest@^23.1.2:
+  version "23.1.2"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-23.1.2.tgz#34cd26f3f566924dbd385ad188ae3c3b75757f9e"
   dependencies:
     closest-file-data "^0.1.4"
     fs-extra "6.0.1"
@@ -5416,6 +5480,10 @@ uglify-js@^2.6:
 uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/uglify-to-browserify/-/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
+
+underscore@~1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.6.0.tgz#8b38b10cacdef63337b8b24e4ff86d45aea529a8"
 
 unherit@^1.0.4:
   version "1.1.1"
