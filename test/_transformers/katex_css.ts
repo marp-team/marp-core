@@ -14,7 +14,7 @@ const css = `
 `.trim()
 
 module.exports = {
-  process(src) {
+  process() {
     return `module.exports = ${JSON.stringify(css)};`
   },
 }
