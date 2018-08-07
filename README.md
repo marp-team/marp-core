@@ -23,7 +23,7 @@ const { html, css } = marp.render('# Hello, marp-core!')
 
 ## Features
 
-_We will only explain features extended in marp-core._ Please refer [@marp-team/marpit](https://github.com/marp-team/marpit) repository to if you want to know the basic feature of Marpit framework.
+_We will only explain features extended in marp-core._ Please refer to [@marp-team/marpit](https://github.com/marp-team/marpit) repository if you want to know the basic feature of Marpit framework.
 
 ### Math typesetting
 
