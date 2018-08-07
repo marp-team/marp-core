@@ -4,6 +4,8 @@ import postcss from 'postcss'
 import context from './_helpers/context'
 import { Marp, MarpOptions } from '../src/marp'
 
+jest.mock('../src/markdown/katex.scss')
+
 describe('Marp', () => {
   const marp = (opts?: MarpOptions): Marp => new Marp(opts)
 
@@ -159,7 +161,7 @@ describe('Marp', () => {
           return checkWebFont(
             'url(fonts/KaTeX_Mock.woff2)',
             "url('fonts/KaTeX_Mock.woff')",
-            'url("fonts/KaTeX_Mock.ttf")'
+            "url('fonts/KaTeX_Mock.ttf')"
           ).process(css, { from: undefined })
         })
       })
