@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "The core of Marp tools",
   "main": "lib/marp.js",
+  "types": "types/marp.d.ts",
   "repository": "https://github.com/marp-team/marp-core",
   "author": {
     "name": "Marp team",
@@ -28,6 +29,7 @@
     "lint:ts": "tslint \"{src,test}/**/*.ts\"",
     "lint:css": "stylelint \"themes/**/*.{css,scss}\"",
     "test": "jest",
+    "types": "rimraf types && tsc --declaration --emitDeclarationOnly --outDir types",
     "watch": "rollup -w -c"
   },
   "devDependencies": {
