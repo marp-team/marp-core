@@ -2,8 +2,7 @@
   "name": "@marp-team/marp-core",
   "version": "0.0.0",
   "description": "The core of Marp tools",
-  "main": "lib/marp.js",
-  "repository": "https://github.com/marp-team/marp-core",
+  "license": "MIT",
   "author": {
     "name": "Marp team",
     "url": "https://github.com/marp-team"
@@ -14,10 +13,16 @@
       "url": "https://github.com/yhatt"
     }
   ],
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marp-team/marp-core"
   },
+  "main": "lib/marp.js",
+  "types": "types/marp.d.ts",
+  "files": [
+    "lib/",
+    "types/marp.d.ts"
+  ],
   "scripts": {
     "build": "yarn --silent clean && rollup -c",
     "check-ts": "tsc --noEmit",
@@ -28,6 +33,7 @@
     "lint:ts": "tslint \"{src,test}/**/*.ts\"",
     "lint:css": "stylelint \"themes/**/*.{css,scss}\"",
     "test": "jest",
+    "types": "rimraf types && tsc --declaration --emitDeclarationOnly --outDir types",
     "watch": "rollup -w -c"
   },
   "devDependencies": {
@@ -68,5 +74,8 @@
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-katex": "^2.0.3",
     "postcss": "^7.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
