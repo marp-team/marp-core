@@ -11,7 +11,7 @@
 
   &::after {
     background: linear-gradient(-45deg, rgba($text, 0.05) 50%, transparent 50%);
-    text-shadow: 0 1px 0 $bg;
+    text-shadow: 0 0 5px $bg;
   }
 
   pre,
