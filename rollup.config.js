@@ -1,4 +1,5 @@
 import autoprefixer from 'autoprefixer'
+import cssnano from 'cssnano'
 import path from 'path'
 import commonjs from 'rollup-plugin-commonjs'
 import json from 'rollup-plugin-json'
@@ -29,7 +30,7 @@ export default [
       }),
       postcss({
         inject: false,
-        plugins: [autoprefixer()],
+        plugins: [autoprefixer(), cssnano({ preset: 'default' })],
       }),
       !process.env.ROLLUP_WATCH && uglify({}, minify),
     ],
