@@ -21,7 +21,7 @@
   "types": "types/marp.d.ts",
   "files": [
     "lib/",
-    "types/marp.d.ts"
+    "types/"
   ],
   "scripts": {
     "build": "yarn --silent clean && rollup -c",
@@ -32,8 +32,12 @@
     "format:write": "yarn --silent format --write",
     "lint:ts": "tslint \"{src,test}/**/*.ts\"",
     "lint:css": "stylelint \"themes/**/*.{css,scss}\"",
+    "prepack": "npm-run-all --npm-path yarn --parallel check-ts format:check lint:* test:coverage --parallel build types",
+    "preversion": "npm-run-all --npm-path yarn --parallel check-ts format:check lint:* test:coverage",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "types": "rimraf types && tsc --declaration --emitDeclarationOnly --outDir types",
+    "version": "node version.js && git add -A CHANGELOG.md",
     "watch": "rollup -w -c"
   },
   "devDependencies": {
@@ -45,10 +49,12 @@
     "babel-jest": "^23.4.2",
     "cheerio": "^1.0.0-rc.2",
     "codecov": "^3.0.4",
+    "cssnano": "^4.0.5",
     "github-markdown-css": "^2.10.0",
     "jest": "^23.4.2",
     "jest-junit": "^5.1.0",
     "node-sass": "^4.9.2",
+    "npm-run-all": "^4.1.3",
     "prettier": "^1.14.0",
     "rimraf": "^2.6.2",
     "rollup": "^0.63.5",
@@ -57,6 +63,7 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-postcss": "^1.6.2",
     "rollup-plugin-typescript": "^0.8.1",
+    "rollup-plugin-uglify": "^4.0.0",
     "stylelint": "^9.4.0",
     "stylelint-config-prettier": "^3.3.0",
     "stylelint-config-standard": "^18.2.0",
@@ -65,7 +72,8 @@
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.9.2",
     "tslint-config-prettier": "^1.14.0",
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.1",
+    "uglify-es": "^3.3.9"
   },
   "dependencies": {
     "@marp-team/marpit": "^0.0.10",

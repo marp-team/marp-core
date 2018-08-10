@@ -40,7 +40,7 @@ jobs:
       - run:
           name: Jest
           command:
-            yarn test --ci --coverage --maxWorkers=2 --reporters=default --reporters=jest-junit
+            yarn test:coverage --ci --maxWorkers=2 --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT: tmp/test-results/jest.xml
 
