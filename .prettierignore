@@ -1,4 +1,5 @@
 .git/
+.vscode/
 coverage/
 lib/
 types/
