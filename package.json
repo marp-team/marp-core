@@ -21,7 +21,7 @@
   "types": "types/marp.d.ts",
   "files": [
     "lib/",
-    "types/marp.d.ts"
+    "types/"
   ],
   "scripts": {
     "build": "yarn --silent clean && rollup -c",
