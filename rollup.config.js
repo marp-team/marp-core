@@ -13,7 +13,7 @@ import pkg from './package.json'
 
 export default [
   {
-    external: ['@marp-team/marpit', 'postcss'],
+    external: Object.keys(pkg.dependencies),
     input: `src/${path.basename(pkg.main, '.js')}.ts`,
     output: {
       file: pkg.main,
