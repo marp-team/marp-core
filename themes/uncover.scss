@@ -18,6 +18,7 @@
   pre,
   code {
     background: mix($bg, $text, 95%);
+    color: $text;
   }
 
   a {
