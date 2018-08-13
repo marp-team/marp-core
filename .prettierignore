@@ -1,4 +1,7 @@
+.git/
+.vscode/
 coverage/
 lib/
+types/
 node_modules
 package.json

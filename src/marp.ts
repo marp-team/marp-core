@@ -1,7 +1,7 @@
 /* tslint:disable: import-name */
 import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
-import katexPackage from 'katex/package.json'
+import { version } from 'katex/package.json'
 import markdownItEmoji from 'markdown-it-emoji'
 import { markdownItPlugin as mathMD, css as mathCSS } from './markdown/math'
 import defaultTheme from '../themes/default.scss'
@@ -86,9 +86,9 @@ export class Marp extends Marpit {
 
     if (math && this.renderedMath) {
       // By default, we use KaTeX web fonts through CDN.
-      let path: string | undefined = `https://cdn.jsdelivr.net/npm/katex@${
-        katexPackage.version
-      }/dist/fonts/`
+      let path:
+        | string
+        | undefined = `https://cdn.jsdelivr.net/npm/katex@${version}/dist/fonts/`
 
       if (typeof math === 'object') {
         path = math.katexFontPath === false ? undefined : math.katexFontPath
