@@ -3,6 +3,7 @@ import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
 import { version } from 'katex/package.json'
 import markdownItEmoji from 'markdown-it-emoji'
+import fittingHeaderPlugin from './markdown/fitting_header'
 import { markdownItPlugin as mathMD, css as mathCSS } from './markdown/math'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
@@ -49,14 +50,14 @@ export class Marp extends Marpit {
   applyMarkdownItPlugins(md = this.markdown) {
     super.applyMarkdownItPlugins(md)
 
+    const { inlineSVG, math } = this.options
+
     // Emoji shorthand
     md.use(markdownItEmoji, { shortcuts: {} })
     md.renderer.rules.emoji = (token, idx) =>
       `<span data-marpit-emoji>${token[idx].content}</span>`
 
     // Math typesetting
-    const { math } = this.options
-
     if (math) {
       const opts =
         typeof math === 'object' && typeof math.katexOption === 'object'
@@ -67,6 +68,9 @@ export class Marp extends Marpit {
         this.renderedMath = isRendered
       })
     }
+
+    // Fitting header
+    md.use(fittingHeaderPlugin, { inlineSVG })
   }
 
   highlighter(code: string, lang: string): string {

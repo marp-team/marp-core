@@ -1,0 +1,43 @@
+import Token from 'markdown-it/lib/token'
+import { open } from 'fs'
+
+export default function fittingHeaderPlugin(
+  md,
+  opts: { inlineSVG: boolean }
+): void {
+  md.core.ruler.after('inline', 'marp_fitting_header', state => {
+    let target = undefined
+
+    state.tokens.forEach(token => {
+      if (!target && token.type === 'heading_open') {
+        target = token
+      } else if (target !== undefined) {
+        if (
+          token.type === 'inline' &&
+          token.children.some(
+            t => t.type === 'marpit_comment' && t.content === 'fit'
+          )
+        ) {
+          const openingToken = new Token('marp_fitting_header_open', 'span', 1)
+          openingToken.attrSet('data-marp-fitting-header', 'plain')
+
+          token.children = [
+            openingToken,
+            ...token.children,
+            new Token('marp_fitting_header_close', 'span', -1),
+          ]
+        } else if (token.type === 'heading_close') {
+          target = undefined
+        }
+      }
+    })
+
+    if (opts.inlineSVG) {
+      md.renderer.rules.marp_fitting_header_open = (): string =>
+        '<svg data-marp-fitting-header="svg"><foreignObject><span data-marp-fitting-header-svg-content>'
+
+      md.renderer.rules.marp_fitting_header_close = (): string =>
+        '</span></foreignObject></svg>'
+    }
+  })
+}
