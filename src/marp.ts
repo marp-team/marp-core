@@ -1,4 +1,3 @@
-/* tslint:disable: import-name */
 import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
 import { version } from 'katex/package.json'

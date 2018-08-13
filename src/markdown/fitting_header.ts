@@ -1,5 +1,4 @@
 import Token from 'markdown-it/lib/token'
-import { open } from 'fs'
 
 export default function fittingHeaderPlugin(
   md,
@@ -33,10 +32,10 @@ export default function fittingHeaderPlugin(
     })
 
     if (opts.inlineSVG) {
-      md.renderer.rules.marp_fitting_header_open = (): string =>
+      md.renderer.rules.marp_fitting_header_open = () =>
         '<svg data-marp-fitting-header="svg"><foreignObject><span data-marp-fitting-header-svg-content>'
 
-      md.renderer.rules.marp_fitting_header_close = (): string =>
+      md.renderer.rules.marp_fitting_header_close = () =>
         '</span></foreignObject></svg>'
     }
   })
