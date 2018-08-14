@@ -42,6 +42,9 @@ export const css = `
 svg[data-marp-fitting-header="svg"] {
   display: block;
 }
+svg[data-marp-fitting-header="svg"].__reflow__ {
+  content: '';
+}
 [data-marp-fitting-header-svg-content] {
   display: table;
   white-space: nowrap;

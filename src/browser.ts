@@ -1,10 +1,11 @@
 let ready = false
 
-function fit() {
+function fitting(): void {
   Array.from(
-    document.querySelectorAll('svg[data-marp-fitting-header="svg"]'),
-    element => {
-      const svg = element as SVGElement
+    document.querySelectorAll<HTMLElement>(
+      'svg[data-marp-fitting-header="svg"]'
+    ),
+    svg => {
       const foreignObject = svg.firstChild as SVGForeignObjectElement
       const container = foreignObject.firstChild as HTMLSpanElement
       const { scrollWidth, scrollHeight } = container
@@ -17,19 +18,16 @@ function fit() {
 
       if (svg.getAttribute('viewBox') !== viewBox) {
         svg.setAttribute('viewBox', viewBox)
-
-        // Reflow forcely (CSS reflow would not trigger in Firefox)
-        svg.style.overflow = 'hidden'
-        setTimeout(() => (svg.style.overflow = 'visible'), 0)
+        svg.classList.toggle('__reflow__') // for incremental update
       }
     }
   )
-  window.requestAnimationFrame(fit)
+  window.requestAnimationFrame(fitting)
 }
 
 export function browser(): void {
   if (ready) return
   ready = true
 
-  window.requestAnimationFrame(fit)
+  fitting()
 }
