@@ -41,8 +41,6 @@ export function markdownItPlugin(md, opts: { inlineSVG: boolean }): void {
 export const css = `
 svg[data-marp-fitting-header="svg"] {
   display: block;
-  width: 100%;
-  height: auto;
 }
 [data-marp-fitting-header-svg-content] {
   display: table;

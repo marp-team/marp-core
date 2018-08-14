@@ -180,6 +180,10 @@ table {
   }
 }
 
+svg[data-marp-fitting-header='svg'] {
+  max-height: 580px; // Slide height - padding * 2
+}
+
 section {
   background-image: linear-gradient(
     135deg,
@@ -191,9 +195,11 @@ section {
   font-size: 35px;
   font-family: 'Lato', 'Avenir Next', 'Avenir', 'Trebuchet MS', 'Segoe UI',
     sans-serif;
+  height: 720px;
   line-height: 1.35;
   letter-spacing: 1.25px;
   padding: 70px;
+  width: 1280px;
 
   > *:first-child,
   > header:first-child + * {
@@ -216,6 +222,10 @@ section {
     flex-wrap: nowrap;
     justify-content: center;
 
+    svg[data-marp-fitting-header='svg'] {
+      margin: 0 auto;
+    }
+
     h1,
     h2,
     h3,
@@ -235,6 +245,10 @@ section {
       > h6,
       > p {
         text-align: left;
+      }
+
+      svg[data-marp-fitting-header='svg'] {
+        margin: 0;
       }
     }
 
