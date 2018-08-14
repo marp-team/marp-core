@@ -2,7 +2,11 @@ import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
 import { version } from 'katex/package.json'
 import markdownItEmoji from 'markdown-it-emoji'
-import fittingHeaderPlugin from './markdown/fitting_header'
+import { browser } from './browser'
+import {
+  markdownItPlugin as fittingHeaderMD,
+  css as fittingHeaderCSS,
+} from './markdown/fitting_header'
 import { markdownItPlugin as mathMD, css as mathCSS } from './markdown/math'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
@@ -69,7 +73,7 @@ export class Marp extends Marpit {
     }
 
     // Fitting header
-    md.use(fittingHeaderPlugin, { inlineSVG })
+    md.use(fittingHeaderMD, { inlineSVG })
   }
 
   highlighter(code: string, lang: string): string {
@@ -83,7 +87,10 @@ export class Marp extends Marpit {
 
   protected themeSetPackOptions(): ThemeSetPackOptions {
     const base = { ...super.themeSetPackOptions() }
+    const prependCSS = css => (base.before = `${css}\n${base.before || ''}`)
     const { math } = this.options
+
+    prependCSS(fittingHeaderCSS)
 
     if (math && this.renderedMath) {
       // By default, we use KaTeX web fonts through CDN.
@@ -96,10 +103,18 @@ export class Marp extends Marpit {
       }
 
       // Add KaTeX css
-      base.before = `${mathCSS(path)}\n${base.before || ''}`
+      prependCSS(mathCSS(path))
     }
 
     return base
+  }
+
+  static ready() {
+    if (typeof window === 'undefined') {
+      throw new Error('Marp.ready() is only valid in browser context.')
+    }
+
+    browser()
   }
 }
 

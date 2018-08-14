@@ -1,9 +1,6 @@
 import Token from 'markdown-it/lib/token'
 
-export default function fittingHeaderPlugin(
-  md,
-  opts: { inlineSVG: boolean }
-): void {
+export function markdownItPlugin(md, opts: { inlineSVG: boolean }): void {
   md.core.ruler.after('inline', 'marp_fitting_header', state => {
     let target = undefined
 
@@ -40,3 +37,15 @@ export default function fittingHeaderPlugin(
     }
   })
 }
+
+export const css = `
+svg[data-marp-fitting-header="svg"] {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+[data-marp-fitting-header-svg-content] {
+  display: table;
+  white-space: nowrap;
+}
+`.trim()
