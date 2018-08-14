@@ -46,4 +46,7 @@ svg[data-marp-fitting-header="svg"] {
   display: table;
   white-space: nowrap;
 }
+[data-marp-fitting-header-svg-content] [data-marpit-emoji] {
+  filter: none;
+}
 `.trim()
