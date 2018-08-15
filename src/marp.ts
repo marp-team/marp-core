@@ -29,6 +29,8 @@ export class Marp extends Marpit {
 
   constructor(opts: MarpOptions = {}) {
     super({
+      inlineSVG: true,
+      lazyYAML: true,
       markdown: [
         'commonmark',
         {
@@ -39,9 +41,8 @@ export class Marp extends Marpit {
           linkify: true,
         },
       ],
-      math: true,
-      ...opts,
-    } as MarpitOptions)
+      ...(opts as MarpitOptions),
+    })
 
     // Enable table
     this.markdown.enable(['table', 'linkify'])
