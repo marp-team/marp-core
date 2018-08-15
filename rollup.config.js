@@ -14,7 +14,7 @@ import pkg from './package.json'
 
 export default [
   {
-    external: Object.keys(pkg.dependencies),
+    external: [...Object.keys(pkg.dependencies), 'markdown-it/lib/token'],
     input: `src/${path.basename(pkg.main, '.js')}.ts`,
     output: {
       file: pkg.main,
