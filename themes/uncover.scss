@@ -48,12 +48,14 @@ section {
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   flex-wrap: nowrap;
   font-size: 40px;
+  height: 720px;
   justify-content: center;
   letter-spacing: 3px;
   line-height: 1.4;
   padding: 30px 70px;
   position: relative;
   text-align: center;
+  width: 1280px;
   z-index: 0;
 
   &::after {
@@ -86,6 +88,11 @@ section {
   > *:last-child,
   &[data-footer] > :nth-last-child(2) {
     margin-bottom: 0;
+  }
+
+  svg[data-marp-fitting-header='svg'] {
+    margin: 0 auto;
+    max-height: 660px; // Slide height - padding * 2
   }
 
   p,
