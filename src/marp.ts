@@ -10,6 +10,7 @@ import {
 import { markdownItPlugin as mathMD, css as mathCSS } from './markdown/math'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
+import uncoverTheme from '../themes/uncover.scss'
 
 export interface MarpOptions extends MarpitOptions {
   html?: boolean
@@ -48,6 +49,7 @@ export class Marp extends Marpit {
     // Add themes
     this.themeSet.default = this.themeSet.add(defaultTheme)
     this.themeSet.add(gaiaTheme)
+    this.themeSet.add(uncoverTheme)
   }
 
   applyMarkdownItPlugins(md = this.markdown) {
