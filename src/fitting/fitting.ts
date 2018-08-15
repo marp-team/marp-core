@@ -11,9 +11,6 @@ svg[data-marp-fitting-header="svg"].__reflow__ {
   display: table;
   white-space: nowrap;
 }
-[data-marp-fitting-header-svg-content] [data-marpit-emoji] {
-  filter: none;
-}
 `.trim()
 
 export function markdown(md, opts: { inlineSVG: boolean }): void {
