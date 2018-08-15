@@ -3,11 +3,8 @@ import highlightjs from 'highlight.js'
 import { version } from 'katex/package.json'
 import markdownItEmoji from 'markdown-it-emoji'
 import { browser } from './browser'
-import {
-  markdownItPlugin as fittingHeaderMD,
-  css as fittingHeaderCSS,
-} from './markdown/fitting_header'
-import { markdownItPlugin as mathMD, css as mathCSS } from './markdown/math'
+import * as fittingPlugin from './fitting/fitting'
+import * as mathPlugin from './math/math'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
@@ -41,8 +38,9 @@ export class Marp extends Marpit {
           linkify: true,
         },
       ],
-      ...(opts as MarpitOptions),
-    })
+      math: true,
+      ...opts,
+    } as MarpitOptions)
 
     // Enable table
     this.markdown.enable(['table', 'linkify'])
@@ -70,13 +68,11 @@ export class Marp extends Marpit {
           ? math.katexOption
           : {}
 
-      md.use(mathMD, opts, isRendered => {
-        this.renderedMath = isRendered
-      })
+      md.use(mathPlugin.markdown, opts, flag => (this.renderedMath = flag))
     }
 
     // Fitting header
-    md.use(fittingHeaderMD, { inlineSVG })
+    md.use(fittingPlugin.markdown, { inlineSVG })
   }
 
   highlighter(code: string, lang: string): string {
@@ -93,7 +89,7 @@ export class Marp extends Marpit {
     const prependCSS = css => (base.before = `${css}\n${base.before || ''}`)
     const { math } = this.options
 
-    prependCSS(fittingHeaderCSS)
+    prependCSS(fittingPlugin.css)
 
     if (math && this.renderedMath) {
       // By default, we use KaTeX web fonts through CDN.
@@ -106,7 +102,7 @@ export class Marp extends Marpit {
       }
 
       // Add KaTeX css
-      prependCSS(mathCSS(path))
+      prependCSS(mathPlugin.css(path))
     }
 
     return base

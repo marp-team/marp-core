@@ -4,7 +4,7 @@ import postcss from 'postcss'
 import context from './_helpers/context'
 import { Marp, MarpOptions } from '../src/marp'
 
-jest.mock('../src/markdown/katex.scss')
+jest.mock('../src/math/katex.scss')
 
 describe('Marp', () => {
   const marp = (opts?: MarpOptions): Marp => new Marp(opts)

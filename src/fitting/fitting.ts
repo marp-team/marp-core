@@ -1,6 +1,22 @@
 import Token from 'markdown-it/lib/token'
 
-export function markdownItPlugin(md, opts: { inlineSVG: boolean }): void {
+export const css = `
+svg[data-marp-fitting-header="svg"] {
+  display: block;
+}
+svg[data-marp-fitting-header="svg"].__reflow__ {
+  content: '';
+}
+[data-marp-fitting-header-svg-content] {
+  display: table;
+  white-space: nowrap;
+}
+[data-marp-fitting-header-svg-content] [data-marpit-emoji] {
+  filter: none;
+}
+`.trim()
+
+export function markdown(md, opts: { inlineSVG: boolean }): void {
   md.core.ruler.after('inline', 'marp_fitting_header', state => {
     let target = undefined
 
@@ -37,19 +53,3 @@ export function markdownItPlugin(md, opts: { inlineSVG: boolean }): void {
     }
   })
 }
-
-export const css = `
-svg[data-marp-fitting-header="svg"] {
-  display: block;
-}
-svg[data-marp-fitting-header="svg"].__reflow__ {
-  content: '';
-}
-[data-marp-fitting-header-svg-content] {
-  display: table;
-  white-space: nowrap;
-}
-[data-marp-fitting-header-svg-content] [data-marpit-emoji] {
-  filter: none;
-}
-`.trim()
