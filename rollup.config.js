@@ -1,6 +1,7 @@
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
 import path from 'path'
+import postcssUrl from 'postcss-url'
 import commonjs from 'rollup-plugin-commonjs'
 import json from 'rollup-plugin-json'
 import nodeResolve from 'rollup-plugin-node-resolve'
@@ -30,7 +31,15 @@ export default [
       }),
       postcss({
         inject: false,
-        plugins: [autoprefixer(), cssnano({ preset: 'default' })],
+        plugins: [
+          postcssUrl({
+            filter: '**/assets/**/*.svg',
+            encodeType: 'base64',
+            url: 'inline',
+          }),
+          autoprefixer(),
+          cssnano({ preset: 'default' }),
+        ],
       }),
       !process.env.ROLLUP_WATCH && uglify({}, minify),
     ],

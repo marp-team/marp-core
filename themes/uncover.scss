@@ -1,0 +1,255 @@
+/*!
+ * Marp / Marpit Uncover theme
+ *
+ * @theme uncover
+ * @author Yuki Hattori
+ */
+
+@mixin color-scheme($bg: #fdfcff, $text: #202228, $highlight: #009dd5) {
+  background: $bg;
+  color: $text;
+
+  &::after {
+    background: linear-gradient(-45deg, rgba($text, 0.05) 50%, transparent 50%);
+    color: $text;
+    text-shadow: 0 0 5px $bg;
+  }
+
+  pre,
+  code {
+    background: mix($bg, $text, 95%);
+    color: $text;
+  }
+
+  a {
+    color: $highlight;
+
+    &:hover {
+      color: mix($text, $highlight, 25%);
+    }
+  }
+
+  header,
+  footer {
+    color: rgba($text, 0.4);
+    text-shadow: 0 1px 0 rgba($bg, 0.8);
+  }
+
+  mark {
+    color: $highlight;
+    background: transparent;
+  }
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  flex-wrap: nowrap;
+  font-size: 40px;
+  justify-content: center;
+  letter-spacing: 3px;
+  line-height: 1.4;
+  padding: 30px 70px;
+  position: relative;
+  text-align: center;
+  z-index: 0;
+
+  &::after {
+    align-items: flex-end;
+    display: flex;
+    font-size: 0.6em;
+    height: 80px;
+    justify-content: flex-end;
+    padding: 30px;
+    text-align: right;
+    width: 80px;
+  }
+
+  @include color-scheme;
+
+  &:not(.invert) {
+    @import '~highlight.js/styles/color-brewer';
+  }
+
+  &.invert {
+    @include color-scheme(#202228, #fff, #60d0f0);
+    @import '~highlight.js/styles/codepen-embed';
+  }
+
+  > *:first-child,
+  &[data-header] > :nth-child(2) {
+    margin-top: 0;
+  }
+
+  > *:last-child,
+  &[data-footer] > :nth-last-child(2) {
+    margin-bottom: 0;
+  }
+
+  p,
+  blockquote {
+    margin: 0 0 15px 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 15px 0 30px 0;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.7em;
+  }
+
+  h3 {
+    font-size: 1.4em;
+    letter-spacing: 2px;
+  }
+
+  h4 {
+    font-size: 1.2em;
+    letter-spacing: 2px;
+  }
+
+  h5 {
+    font-size: 1em;
+    letter-spacing: 1px;
+  }
+
+  h6 {
+    font-size: 0.8em;
+    letter-spacing: 1px;
+  }
+
+  header,
+  footer {
+    position: absolute;
+    z-index: 1;
+    left: 70px;
+    right: 70px;
+    font-size: 0.45em;
+    letter-spacing: 1px;
+  }
+
+  header {
+    top: 30px;
+  }
+
+  footer {
+    bottom: 30px;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  ul,
+  ol {
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  > ul,
+  > ol {
+    margin-bottom: 15px;
+  }
+
+  pre,
+  code {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
+      monospace;
+    letter-spacing: 0;
+    margin: -0.2em 0.2em 0.2em;
+    padding: 0.2em;
+  }
+
+  pre {
+    box-shadow: 0 4px 8px rgba(#000, 0.2);
+    font-size: 70%;
+    line-height: 1.15;
+    margin: 15px auto 30px auto;
+    min-width: 40%;
+    padding: 0.4em 0.6em;
+    text-align: left;
+  }
+
+  pre > code {
+    margin: 0;
+    padding: 0;
+  }
+
+  table {
+    border-collapse: collapse;
+    margin: 0 auto 15px auto;
+
+    > thead,
+    > tbody {
+      > tr {
+        > td,
+        > th {
+          padding: 0.15em 0.5em;
+        }
+      }
+    }
+
+    > thead > tr {
+      > td,
+      > th {
+        border-bottom: 3px solid currentColor;
+      }
+    }
+
+    > tbody > tr:not(:last-child) {
+      > td,
+      > th {
+        border-bottom: 1px solid currentColor;
+      }
+    }
+  }
+
+  blockquote {
+    font-size: 90%;
+    line-height: 1.3;
+    padding: 0 2em;
+    position: relative;
+    z-index: 0;
+
+    &::before,
+    &::after {
+      content: url('./assets/uncover-quote.svg');
+      height: auto;
+      pointer-events: none;
+      position: absolute;
+      width: 1em;
+      z-index: -1;
+    }
+
+    &::before {
+      left: 0;
+      top: 0;
+    }
+
+    &::after {
+      bottom: 0;
+      right: 0;
+      transform: rotate(180deg);
+    }
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
