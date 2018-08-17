@@ -1,52 +1,45 @@
 import Token from 'markdown-it/lib/token'
+export { default as css } from './fitting.scss'
 
-export const css = `
-svg[data-marp-fitting-header="svg"] {
-  display: block;
-}
-svg[data-marp-fitting-header="svg"].__reflow__ {
-  content: '';
-}
-[data-marp-fitting-header-svg-content] {
-  display: table;
-  white-space: nowrap;
-}
-`.trim()
+function wrapTokensByFittingToken(tokens: any[]): any[] {
+  const open = new Token('marp_fitting_open', 'span', 1)
+  open.attrSet('data-marp-fitting', 'plain')
 
-export function markdown(md, opts: { inlineSVG: boolean }): void {
+  return [open, ...tokens, new Token('marp_fitting_close', 'span', -1)]
+}
+
+/**
+ * Detect `<!-- fit -->` comment keyword in headings.
+ */
+function fittingHeader(md): void {
   md.core.ruler.after('inline', 'marp_fitting_header', state => {
     let target = undefined
 
     state.tokens.forEach(token => {
-      if (!target && token.type === 'heading_open') {
-        target = token
-      } else if (target !== undefined) {
-        if (
-          token.type === 'inline' &&
-          token.children.some(
-            t => t.type === 'marpit_comment' && t.content === 'fit'
-          )
-        ) {
-          const openingToken = new Token('marp_fitting_header_open', 'span', 1)
-          openingToken.attrSet('data-marp-fitting-header', 'plain')
-
-          token.children = [
-            openingToken,
-            ...token.children,
-            new Token('marp_fitting_header_close', 'span', -1),
-          ]
-        } else if (token.type === 'heading_close') {
-          target = undefined
-        }
+      if (!target && token.type === 'heading_open') target = token
+      if (target === undefined) return
+      if (
+        token.type === 'inline' &&
+        token.children.some(
+          t => t.type === 'marpit_comment' && t.content === 'fit'
+        )
+      ) {
+        token.children = wrapTokensByFittingToken(token.children)
+      } else if (token.type === 'heading_close') {
+        target = undefined
       }
     })
-
-    if (opts.inlineSVG) {
-      md.renderer.rules.marp_fitting_header_open = () =>
-        '<svg data-marp-fitting-header="svg"><foreignObject><span data-marp-fitting-header-svg-content>'
-
-      md.renderer.rules.marp_fitting_header_close = () =>
-        '</span></foreignObject></svg>'
-    }
   })
+}
+
+export function markdown(md, opts: { inlineSVG: boolean }): void {
+  md.use(fittingHeader)
+
+  if (opts.inlineSVG) {
+    Object.assign(md.renderer.rules, {
+      marp_fitting_open: () =>
+        '<svg data-marp-fitting="svg"><foreignObject><span data-marp-fitting-svg-content>',
+      marp_fitting_close: () => '</span></foreignObject></svg>',
+    })
+  }
 }

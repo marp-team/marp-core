@@ -180,7 +180,7 @@ table {
   }
 }
 
-svg[data-marp-fitting-header='svg'] {
+svg[data-marp-fitting='svg'] {
   max-height: 580px; // Slide height - padding * 2
 }
 
@@ -222,7 +222,7 @@ section {
     flex-wrap: nowrap;
     justify-content: center;
 
-    svg[data-marp-fitting-header='svg'] {
+    svg[data-marp-fitting='svg'] {
       margin: 0 auto;
       --perserve-aspect-ratio: xMidYMid meet;
     }
@@ -248,7 +248,7 @@ section {
         text-align: left;
       }
 
-      svg[data-marp-fitting-header='svg'] {
+      svg[data-marp-fitting='svg'] {
         margin: 0;
         --perserve-aspect-ratio: xMinYMin meet;
       }

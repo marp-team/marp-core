@@ -2,9 +2,7 @@ let ready = false
 
 function fitting(): void {
   Array.from(
-    document.querySelectorAll<HTMLElement>(
-      'svg[data-marp-fitting-header="svg"]'
-    ),
+    document.querySelectorAll<HTMLElement>('svg[data-marp-fitting="svg"]'),
     svg => {
       const foreignObject = svg.firstChild as SVGForeignObjectElement
       const container = foreignObject.firstChild as HTMLSpanElement
