@@ -2,12 +2,14 @@ import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
 import { version } from 'katex/package.json'
 import markdownItEmoji from 'markdown-it-emoji'
-import { browser } from './browser'
+import fittingOnBrowser from './fitting/browser'
 import * as fittingPlugin from './fitting/fitting'
 import * as mathPlugin from './math/math'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
+
+const marpObservedSymbol = Symbol('marpObserved')
 
 export interface MarpOptions extends MarpitOptions {
   html?: boolean
@@ -112,8 +114,10 @@ export class Marp extends Marpit {
     if (typeof window === 'undefined') {
       throw new Error('Marp.ready() is only valid in browser context.')
     }
+    if (window[marpObservedSymbol]) return
 
-    browser()
+    fittingOnBrowser()
+    window[marpObservedSymbol] = true
   }
 }
 

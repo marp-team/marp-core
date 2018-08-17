@@ -1,9 +1,12 @@
 import Token from 'markdown-it/lib/token'
 export { default as css } from './fitting.scss'
 
+export const attr = 'data-marp-fitting'
+export const svgContentAttr = 'data-marp-fitting-svg-content'
+
 function wrapTokensByFittingToken(tokens: any[]): any[] {
   const open = new Token('marp_fitting_open', 'span', 1)
-  open.attrSet('data-marp-fitting', 'plain')
+  open.attrSet(attr, 'plain')
 
   return [open, ...tokens, new Token('marp_fitting_close', 'span', -1)]
 }
@@ -38,7 +41,7 @@ export function markdown(md, opts: { inlineSVG: boolean }): void {
   if (opts.inlineSVG) {
     Object.assign(md.renderer.rules, {
       marp_fitting_open: () =>
-        '<svg data-marp-fitting="svg"><foreignObject><span data-marp-fitting-svg-content>',
+        `<svg ${attr}="svg"><foreignObject><span ${svgContentAttr}>`,
       marp_fitting_close: () => '</span></foreignObject></svg>',
     })
   }

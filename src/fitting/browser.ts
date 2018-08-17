@@ -1,8 +1,8 @@
-let ready = false
+import { attr } from './fitting'
 
-function fitting(): void {
+export default function fittingOnBrowser(): void {
   Array.from(
-    document.querySelectorAll<HTMLElement>('svg[data-marp-fitting="svg"]'),
+    document.querySelectorAll<HTMLElement>(`svg[${attr}="svg"]`),
     svg => {
       const foreignObject = svg.firstChild as SVGForeignObjectElement
       const container = foreignObject.firstChild as HTMLSpanElement
@@ -26,12 +26,5 @@ function fitting(): void {
       }
     }
   )
-  window.requestAnimationFrame(fitting)
-}
-
-export function browser(): void {
-  if (ready) return
-  ready = true
-
-  fitting()
+  window.requestAnimationFrame(fittingOnBrowser)
 }
