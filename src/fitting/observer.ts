@@ -1,6 +1,6 @@
 import { attr } from './fitting'
 
-export default function fittingOnBrowser(): void {
+export default function fittingObserver(): void {
   Array.from(
     document.querySelectorAll<HTMLElement>(`svg[${attr}="svg"]`),
     svg => {
@@ -16,7 +16,7 @@ export default function fittingOnBrowser(): void {
 
       svg.setAttribute(
         'preserveAspectRatio',
-        getComputedStyle(svg).getPropertyValue('--perserve-aspect-ratio') ||
+        getComputedStyle(svg).getPropertyValue('--preserve-aspect-ratio') ||
           'xMinYMin meet'
       )
 
@@ -26,5 +26,5 @@ export default function fittingOnBrowser(): void {
       }
     }
   )
-  window.requestAnimationFrame(fittingOnBrowser)
+  window.requestAnimationFrame(fittingObserver)
 }

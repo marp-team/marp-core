@@ -1,5 +1,5 @@
-import fittingOnBrowser from './fitting/browser'
+import fittingObserver from './fitting/observer'
 
 export default function browser(): void {
-  fittingOnBrowser()
+  fittingObserver()
 }
