@@ -224,6 +224,7 @@ section {
 
     svg[data-marp-fitting='svg'] {
       margin: 0 auto;
+
       --preserve-aspect-ratio: xMidYMid meet;
     }
 
@@ -250,6 +251,7 @@ section {
 
       svg[data-marp-fitting='svg'] {
         margin: 0;
+
         --preserve-aspect-ratio: xMinYMin meet;
       }
     }

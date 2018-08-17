@@ -93,6 +93,7 @@ section {
   svg[data-marp-fitting='svg'] {
     margin: 0 auto;
     max-height: 660px; // Slide height - padding * 2
+
     --preserve-aspect-ratio: xMidYMid meet;
   }
 
