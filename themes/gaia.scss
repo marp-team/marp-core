@@ -224,6 +224,7 @@ section {
 
     svg[data-marp-fitting-header='svg'] {
       margin: 0 auto;
+      --perserve-aspect-ratio: xMidYMid meet;
     }
 
     h1,
@@ -249,6 +250,7 @@ section {
 
       svg[data-marp-fitting-header='svg'] {
         margin: 0;
+        --perserve-aspect-ratio: xMinYMin meet;
       }
     }
 

@@ -16,6 +16,12 @@ function fitting(): void {
       foreignObject.setAttribute('width', `${w}`)
       foreignObject.setAttribute('height', `${h}`)
 
+      svg.setAttribute(
+        'preserveAspectRatio',
+        getComputedStyle(svg).getPropertyValue('--perserve-aspect-ratio') ||
+          'xMinYMin meet'
+      )
+
       if (svg.getAttribute('viewBox') !== viewBox) {
         svg.setAttribute('viewBox', viewBox)
         svg.classList.toggle('__reflow__') // for incremental update
