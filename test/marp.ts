@@ -3,7 +3,9 @@ import cheerio from 'cheerio'
 import postcss from 'postcss'
 import context from './_helpers/context'
 import { Marp, MarpOptions } from '../src/marp'
+import browser from '../src/browser'
 
+jest.mock('../src/browser')
 jest.mock('../src/math/katex.scss')
 
 describe('Marp', () => {
@@ -191,6 +193,39 @@ describe('Marp', () => {
     })
   })
 
+  describe('Element fitting', () => {
+    context('when fit comment keyword contains in heading', () => {
+      const markdown = '# <!--fit--> fitting'
+
+      it('wraps by <svg data-marp-fitting="svg">', () => {
+        const { html } = marp().render(markdown)
+        const $ = cheerio.load(html, {
+          lowerCaseAttributeNames: false,
+          lowerCaseTags: false,
+        })
+        const svgContent = $(
+          [
+            'h1',
+            'svg[data-marp-fitting="svg"]',
+            'foreignObject',
+            'span[data-marp-fitting-svg-content]',
+          ].join('>')
+        )
+
+        expect(svgContent).toHaveLength(1)
+        expect($('h1').text()).toContain('fitting')
+      })
+
+      it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
+        const { html } = marp({ inlineSVG: false }).render(markdown)
+        const $ = cheerio.load(html)
+
+        expect($('h1 > span[data-marp-fitting="plain"]')).toHaveLength(1)
+        expect($('h1').text()).toContain('fitting')
+      })
+    })
+  })
+
   describe('themeSet property', () => {
     const { themeSet } = new Marp()
 
@@ -243,6 +278,24 @@ describe('Marp', () => {
 
       it('highlights with custom highlighter', () =>
         expect($('code > .customized')).toHaveLength(1))
+    })
+  })
+
+  describe('.ready', () => {
+    it('throws error in node environment', () =>
+      expect(() => Marp.ready()).toThrowError())
+
+    context('when window object is defined in global', () => {
+      beforeEach(() => (global['window'] = jest.fn()))
+      afterEach(() => delete global['window'])
+
+      it('registers observers for browser only once', () => {
+        Marp.ready()
+        expect(browser).toHaveBeenCalledTimes(1)
+
+        Marp.ready()
+        expect(browser).toHaveBeenCalledTimes(1)
+      })
     })
   })
 })

@@ -1,6 +1,7 @@
 import Token from 'markdown-it/lib/token'
-export { default as css } from './fitting.scss'
+import fittingCSS from './fitting.scss'
 
+export const css = fittingCSS
 export const attr = 'data-marp-fitting'
 export const svgContentAttr = 'data-marp-fitting-svg-content'
 

@@ -2,7 +2,7 @@ import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
 import { version } from 'katex/package.json'
 import markdownItEmoji from 'markdown-it-emoji'
-import fittingOnBrowser from './fitting/browser'
+import browser from './browser'
 import * as fittingPlugin from './fitting/fitting'
 import * as mathPlugin from './math/math'
 import defaultTheme from '../themes/default.scss'
@@ -116,7 +116,7 @@ export class Marp extends Marpit {
     }
     if (window[marpObservedSymbol]) return
 
-    fittingOnBrowser()
+    browser()
     window[marpObservedSymbol] = true
   }
 }
