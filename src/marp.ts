@@ -28,9 +28,10 @@ export class Marp extends Marpit {
   private renderedMath: boolean = false
 
   constructor(opts: MarpOptions = {}) {
-    super({
+    super(<MarpOptions>{
       emoji: {
         shortcode: true,
+        twemojiBase: undefined,
         unicode: true,
         ...(opts.emoji || {}),
       },
@@ -48,7 +49,7 @@ export class Marp extends Marpit {
       ],
       math: true,
       ...opts,
-    } as MarpitOptions)
+    })
 
     // Enable table
     this.markdown.enable(['table', 'linkify'])
