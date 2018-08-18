@@ -32,7 +32,7 @@ export class Marp extends Marpit {
       emoji: {
         shortcode: true,
         twemojiBase: undefined,
-        unicode: true,
+        unicode: false,
         ...(opts.emoji || {}),
       },
       inlineSVG: true,

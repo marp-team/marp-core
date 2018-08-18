@@ -2,6 +2,7 @@ import { Marpit } from '@marp-team/marpit'
 import cheerio from 'cheerio'
 import postcss from 'postcss'
 import context from './_helpers/context'
+import { EmojiOptions } from '../src/emoji/emoji'
 import { Marp, MarpOptions } from '../src/marp'
 import browser from '../src/browser'
 
@@ -13,7 +14,7 @@ describe('Marp', () => {
 
   it('extends Marpit', () => expect(marp()).toBeInstanceOf(Marpit))
 
-  describe('markdown property', () => {
+  describe('markdown option', () => {
     it('renders breaks as <br> element', () => {
       const $ = cheerio.load(marp().markdown.render('hard\nbreak'))
       expect($('br')).toHaveLength(1)
@@ -30,12 +31,106 @@ describe('Marp', () => {
       const $ = cheerio.load(marp().markdown.render(address))
       expect($(`a[href="${address}"]`).text()).toBe(address)
     })
+  })
 
-    it('converts emoji shorthand to unicode emoji', () => {
-      const $ = cheerio.load(
-        marp().markdown.render('# emoji:heart:\n\n## emoji❤️')
-      )
-      expect($('h1').html()).toBe($('h2').html())
+  describe('emoji option', () => {
+    describe('shortcode option', () => {
+      it('converts emoji shorthand to unicode emoji by default', () => {
+        const { html, css } = marp().render('# emoji:heart:\n\n## emoji❤️')
+        const $ = cheerio.load(html)
+
+        expect($('h1').html()).toBe($('h2').html())
+        expect(css).not.toContain('img[data-marp-twemoji]')
+      })
+
+      context('with false', () => {
+        const emoji: EmojiOptions = { shortcode: false }
+
+        it('does not convert emoji shorthand', () => {
+          const { html, css } = marp({ emoji }).render('# :heart:')
+          const $ = cheerio.load(html)
+
+          expect($('h1').html()).toBe(':heart:')
+          expect(css).not.toContain('img[data-marp-twemoji]')
+        })
+      })
+
+      context('with twemoji', () => {
+        const emoji: EmojiOptions = { shortcode: 'twemoji' }
+
+        it('converts emoji shorthand to twemoji image', () => {
+          const { html, css } = marp({ emoji }).render('# :heart:')
+          const $ = cheerio.load(html)
+
+          expect($('h1 > img[data-marp-twemoji][alt="❤️"]')).toHaveLength(1)
+          expect(css).toContain('img[data-marp-twemoji]')
+        })
+      })
+    })
+
+    describe('unicode option', () => {
+      it('does not inject unicode emoji renderer by default', () =>
+        expect(marp().markdown.renderer.rules.unicode_emoji).toBeUndefined())
+
+      it('does not convert unicode emoji', () => {
+        const { html, css } = marp().render('# 👍')
+
+        expect(html).toContain('<h1>👍</h1>')
+        expect(css).not.toContain('img[data-marp-twemoji]')
+      })
+
+      context('with true', () => {
+        const emoji: EmojiOptions = { unicode: true }
+        const instance = marp({ emoji })
+
+        it('injects unicode emoji renderer', () =>
+          expect(instance.markdown.renderer.rules.unicode_emoji).toBeTruthy())
+
+        it('does not convert unicode emoji', () => {
+          const { html, css } = instance.render('# 👍')
+
+          expect(html).toContain('<h1>👍</h1>')
+          expect(css).not.toContain('img[data-marp-twemoji]')
+        })
+      })
+
+      context('with twemoji', () => {
+        const emoji: EmojiOptions = { unicode: 'twemoji' }
+        const instance = marp({ emoji })
+
+        it('converts unicode emoji to twemoji image', () => {
+          const { html, css } = instance.render('# 👍')
+          const $ = cheerio.load(html)
+
+          expect($('h1 > img[data-marp-twemoji][alt="👍"]')).toHaveLength(1)
+          expect(css).toContain('img[data-marp-twemoji]')
+
+          // Inline code
+          const $inline = cheerio.load(instance.render('`👍`').html)
+          expect($inline('code > img[data-marp-twemoji]')).toHaveLength(1)
+
+          // Code block
+          const $block = cheerio.load(instance.render('```\n👍\n```').html)
+          expect($block('pre > code > img[data-marp-twemoji]')).toHaveLength(1)
+
+          // Fence
+          const $fence = cheerio.load(instance.render('\t👍👍👍').html)
+          expect($fence('pre > code > img[data-marp-twemoji]')).toHaveLength(3)
+        })
+
+        it('does not convert unicode emoji in HTML attribute', () => {
+          const { html } = instance.render('```<😃>\n```')
+          expect(html).toContain('<code class="language-&lt;😃&gt;">')
+        })
+
+        it('follows variation sequence', () => {
+          const $text = cheerio.load(instance.render('# ➡\u{fe0e}').html)
+          expect($text('h1 > img[data-marp-twemoji]')).toHaveLength(0)
+
+          const $emoji = cheerio.load(instance.render('# ➡\u{fe0f}').html)
+          expect($emoji('h1 > img[data-marp-twemoji]')).toHaveLength(1)
+        })
+      })
     })
   })
 
