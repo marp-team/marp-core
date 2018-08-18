@@ -23,6 +23,18 @@ const marp = new Marp()
 const { html, css } = marp.render('# Hello, marp-core!')
 ```
 
+### `Marp.ready()`
+
+`Marp` class has `ready()` static method to work several features correctly. It must run on the browser context by using [Browserify](http://browserify.org/) or [webpack](https://webpack.js.org/).
+
+```javascript
+import Marp from '@marp-team/marp-core'
+
+document.addEventListener('DOMContentLoaded', () => {
+  Marp.ready()
+})
+```
+
 ## Features
 
 _We will only explain features extended in marp-core._ Please refer to [@marp-team/marpit](https://github.com/marp-team/marpit) repository if you want to know the basic feature of Marpit framework.
@@ -62,6 +74,18 @@ $$
 </td>
 </tbody>
 </table>
+
+### Fitting header
+
+> _This feature is available only if enabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental). You have to run [`Marp.ready()`](#marpready) on browser context._
+
+When the headings contains `<!-- fit -->` comment, the size of headings will resize to fit onto the slide size.
+
+```markdown
+# <!-- fit --> Fitting header
+```
+
+This syntax is similar to [Deckset's `[fit]` keyword](https://docs.decksetapp.com/English.lproj/Formatting/01-headings.html), but we use HTML comment to hide a fit keyword on Markdown rendered as document.
 
 ## Constructor options
 
