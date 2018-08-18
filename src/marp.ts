@@ -8,7 +8,6 @@ import * as mathPlugin from './math/math'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
-import { css } from './math/math'
 
 const marpObservedSymbol = Symbol('marpObserved')
 
