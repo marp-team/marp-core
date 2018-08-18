@@ -1,12 +1,15 @@
-/* tslint:disable: import-name */
 import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
 import { version } from 'katex/package.json'
 import markdownItEmoji from 'markdown-it-emoji'
-import { markdownItPlugin as mathMD, css as mathCSS } from './markdown/math'
+import browser from './browser'
+import * as fittingPlugin from './fitting/fitting'
+import * as mathPlugin from './math/math'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
+
+const marpObservedSymbol = Symbol('marpObserved')
 
 export interface MarpOptions extends MarpitOptions {
   html?: boolean
@@ -25,6 +28,8 @@ export class Marp extends Marpit {
 
   constructor(opts: MarpOptions = {}) {
     super({
+      inlineSVG: true,
+      lazyYAML: true,
       markdown: [
         'commonmark',
         {
@@ -51,24 +56,25 @@ export class Marp extends Marpit {
   applyMarkdownItPlugins(md = this.markdown) {
     super.applyMarkdownItPlugins(md)
 
+    const { inlineSVG, math } = this.options
+
     // Emoji shorthand
     md.use(markdownItEmoji, { shortcuts: {} })
     md.renderer.rules.emoji = (token, idx) =>
       `<span data-marpit-emoji>${token[idx].content}</span>`
 
     // Math typesetting
-    const { math } = this.options
-
     if (math) {
       const opts =
         typeof math === 'object' && typeof math.katexOption === 'object'
           ? math.katexOption
           : {}
 
-      md.use(mathMD, opts, isRendered => {
-        this.renderedMath = isRendered
-      })
+      md.use(mathPlugin.markdown, opts, flag => (this.renderedMath = flag))
     }
+
+    // Fitting header
+    md.use(fittingPlugin.markdown, { inlineSVG })
   }
 
   highlighter(code: string, lang: string): string {
@@ -82,7 +88,10 @@ export class Marp extends Marpit {
 
   protected themeSetPackOptions(): ThemeSetPackOptions {
     const base = { ...super.themeSetPackOptions() }
+    const prependCSS = css => (base.before = `${css}\n${base.before || ''}`)
     const { math } = this.options
+
+    prependCSS(fittingPlugin.css)
 
     if (math && this.renderedMath) {
       // By default, we use KaTeX web fonts through CDN.
@@ -95,10 +104,20 @@ export class Marp extends Marpit {
       }
 
       // Add KaTeX css
-      base.before = `${mathCSS(path)}\n${base.before || ''}`
+      prependCSS(mathPlugin.css(path))
     }
 
     return base
+  }
+
+  static ready() {
+    if (typeof window === 'undefined') {
+      throw new Error('Marp.ready() is only valid in browser context.')
+    }
+    if (window[marpObservedSymbol]) return
+
+    browser()
+    window[marpObservedSymbol] = true
   }
 }
 

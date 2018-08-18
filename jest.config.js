@@ -6,6 +6,7 @@ module.exports = {
     '^.*\\.ts$': 'ts-jest',
     '^.*\\.s?css$': '<rootDir>/test/_transformers/css.ts',
   },
+  testEnvironment: 'node',
   testRegex: '(/(test|__tests__)/(?!_).*|(\\.|/)(test|spec))\\.[jt]s$',
   testURL: 'http://localhost',
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],

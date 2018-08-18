@@ -61,6 +61,10 @@ footer {
   bottom: 21px;
 }
 
+svg[data-marp-fitting='svg'] {
+  max-height: 563px; // Slide height - padding * 2
+}
+
 section {
   @extend .markdown-body;
 
@@ -70,8 +74,10 @@ section {
   flex-direction: column;
   flex-wrap: nowrap;
   font-size: 29px;
+  height: 720px;
   justify-content: center;
   padding: 78.5px;
+  width: 1280px;
 
   > *:last-child,
   &[data-footer] > :nth-last-child(2) {

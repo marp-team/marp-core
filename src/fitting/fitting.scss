@@ -1,0 +1,13 @@
+svg[data-marp-fitting='svg'] {
+  display: block;
+}
+
+svg[data-marp-fitting='svg'].__reflow__ {
+  // Trigger reflow for Firefox
+  content: '';
+}
+
+[data-marp-fitting-svg-content] {
+  display: table;
+  white-space: nowrap;
+}
