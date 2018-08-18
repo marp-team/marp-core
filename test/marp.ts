@@ -132,6 +132,26 @@ describe('Marp', () => {
         })
       })
     })
+
+    describe('twemojiBase option', () => {
+      const instance = (opts: EmojiOptions = {}) =>
+        new Marp({ emoji: { shortcode: 'twemoji', ...opts } })
+
+      it('uses twemoji CDN by default', () => {
+        const $ = cheerio.load(instance().render('# :ok_hand:').html)
+        const src = $('h1 > img[data-marp-twemoji]').attr('src')
+
+        expect(src).toBe('https://twemoji.maxcdn.com/2/svg/1f44c.svg')
+      })
+
+      it('uses specified base when twemojiBase option is defined', () => {
+        const marp = instance({ twemojiBase: '/assets/twemoji/' })
+        const $ = cheerio.load(marp.render('# :ok_hand:').html)
+        const src = $('h1 > img[data-marp-twemoji]').attr('src')
+
+        expect(src).toBe('/assets/twemoji/svg/1f44c.svg')
+      })
+    })
   })
 
   describe('html option', () => {
