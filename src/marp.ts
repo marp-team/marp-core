@@ -1,17 +1,19 @@
 import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
 import { version } from 'katex/package.json'
-import markdownItEmoji from 'markdown-it-emoji'
 import browser from './browser'
+import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
 import * as mathPlugin from './math/math'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
+import { css } from './math/math'
 
 const marpObservedSymbol = Symbol('marpObserved')
 
 export interface MarpOptions extends MarpitOptions {
+  emoji?: emojiPlugin.EmojiOptions
   html?: boolean
   math?:
     | boolean
@@ -28,6 +30,11 @@ export class Marp extends Marpit {
 
   constructor(opts: MarpOptions = {}) {
     super({
+      emoji: {
+        shortcode: true,
+        unicode: true,
+        ...(opts.emoji || {}),
+      },
       inlineSVG: true,
       lazyYAML: true,
       markdown: [
@@ -56,12 +63,10 @@ export class Marp extends Marpit {
   applyMarkdownItPlugins(md = this.markdown) {
     super.applyMarkdownItPlugins(md)
 
-    const { inlineSVG, math } = this.options
+    const { emoji, inlineSVG, math } = this.options
 
-    // Emoji shorthand
-    md.use(markdownItEmoji, { shortcuts: {} })
-    md.renderer.rules.emoji = (token, idx) =>
-      `<span data-marpit-emoji>${token[idx].content}</span>`
+    // Emoji support
+    md.use(emojiPlugin.markdown, emoji)
 
     // Math typesetting
     if (math) {
@@ -88,9 +93,12 @@ export class Marp extends Marpit {
 
   protected themeSetPackOptions(): ThemeSetPackOptions {
     const base = { ...super.themeSetPackOptions() }
-    const prependCSS = css => (base.before = `${css}\n${base.before || ''}`)
-    const { math } = this.options
+    const prependCSS = css => {
+      if (css) base.before = `${css}\n${base.before || ''}`
+    }
+    const { emoji, math } = this.options
 
+    prependCSS(emojiPlugin.css(emoji!))
     prependCSS(fittingPlugin.css)
 
     if (math && this.renderedMath) {

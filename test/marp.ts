@@ -36,7 +36,6 @@ describe('Marp', () => {
         marp().markdown.render('# emoji:heart:\n\n## emoji❤️')
       )
       expect($('h1').html()).toBe($('h2').html())
-      expect($('h1 > span[data-marpit-emoji]')).toHaveLength(1)
     })
   })
 
