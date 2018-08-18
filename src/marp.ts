@@ -29,12 +29,6 @@ export class Marp extends Marpit {
 
   constructor(opts: MarpOptions = {}) {
     super(<MarpOptions>{
-      emoji: {
-        shortcode: true,
-        twemojiBase: undefined,
-        unicode: false,
-        ...(opts.emoji || {}),
-      },
       inlineSVG: true,
       lazyYAML: true,
       markdown: [
@@ -49,6 +43,12 @@ export class Marp extends Marpit {
       ],
       math: true,
       ...opts,
+      emoji: {
+        shortcode: 'twemoji',
+        twemojiBase: undefined,
+        unicode: 'twemoji',
+        ...(opts.emoji || {}),
+      },
     })
 
     // Enable table
