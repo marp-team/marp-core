@@ -1,8 +1,8 @@
 import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
 import { version } from 'katex/package.json'
-import markdownItEmoji from 'markdown-it-emoji'
 import browser from './browser'
+import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
 import * as mathPlugin from './math/math'
 import defaultTheme from '../themes/default.scss'
@@ -12,7 +12,9 @@ import uncoverTheme from '../themes/uncover.scss'
 const marpObservedSymbol = Symbol('marpObserved')
 
 export interface MarpOptions extends MarpitOptions {
+  emoji?: emojiPlugin.EmojiOptions
   html?: boolean
+  markdown?: object
   math?:
     | boolean
     | {
@@ -27,22 +29,29 @@ export class Marp extends Marpit {
   private renderedMath: boolean = false
 
   constructor(opts: MarpOptions = {}) {
-    super({
+    super(<MarpOptions>{
       inlineSVG: true,
       lazyYAML: true,
+      math: true,
+      ...opts,
       markdown: [
         'commonmark',
         {
           breaks: true,
+          linkify: true,
+          ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
           highlight: (code: string, lang: string) =>
             this.highlighter(code, lang),
           html: opts.html !== undefined ? opts.html : false,
-          linkify: true,
         },
       ],
-      math: true,
-      ...opts,
-    } as MarpitOptions)
+      emoji: {
+        shortcode: 'twemoji',
+        twemojiBase: undefined,
+        unicode: 'twemoji',
+        ...(opts.emoji || {}),
+      },
+    })
 
     // Enable table
     this.markdown.enable(['table', 'linkify'])
@@ -56,12 +65,10 @@ export class Marp extends Marpit {
   applyMarkdownItPlugins(md = this.markdown) {
     super.applyMarkdownItPlugins(md)
 
-    const { inlineSVG, math } = this.options
+    const { emoji, inlineSVG, math } = this.options
 
-    // Emoji shorthand
-    md.use(markdownItEmoji, { shortcuts: {} })
-    md.renderer.rules.emoji = (token, idx) =>
-      `<span data-marpit-emoji>${token[idx].content}</span>`
+    // Emoji support
+    md.use(emojiPlugin.markdown, emoji)
 
     // Math typesetting
     if (math) {
@@ -88,9 +95,12 @@ export class Marp extends Marpit {
 
   protected themeSetPackOptions(): ThemeSetPackOptions {
     const base = { ...super.themeSetPackOptions() }
-    const prependCSS = css => (base.before = `${css}\n${base.before || ''}`)
-    const { math } = this.options
+    const prependCSS = css => {
+      if (css) base.before = `${css}\n${base.before || ''}`
+    }
+    const { emoji, math } = this.options
 
+    prependCSS(emojiPlugin.css(emoji!))
     prependCSS(fittingPlugin.css)
 
     if (math && this.renderedMath) {
