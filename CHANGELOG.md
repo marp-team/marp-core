@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.0.2 - 2018-08-19
+
 - Reduce bundle size by stopping to resolve dependencies ([#15](https://github.com/marp-team/marp-core/pull/15))
 - Upgrade dependencies to latest ([#16](https://github.com/marp-team/marp-core/pull/16))
 - Support fitting header ([#17](https://github.com/marp-team/marp-core/pull/17))
