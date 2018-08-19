@@ -31,7 +31,7 @@
     "format:check": "yarn --silent format -l",
     "format:write": "yarn --silent format --write",
     "lint:ts": "tslint \"{src,test}/**/*.ts\"",
-    "lint:css": "stylelint \"themes/**/*.{css,scss}\"",
+    "lint:css": "stylelint \"{src,themes}/**/*.{css,scss}\"",
     "prepack": "npm-run-all --npm-path yarn --parallel check-ts format:check lint:* test:coverage --parallel build types",
     "preversion": "npm-run-all --npm-path yarn --parallel check-ts format:check lint:* test:coverage",
     "test": "jest",
