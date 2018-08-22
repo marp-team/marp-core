@@ -12,36 +12,39 @@ import typescript from 'typescript'
 import { minify } from 'uglify-es'
 import pkg from './package.json'
 
+const plugins = [
+  json({ preferConst: true }),
+  nodeResolve({ jsnext: true }),
+  commonjs(),
+  typescriptPlugin({
+    resolveJsonModule: false, // JSON has already resolved by rollup-plugin-json
+    typescript,
+  }),
+  postcss({
+    inject: false,
+    plugins: [
+      postcssUrl({
+        filter: '**/assets/**/*.svg',
+        encodeType: 'base64',
+        url: 'inline',
+      }),
+      autoprefixer(),
+      cssnano({ preset: 'default' }),
+    ],
+  }),
+  !process.env.ROLLUP_WATCH && uglify({}, minify),
+]
+
 export default [
   {
     external: [...Object.keys(pkg.dependencies), 'markdown-it/lib/token'],
     input: `src/${path.basename(pkg.main, '.js')}.ts`,
-    output: {
-      file: pkg.main,
-      format: 'cjs',
-      name: 'marp-core',
-    },
-    plugins: [
-      json({ preferConst: true }),
-      nodeResolve({ jsnext: true }),
-      commonjs(),
-      typescriptPlugin({
-        resolveJsonModule: false, // JSON has already resolved by rollup-plugin-json
-        typescript,
-      }),
-      postcss({
-        inject: false,
-        plugins: [
-          postcssUrl({
-            filter: '**/assets/**/*.svg',
-            encodeType: 'base64',
-            url: 'inline',
-          }),
-          autoprefixer(),
-          cssnano({ preset: 'default' }),
-        ],
-      }),
-      !process.env.ROLLUP_WATCH && uglify({}, minify),
-    ],
+    output: { file: pkg.main, format: 'cjs' },
+    plugins,
+  },
+  {
+    input: 'browser.js',
+    output: { file: pkg.marpBrowser, format: 'iife' },
+    plugins,
   },
 ]

@@ -35,6 +35,21 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 ```
 
+#### Separated bundle
+
+We also provide a separated bundle [`lib/browser.js`](https://cdn.jsdelivr.net/npm/@marp-team/marp-core/lib/browser.js) for browser context. It is useful when you cannot use bundler for the browser, like [@marp-team/marp-cli](https://github.com/marp-team/marp-cli).
+
+Loading `lib/browser.js` will bring the almost same result as running `Marp.ready()`. Thus, you could use it through CDN as below:
+
+```html
+<html>
+<body>
+  <!-- Please insert here rendered HTML by `Marp.render().html`... -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@marp-team/marp-core/lib/browser.js"></script>
+</body>
+</html>
+```
+
 ## Features
 
 _We will only explain features extended in marp-core._ Please refer to [@marp-team/marpit](https://github.com/marp-team/marpit) repository if you want to know the basic feature of Marpit framework.
