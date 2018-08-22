@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Add a separated bundle of `Marp.ready()` for browser ([#21](https://github.com/marp-team/marp-core/pull/21))
+
 ## v0.0.2 - 2018-08-19
 
 - Reduce bundle size by stopping to resolve dependencies ([#15](https://github.com/marp-team/marp-core/pull/15))
