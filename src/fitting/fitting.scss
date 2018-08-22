@@ -1,5 +1,7 @@
 svg[data-marp-fitting='svg'] {
   display: block;
+  height: auto;
+  width: 100%;
 }
 
 svg[data-marp-fitting='svg'].__reflow__ {

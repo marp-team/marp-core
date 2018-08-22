@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Add a separated bundle of `Marp.ready()` for browser ([#21](https://github.com/marp-team/marp-core/pull/21))
+- Fix fitting header's size on printing ([#22](https://github.com/marp-team/marp-core/pull/22))
 
 ## v0.0.2 - 2018-08-19
 
