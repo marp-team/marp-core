@@ -9,14 +9,17 @@ export default function fittingObserver(): void {
       const { scrollWidth, scrollHeight } = container
 
       let minWidth = 1
+
       if (svg.hasAttribute(code)) {
-        const findPre = elm => {
-          if (!elm) return undefined
-          if (elm.localName === 'pre') return elm
-          if (elm.parentElement) return findPre(elm.parentElement)
-        }
-        const section = findPre(svg)
-        if (section) minWidth = section.clientWidth
+        const pre = svg.parentElement!.parentElement!
+        const computed = getComputedStyle(pre)
+        const mw = Math.ceil(
+          pre.clientWidth -
+            parseFloat(computed.paddingLeft!) -
+            parseFloat(computed.paddingRight!)
+        )
+
+        if (mw) minWidth = mw
       }
 
       const w = Math.max(scrollWidth, minWidth)

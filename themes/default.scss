@@ -34,6 +34,17 @@ h6 {
   font-size: 0.9em;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  svg[data-marp-fitting='svg'] {
+    max-height: 563px; // Slide height - padding * 2
+  }
+}
+
 hr {
   height: 0;
   padding-top: 0.25em;
@@ -42,6 +53,11 @@ hr {
 pre {
   border: 1px solid #999;
   line-height: 1.15;
+
+  code svg[data-marp-fitting='svg'] {
+    // Slide height - padding * 2 - code's padding * 3 - code's border * 2
+    max-height: 529px;
+  }
 }
 
 header,
@@ -59,10 +75,6 @@ header {
 
 footer {
   bottom: 21px;
-}
-
-svg[data-marp-fitting='svg'] {
-  max-height: 563px; // Slide height - padding * 2
 }
 
 section {
