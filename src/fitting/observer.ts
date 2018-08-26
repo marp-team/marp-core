@@ -1,4 +1,4 @@
-import { attr, shrink } from './fitting'
+import { attr, code } from './fitting'
 
 export default function fittingObserver(): void {
   Array.from(
@@ -9,13 +9,13 @@ export default function fittingObserver(): void {
       const { scrollWidth, scrollHeight } = container
 
       let minWidth = 1
-      if (svg.hasAttribute(shrink)) {
-        const findSection = elm => {
+      if (svg.hasAttribute(code)) {
+        const findPre = elm => {
           if (!elm) return undefined
-          if (elm.localName === 'section') return elm
-          if (elm.parentElement) return findSection(elm.parentElement)
+          if (elm.localName === 'pre') return elm
+          if (elm.parentElement) return findPre(elm.parentElement)
         }
-        const section = findSection(svg)
+        const section = findPre(svg)
         if (section) minWidth = section.clientWidth
       }
 

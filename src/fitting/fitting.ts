@@ -4,8 +4,9 @@ import { Marp } from '../marp'
 
 export const css = fittingCSS
 export const attr = 'data-marp-fitting'
-export const shrink = 'data-marp-fitting-shrink'
+export const code = 'data-marp-fitting-code'
 export const svgContentAttr = 'data-marp-fitting-svg-content'
+export const svgContentWrapAttr = 'data-marp-fitting-svg-content-wrap'
 
 function wrapTokensByFittingToken(tokens: any[]): any[] {
   const open = new Token('marp_fitting_open', 'span', 1)
@@ -27,7 +28,7 @@ function fittingCode(md, marp: Marp): void {
 
     return rendered.replace(codeMatcher, (_, start, content, end) => {
       if (marp.options.inlineSVG) {
-        return `${start}<svg ${attr}="svg" ${shrink}><foreignObject><span ${svgContentAttr}="pre">${content}</span></foreignObject></svg>${end}`
+        return `${start}<svg ${attr}="svg" ${code}><foreignObject><span ${svgContentAttr}><span ${svgContentWrapAttr}>${content}</span></span></foreignObject></svg>${end}`
       }
       return `${start}<span ${attr}="plain">${content}</span>${end}`
     })
