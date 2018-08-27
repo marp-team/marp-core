@@ -297,6 +297,12 @@ describe('Marp', () => {
   })
 
   describe('Element fitting', () => {
+    const loadCheerio = (html: string) =>
+      cheerio.load(html, {
+        lowerCaseAttributeNames: false,
+        lowerCaseTags: false,
+      })
+
     it('prepends CSS about fitting', () => {
       const { css } = marp().render('')
 
@@ -304,34 +310,107 @@ describe('Marp', () => {
       expect(css).toContain('[data-marp-fitting-svg-content]')
     })
 
-    context('when fit comment keyword contains in heading', () => {
-      const markdown = '# <!--fit--> fitting'
+    context(
+      'when fit comment keyword contains in heading (Fitting header)',
+      () => {
+        const markdown = '# <!--fit--> fitting'
 
-      it('wraps by <svg data-marp-fitting="svg">', () => {
-        const { html } = marp().render(markdown)
-        const $ = cheerio.load(html, {
-          lowerCaseAttributeNames: false,
-          lowerCaseTags: false,
+        it('wraps by <svg data-marp-fitting="svg">', () => {
+          const $ = loadCheerio(marp().render(markdown).html)
+          const svgContent = $(
+            [
+              'h1',
+              'svg[data-marp-fitting="svg"]',
+              'foreignObject',
+              'span[data-marp-fitting-svg-content]',
+            ].join('>')
+          )
+
+          expect(svgContent).toHaveLength(1)
+          expect($('h1').text()).toContain('fitting')
         })
+
+        it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
+          const $ = loadCheerio(
+            marp({ inlineSVG: false }).render(markdown).html
+          )
+
+          expect($('h1 > span[data-marp-fitting="plain"]')).toHaveLength(1)
+          expect($('h1').text()).toContain('fitting')
+        })
+      }
+    )
+
+    context('with code block (Auto scaling for code block)', () => {
+      const markdown = '\tCODE BLOCK'
+
+      it('wraps code block by <svg data-marp-fitting="svg">', () => {
+        const $ = loadCheerio(marp().render(markdown).html)
         const svgContent = $(
           [
-            'h1',
-            'svg[data-marp-fitting="svg"]',
+            'pre',
+            'code',
+            'svg[data-marp-fitting="svg"][data-marp-fitting-code]',
             'foreignObject',
             'span[data-marp-fitting-svg-content]',
+            'span[data-marp-fitting-svg-content-wrap]',
           ].join('>')
         )
 
         expect(svgContent).toHaveLength(1)
-        expect($('h1').text()).toContain('fitting')
+        expect($('pre').text()).toContain('CODE BLOCK')
       })
 
       it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
-        const { html } = marp({ inlineSVG: false }).render(markdown)
-        const $ = cheerio.load(html)
+        const $ = loadCheerio(marp({ inlineSVG: false }).render(markdown).html)
 
-        expect($('h1 > span[data-marp-fitting="plain"]')).toHaveLength(1)
-        expect($('h1').text()).toContain('fitting')
+        expect($('pre > code > span[data-marp-fitting="plain"]').length).toBe(1)
+        expect($('pre').text()).toContain('CODE BLOCK')
+      })
+
+      it('does not wrap by svg when specified theme has fittingCode meta as false', () => {
+        const instance = marp()
+        instance.themeSet.get('uncover').meta.fittingCode = 'false'
+
+        const uncover = `---\ntheme: uncover\n---\n\n${markdown}`
+        const $ = loadCheerio(instance.render(uncover).html)
+
+        expect($('section svg')).toHaveLength(0)
+      })
+    })
+
+    context('with fence (Auto scaling for fence)', () => {
+      const markdown = '```typescript\nconst a = 1\n```'
+
+      it('wraps code block by <svg data-marp-fitting="svg">', () => {
+        const $ = loadCheerio(marp().render(markdown).html)
+        const svgContent = $(
+          [
+            'pre',
+            'code.language-typescript',
+            'svg[data-marp-fitting="svg"][data-marp-fitting-code]',
+            'foreignObject',
+            'span[data-marp-fitting-svg-content]',
+            'span[data-marp-fitting-svg-content-wrap]',
+          ].join('>')
+        )
+
+        expect(svgContent).toHaveLength(1)
+        expect($('pre').text()).toContain('const a = 1')
+      })
+
+      it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
+        const $ = loadCheerio(marp({ inlineSVG: false }).render(markdown).html)
+        const plainContent = $(
+          [
+            'pre',
+            'code.language-typescript',
+            'span[data-marp-fitting="plain"]',
+          ].join('>')
+        )
+
+        expect(plainContent).toHaveLength(1)
+        expect($('pre').text()).toContain('const a = 1')
       })
     })
   })
