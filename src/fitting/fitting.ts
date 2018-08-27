@@ -8,6 +8,8 @@ export const code = 'data-marp-fitting-code'
 export const svgContentAttr = 'data-marp-fitting-svg-content'
 export const svgContentWrapAttr = 'data-marp-fitting-svg-content-wrap'
 
+export type ThemeResolver = () => string | undefined
+
 function wrapTokensByFittingToken(tokens: any[]): any[] {
   const open = new Token('marp_fitting_open', 'span', 1)
   open.attrSet(attr, 'plain')
@@ -16,16 +18,14 @@ function wrapTokensByFittingToken(tokens: any[]): any[] {
 }
 
 // Wrap code block and fence renderer by fitting elements.
-function fittingCode(md, marp: Marp): void {
+function fittingCode(md, marp: Marp, themeResolver: ThemeResolver): void {
   const { code_block, fence } = md.renderer.rules
 
   const codeMatcher = /^(<pre[^>]*?><code[^>]*?>)([\s\S]*)(<\/code><\/pre>\n*)$/
 
   const replacedRenderer = func => (...args) => {
     const rendered: string = func(...args)
-
-    const { theme } = marp.lastGlobalDirectives
-    const { fittingCode } = marp.themeSet.getThemeProp(theme, 'meta')
+    const { fittingCode } = marp.themeSet.getThemeProp(themeResolver()!, 'meta')
 
     if (fittingCode === 'false') return rendered
 
@@ -69,9 +69,9 @@ function fittingHeader(md): void {
   })
 }
 
-export function markdown(md, marp: Marp): void {
+export function markdown(md, marp: Marp, themeResolver: ThemeResolver): void {
   md.use(fittingHeader)
-  md.use(fittingCode, marp)
+  md.use(fittingCode, marp, themeResolver)
 
   if (marp.options.inlineSVG) {
     Object.assign(md.renderer.rules, {

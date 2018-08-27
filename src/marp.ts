@@ -26,9 +26,6 @@ export interface MarpOptions extends MarpitOptions {
 export class Marp extends Marpit {
   options!: MarpOptions
 
-  /** @internal */
-  lastGlobalDirectives: any
-
   private renderedMath: boolean = false
 
   constructor(opts: MarpOptions = {}) {
@@ -84,7 +81,10 @@ export class Marp extends Marpit {
     }
 
     // Fitting
-    md.use(fittingPlugin.markdown, this)
+    const themeResolver: fittingPlugin.ThemeResolver = () =>
+      (this.lastGlobalDirectives || {}).theme
+
+    md.use(fittingPlugin.markdown, this, themeResolver)
   }
 
   highlighter(code: string, lang: string): string {
