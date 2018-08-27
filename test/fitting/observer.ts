@@ -18,10 +18,10 @@ describe('Fitting observer', () => {
   context('when the fitting header is rendered', () => {
     let svg: SVGSVGElement
     let foreignObj: SVGForeignObjectElement
-    let contents: HTMLSpanElement
+    let content: HTMLSpanElement
 
     const setContentSize = (width, height) =>
-      Object.defineProperties(contents, {
+      Object.defineProperties(content, {
         scrollWidth: { configurable: true, get: () => width },
         scrollHeight: { configurable: true, get: () => height },
       })
@@ -31,7 +31,7 @@ describe('Fitting observer', () => {
 
       svg = document.querySelector('svg[data-marp-fitting="svg"]')
       foreignObj = svg.querySelector('foreignObject')
-      contents = foreignObj.querySelector('span[data-marp-fitting-svg-content]')
+      content = foreignObj.querySelector('span[data-marp-fitting-svg-content]')
 
       setContentSize(100, 200)
     })
@@ -87,6 +87,19 @@ describe('Fitting observer', () => {
       } finally {
         mock.mockRestore()
       }
+    })
+  })
+
+  // TODO: Add test case about when rendering code block
+  context('when the auto-scalable code block is rendered', () => {
+    let svg: SVGSVGElement
+    let pre: HTMLPreElement
+
+    beforeEach(() => {
+      document.body.innerHTML = new Marp().render('```\nauto-scalble\n```').html
+
+      svg = document.querySelector('svg[data-marp-fitting-code]')
+      pre = document.querySelector('section pre')
     })
   })
 })
