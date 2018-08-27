@@ -13,3 +13,7 @@ svg[data-marp-fitting='svg'].__reflow__ {
   display: table;
   white-space: nowrap;
 }
+
+[data-marp-fitting-svg-content-wrap] {
+  white-space: pre;
+}

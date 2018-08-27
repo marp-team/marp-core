@@ -65,7 +65,7 @@ export class Marp extends Marpit {
   applyMarkdownItPlugins(md = this.markdown) {
     super.applyMarkdownItPlugins(md)
 
-    const { emoji, inlineSVG, math } = this.options
+    const { emoji, math } = this.options
 
     // Emoji support
     md.use(emojiPlugin.markdown, emoji)
@@ -80,8 +80,11 @@ export class Marp extends Marpit {
       md.use(mathPlugin.markdown, opts, flag => (this.renderedMath = flag))
     }
 
-    // Fitting header
-    md.use(fittingPlugin.markdown, { inlineSVG })
+    // Fitting
+    const themeResolver: fittingPlugin.ThemeResolver = () =>
+      (this.lastGlobalDirectives || {}).theme
+
+    md.use(fittingPlugin.markdown, this, themeResolver)
   }
 
   highlighter(code: string, lang: string): string {
