@@ -78,7 +78,7 @@
     "uglify-es": "^3.3.9"
   },
   "dependencies": {
-    "@marp-team/marpit": "^0.0.12",
+    "@marp-team/marpit": "^0.0.13",
     "emoji-regex": "^7.0.0",
     "highlight.js": "^9.12.0",
     "katex": "^0.10.0-beta",
