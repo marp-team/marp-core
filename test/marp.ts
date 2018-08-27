@@ -79,11 +79,11 @@ describe('Marp', () => {
 
           // Code block
           const $block = cheerio.load(instance.render('```\n👍\n```').html)
-          expect($block('pre > code > img[data-marp-twemoji]')).toHaveLength(1)
+          expect($block('pre > code img[data-marp-twemoji]')).toHaveLength(1)
 
           // Fence
           const $fence = cheerio.load(instance.render('\t👍👍👍').html)
-          expect($fence('pre > code > img[data-marp-twemoji]')).toHaveLength(3)
+          expect($fence('pre > code img[data-marp-twemoji]')).toHaveLength(3)
         })
 
         it('does not convert unicode emoji in HTML attribute', () => {
@@ -350,7 +350,7 @@ describe('Marp', () => {
       const $ = cheerio.load(marp().markdown.render('```\n# test\n```'))
 
       it('highlights code automatically', () =>
-        expect($('code > [class^="hljs-"]').length).toBeGreaterThan(0))
+        expect($('code [class^="hljs-"]').length).toBeGreaterThan(0))
     })
 
     context('when fence is rendered with specified lang', () => {
@@ -358,7 +358,7 @@ describe('Marp', () => {
 
       it('highlights code with specified lang', () => {
         expect($('code.language-markdown')).toHaveLength(1)
-        expect($('code > .hljs-section')).toHaveLength(1)
+        expect($('code .hljs-section')).toHaveLength(1)
       })
     })
 
@@ -370,7 +370,7 @@ describe('Marp', () => {
         )
 
         it('disables highlight', () =>
-          expect($('code > [class^="hljs-"]')).toHaveLength(0))
+          expect($('code [class^="hljs-"]')).toHaveLength(0))
       })
     })
 
@@ -387,7 +387,7 @@ describe('Marp', () => {
       const $ = cheerio.load(instance.markdown.render('```markdown\ntest\n```'))
 
       it('highlights with custom highlighter', () =>
-        expect($('code > .customized')).toHaveLength(1))
+        expect($('code .customized')).toHaveLength(1))
     })
   })
 

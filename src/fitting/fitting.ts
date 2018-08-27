@@ -15,12 +15,15 @@ function wrapTokensByFittingToken(tokens: any[]): any[] {
   return [open, ...tokens, new Token('marp_fitting_close', 'span', -1)]
 }
 
+// Wrap code block and fence renderer by fitting elements.
 function fittingCode(md, marp: Marp): void {
   const { code_block, fence } = md.renderer.rules
 
   const codeMatcher = /^(<pre[^>]*?><code[^>]*?>)([\s\S]*)(<\/code><\/pre>\n*)$/
+
   const replacedRenderer = func => (...args) => {
     const rendered: string = func(...args)
+
     const { theme } = marp.lastGlobalDirectives
     const { fittingCode } = marp.themeSet.getThemeProp(theme, 'meta')
 
@@ -28,7 +31,12 @@ function fittingCode(md, marp: Marp): void {
 
     return rendered.replace(codeMatcher, (_, start, content, end) => {
       if (marp.options.inlineSVG) {
-        return `${start}<svg ${attr}="svg" ${code}><foreignObject><span ${svgContentAttr}><span ${svgContentWrapAttr}>${content}</span></span></foreignObject></svg>${end}`
+        return [
+          `${start}<svg ${attr}="svg" ${code}><foreignObject>`,
+          `<span ${svgContentAttr}><span ${svgContentWrapAttr}>`,
+          content,
+          `</span></span></foreignObject></svg>${end}`,
+        ].join('')
       }
       return `${start}<span ${attr}="plain">${content}</span>${end}`
     })
@@ -46,6 +54,7 @@ function fittingHeader(md): void {
     state.tokens.forEach(token => {
       if (!target && token.type === 'heading_open') target = token
       if (target === undefined) return
+
       if (
         token.type === 'inline' &&
         token.children.some(
