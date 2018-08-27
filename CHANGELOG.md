@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Support auto scaling of code block and fence (for `default` / `gaia` theme) ([#23](https://github.com/marp-team/marp-core/pull/23))
+- Upgrade dependencies to latest ([#24](https://github.com/marp-team/marp-core/pull/24))
 
 ## v0.0.3 - 2018-08-22
 
