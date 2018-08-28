@@ -77,8 +77,8 @@ We have [Pandoc's Markdown style](https://pandoc.org/MANUAL.html#math) math type
 <table>
 <thead>
 <tr>
-<th style="text-align:center;">Markdown</th>
-<th style="text-align:center;">Rendered slide</th>
+<th style="text-align:center;width:50%;">Markdown</th>
+<th style="text-align:center;width:50%;">Rendered slide</th>
 </tr>
 </thead>
 <tbody>
@@ -100,7 +100,7 @@ $$
 </td>
 <td>
 
-![Math typesetting support](https://user-images.githubusercontent.com/3993388/43712050-cea4dd94-99af-11e8-9ea7-e2c49e0f07c1.png)
+![Math typesetting support](https://user-images.githubusercontent.com/3993388/44745975-26177f00-ab44-11e8-9951-ebf8031ab009.png)
 
 </td>
 </tbody>
@@ -123,6 +123,10 @@ This syntax is similar to [Deckset's `[fit]` keyword](https://docs.decksetapp.co
 #### Code block
 
 In several themes, we will shrink the viewing size of the code block to fit automatically if it is bigger than slide size. It means that the code on exported PDF is not cropped and not shown an unnecessary scrollbar.
+
+|              Traditional rendering               |              Auto scaling               |
+| :----------------------------------------------: | :-------------------------------------: |
+| ![Traditional rendering](https://bit.ly/2LyEnmi) | ![Auto scaling](https://bit.ly/2N4yWQZ) |
 
 This feature is available on `default` and `gaia` theme.
 
