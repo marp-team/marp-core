@@ -106,9 +106,11 @@ $$
 </tbody>
 </table>
 
-### Fitting header
+### Auto scaling features
 
-> _This feature is available only if enabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental). You have to run [`Marp.ready()`](#marpready) on browser context._
+Auto scaling is available only if enabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental). You have to run [`Marp.ready()`](#marpready) on browser context.
+
+#### Fitting header
 
 When the headings contains `<!-- fit -->` comment, the size of headings will resize to fit onto the slide size.
 
@@ -117,6 +119,14 @@ When the headings contains `<!-- fit -->` comment, the size of headings will res
 ```
 
 This syntax is similar to [Deckset's `[fit]` keyword](https://docs.decksetapp.com/English.lproj/Formatting/01-headings.html), but we use HTML comment to hide a fit keyword on Markdown rendered as document.
+
+#### Code block
+
+In several themes, we will shrink the viewing size of the code block to fit automatically if it is bigger than slide size. It means that the code on exported PDF is not cropped and not shown an unnecessary scrollbar.
+
+This feature is available on `default` and `gaia` theme.
+
+> :warning: We won't detect whether the code block actually protrudes from the slide.
 
 ## Constructor options
 
