@@ -128,7 +128,7 @@ In several themes, we will shrink the viewing size of the code block to fit auto
 | :----------------------------------------------: | :-------------------------------------: |
 | ![Traditional rendering](https://bit.ly/2LyEnmi) | ![Auto scaling](https://bit.ly/2N4yWQZ) |
 
-This feature is available on `default` and `gaia` theme.
+This feature is available on `default` and `gaia` theme. `uncover` theme has disabled this feature because we use elastic style that has not compatible with auto scaling.
 
 > :warning: We won't detect whether the code block actually protrudes from the slide.
 
