@@ -61,7 +61,7 @@ Marp Markdown is based on [Marpit](https://github.com/marp-team/marpit) and [Com
 - **Marpit**
   - Enable [inline SVG mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and lazy YAML parsing by default.
 - **CommonMark**
-  - For security reason, HTML tag is disabled by default.
+  - For security reason, HTML tag only allows whitelisted elements by default.
   - [Support table syntax based on GitHub Flavored Markdown.](https://help.github.com/articles/organizing-information-with-tables/)
   - Line breaks in paragraph will convert to `<br>` tag.
   - Auto convert URL like text into hyperlink.
@@ -134,7 +134,7 @@ This feature is available on `default` and `gaia` theme. `uncover` theme has dis
 
 ## Constructor options
 
-You can customize a behavior of Marp parser by passing an options object to the constructor. You can also pass together with [Marpit constructor options](https://marpit.netlify.com/marpit#Marpit).
+You can customize a behavior of Marp parser by passing an options object to the constructor. You can also pass together with [Marpit constructor options](https://marpit-api.marp.app/marpit#Marpit).
 
 > :information_source: [Marpit's `markdown` option](https://github.com/marp-team/marpit/blob/6cec8177b1c296c6df4ec8c917e7c780940ad3bf/src/marpit.js#L58-L59) is accepted only object options because of always using CommonMark.
 
@@ -159,11 +159,25 @@ const marp = new Marp({
 })
 ```
 
-### `html`: _`boolean`_
+### `html`: _`boolean`_ | _`object`_
 
-Setting whether to render raw HTML in Markdown. The default value is **`false`** for security reason.
+Setting whether to render raw HTML in Markdown.
 
-Even if you are setting `false`, `<!-- HTML comment -->` is always parsed by Marpit for directives. When you are not disabled [Marpit's `inlineStyle` option](https://marpit.netlify.com/marpit#Marpit) by `false`, `<style>` tags are parsed too for tweaking theme style.
+- `true`: The all HTML will be allowed.
+- `false`: All HTML except supported in Marpit Markdown will be disallowed.
+- By passing `object`, you can set the whitelist to specify allowed tags and attributes.
+
+```javascript
+// Specify tag name as key, and attributes to allow as string array.
+{
+  a: ['href', 'target'],
+  br: [],
+}
+```
+
+Marp core allows only `<br>` tag by default, that is defined in [`Marp.html`](https://github.com/marp-team/marp-core/blob/3e854d0a50d4b1f36d01196169ab79ae171dbce1/src/marp.ts#L32-L34).
+
+Whatever any option is selected, `<!-- HTML comment -->` is always parsed by Marpit for directives. When you are not disabled [Marpit's `inlineStyle` option](https://marpit-api.marp.app/marpit#Marpit) by `false`, `<style>` tags are parsed too for tweaking theme style.
 
 > :information_source: `html` flag in `markdown` option cannot use because of overridden by this.
 
