@@ -64,8 +64,8 @@
     "rollup-plugin-json": "^3.0.0",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-postcss": "^1.6.2",
+    "rollup-plugin-terser": "^2.0.2",
     "rollup-plugin-typescript": "^0.8.1",
-    "rollup-plugin-uglify": "^5.0.2",
     "stylelint": "^9.5.0",
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0",
@@ -74,8 +74,7 @@
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
-    "typescript": "^3.0.3",
-    "uglify-es": "^3.3.9"
+    "typescript": "^3.0.3"
   },
   "dependencies": {
     "@marp-team/marpit": "^0.0.14",
