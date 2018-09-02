@@ -4,6 +4,7 @@
 
 - Support HTML whitelisting ([#26](https://github.com/marp-team/marp-core/pull/26))
 - Use [rollup-plugin-terser](https://github.com/TrySound/rollup-plugin-terser) instead of rollup-plugin-uglify ([#27](https://github.com/marp-team/marp-core/pull/27))
+- Apply color directive to heading of default theme ([#28](https://github.com/marp-team/marp-core/pull/28))
 
 ## v0.0.4 - 2018-08-29
 
