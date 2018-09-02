@@ -2,27 +2,55 @@
 
 ## [Unreleased]
 
+## v0.0.5 - 2018-09-02
+
+### Added
+
 - Support HTML whitelisting ([#26](https://github.com/marp-team/marp-core/pull/26))
-- Use [rollup-plugin-terser](https://github.com/TrySound/rollup-plugin-terser) instead of rollup-plugin-uglify ([#27](https://github.com/marp-team/marp-core/pull/27))
+
+### Fixed
+
 - Apply color directive to heading of default theme ([#28](https://github.com/marp-team/marp-core/pull/28))
+
+### Changed
+
+- Use [rollup-plugin-terser](https://github.com/TrySound/rollup-plugin-terser) instead of rollup-plugin-uglify ([#27](https://github.com/marp-team/marp-core/pull/27))
 
 ## v0.0.4 - 2018-08-29
 
+### Added
+
 - Support auto scaling of code block and fence (for `default` / `gaia` theme) ([#23](https://github.com/marp-team/marp-core/pull/23), [#25](https://github.com/marp-team/marp-core/pull/25))
+
+### Changed
+
 - Upgrade dependencies to latest ([#24](https://github.com/marp-team/marp-core/pull/24))
 
 ## v0.0.3 - 2018-08-22
 
+### Added
+
 - Add a separated bundle of `Marp.ready()` for browser ([#21](https://github.com/marp-team/marp-core/pull/21))
+
+### Fixed
+
 - Fix fitting header's size on printing ([#22](https://github.com/marp-team/marp-core/pull/22))
 
 ## v0.0.2 - 2018-08-19
 
-- Reduce bundle size by stopping to resolve dependencies ([#15](https://github.com/marp-team/marp-core/pull/15))
-- Upgrade dependencies to latest ([#16](https://github.com/marp-team/marp-core/pull/16))
+### Added
+
 - Support fitting header ([#17](https://github.com/marp-team/marp-core/pull/17))
 - Add `uncover` theme ([#18](https://github.com/marp-team/marp-core/pull/18))
 - Add emoji support with twemoji ([#19](https://github.com/marp-team/marp-core/pull/19))
+
+### Fixed
+
+- Reduce bundle size by stopping to resolve dependencies ([#15](https://github.com/marp-team/marp-core/pull/15))
+
+### Changed
+
+- Upgrade dependencies to latest ([#16](https://github.com/marp-team/marp-core/pull/16))
 
 ## v0.0.1 - 2018-08-10
 
