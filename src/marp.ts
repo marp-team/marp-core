@@ -1,7 +1,6 @@
 import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
 import { version } from 'katex/package.json'
-import sanitizeHtml from 'sanitize-html'
 import browser from './browser'
 import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
@@ -15,7 +14,7 @@ const marpObservedSymbol = Symbol('marpObserved')
 
 export interface MarpOptions extends MarpitOptions {
   emoji?: emojiPlugin.EmojiOptions
-  html?: boolean | sanitizeHtml.IOptions
+  html?: boolean | { [tag: string]: boolean | string[] }
   markdown?: object
   math?:
     | boolean
@@ -30,7 +29,7 @@ export class Marp extends Marpit {
 
   private renderedMath: boolean = false
 
-  static defaultHtmlOption: MarpOptions['html'] = false
+  static defaultHtmlOption: MarpOptions['html'] = {}
 
   constructor(opts: MarpOptions = {}) {
     super(<MarpOptions>{

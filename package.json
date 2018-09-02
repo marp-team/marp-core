@@ -79,7 +79,6 @@
   },
   "dependencies": {
     "@marp-team/marpit": "^0.0.14",
-    "@types/sanitize-html": "^1.18.0",
     "emoji-regex": "^7.0.1",
     "highlight.js": "^9.12.0",
     "katex": "^0.10.0-rc.1",
