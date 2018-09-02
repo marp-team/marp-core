@@ -144,19 +144,45 @@ describe('Marp', () => {
   })
 
   describe('html option', () => {
-    it('sanitizes HTML tag by default', () => {
-      const { html } = marp().render('<b>abc</b>')
-      const $ = cheerio.load(html)
+    context('with default option', () => {
+      it('sanitizes HTML tag by default', () => {
+        const { html } = marp().render('<b>abc</b>')
+        expect(cheerio.load(html)('b')).toHaveLength(0)
+      })
 
-      expect($('b')).toHaveLength(0)
+      it('allows <br> tag', () => {
+        const { html } = marp().render('allow<br>break')
+        expect(cheerio.load(html)('br')).toHaveLength(1)
+      })
     })
 
     context('with true', () => {
-      it('renders HTML tag', () => {
+      it('allows HTML tag', () => {
         const { html } = marp({ html: true }).render('<b>abc</b>')
+        expect(cheerio.load(html)('b')).toHaveLength(1)
+      })
+    })
+
+    context('with false', () => {
+      it('sanitizes <br> tag', () => {
+        const { html } = marp({ html: false }).render('sanitize<br>break')
+        expect(cheerio.load(html)('br')).toHaveLength(0)
+      })
+    })
+
+    context('with whitelist', () => {
+      const whitelist = { p: ['class'] }
+
+      it('allows whitelisted tags and attributes', () => {
+        const markdown =
+          '<p>\ntest\n</p>\n\n<p class="class" title="title">test</p>'
+
+        const { html } = marp({ html: whitelist }).render(markdown)
         const $ = cheerio.load(html)
 
-        expect($('b')).toHaveLength(1)
+        expect($('p')).toHaveLength(2)
+        expect($('p.class')).toHaveLength(1)
+        expect($('p[title]')).toHaveLength(0)
       })
     })
   })
