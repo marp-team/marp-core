@@ -14,7 +14,7 @@ const marpObservedSymbol = Symbol('marpObserved')
 
 export interface MarpOptions extends MarpitOptions {
   emoji?: emojiPlugin.EmojiOptions
-  html?: boolean | { [tag: string]: boolean | string[] }
+  html?: boolean | { [tag: string]: string[] }
   markdown?: object
   math?:
     | boolean
@@ -29,14 +29,16 @@ export class Marp extends Marpit {
 
   private renderedMath: boolean = false
 
-  static defaultHtmlOption: MarpOptions['html'] = {}
+  static html: MarpOptions['html'] = {
+    br: [],
+  }
 
   constructor(opts: MarpOptions = {}) {
     super(<MarpOptions>{
       inlineSVG: true,
       lazyYAML: true,
       math: true,
-      html: Marp.defaultHtmlOption,
+      html: Marp.html,
       ...opts,
       markdown: [
         'commonmark',
@@ -46,9 +48,7 @@ export class Marp extends Marpit {
           ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
           highlight: (code: string, lang: string) =>
             this.highlighter(code, lang),
-          html: !!(opts.html !== undefined
-            ? opts.html
-            : Marp.defaultHtmlOption),
+          html: !!(opts.html !== undefined ? opts.html : Marp.html),
         },
       ],
       emoji: {
