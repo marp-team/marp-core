@@ -86,8 +86,8 @@
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-katex": "^2.0.3",
     "postcss": "^7.0.2",
-    "sanitize-html": "^1.18.4",
-    "twemoji": "^11.0.1"
+    "twemoji": "^11.0.1",
+    "xss": "^1.0.3"
   },
   "publishConfig": {
     "access": "public"
