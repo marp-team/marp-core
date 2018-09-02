@@ -1,9 +1,11 @@
 import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
 import { version } from 'katex/package.json'
+import sanitizeHtml from 'sanitize-html'
 import browser from './browser'
 import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
+import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
@@ -13,7 +15,7 @@ const marpObservedSymbol = Symbol('marpObserved')
 
 export interface MarpOptions extends MarpitOptions {
   emoji?: emojiPlugin.EmojiOptions
-  html?: boolean
+  html?: boolean | sanitizeHtml.IOptions
   markdown?: object
   math?:
     | boolean
@@ -28,11 +30,14 @@ export class Marp extends Marpit {
 
   private renderedMath: boolean = false
 
+  static defaultHtmlOption: MarpOptions['html'] = false
+
   constructor(opts: MarpOptions = {}) {
     super(<MarpOptions>{
       inlineSVG: true,
       lazyYAML: true,
       math: true,
+      html: Marp.defaultHtmlOption,
       ...opts,
       markdown: [
         'commonmark',
@@ -42,7 +47,9 @@ export class Marp extends Marpit {
           ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
           highlight: (code: string, lang: string) =>
             this.highlighter(code, lang),
-          html: opts.html !== undefined ? opts.html : false,
+          html: !!(opts.html !== undefined
+            ? opts.html
+            : Marp.defaultHtmlOption),
         },
       ],
       emoji: {
@@ -65,7 +72,10 @@ export class Marp extends Marpit {
   applyMarkdownItPlugins(md = this.markdown) {
     super.applyMarkdownItPlugins(md)
 
-    const { emoji, math } = this.options
+    const { emoji, html, math } = this.options
+
+    // HTML sanitizer
+    md.use(htmlPlugin.markdown, html)
 
     // Emoji support
     md.use(emojiPlugin.markdown, emoji)
