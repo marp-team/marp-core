@@ -154,6 +154,15 @@ describe('Marp', () => {
         const { html } = marp().render('allow<br>break')
         expect(cheerio.load(html)('br')).toHaveLength(1)
       })
+
+      // https://github.com/yhatt/marp/issues/243
+      it('does not sanitize header and footer', () => {
+        const markdown = '<!--\nheader: "**header**"\nfooter: "*footer*"\n-->'
+        const $ = cheerio.load(marp().render(markdown).html)
+
+        expect($('header > strong')).toHaveLength(1)
+        expect($('footer > em')).toHaveLength(1)
+      })
     })
 
     context('with true', () => {
