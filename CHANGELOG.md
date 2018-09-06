@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.0.6 - 2018-09-06
+
 ### Fixed
 
 - Fix over-sanitized header and footer by updating [@marp-team/marpit v0.0.15](https://github.com/marp-team/marpit/pull/66) ([#29](https://github.com/marp-team/marp-core/pull/29))
