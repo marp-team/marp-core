@@ -59,6 +59,10 @@ $color-secondary: #81d4fa;
   }
 }
 
+svg[data-marp-fitting='svg'] {
+  max-height: 580px; // Slide height - padding * 2
+}
+
 h1,
 h2,
 h3,
@@ -66,10 +70,6 @@ h4,
 h5,
 h6 {
   margin: 0.5em 0 0 0;
-
-  svg[data-marp-fitting='svg'] {
-    max-height: 580px; // Slide height - padding * 2
-  }
 }
 
 h1 {
@@ -254,7 +254,7 @@ section {
         text-align: left;
       }
 
-      svg[data-marp-fitting='svg'] {
+      svg[data-marp-fitting='svg']:not([data-marp-fitting-math]) {
         --preserve-aspect-ratio: xMinYMin meet;
       }
     }

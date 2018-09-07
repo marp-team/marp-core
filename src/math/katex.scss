@@ -3,3 +3,12 @@
 .katex-display {
   margin: 0;
 }
+
+// Centering with auto scaling
+svg[data-marp-fitting-math] {
+  --preserve-aspect-ratio: xMidYMid meet;
+
+  [data-marp-fitting-svg-content] {
+    margin: 0 auto;
+  }
+}

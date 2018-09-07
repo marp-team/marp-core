@@ -5,6 +5,7 @@ import { Marp } from '../marp'
 export const css = fittingCSS
 export const attr = 'data-marp-fitting'
 export const code = 'data-marp-fitting-code'
+export const math = 'data-marp-fitting-math'
 export const svgContentAttr = 'data-marp-fitting-svg-content'
 export const svgContentWrapAttr = 'data-marp-fitting-svg-content-wrap'
 
@@ -69,9 +70,34 @@ function fittingHeader(md): void {
   })
 }
 
+function fittingMathBlock(md, marp: Marp): void {
+  const { math_block } = md.renderer.rules
+  if (!math_block) return
+
+  const replacedRenderer = func => (...args) => {
+    const rendered: string = func(...args)
+
+    // Rendered math block is wrapped by `<p>` tag in math plugin
+    const katex = rendered.slice(3, -4)
+
+    if (marp.options.inlineSVG) {
+      return [
+        `<p><svg ${attr}="svg" ${math}><foreignObject>`,
+        `<span ${svgContentAttr}><span ${svgContentWrapAttr}>`,
+        katex,
+        `</span></span></foreignObject></svg></p>`,
+      ].join('')
+    }
+    return `<p><span ${attr}="plain">${katex}</span></p>`
+  }
+
+  md.renderer.rules.math_block = replacedRenderer(math_block)
+}
+
 export function markdown(md, marp: Marp, themeResolver: ThemeResolver): void {
   md.use(fittingHeader)
   md.use(fittingCode, marp, themeResolver)
+  md.use(fittingMathBlock, marp)
 
   if (marp.options.inlineSVG) {
     Object.assign(md.renderer.rules, {
