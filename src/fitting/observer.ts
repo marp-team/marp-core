@@ -1,4 +1,4 @@
-import { attr, code } from './fitting'
+import { attr, code, math } from './fitting'
 
 export default function fittingObserver(): void {
   Array.from(
@@ -9,12 +9,15 @@ export default function fittingObserver(): void {
       const { scrollWidth, scrollHeight } = container
 
       let minWidth = 1
+      let shrinkBase: HTMLElement | undefined
 
-      if (svg.hasAttribute(code)) {
-        const pre = svg.parentElement!.parentElement!
-        const computed = getComputedStyle(pre)
+      if (svg.hasAttribute(code)) shrinkBase = svg.parentElement!.parentElement! // <pre>
+      if (svg.hasAttribute(math)) shrinkBase = svg.parentElement! // <p>
+
+      if (shrinkBase) {
+        const computed = getComputedStyle(shrinkBase)
         const mw = Math.ceil(
-          pre.clientWidth -
+          shrinkBase.clientWidth -
             parseFloat(computed.paddingLeft!) -
             parseFloat(computed.paddingRight!)
         )

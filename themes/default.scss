@@ -7,6 +7,10 @@
 @import '~github-markdown-css';
 @import '~highlight.js/styles/github-gist';
 
+svg[data-marp-fitting='svg'] {
+  max-height: 563px; // Slide height - padding * 2
+}
+
 h1 {
   border-bottom: none;
   color: #246;
@@ -32,17 +36,6 @@ h5 {
 
 h6 {
   font-size: 0.9em;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  svg[data-marp-fitting='svg'] {
-    max-height: 563px; // Slide height - padding * 2
-  }
 }
 
 hr {

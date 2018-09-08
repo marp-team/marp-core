@@ -120,17 +120,27 @@ When the headings contains `<!-- fit -->` comment, the size of headings will res
 
 This syntax is similar to [Deckset's `[fit]` keyword](https://docs.decksetapp.com/English.lproj/Formatting/01-headings.html), but we use HTML comment to hide a fit keyword on Markdown rendered as document.
 
-#### Code block
+#### Math block
 
-In several themes, we will shrink the viewing size of the code block to fit automatically if it is bigger than slide size. It means that the code on exported PDF is not cropped and not shown an unnecessary scrollbar.
+We can scale-down the viewing size of math block (surrounded by `$$`) to fit a slide automatically.
+
+|              Traditional rendering               |              Auto scaling               |
+| :----------------------------------------------: | :-------------------------------------: |
+| ![Traditional rendering](https://bit.ly/2NXoHuW) | ![Auto scaling](https://bit.ly/2M6LyCk) |
+
+#### Code block (Only for `default` and `gaia` theme)
+
+Several themes also can scale-down the viewing size of the code block to fit a slide.
 
 |              Traditional rendering               |              Auto scaling               |
 | :----------------------------------------------: | :-------------------------------------: |
 | ![Traditional rendering](https://bit.ly/2LyEnmi) | ![Auto scaling](https://bit.ly/2N4yWQZ) |
 
-This feature is available on `default` and `gaia` theme. `uncover` theme has disabled this feature because we use elastic style that has not compatible with auto scaling.
+These features means that the contents on a slide are not cropped, and not shown unnecessary scrollbars in code.
 
-> :warning: We won't detect whether the code block actually protrudes from the slide.
+> :information_source: `uncover` theme has disabled scaling for code block because we use elastic style that has not compatible with it.
+
+> :warning: We won't detect whether the math and code block actually protrudes from the slide. It might not work scaling correctly when there are many elements in a slide.
 
 ## Constructor options
 

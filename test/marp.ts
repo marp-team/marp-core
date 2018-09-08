@@ -448,6 +448,32 @@ describe('Marp', () => {
         expect($('pre').text()).toContain('const a = 1')
       })
     })
+
+    context('with math block', () => {
+      const markdown = '$$ y=ax^2 $$'
+
+      it('wraps code block by <svg data-marp-fitting="svg">', () => {
+        const $ = loadCheerio(marp().render(markdown).html)
+        const svgContent = `${$(
+          [
+            'p',
+            'svg[data-marp-fitting="svg"][data-marp-fitting-math]',
+            'foreignObject',
+            'span[data-marp-fitting-svg-content]',
+            'span[data-marp-fitting-svg-content-wrap]',
+          ].join('>')
+        )} .katex`
+
+        expect(svgContent.length).toBeTruthy()
+      })
+
+      it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
+        const $ = loadCheerio(marp({ inlineSVG: false }).render(markdown).html)
+        const plainContent = $('p > span[data-marp-fitting="plain"] .katex')
+
+        expect(plainContent.length).toBeTruthy()
+      })
+    })
   })
 
   describe('themeSet property', () => {

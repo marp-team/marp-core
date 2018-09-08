@@ -3,6 +3,8 @@ import context from '../_helpers/context'
 import Marp from '../../src/marp'
 import fittingObserver from '../../src/fitting/observer'
 
+afterEach(() => jest.restoreAllMocks())
+
 describe('Fitting observer', () => {
   const setContentSize = (content: HTMLElement, width, height) =>
     Object.defineProperties(content, {
@@ -13,12 +15,8 @@ describe('Fitting observer', () => {
   it('calls window.requestAnimationFrame with myself', () => {
     const spy = jest.spyOn(window, 'requestAnimationFrame')
 
-    try {
-      fittingObserver()
-      expect(spy).toHaveBeenCalledWith(fittingObserver)
-    } finally {
-      spy.mockRestore()
-    }
+    fittingObserver()
+    expect(spy).toHaveBeenCalledWith(fittingObserver)
   })
 
   context('when the fitting header is rendered', () => {
@@ -77,36 +75,42 @@ describe('Fitting observer', () => {
       expect(svg.getAttribute('preserveAspectRatio')).toBe('xMinYMin meet')
 
       // CSS variables
-      const mock = jest.spyOn(CSSStyleDeclaration.prototype, 'getPropertyValue')
+      const mock = jest
+        .spyOn(CSSStyleDeclaration.prototype, 'getPropertyValue')
+        .mockImplementation(p => p === '--preserve-aspect-ratio' && 'ok')
 
-      try {
-        mock.mockImplementation(p => p === '--preserve-aspect-ratio' && 'ok')
-
-        fittingObserver()
-        expect(svg.getAttribute('preserveAspectRatio')).toBe('ok')
-      } finally {
-        mock.mockRestore()
-      }
+      fittingObserver()
+      expect(svg.getAttribute('preserveAspectRatio')).toBe('ok')
     })
   })
 
-  context('when the auto-scalable code block is rendered', () => {
-    let svg: SVGSVGElement
-    let pre: HTMLPreElement
-    let content: HTMLSpanElement
+  context('when the auto-scalable elements is rendered', () => {
+    let codeSvg: SVGSVGElement
+    let codePre: HTMLPreElement
+    let codeContent: HTMLSpanElement
+    let mathSvg: SVGSVGElement
+    let mathP: HTMLParagraphElement
+    let mathContent: HTMLSpanElement
 
     beforeEach(() => {
-      document.body.innerHTML = new Marp().render('```\nauto-scalble\n```').html
+      document.body.innerHTML = new Marp().render(
+        '```\nauto-scalble\n```\n\n$$ auto-scalable $$'
+      ).html
 
-      svg = document.querySelector('svg[data-marp-fitting-code]')
-      pre = document.querySelector('section pre')
-      content = svg.querySelector('span[data-marp-fitting-svg-content]')
+      codeSvg = document.querySelector('svg[data-marp-fitting-code]')
+      codePre = document.querySelector('section pre')
+      codeContent = codeSvg.querySelector('span[data-marp-fitting-svg-content]')
 
-      setContentSize(content, 200, 100)
+      mathSvg = document.querySelector('svg[data-marp-fitting-math]')
+      mathP = mathSvg.parentElement as HTMLParagraphElement
+      mathContent = mathSvg.querySelector('span[data-marp-fitting-svg-content]')
+
+      setContentSize(codeContent, 200, 100)
+      setContentSize(mathContent, 50, 100)
     })
 
-    const setPreWidth = clientWidth =>
-      Object.defineProperty(pre, 'clientWidth', {
+    const setClientWidth = (target, clientWidth) =>
+      Object.defineProperty(target, 'clientWidth', {
         configurable: true,
         get: () => clientWidth,
       })
@@ -114,36 +118,36 @@ describe('Fitting observer', () => {
     it("restricts min width to <pre> element's width without padding", () => {
       const computed = jest.spyOn(window, 'getComputedStyle')
 
-      try {
-        computed.mockImplementation(() => ({
-          paddingLeft: 0,
-          paddingRight: 0,
-          getPropertyValue: () => undefined,
-        }))
+      computed.mockImplementation(() => ({
+        paddingLeft: 0,
+        paddingRight: 0,
+        getPropertyValue: () => undefined,
+      }))
 
-        // pre width > svg width
-        setPreWidth(300)
-        fittingObserver()
-        expect(svg.getAttribute('viewBox')).toBe('0 0 300 100')
+      setClientWidth(codePre, 300) // pre width > code svg width
+      setClientWidth(mathP, 400) // p width > math svg width
+      fittingObserver()
+      expect(codeSvg.getAttribute('viewBox')).toBe('0 0 300 100')
+      expect(mathSvg.getAttribute('viewBox')).toBe('0 0 400 100')
 
-        // svg width > pre width
-        setPreWidth(100)
-        fittingObserver()
-        expect(svg.getAttribute('viewBox')).toBe('0 0 200 100')
+      setClientWidth(codePre, 100) // pre width < code svg width
+      setClientWidth(mathP, 25) // o width < math svg width
+      fittingObserver()
+      expect(codeSvg.getAttribute('viewBox')).toBe('0 0 200 100')
+      expect(mathSvg.getAttribute('viewBox')).toBe('0 0 50 100')
 
-        // Consider padding
-        computed.mockImplementation(() => ({
-          paddingLeft: '50px',
-          paddingRight: '70px',
-          getPropertyValue: () => undefined,
-        }))
+      // Consider padding
+      computed.mockImplementation(() => ({
+        paddingLeft: '50px',
+        paddingRight: '70px',
+        getPropertyValue: () => undefined,
+      }))
 
-        setPreWidth(300) // 300 - 50 - 70 = 180px
-        fittingObserver()
-        expect(svg.getAttribute('viewBox')).toBe('0 0 200 100')
-      } finally {
-        computed.mockRestore()
-      }
+      setClientWidth(codePre, 300) // 300 - 50 - 70 = 180px
+      setClientWidth(mathP, 180) // 180 - 50 - 70 = 60px
+      fittingObserver()
+      expect(codeSvg.getAttribute('viewBox')).toBe('0 0 200 100')
+      expect(mathSvg.getAttribute('viewBox')).toBe('0 0 60 100')
     })
   })
 })
