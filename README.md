@@ -59,7 +59,7 @@ _We will only explain features extended in marp-core._ Please refer to [@marp-te
 Marp Markdown is based on [Marpit](https://github.com/marp-team/marpit) and [CommonMark](https://commonmark.org/), and there are these additional features:
 
 - **Marpit**
-  - Enable [inline SVG mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and lazy YAML parsing by default.
+  - Enable [inline SVG mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and loose YAML parsing by default.
 - **CommonMark**
   - For security reason, HTML tag only allows whitelisted elements by default.
   - [Support table syntax based on GitHub Flavored Markdown.](https://help.github.com/articles/organizing-information-with-tables/)
@@ -146,7 +146,7 @@ These features means that the contents on a slide are not cropped, and not shown
 
 You can customize a behavior of Marp parser by passing an options object to the constructor. You can also pass together with [Marpit constructor options](https://marpit-api.marp.app/marpit#Marpit).
 
-> :information_source: [Marpit's `markdown` option](https://github.com/marp-team/marpit/blob/6cec8177b1c296c6df4ec8c917e7c780940ad3bf/src/marpit.js#L58-L59) is accepted only object options because of always using CommonMark.
+> :information_source: [Marpit's `markdown` option](https://marpit-api.marp.app/marpit#Marpit) is accepted only object options because of always using CommonMark.
 
 ```javascript
 const marp = new Marp({
@@ -162,7 +162,7 @@ const marp = new Marp({
   },
 
   // It can be included Marpit constructor options
-  lazyYAML: false,
+  looseYAML: false,
   markdown: {
     breaks: false,
   },

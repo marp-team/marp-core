@@ -36,7 +36,7 @@ export class Marp extends Marpit {
   constructor(opts: MarpOptions = {}) {
     super(<MarpOptions>{
       inlineSVG: true,
-      lazyYAML: true,
+      looseYAML: true,
       math: true,
       html: Marp.html,
       ...opts,
