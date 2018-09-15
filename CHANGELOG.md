@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.0.7 - 2018-09-15
+
 ### Added
 
 - Support auto scaling for math block ([#30](https://github.com/marp-team/marp-core/pull/30))
