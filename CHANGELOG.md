@@ -6,6 +6,10 @@
 
 - Support auto scaling for math block ([#30](https://github.com/marp-team/marp-core/pull/30))
 
+### Changed
+
+- Upgrade Node LTS and depenent packages ([#31](https://github.com/marp-team/marp-core/pull/31))
+
 ## v0.0.6 - 2018-09-06
 
 ### Fixed
