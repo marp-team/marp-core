@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.0.8 - 2018-09-18
+
 ### Changed
 
 - Upgrade dependent packages to latest, includes [marp-team/marpit v0.1.1](https://github.com/marp-team/marpit/releases/tag/v0.1.1) ([#32](https://github.com/marp-team/marp-core/pull/32))
