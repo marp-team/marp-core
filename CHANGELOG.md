@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade dependent packages to latest, includes [marp-team/marpit v0.1.1](https://github.com/marp-team/marpit/releases/tag/v0.1.1) ([#32](https://github.com/marp-team/marp-core/pull/32))
+
 ## v0.0.7 - 2018-09-15
 
 ### Added
@@ -10,13 +14,13 @@
 
 ### Changed
 
-- Upgrade Node LTS and depenent packages ([#31](https://github.com/marp-team/marp-core/pull/31))
+- Upgrade Node LTS and dependent packages ([#31](https://github.com/marp-team/marp-core/pull/31))
 
 ## v0.0.6 - 2018-09-06
 
 ### Fixed
 
-- Fix over-sanitized header and footer by updating [@marp-team/marpit v0.0.15](https://github.com/marp-team/marpit/pull/66) ([#29](https://github.com/marp-team/marp-core/pull/29))
+- Fix over-sanitized header and footer by updating [marp-team/marpit v0.0.15](https://github.com/marp-team/marpit/pull/66) ([#29](https://github.com/marp-team/marp-core/pull/29))
 
 ## v0.0.5 - 2018-09-02
 
