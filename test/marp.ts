@@ -405,7 +405,8 @@ describe('Marp', () => {
 
       it('does not wrap by svg when specified theme has fittingCode meta as false', () => {
         const instance = marp()
-        instance.themeSet.get('uncover').meta.fittingCode = 'false'
+        const theme = instance.themeSet.get('uncover')!
+        theme.meta.fittingCode = 'false'
 
         const uncover = `---\ntheme: uncover\n---\n\n${markdown}`
         const $ = loadCheerio(instance.render(uncover).html)

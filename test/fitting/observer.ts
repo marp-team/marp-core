@@ -27,9 +27,13 @@ describe('Fitting observer', () => {
     beforeEach(() => {
       document.body.innerHTML = new Marp().render('# <!-- fit --> fitting').html
 
-      svg = document.querySelector('svg[data-marp-fitting="svg"]')
-      foreignObj = svg.querySelector('foreignObject')
-      content = foreignObj.querySelector('span[data-marp-fitting-svg-content]')
+      svg = document.querySelector<SVGSVGElement>(
+        'svg[data-marp-fitting="svg"]'
+      )!
+      foreignObj = svg.querySelector('foreignObject')!
+      content = foreignObj.querySelector<HTMLSpanElement>(
+        'span[data-marp-fitting-svg-content]'
+      )!
 
       setContentSize(content, 100, 200)
     })
@@ -97,13 +101,20 @@ describe('Fitting observer', () => {
         '```\nauto-scalble\n```\n\n$$ auto-scalable $$'
       ).html
 
-      codeSvg = document.querySelector('svg[data-marp-fitting-code]')
-      codePre = document.querySelector('section pre')
-      codeContent = codeSvg.querySelector('span[data-marp-fitting-svg-content]')
-
-      mathSvg = document.querySelector('svg[data-marp-fitting-math]')
-      mathP = mathSvg.parentElement as HTMLParagraphElement
-      mathContent = mathSvg.querySelector('span[data-marp-fitting-svg-content]')
+      codeSvg = document.querySelector<SVGSVGElement>(
+        'svg[data-marp-fitting-code]'
+      )!
+      codePre = document.querySelector<HTMLPreElement>('section pre')!
+      codeContent = codeSvg.querySelector<HTMLSpanElement>(
+        'span[data-marp-fitting-svg-content]'
+      )!
+      mathSvg = document.querySelector<SVGSVGElement>(
+        'svg[data-marp-fitting-math]'
+      )!
+      mathP = <HTMLParagraphElement>mathSvg.parentElement
+      mathContent = <HTMLSpanElement>(
+        mathSvg.querySelector('span[data-marp-fitting-svg-content]')!
+      )
 
       setContentSize(codeContent, 200, 100)
       setContentSize(mathContent, 50, 100)
