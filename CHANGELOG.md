@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade [marp-team/marpit v0.1.2](https://github.com/marp-team/marpit/releases/tag/v0.1.2) ([#33](https://github.com/marp-team/marp-core/pull/33))
+- Upgrade dependent packages to latest, includes pinned [ts-jest v23.10.0](https://github.com/kulshekhar/ts-jest/releases/tag/v23.10.0) ([#33](https://github.com/marp-team/marp-core/pull/33))
+
 ## v0.0.8 - 2018-09-18
 
 ### Changed
