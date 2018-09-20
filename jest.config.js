@@ -1,9 +1,11 @@
+const { jestPreset } = require('ts-jest')
+
 module.exports = {
   collectCoverageFrom: ['src/**/*.{j,t}s'],
   coveragePathIgnorePatterns: ['/node_modules/', '.*\\.d\\.ts'],
   coverageThreshold: { global: { lines: 95 } },
   transform: {
-    '^.*\\.ts$': 'ts-jest',
+    ...jestPreset.transform,
     '^.*\\.s?css$': '<rootDir>/test/_transformers/css.ts',
   },
   testEnvironment: 'node',
