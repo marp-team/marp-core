@@ -24,6 +24,9 @@
     "lib/",
     "types/"
   ],
+  "engines": {
+    "node": ">=6.14.2"
+  },
   "scripts": {
     "build": "yarn --silent clean && rollup -c",
     "check-ts": "tsc --noEmit",
