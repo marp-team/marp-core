@@ -205,7 +205,7 @@ describe('Marp', () => {
         root => {
           root.walkAtRules('font-face', rule => {
             rule.walkDecls('src', decl => {
-              urls.forEach(url => expect(decl.value).toContain(url))
+              for (const url of urls) expect(decl.value).toContain(url)
             })
           })
         },
@@ -504,7 +504,7 @@ describe('Marp', () => {
     })
 
     // Plain text rendering
-    ;['text', 'plain', 'noHighlight', 'no-highlight'].forEach(lang => {
+    for (const lang of ['text', 'plain', 'noHighlight', 'no-highlight']) {
       context(`when fence is rendered with ${lang} lang`, () => {
         const $ = cheerio.load(
           marp().markdown.render(`\`\`\`${lang}\n# test\n\`\`\``)
@@ -513,7 +513,7 @@ describe('Marp', () => {
         it('disables highlight', () =>
           expect($('code [class^="hljs-"]')).toHaveLength(0))
       })
-    })
+    }
 
     context('with overriden #highlighter', () => {
       const instance = marp()

@@ -40,7 +40,7 @@ export function markdown(md, opts: {}, update: (to: boolean) => void): void {
   // Parse math syntax by using markdown-it-katex
   md.use(markdownItKatex)
 
-  Object.keys(rules).forEach(rule => {
+  for (const rule of Object.keys(rules)) {
     const kind = rules[rule]
     const original = md[kind].ruler.__rules__[md[kind].ruler.__find__(rule)].fn
 
@@ -50,7 +50,7 @@ export function markdown(md, opts: {}, update: (to: boolean) => void): void {
 
       return ret
     })
-  })
+  }
 
   // Swap renderer to use the latest KaTeX
   md.renderer.rules.math_inline = (tokens, idx) => {
