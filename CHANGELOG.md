@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.0.10 - 2018-10-05
+
 ### Added
 
 - Add CI test against Node v6 Boron Maintenance LTS ([#35](https://github.com/marp-team/marp-core/pull/35))
