@@ -9,6 +9,7 @@
 ### Changed
 
 - Update code style to use `for-of` loop instead of iterate functions if possible ([#34](https://github.com/marp-team/marp-core/pull/34))
+- Upgrade dependent packages to latest, includes [marp-team/marpit v0.1.3](https://github.com/marp-team/marpit/releases/tag/v0.1.3) ([#36](https://github.com/marp-team/marp-core/pull/36))
 
 ## v0.0.9 - 2018-09-20
 
