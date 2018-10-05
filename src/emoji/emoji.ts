@@ -38,31 +38,38 @@ export function markdown(md, opts: EmojiOptions): void {
 
   if (opts.unicode) {
     md.core.ruler.after('inline', 'marp_unicode_emoji', ({ tokens }) => {
-      tokens.forEach(token => {
-        if (token.type !== 'inline') return
+      for (const token of tokens) {
+        if (token.type === 'inline') {
+          const newChildren: any[] = []
 
-        token.children = token.children.reduce((arr, t) => {
-          if (t.type !== 'text') return [...arr, t]
+          for (const t of token.children) {
+            if (t.type === 'text') {
+              const splittedByEmoji = t.content.split(regexForSplit)
 
-          return [
-            ...arr,
-            ...t.content.split(regexForSplit).reduce(
-              (splitedArr, text, idx) =>
-                text.length === 0
-                  ? splitedArr
-                  : [
-                      ...splitedArr,
-                      Object.assign(new Token(), {
-                        ...t,
-                        content: text,
-                        type: idx % 2 ? 'unicode_emoji' : 'text',
-                      }),
-                    ],
-              []
-            ),
-          ]
-        }, [])
-      })
+              newChildren.push(
+                ...splittedByEmoji.reduce(
+                  (splitedArr, text, idx) =>
+                    text.length === 0
+                      ? splitedArr
+                      : [
+                          ...splitedArr,
+                          Object.assign(new Token(), {
+                            ...t,
+                            content: text,
+                            type: idx % 2 ? 'unicode_emoji' : 'text',
+                          }),
+                        ],
+                  []
+                )
+              )
+            } else {
+              newChildren.push(t)
+            }
+          }
+
+          token.children = newChildren
+        }
+      }
     })
 
     md.renderer.rules.unicode_emoji = (token: any[], idx: number): string =>

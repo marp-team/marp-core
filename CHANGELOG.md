@@ -6,6 +6,10 @@
 
 - Add CI test against Node v6 Boron Maintenance LTS ([#35](https://github.com/marp-team/marp-core/pull/35))
 
+### Changed
+
+- Update code style to use `for-of` loop instead of iterate functions if possible ([#34](https://github.com/marp-team/marp-core/pull/34))
+
 ## v0.0.9 - 2018-09-20
 
 ### Changed

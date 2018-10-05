@@ -52,7 +52,7 @@ function fittingHeader(md): void {
   md.core.ruler.after('inline', 'marp_fitting_header', state => {
     let target = undefined
 
-    state.tokens.forEach(token => {
+    for (const token of state.tokens) {
       if (!target && token.type === 'heading_open') target = token
       if (target === undefined) return
 
@@ -66,7 +66,7 @@ function fittingHeader(md): void {
       } else if (token.type === 'heading_close') {
         target = undefined
       }
-    })
+    }
   })
 }
 
