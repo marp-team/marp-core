@@ -348,31 +348,33 @@ describe('Marp', () => {
     context(
       'when fit comment keyword contains in heading (Fitting header)',
       () => {
-        const markdown = '# <!--fit--> fitting'
+        const baseMd = '# <!--fit--> fitting'
 
-        it('wraps by <svg data-marp-fitting="svg">', () => {
-          const $ = loadCheerio(marp().render(markdown).html)
-          const svgContent = $(
-            [
-              'h1',
-              'svg[data-marp-fitting="svg"]',
-              'foreignObject',
-              'span[data-marp-fitting-svg-content]',
-            ].join('>')
-          )
+        for (const markdown of [baseMd, `text\n\n${baseMd}`]) {
+          it('wraps by <svg data-marp-fitting="svg">', () => {
+            const $ = loadCheerio(marp().render(markdown).html)
+            const svgContent = $(
+              [
+                'h1',
+                'svg[data-marp-fitting="svg"]',
+                'foreignObject',
+                'span[data-marp-fitting-svg-content]',
+              ].join('>')
+            )
 
-          expect(svgContent).toHaveLength(1)
-          expect($('h1').text()).toContain('fitting')
-        })
+            expect(svgContent).toHaveLength(1)
+            expect($('h1').text()).toContain('fitting')
+          })
 
-        it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
-          const $ = loadCheerio(
-            marp({ inlineSVG: false }).render(markdown).html
-          )
+          it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
+            const $ = loadCheerio(
+              marp({ inlineSVG: false }).render(markdown).html
+            )
 
-          expect($('h1 > span[data-marp-fitting="plain"]')).toHaveLength(1)
-          expect($('h1').text()).toContain('fitting')
-        })
+            expect($('h1 > span[data-marp-fitting="plain"]')).toHaveLength(1)
+            expect($('h1').text()).toContain('fitting')
+          })
+        }
       }
     )
 
