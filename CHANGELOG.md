@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.0.11 - 2018-10-09
+
 ### Fixed
 
 - Fix fitting header regression with broken comment traversing ([#37](https://github.com/marp-team/marp-core/pull/37))
