@@ -54,17 +54,18 @@ function fittingHeader(md): void {
 
     for (const token of state.tokens) {
       if (!target && token.type === 'heading_open') target = token
-      if (target === undefined) return
 
-      if (
-        token.type === 'inline' &&
-        token.children.some(
-          t => t.type === 'marpit_comment' && t.content === 'fit'
-        )
-      ) {
-        token.children = wrapTokensByFittingToken(token.children)
-      } else if (token.type === 'heading_close') {
-        target = undefined
+      if (target) {
+        if (
+          token.type === 'inline' &&
+          token.children.some(
+            t => t.type === 'marpit_comment' && t.content === 'fit'
+          )
+        ) {
+          token.children = wrapTokensByFittingToken(token.children)
+        } else if (token.type === 'heading_close') {
+          target = undefined
+        }
       }
     }
   })
