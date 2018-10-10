@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Update license author to marp-team ([#38](https://github.com/marp-team/marp-core/pull/38))
+
 ## v0.0.11 - 2018-10-09
 
 ### Fixed
