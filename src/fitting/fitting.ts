@@ -56,13 +56,20 @@ function fittingHeader(md): void {
       if (!target && token.type === 'heading_open') target = token
 
       if (target) {
-        if (
-          token.type === 'inline' &&
-          token.children.some(
-            t => t.type === 'marpit_comment' && t.content === 'fit'
-          )
-        ) {
-          token.children = wrapTokensByFittingToken(token.children)
+        if (token.type === 'inline') {
+          let requireWrapping = false
+
+          for (const t of token.children) {
+            if (t.type === 'marpit_comment' && t.content === 'fit') {
+              requireWrapping = true
+              t.meta = t.meta || {}
+              t.meta.marpitCommentParsed = 'marp-fitting-header'
+            }
+          }
+
+          if (requireWrapping) {
+            token.children = wrapTokensByFittingToken(token.children)
+          }
         } else if (token.type === 'heading_close') {
           target = undefined
         }

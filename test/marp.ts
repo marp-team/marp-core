@@ -350,9 +350,14 @@ describe('Marp', () => {
       () => {
         const baseMd = '# <!--fit--> fitting'
 
-        for (const markdown of [baseMd, `text\n\n${baseMd}`]) {
+        for (const markdown of [
+          baseMd,
+          `text\n\n${baseMd}`, // Fitting header with content
+          `${baseMd}\n\n## <!--fit--> fitting2`, // Multiple headers
+        ]) {
           it('wraps by <svg data-marp-fitting="svg">', () => {
-            const $ = loadCheerio(marp().render(markdown).html)
+            const { html, comments } = marp().render(markdown)
+            const $ = loadCheerio(html)
             const svgContent = $(
               [
                 'h1',
@@ -364,6 +369,7 @@ describe('Marp', () => {
 
             expect(svgContent).toHaveLength(1)
             expect($('h1').text()).toContain('fitting')
+            expect(comments[0]).toHaveLength(0)
           })
 
           it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
