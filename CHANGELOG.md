@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.0.12 - 2018-10-13
+
 ### Added
 
 - Support collecting HTML comments for presenter notes, from [Marpit v0.2.0](https://github.com/marp-team/marpit/releases/v0.2.0) ([#39](https://github.com/marp-team/marp-core/pull/39))
