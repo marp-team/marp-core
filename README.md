@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 #### Separated bundle
 
-We also provide a separated bundle [`lib/browser.js`](https://cdn.jsdelivr.net/npm/@marp-team/marp-core/lib/browser.js) for browser context. It is useful when you cannot use bundler for the browser, like [@marp-team/marp-cli](https://github.com/marp-team/marp-cli).
+We also provide a separated bundle [`lib/browser.js`](https://cdn.jsdelivr.net/npm/@marp-team/marp-core/lib/browser.js) for browser context. It is useful when you cannot use bundler.
 
 Loading `lib/browser.js` will bring the almost same result as running `Marp.ready()`. Thus, you could use it through CDN as below:
 
@@ -49,6 +49,8 @@ Loading `lib/browser.js` will bring the almost same result as running `Marp.read
 </body>
 </html>
 ```
+
+CommonJS bundle is also provided in `lib/browser.cjs.js`. It have to call manually as same as `Marp.ready()`.
 
 ## Features
 
