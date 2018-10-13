@@ -89,6 +89,9 @@
     "twemoji": "^11.0.1",
     "xss": "^1.0.3"
   },
+  "resolutions": {
+    "katex": "^0.10.0-rc.1"
+  },
   "publishConfig": {
     "access": "public"
   }
