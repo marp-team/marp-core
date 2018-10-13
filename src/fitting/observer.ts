@@ -7,7 +7,7 @@ const updateAttr = (elm: Element, attr: string, value: string): true | void => {
   }
 }
 
-export default function fittingObserver(): void {
+export default function fittingObserver(observe = true): void {
   Array.from(
     document.querySelectorAll<HTMLElement>(`svg[${attr}="svg"]`),
     svg => {
@@ -51,5 +51,5 @@ export default function fittingObserver(): void {
       }
     }
   )
-  window.requestAnimationFrame(fittingObserver)
+  if (observe) window.requestAnimationFrame(() => fittingObserver(observe))
 }
