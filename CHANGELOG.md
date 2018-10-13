@@ -16,6 +16,7 @@
 ### Changed
 
 - Update license author to marp-team ([#38](https://github.com/marp-team/marp-core/pull/38))
+- Upgrade dependent packages to latest version ([#42](https://github.com/marp-team/marp-core/pull/42))
 
 ## v0.0.11 - 2018-10-09
 

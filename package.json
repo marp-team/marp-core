@@ -75,12 +75,12 @@
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
-    "typescript": "^3.1.2"
+    "typescript": "^3.1.3"
   },
   "dependencies": {
     "@marp-team/marpit": "^0.2.0",
     "emoji-regex": "^7.0.1",
-    "highlight.js": "^9.12.0",
+    "highlight.js": "^9.13.0",
     "katex": "^0.10.0-rc.1",
     "markdown-it": "^8.4.2",
     "markdown-it-emoji": "^1.4.0",
