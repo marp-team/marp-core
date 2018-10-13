@@ -4,6 +4,7 @@
 
 ### Added
 
+- Support collecting HTML comments for presenter notes, from [Marpit v0.2.0](https://github.com/marp-team/marpit/releases/v0.2.0) ([#39](https://github.com/marp-team/marp-core/pull/39))
 - Provide CJS version bundle for browser ([#41](https://github.com/marp-team/marp-core/pull/41))
 - Add `observe` argument into functions for browser to allow controlling observation frames ([#41](https://github.com/marp-team/marp-core/pull/41))
 
@@ -15,7 +16,6 @@
 ### Changed
 
 - Update license author to marp-team ([#38](https://github.com/marp-team/marp-core/pull/38))
-- Support collecting HTML comments for presenter notes, from [Marpit v0.2.0](https://github.com/marp-team/marpit/releases/v0.2.0) ([#39](https://github.com/marp-team/marp-core/pull/39))
 
 ## v0.0.11 - 2018-10-09
 
