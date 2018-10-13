@@ -42,4 +42,9 @@ export default [
     output: { file: pkg.marpBrowser, format: 'iife' },
     plugins,
   },
+  {
+    input: 'src/browser.ts',
+    output: { file: 'lib/browser.cjs.js', format: 'cjs' },
+    plugins,
+  },
 ]
