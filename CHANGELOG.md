@@ -2,9 +2,15 @@
 
 ## [Unreleased]
 
+### Added
+
+- Provide CJS version bundle for browser ([#41](https://github.com/marp-team/marp-core/pull/41))
+- Add `observe` argument into functions for browser to allow controlling observation frames ([#41](https://github.com/marp-team/marp-core/pull/41))
+
 ### Fixed
 
 - Add yarn resolutions to flatten katex to prevent double-bundling ([#40](https://github.com/marp-team/marp-core/pull/40))
+- Prevent reflow by calling `setAttribute` in browser context only if value is updated ([#41](https://github.com/marp-team/marp-core/pull/41))
 
 ### Changed
 
