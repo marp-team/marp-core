@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Add yarn resolutions to flatten katex to prevent double-bundling ([#40](https://github.com/marp-team/marp-core/pull/40))
+
 ### Changed
 
 - Update license author to marp-team ([#38](https://github.com/marp-team/marp-core/pull/38))
