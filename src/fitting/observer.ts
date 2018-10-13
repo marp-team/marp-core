@@ -1,5 +1,12 @@
 import { attr, code, math } from './fitting'
 
+const updateAttr = (elm: Element, attr: string, value: string): true | void => {
+  if (elm.getAttribute(attr) !== value) {
+    elm.setAttribute(attr, value)
+    return true
+  }
+}
+
 export default function fittingObserver(): void {
   Array.from(
     document.querySelectorAll<HTMLElement>(`svg[${attr}="svg"]`),
@@ -29,18 +36,18 @@ export default function fittingObserver(): void {
       const h = Math.max(scrollHeight, 1)
       const viewBox = `0 0 ${w} ${h}`
 
-      foreignObject.setAttribute('width', `${w}`)
-      foreignObject.setAttribute('height', `${h}`)
-
-      svg.setAttribute(
+      updateAttr(foreignObject, 'width', `${w}`)
+      updateAttr(foreignObject, 'height', `${h}`)
+      updateAttr(
+        svg,
         'preserveAspectRatio',
         getComputedStyle(svg).getPropertyValue('--preserve-aspect-ratio') ||
           'xMinYMin meet'
       )
 
-      if (svg.getAttribute('viewBox') !== viewBox) {
-        svg.setAttribute('viewBox', viewBox)
-        svg.classList.toggle('__reflow__') // for incremental update
+      // for incremental update
+      if (updateAttr(svg, 'viewBox', viewBox)) {
+        svg.classList.toggle('__reflow__')
       }
     }
   )
