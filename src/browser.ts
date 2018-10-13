@@ -1,5 +1,5 @@
 import fittingObserver from './fitting/observer'
 
-export default function browser(): void {
-  fittingObserver()
+export default function browser(observe = true): void {
+  fittingObserver(observe)
 }
