@@ -1,12 +1,16 @@
 svg[data-marp-fitting='svg'] {
   display: block;
   height: auto;
+  position: static;
   width: 100%;
 }
 
 svg[data-marp-fitting='svg'].__reflow__ {
   // Trigger reflow for Firefox
   content: '';
+
+  // Trigger reflow for Edge
+  position: relative;
 }
 
 [data-marp-fitting-svg-content] {
