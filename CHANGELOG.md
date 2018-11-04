@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Force reflow on updated fitting elements in Edge ([#43](https://github.com/marp-team/marp-core/pull/43))
+
 ## v0.0.12 - 2018-10-13
 
 ### Added
