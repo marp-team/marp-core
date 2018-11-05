@@ -223,9 +223,9 @@ describe('Marp', () => {
       expect(css).toContain('.katex')
 
       return checkWebFont(
-        "url('https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/fonts/KaTeX_Mock.woff2')",
-        "url('https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/fonts/KaTeX_Mock.woff')",
-        "url('https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/fonts/KaTeX_Mock.ttf')"
+        "url('https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Mock.woff2')",
+        "url('https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Mock.woff')",
+        "url('https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Mock.ttf')"
       ).process(css, { from: undefined })
     })
 

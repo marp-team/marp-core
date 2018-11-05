@@ -2,13 +2,18 @@
 
 ## [Unreleased]
 
-### Changed
+### Breaking
 
-- Support Node 10.x and use its LTS for development ([#44](https://github.com/marp-team/marp-core/pull/44))
+- No longer work with Node v6.14.2 and v6.14.3 ([#45](https://github.com/marp-team/marp-core/pull/45))
 
 ### Fixed
 
 - Force reflow on updated fitting elements in Edge ([#43](https://github.com/marp-team/marp-core/pull/43))
+
+### Changed
+
+- Support Node 10.x and use its LTS for development ([#44](https://github.com/marp-team/marp-core/pull/44))
+- Upgrade dependent packages to latest version ([#45](https://github.com/marp-team/marp-core/pull/45))
 
 ## v0.0.12 - 2018-10-13
 

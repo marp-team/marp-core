@@ -25,7 +25,7 @@
     "types/"
   ],
   "engines": {
-    "node": ">=6.14.2"
+    "node": ">=6.14.4"
   },
   "scripts": {
     "build": "yarn --silent clean && rollup -c",
@@ -46,51 +46,51 @@
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.9",
-    "@types/jest": "^23.3.5",
-    "autoprefixer": "^9.1.5",
+    "@types/jest": "^23.3.9",
+    "autoprefixer": "^9.3.1",
     "cheerio": "^1.0.0-rc.2",
     "codecov": "^3.1.0",
-    "cssnano": "^4.1.4",
+    "cssnano": "^4.1.7",
     "github-markdown-css": "^2.10.0",
     "jest": "^23.6.0",
     "jest-junit": "^5.2.0",
-    "node-sass": "^4.9.3",
+    "node-sass": "^4.10.0",
     "npm-run-all": "^4.1.3",
     "postcss-url": "^8.0.0",
     "prettier": "^1.14.3",
     "rimraf": "^2.6.2",
-    "rollup": "^0.66.6",
+    "rollup": "^0.67.0",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-postcss": "^1.6.2",
     "rollup-plugin-terser": "^3.0.0",
     "rollup-plugin-typescript": "^1.0.0",
-    "stylelint": "^9.6.0",
+    "stylelint": "^9.7.1",
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0",
-    "stylelint-scss": "^3.3.1",
+    "stylelint-scss": "^3.3.2",
     "ts-jest": "23.10.4",
     "tslib": "^1.9.3",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
-    "typescript": "^3.1.3"
+    "typescript": "^3.1.6"
   },
   "dependencies": {
     "@marp-team/marpit": "^0.2.1",
     "emoji-regex": "^7.0.1",
-    "highlight.js": "^9.13.0",
-    "katex": "^0.10.0-rc.1",
+    "highlight.js": "^9.13.1",
+    "katex": "^0.10.0",
     "markdown-it": "^8.4.2",
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-katex": "^2.0.3",
     "postcss": "^7.0.5",
-    "twemoji": "^11.0.1",
+    "twemoji": "^11.2.0",
     "xss": "^1.0.3"
   },
   "resolutions": {
-    "katex": "^0.10.0-rc.1"
+    "katex": "^0.10.0"
   },
   "publishConfig": {
     "access": "public"
