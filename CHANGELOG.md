@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Support Node 10.x and use its LTS for development ([#44](https://github.com/marp-team/marp-core/pull/44))
+
 ### Fixed
 
 - Force reflow on updated fitting elements in Edge ([#43](https://github.com/marp-team/marp-core/pull/43))
