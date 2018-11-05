@@ -138,10 +138,10 @@
     reflect-metadata "^0.1.12"
     tslib "^1.8.1"
 
-"@marp-team/marpit@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-0.2.0.tgz#ab63bd924b88a904e410647143d1519a691257e1"
-  integrity sha512-8OpVBsBY5cQTTjPWH1a3Loz+qH8QgWFmdbO8eAaQYt8R4rcSEdpoGhU9N2BonofKjwZMJkGORhnq8lOUqMongg==
+"@marp-team/marpit@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-0.2.1.tgz#146f2f25c24441e4f9aa6e233eba127cc0799a85"
+  integrity sha512-V5EbtChqeNW1TdMVyyreID2lD7TTJup/WpNpkvBZpfYBzvo8z6oBnxdXFIWgWxhfHCGs51E4hkym8Ia6ZUACTg==
   dependencies:
     js-yaml "^3.12.0"
     lodash.kebabcase "^4.1.1"
