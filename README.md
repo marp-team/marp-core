@@ -9,8 +9,6 @@
 
 In order to use on Marp tools, we have extended from the slide deck framework **[Marpit](https://github.com/marp-team/marpit)**. You can use the practical Markdown syntax, advanced features, and official themes.
 
-### :warning: _marp-core is under construction and not ready to use._
-
 ## Basic usage
 
 We provide `Marp` class, that is inherited from [Marpit](https://github.com/marp-team/marpit).
