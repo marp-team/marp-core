@@ -6,6 +6,10 @@
 
 - No longer work with Node v6.14.2 and v6.14.3 ([#45](https://github.com/marp-team/marp-core/pull/45))
 
+### Added
+
+- Ready to allow contributing by adding [guideline for marp-core](./.github/CONTRIBUTING.md) ([#46](https://github.com/marp-team/marp-core/pull/46))
+
 ### Fixed
 
 - Force reflow on updated fitting elements in Edge ([#43](https://github.com/marp-team/marp-core/pull/43))

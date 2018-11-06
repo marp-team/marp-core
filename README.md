@@ -9,8 +9,6 @@
 
 In order to use on Marp tools, we have extended from the slide deck framework **[Marpit](https://github.com/marp-team/marpit)**. You can use the practical Markdown syntax, advanced features, and official themes.
 
-### :warning: _marp-core is under construction and not ready to use._
-
 ## Basic usage
 
 We provide `Marp` class, that is inherited from [Marpit](https://github.com/marp-team/marpit).
@@ -67,6 +65,17 @@ Marp Markdown is based on [Marpit](https://github.com/marp-team/marpit) and [Com
   - [Support table syntax based on GitHub Flavored Markdown.](https://help.github.com/articles/organizing-information-with-tables/)
   - Line breaks in paragraph will convert to `<br>` tag.
   - Auto convert URL like text into hyperlink.
+
+### [Built-in official themes][themes]
+
+We provide bulit-in official themes for Marp. See more details in [themes].
+
+|                Default                |                 Gaia                  |                Uncover                |
+| :-----------------------------------: | :-----------------------------------: | :-----------------------------------: |
+| [![](https://bit.ly/2Op7Bp6)][themes] | [![](https://bit.ly/2QhDq4S)][themes] | [![](https://bit.ly/2DqZvvh)][themes] |
+|       `<!-- theme: default -->`       |        `<!-- theme: gaia -->`         |       `<!-- theme: uncover -->`       |
+
+[themes]: ./themes/
 
 ### Emoji support
 
@@ -228,7 +237,9 @@ You can modify KaTeX further settings by passing an object of sub-options.
 
   - By default, marp-core will use [online web-font resources through jsDelivr CDN](https://cdn.jsdelivr.net/npm/katex@latest/dist/fonts/). You have to set path to fonts directory if you want to use local resources. If you set `false`, we will not manipulate the path (Use KaTeX's original path: `fonts/KaTeX_***-***.woff2`).
 
-<!-- ## [Work in progress] Themes -->
+## Contributing
+
+Are you interested in contributing? Please see [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
 ## Author
 
@@ -238,4 +249,4 @@ Managed by [@marp-team](https://github.com/marp-team).
 
 ## License
 
-[MIT License](LICENSE)
+This package releases under the [MIT License](LICENSE).
