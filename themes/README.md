@@ -1,6 +1,6 @@
-# Marp core built-in themes
+# Marp-core built-in themes
 
-We provide some nice official themes for Marp. You can choose a favorite theme by using [Marpit `theme` directive](https://marpit.marp.app/directives?id=theme) in your Markdown.
+We provide some nice official themes in marp-core. You can choose a favorite theme by using [Marpit `theme` directive](https://marpit.marp.app/directives?id=theme) in your Markdown.
 
 Screenshots were taken from the rendered result of [an example][example].
 

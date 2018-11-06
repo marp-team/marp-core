@@ -68,16 +68,16 @@ Marp Markdown is based on [Marpit](https://github.com/marp-team/marpit) and [Com
   - Line breaks in paragraph will convert to `<br>` tag.
   - Auto convert URL like text into hyperlink.
 
-### [Built-in themes][theme]
+### [Built-in official themes][themes]
 
-We provide bulit-in official themes for Marp. See more details in [themes/index.md][theme].
+We provide bulit-in official themes for Marp. See more details in [themes].
 
-|                                                      Default                                                      |                                                       Gaia                                                        |                                                      Uncover                                                      |
-| :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: |
-| [![](https://user-images.githubusercontent.com/3993388/48039490-53be1b80-e1b8-11e8-8179-0e6c11d285e2.png)][theme] | [![](https://user-images.githubusercontent.com/3993388/48039493-5456b200-e1b8-11e8-9c49-dd5d66d76c0d.png)][theme] | [![](https://user-images.githubusercontent.com/3993388/48039495-5456b200-e1b8-11e8-8c82-ca7f7842b34d.png)][theme] |
-|                                             `<!-- theme: default -->`                                             |                                              `<!-- theme: gaia -->`                                               |                                             `<!-- theme: uncover -->`                                             |
+|                Default                |                 Gaia                  |                Uncover                |
+| :-----------------------------------: | :-----------------------------------: | :-----------------------------------: |
+| [![](https://bit.ly/2Op7Bp6)][themes] | [![](https://bit.ly/2QhDq4S)][themes] | [![](https://bit.ly/2DqZvvh)][themes] |
+|       `<!-- theme: default -->`       |        `<!-- theme: gaia -->`         |       `<!-- theme: uncover -->`       |
 
-[theme]: ./themes/index.md
+[themes]: ./themes/
 
 ### Emoji support
 
