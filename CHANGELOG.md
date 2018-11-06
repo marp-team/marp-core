@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.1.0 - 2018-11-06
+
 ### Breaking
 
 - No longer work with Node v6.14.2 and v6.14.3 ([#45](https://github.com/marp-team/marp-core/pull/45))
@@ -18,6 +20,10 @@
 
 - Support Node 10.x and use its LTS for development ([#44](https://github.com/marp-team/marp-core/pull/44))
 - Upgrade dependent packages to latest version ([#45](https://github.com/marp-team/marp-core/pull/45))
+
+---
+
+<details><summary>History of pre-release versions</summary>
 
 ## v0.0.12 - 2018-10-13
 
@@ -136,3 +142,5 @@
 ## v0.0.1 - 2018-08-10
 
 - Initial release.
+
+</details>
