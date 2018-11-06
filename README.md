@@ -68,6 +68,17 @@ Marp Markdown is based on [Marpit](https://github.com/marp-team/marpit) and [Com
   - Line breaks in paragraph will convert to `<br>` tag.
   - Auto convert URL like text into hyperlink.
 
+### [Built-in themes][theme]
+
+We provide bulit-in official themes for Marp. See more details in [themes/index.md][theme].
+
+|                                                      Default                                                      |                                                       Gaia                                                        |                                                      Uncover                                                      |
+| :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: |
+| [![](https://user-images.githubusercontent.com/3993388/48039490-53be1b80-e1b8-11e8-8179-0e6c11d285e2.png)][theme] | [![](https://user-images.githubusercontent.com/3993388/48039493-5456b200-e1b8-11e8-9c49-dd5d66d76c0d.png)][theme] | [![](https://user-images.githubusercontent.com/3993388/48039495-5456b200-e1b8-11e8-8c82-ca7f7842b34d.png)][theme] |
+|                                             `<!-- theme: default -->`                                             |                                              `<!-- theme: gaia -->`                                               |                                             `<!-- theme: uncover -->`                                             |
+
+[theme]: ./themes/index.md
+
 ### Emoji support
 
 Emoji shortcode (like `:smile:`) and Unicode emoji 😄 will convert into the SVG vector image provided by [twemoji](https://github.com/twitter/twemoji) <img src="https://twemoji.maxcdn.com/2/svg/1f604.svg" alt="😄" width="16" height="16" />. It could render emoji with high resolution.
@@ -228,7 +239,9 @@ You can modify KaTeX further settings by passing an object of sub-options.
 
   - By default, marp-core will use [online web-font resources through jsDelivr CDN](https://cdn.jsdelivr.net/npm/katex@latest/dist/fonts/). You have to set path to fonts directory if you want to use local resources. If you set `false`, we will not manipulate the path (Use KaTeX's original path: `fonts/KaTeX_***-***.woff2`).
 
-<!-- ## [Work in progress] Themes -->
+## Contributing
+
+Are you interested in contributing? Please see [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
 ## Author
 
