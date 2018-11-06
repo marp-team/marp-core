@@ -251,4 +251,4 @@ Managed by [@marp-team](https://github.com/marp-team).
 
 ## License
 
-[MIT License](LICENSE)
+This package releases under the [MIT License](LICENSE).

@@ -8,7 +8,7 @@
 
 ### Added
 
-- Ready to allow contributing by preparing [contributing guideline for marp-core](./.github/CONTRIBUTING.md) ([#46](https://github.com/marp-team/marp-core/pull/46))
+- Ready to allow contributing by adding [guideline for marp-core](./.github/CONTRIBUTING.md) ([#46](https://github.com/marp-team/marp-core/pull/46))
 
 ### Fixed
 
