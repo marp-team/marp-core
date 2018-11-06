@@ -4,7 +4,7 @@ We provide some nice official themes in marp-core. You can choose a favorite the
 
 Screenshots were taken from the rendered result of [an example][example].
 
-[example]: _example.md
+[example]: example.md
 
 ### `invert` class
 
