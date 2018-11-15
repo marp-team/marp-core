@@ -84,13 +84,9 @@
     "katex": "^0.10.0",
     "markdown-it": "^8.4.2",
     "markdown-it-emoji": "^1.4.0",
-    "markdown-it-katex": "^2.0.3",
     "postcss": "^7.0.5",
     "twemoji": "^11.2.0",
     "xss": "^1.0.3"
-  },
-  "resolutions": {
-    "katex": "^0.10.0"
   },
   "publishConfig": {
     "access": "public"

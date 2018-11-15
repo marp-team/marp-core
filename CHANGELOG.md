@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Removed
+
+- Remove unmaintained [markdown-it-katex](https://github.com/waylonflinn/markdown-it-katex) by porting math syntax parser ([#47](https://github.com/marp-team/marp-core/issues/47), [#48](https://github.com/marp-team/marp-core/pull/48))
+
 ## v0.1.0 - 2018-11-06
 
 ### Breaking
