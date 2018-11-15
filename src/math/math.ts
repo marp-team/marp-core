@@ -1,3 +1,12 @@
+/**
+ * marp-core math plugin
+ *
+ * It is implemented based on markdown-it-katex plugin. It is no longer
+ * maintained by author, so we have ported math typesetting parser.
+ *
+ * @see https://github.com/waylonflinn/markdown-it-katex
+ */
+
 import katex from 'katex'
 import postcss from 'postcss'
 import katexScss from './katex.scss'
@@ -120,7 +129,11 @@ function parseMathBlock(state, start, end, silent) {
   return true
 }
 
-export function markdown(md, opts: {}, update: (to: boolean) => void): void {
+export function markdown(
+  md,
+  opts: {},
+  update: (rendered: boolean) => void = () => {}
+): void {
   const genOpts = (displayMode: boolean) => ({
     throwOnError: false,
     ...opts,
