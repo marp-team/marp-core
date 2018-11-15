@@ -1,18 +1,80 @@
-/**
- * marp-core math plugin
- *
- * It is implemented based on markdown-it-katex plugin. It is no longer
- * maintained by author, so we have ported math typesetting parser.
- *
- * @see https://github.com/waylonflinn/markdown-it-katex
- */
-
 import katex from 'katex'
 import postcss from 'postcss'
 import katexScss from './katex.scss'
 
 const convertedCSS = {}
 const katexMatcher = /url\(['"]?fonts\/(.*?)['"]?\)/g
+
+/**
+ * marp-core math plugin
+ *
+ * It is implemented based on markdown-it-katex plugin. However, that is no
+ * longer maintained by author. So we have ported math typesetting parser.
+ *
+ * @see https://github.com/waylonflinn/markdown-it-katex
+ */
+export function markdown(
+  md,
+  opts: {},
+  update: (rendered: boolean) => void = () => {}
+): void {
+  const genOpts = (displayMode: boolean) => ({
+    throwOnError: false,
+    ...opts,
+    displayMode,
+  })
+
+  md.core.ruler.before('block', 'marp_math_initialize', state => {
+    if (!state.inlineMode) update(false)
+  })
+
+  // Inline
+  md.inline.ruler.after('escape', 'marp_math_inline', (state, silent) => {
+    if (parseInlineMath(state, silent)) {
+      update(true)
+      return true
+    }
+    return false
+  })
+
+  md.renderer.rules.math_inline = (tokens, idx) => {
+    const { content } = tokens[idx]
+
+    try {
+      return katex.renderToString(content, genOpts(false))
+    } catch (e) {
+      console.warn(e)
+      return content
+    }
+  }
+
+  // Block
+  md.block.ruler.after(
+    'blockquote',
+    'marp_math_block',
+    (state, start, end, silent) => {
+      if (parseMathBlock(state, start, end, silent)) {
+        update(true)
+        return true
+      }
+      return false
+    },
+    {
+      alt: ['paragraph', 'reference', 'blockquote', 'list'],
+    }
+  )
+
+  md.renderer.rules.math_block = (tokens, idx) => {
+    const { content } = tokens[idx]
+
+    try {
+      return `<p>${katex.renderToString(content, genOpts(true))}</p>`
+    } catch (e) {
+      console.warn(e)
+      return `<p>${content}</p>`
+    }
+  }
+}
 
 export function css(path?: string): string {
   if (!path) return katexScss
@@ -127,67 +189,4 @@ function parseMathBlock(state, start, end, silent) {
   if (lastLine && lastLine.trim()) token.content += lastLine
 
   return true
-}
-
-export function markdown(
-  md,
-  opts: {},
-  update: (rendered: boolean) => void = () => {}
-): void {
-  const genOpts = (displayMode: boolean) => ({
-    throwOnError: false,
-    ...opts,
-    displayMode,
-  })
-
-  md.core.ruler.before('block', 'marp_math_initialize', state => {
-    if (!state.inlineMode) update(false)
-  })
-
-  // Inline
-  md.inline.ruler.after('escape', 'marp_math_inline', (state, silent) => {
-    if (parseInlineMath(state, silent)) {
-      update(true)
-      return true
-    }
-    return false
-  })
-
-  md.renderer.rules.math_inline = (tokens, idx) => {
-    const { content } = tokens[idx]
-
-    try {
-      return katex.renderToString(content, genOpts(false))
-    } catch (e) {
-      console.warn(e)
-      return content
-    }
-  }
-
-  // Block
-  md.block.ruler.after(
-    'blockquote',
-    'marp_math_block',
-    (state, start, end, silent) => {
-      if (parseMathBlock(state, start, end, silent)) {
-        update(true)
-        return true
-      }
-      return false
-    },
-    {
-      alt: ['paragraph', 'reference', 'blockquote', 'list'],
-    }
-  )
-
-  md.renderer.rules.math_block = (tokens, idx) => {
-    const { content } = tokens[idx]
-
-    try {
-      return `<p>${katex.renderToString(content, genOpts(true))}</p>`
-    } catch (e) {
-      console.warn(e)
-      return `<p>${content}</p>`
-    }
-  }
 }
