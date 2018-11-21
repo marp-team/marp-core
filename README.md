@@ -41,10 +41,14 @@ Loading `lib/browser.js` will bring the almost same result as running `Marp.read
 
 ```html
 <html>
-<body>
-  <!-- Please insert here rendered HTML by `Marp.render().html`... -->
-  <script defer src="https://cdn.jsdelivr.net/npm/@marp-team/marp-core/lib/browser.js"></script>
-</body>
+  <body>
+    <!-- Please insert here rendered HTML by `Marp.render().html`... -->
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/@marp-team/marp-core/lib/browser.js"
+    ></script>
+  </body>
 </html>
 ```
 
