@@ -2,9 +2,17 @@
 
 ## [Unreleased]
 
-### Removed
+### Added
 
-- Remove unmaintained [markdown-it-katex](https://github.com/waylonflinn/markdown-it-katex) by porting math syntax parser ([#47](https://github.com/marp-team/marp-core/issues/47), [#48](https://github.com/marp-team/marp-core/pull/48))
+- Support the scoped inline style through `<style scoped>` from [Marpit v0.3.0](https://github.com/marp-team/marpit/releases/v0.3.0) ([#49](https://github.com/marp-team/marp-core/pull/49))
+
+### Fixed
+
+- Fix double-bundling KaTeX by porting math parse logic from unmaintained [markdown-it-katex](https://github.com/waylonflinn/markdown-it-katex) ([#47](https://github.com/marp-team/marp-core/issues/47), [#48](https://github.com/marp-team/marp-core/pull/48))
+
+### Changed
+
+- Upgrade dependent packages to latest version ([#49](https://github.com/marp-team/marp-core/pull/45))
 
 ## v0.1.0 - 2018-11-06
 
