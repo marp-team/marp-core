@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.2.0 - 2018-11-21
+
 ### Added
 
 - Support the scoped inline style through `<style scoped>` from [Marpit v0.3.0](https://github.com/marp-team/marpit/releases/v0.3.0) ([#49](https://github.com/marp-team/marp-core/pull/49))
