@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Security
+
+- Upgrade dependent packages to prevent the malicious attack in dependencies ([#50](https://github.com/marp-team/marp-core/pull/50))
+
 ## v0.2.0 - 2018-11-21
 
 ### Added
@@ -14,7 +18,7 @@
 
 ### Changed
 
-- Upgrade dependent packages to latest version ([#49](https://github.com/marp-team/marp-core/pull/45))
+- Upgrade dependent packages to latest version ([#49](https://github.com/marp-team/marp-core/pull/49))
 
 ## v0.1.0 - 2018-11-06
 
