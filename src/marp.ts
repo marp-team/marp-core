@@ -25,7 +25,7 @@ export interface MarpOptions extends MarpitOptions {
 }
 
 export class Marp extends Marpit {
-  options!: MarpOptions
+  readonly options!: MarpOptions
 
   private renderedMath: boolean = false
 
