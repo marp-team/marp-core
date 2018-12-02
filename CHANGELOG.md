@@ -8,7 +8,7 @@
 
 ### Fixed
 
-- Fix incorrect accessibility of `options` property ([#51](https://github.com/marp-team/marp-core/pull/51))
+- Fix incorrect accessibility of members in `Marp` ([#51](https://github.com/marp-team/marp-core/pull/51), [#53](https://github.com/marp-team/marp-core/pull/53))
 
 ### Changed
 

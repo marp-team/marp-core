@@ -68,7 +68,7 @@ export class Marp extends Marpit {
     this.themeSet.add(uncoverTheme)
   }
 
-  applyMarkdownItPlugins(md = this.markdown) {
+  protected applyMarkdownItPlugins(md = this.markdown) {
     super.applyMarkdownItPlugins(md)
 
     const { emoji, html, math } = this.options
