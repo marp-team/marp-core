@@ -6,6 +6,10 @@
 
 - Add `use` method from [Marpit v0.4.0](https://github.com/marp-team/marpit/releases/v0.4.0) ([#52](https://github.com/marp-team/marp-core/pull/52))
 
+### Fixed
+
+- Fix incorrect accessibility of `options` property ([#51](https://github.com/marp-team/marp-core/pull/51))
+
 ### Changed
 
 - Upgrade Node and dependent packages to latest version ([#52](https://github.com/marp-team/marp-core/pull/52))
