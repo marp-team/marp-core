@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.3.0 - 2018-12-02
+
 ### Added
 
 - Add `use` method from [Marpit v0.4.0](https://github.com/marp-team/marpit/releases/v0.4.0) ([#52](https://github.com/marp-team/marp-core/pull/52))
