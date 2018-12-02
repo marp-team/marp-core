@@ -45,8 +45,8 @@
     "watch": "rollup -w -c"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.9",
-    "@types/jest": "^23.3.9",
+    "@types/cheerio": "^0.22.10",
+    "@types/jest": "^23.3.10",
     "autoprefixer": "^9.3.1",
     "cheerio": "^1.0.0-rc.2",
     "codecov": "^3.1.0",
@@ -57,7 +57,7 @@
     "node-sass": "^4.10.0",
     "npm-run-all": "^4.1.5",
     "postcss-url": "^8.0.0",
-    "prettier": "^1.15.2",
+    "prettier": "^1.15.3",
     "rimraf": "^2.6.2",
     "rollup": "^0.67.3",
     "rollup-plugin-commonjs": "^9.2.0",
@@ -66,7 +66,7 @@
     "rollup-plugin-postcss": "^1.6.3",
     "rollup-plugin-terser": "^3.0.0",
     "rollup-plugin-typescript": "^1.0.0",
-    "stylelint": "^9.8.0",
+    "stylelint": "^9.9.0",
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-scss": "^3.4.0",
@@ -74,11 +74,11 @@
     "tslib": "^1.9.3",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.11.1",
-    "tslint-config-prettier": "^1.16.0",
-    "typescript": "^3.1.6"
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "^3.2.1"
   },
   "dependencies": {
-    "@marp-team/marpit": "^0.3.1",
+    "@marp-team/marpit": "^0.4.0",
     "emoji-regex": "^7.0.1",
     "highlight.js": "^9.13.1",
     "katex": "^0.10.0",
