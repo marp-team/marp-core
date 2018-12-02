@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add `use` method from [Marpit v0.4.0](https://github.com/marp-team/marpit/releases/v0.4.0) ([#52](https://github.com/marp-team/marp-core/pull/52))
+
+### Changed
+
+- Upgrade Node and dependent packages to latest version ([#52](https://github.com/marp-team/marp-core/pull/52))
+- Run `yarn audit` while running CI / publish processes ([#52](https://github.com/marp-team/marp-core/pull/52))
+
 ## v0.2.1 - 2018-11-24
 
 ### Security
