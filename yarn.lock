@@ -138,11 +138,19 @@
     reflect-metadata "^0.1.12"
     tslib "^1.8.1"
 
-"@marp-team/marpit@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-0.4.1.tgz#46d311ec3bebc799841c61b80a83be9e26ca3bf4"
-  integrity sha512-AvlOADhRjoGezbumlt3RzX9Fh+DKWM8Wpp+CKa4/dmAgoyFVGqzthrP6ezLH3ZiY1Tt/308RkJgGYj6Ql/0mMw==
+"@marp-team/marpit-svg-polyfill@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-0.1.0.tgz#91a52bbbe1833520bf7727dd6828a7c5b43def4c"
+  integrity sha512-LL3v5jzKHk2bcVduGHFC80y9jyTXDpg0q78ZSvsrVVvfbYxVBAKGNcZ4UysJcNb6p6SiLsGf/uNHBYaU1A479g==
   dependencies:
+    detect-browser "^3.0.1"
+
+"@marp-team/marpit@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-0.5.0.tgz#4e519bd46c03dfb82c162e000457f49d6e43e47f"
+  integrity sha512-AV1Hixvx9adcrr2MQu2FdUrsNULXeV5GTP+Zeqsouu0vPQfjQ+zaZTn/UMat46AK7Er9bJO6iTDQb+l2OQOVLA==
+  dependencies:
+    color-string "^1.5.3"
     js-yaml "^3.12.0"
     lodash.kebabcase "^4.1.1"
     markdown-it "^8.4.2"
@@ -1075,7 +1083,7 @@ color-string@^0.3.0:
   dependencies:
     color-name "^1.0.0"
 
-color-string@^1.5.2:
+color-string@^1.5.2, color-string@^1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/color-string/-/color-string-1.5.3.tgz#c9bbc5f01b58b5492f3d6857459cb6590ce204cc"
   integrity sha512-dC2C5qeWoYkxki5UAXapdjqO672AM4vZuPGRQfO8b5HKuKGBbKWpITyDYN7TOFKvRW7kOgAn3746clDBMDJyQw==
@@ -1596,6 +1604,11 @@ delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
   integrity sha1-hMbhWbgZBP3KWaDvRM2HDTElD5o=
+
+detect-browser@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/detect-browser/-/detect-browser-3.0.1.tgz#39beead014347a8a2be1f3c4cb30a0aef2127c44"
+  integrity sha512-L6b76EfUxnoxGHM5Vz7nrshQPIbOHtitDWpGufrp5srQdJrEYi1xpUVZeFbfssWAJvUWo/iDIVlz8hOP4Z8OCw==
 
 detect-indent@^4.0.0:
   version "4.0.0"
