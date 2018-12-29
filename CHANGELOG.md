@@ -9,6 +9,7 @@
 ### Changed
 
 - Update [Marpit v0.5.0](https://github.com/marp-team/marpit/releases/v0.5.0) ([#56](https://github.com/marp-team/marp-core/pull/56))
+- Upgrade Node and dependent packages to latest version ([#57](https://github.com/marp-team/marp-core/pull/57))
 
 ## v0.3.1 - 2018-12-23
 
