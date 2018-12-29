@@ -12,25 +12,6 @@ describe('Fitting observer', () => {
       scrollHeight: { configurable: true, get: () => height },
     })
 
-  it('calls window.requestAnimationFrame with myself', () => {
-    const spy = jest.spyOn(window, 'requestAnimationFrame')
-
-    fittingObserver()
-    expect(spy).toHaveBeenCalledTimes(1)
-
-    spy.mock.calls[0][0]()
-    expect(spy).toHaveBeenCalledTimes(2)
-  })
-
-  context('with observe argument is false', () => {
-    it('does not call window.requestAnimationFrame', () => {
-      const spy = jest.spyOn(window, 'requestAnimationFrame')
-
-      fittingObserver(false)
-      expect(spy).not.toHaveBeenCalled()
-    })
-  })
-
   context('when the fitting header is rendered', () => {
     let svg: SVGSVGElement
     let foreignObj: SVGForeignObjectElement

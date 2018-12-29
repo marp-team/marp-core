@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- Apply [Marpit SVG polyfill](https://github.com/marp-team/marpit-svg-polyfill) for WebKit in `Marp.ready()` ([#56](https://github.com/marp-team/marp-core/pull/56))
+
+### Changed
+
+- Update [Marpit v0.5.0](https://github.com/marp-team/marpit/releases/v0.5.0) ([#56](https://github.com/marp-team/marp-core/pull/56))
+
 ## v0.3.1 - 2018-12-23
 
 ### Changed
