@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.4.1 - 2018-12-31
+
 ### Fixed
 
 - Fix incorrect scaling in Marpit SVG polyfill ([#58](https://github.com/marp-team/marp-core/pull/58))
