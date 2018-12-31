@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.10",
-    "@types/jest": "^23.3.10",
+    "@types/jest": "^23.3.11",
     "autoprefixer": "^9.4.3",
     "cheerio": "^1.0.0-rc.2",
     "codecov": "^3.1.0",
@@ -80,7 +80,7 @@
   },
   "dependencies": {
     "@marp-team/marpit": "^0.5.0",
-    "@marp-team/marpit-svg-polyfill": "^0.1.0",
+    "@marp-team/marpit-svg-polyfill": "^0.2.0",
     "emoji-regex": "^7.0.3",
     "highlight.js": "^9.13.1",
     "katex": "^0.10.0",
