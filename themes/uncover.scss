@@ -30,6 +30,17 @@
     }
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    strong {
+      color: mix(#fff, $highlight, 20%);
+    }
+  }
+
   header,
   footer {
     color: rgba($text, 0.4);
