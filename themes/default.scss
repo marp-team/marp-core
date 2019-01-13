@@ -58,6 +58,7 @@ hr {
 pre {
   border: 1px solid #999;
   line-height: 1.15;
+  overflow: visible;
 
   code svg[data-marp-fitting='svg'] {
     // Slide height - padding * 2 - code's padding * 3 - code's border * 2
