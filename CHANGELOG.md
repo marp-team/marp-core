@@ -6,6 +6,10 @@
 
 - Colored `<strong>` element in headings for highlighting ([#59](https://github.com/marp-team/marp-core/pull/59))
 
+### Fixed
+
+- Prevent showing scrollbar in code block ([#60](https://github.com/marp-team/marp-core/pull/60))
+
 ## v0.4.1 - 2018-12-31
 
 ### Fixed
