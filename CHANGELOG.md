@@ -5,10 +5,16 @@
 ### Added
 
 - Colored `<strong>` element in headings for highlighting ([#59](https://github.com/marp-team/marp-core/pull/59))
+- Support `env` option and `htmlAsArray` env in `render()`, from [Marpit v0.6.0](https://github.com/marp-team/marpit/releases/v0.6.0) ([#61](https://github.com/marp-team/marp-core/pull/61))
 
 ### Fixed
 
 - Prevent showing scrollbar in code block ([#60](https://github.com/marp-team/marp-core/pull/60))
+- Use the real compiled Sass in test ([#61](https://github.com/marp-team/marp-core/pull/61))
+
+### Changed
+
+- Upgrade dependent packages to latest version ([#61](https://github.com/marp-team/marp-core/pull/61))
 
 ## v0.4.1 - 2018-12-31
 
