@@ -203,11 +203,17 @@ describe('Marp', () => {
     const checkWebFont = (...urls) =>
       postcss([
         root => {
-          root.walkAtRules('font-face', rule => {
-            rule.walkDecls('src', decl => {
-              for (const url of urls) expect(decl.value).toContain(url)
-            })
-          })
+          const walkedUrls: string[] = []
+
+          root.walkAtRules('font-face', rule =>
+            rule.walkDecls('src', decl => walkedUrls.push(decl.value))
+          )
+
+          for (const url of urls) {
+            expect(walkedUrls).toEqual(
+              expect.arrayContaining([expect.stringContaining(url)])
+            )
+          }
         },
       ])
 
@@ -300,8 +306,8 @@ describe('Marp', () => {
 
           return checkWebFont(
             'url(fonts/KaTeX_Mock.woff2)',
-            "url('fonts/KaTeX_Mock.woff')",
-            "url('fonts/KaTeX_Mock.ttf')"
+            'url("fonts/KaTeX_Mock.woff")',
+            'url("fonts/KaTeX_Mock.ttf")'
           ).process(css, { from: undefined })
         })
       })
