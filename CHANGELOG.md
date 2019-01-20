@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.5.0 - 2019-01-20
+
 ### Added
 
 - Colored `<strong>` element in headings for highlighting ([#59](https://github.com/marp-team/marp-core/pull/59))
