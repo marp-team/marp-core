@@ -99,9 +99,6 @@
     "twemoji": "^11.2.0",
     "xss": "^1.0.3"
   },
-  "resolutions": {
-    "ip-regex": "~2.1.0"
-  },
   "publishConfig": {
     "access": "public"
   }
