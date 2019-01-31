@@ -4,8 +4,9 @@ import MarkdownIt from 'markdown-it'
 import postcss from 'postcss'
 import context from './_helpers/context'
 import { EmojiOptions } from '../src/emoji/emoji'
-import { Marp, MarpOptions, marpEnabledSymbol } from '../src/marp'
 import browser from '../src/browser'
+import { Marp, MarpOptions } from '../src/marp'
+import { marpEnabledSymbol } from '../src/symbol'
 
 const marpitDisablePlugin = md =>
   md.core.ruler.before('normalize', 'disable', sc => sc.marpit(false))
