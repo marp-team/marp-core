@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade dependent packages to latest version, includes [Marpit v0.7.0](https://github.com/marp-team/marpit/releases/tag/v0.7.0) ([#63](https://github.com/marp-team/marp-core/pull/63))
+
 ## v0.5.1 - 2019-01-26
 
 ### Changed
