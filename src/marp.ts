@@ -25,7 +25,7 @@ export interface MarpOptions extends MarpitOptions {
 }
 
 export class Marp extends Marpit {
-  readonly options!: MarpOptions
+  readonly options!: Required<MarpOptions>
 
   private renderedMath: boolean = false
 
@@ -74,10 +74,10 @@ export class Marp extends Marpit {
     const { emoji, html, math } = this.options
 
     // HTML sanitizer
-    md.use(htmlPlugin.markdown, html)
+    this.use(htmlPlugin.markdown, html)
 
     // Emoji support
-    md.use(emojiPlugin.markdown, emoji)
+    this.use(emojiPlugin.markdown, emoji)
 
     // Math typesetting
     if (math) {
@@ -86,14 +86,15 @@ export class Marp extends Marpit {
           ? math.katexOption
           : {}
 
-      md.use(mathPlugin.markdown, opts, flag => (this.renderedMath = flag))
+      this.use(mathPlugin.markdown, opts, flag => (this.renderedMath = flag))
     }
 
     // Fitting
-    const themeResolver: fittingPlugin.ThemeResolver = () =>
-      (this.lastGlobalDirectives || {}).theme
-
-    md.use(fittingPlugin.markdown, this, themeResolver)
+    this.use(
+      fittingPlugin.markdown,
+      this,
+      () => (this.lastGlobalDirectives || {}).theme
+    )
   }
 
   highlighter(code: string, lang: string): string {
@@ -107,13 +108,11 @@ export class Marp extends Marpit {
 
   protected themeSetPackOptions(): ThemeSetPackOptions {
     const base = { ...super.themeSetPackOptions() }
-    const prependCSS = css => {
-      if (css) base.before = `${css}\n${base.before || ''}`
-    }
+    const prepend = css => css && (base.before = `${css}\n${base.before || ''}`)
     const { emoji, math } = this.options
 
-    prependCSS(emojiPlugin.css(emoji!))
-    prependCSS(fittingPlugin.css)
+    prepend(emojiPlugin.css(emoji!))
+    prepend(fittingPlugin.css)
 
     if (math && this.renderedMath) {
       // By default, we use KaTeX web fonts through CDN.
@@ -126,7 +125,7 @@ export class Marp extends Marpit {
       }
 
       // Add KaTeX css
-      prependCSS(mathPlugin.css(path))
+      prepend(mathPlugin.css(path))
     }
 
     return base
