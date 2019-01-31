@@ -1,5 +1,6 @@
 import { FilterXSS } from 'xss'
-import { MarpOptions, marpEnabledSymbol } from '../marp'
+import { MarpOptions } from '../marp'
+import { marpEnabledSymbol } from '../symbol'
 
 export function markdown(md, opts: MarpOptions['html']): void {
   if (typeof opts === 'object') {
