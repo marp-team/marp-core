@@ -10,8 +10,6 @@ import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
 
-const marpObservedSymbol = Symbol('marpObserved')
-
 export interface MarpOptions extends MarpitOptions {
   emoji?: emojiPlugin.EmojiOptions
   html?: boolean | { [tag: string]: string[] }
@@ -24,8 +22,12 @@ export interface MarpOptions extends MarpitOptions {
       }
 }
 
+const marpObservedSymbol = Symbol('marpObserved')
+
+export const marpEnabledSymbol = Symbol('marpEnabled')
+
 export class Marp extends Marpit {
-  readonly options!: MarpOptions
+  readonly options!: Required<MarpOptions>
 
   private renderedMath: boolean = false
 
@@ -45,9 +47,9 @@ export class Marp extends Marpit {
         {
           breaks: true,
           linkify: true,
-          ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
           highlight: (code: string, lang: string) =>
             this.highlighter(code, lang),
+          ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
           html: !!(opts.html !== undefined ? opts.html : Marp.html),
         },
       ],
@@ -73,11 +75,18 @@ export class Marp extends Marpit {
 
     const { emoji, html, math } = this.options
 
+    const useMarpitPlugin = (() => {
+      const tmp = new Marpit()
+      tmp.markdown = md
+
+      return tmp.use.bind(tmp)
+    })()
+
     // HTML sanitizer
-    md.use(htmlPlugin.markdown, html)
+    useMarpitPlugin(htmlPlugin.markdown, html)
 
     // Emoji support
-    md.use(emojiPlugin.markdown, emoji)
+    useMarpitPlugin(emojiPlugin.markdown, emoji)
 
     // Math typesetting
     if (math) {
@@ -86,14 +95,30 @@ export class Marp extends Marpit {
           ? math.katexOption
           : {}
 
-      md.use(mathPlugin.markdown, opts, flag => (this.renderedMath = flag))
+      useMarpitPlugin(
+        mathPlugin.markdown,
+        opts,
+        flag => (this.renderedMath = flag)
+      )
     }
 
     // Fitting
-    const themeResolver: fittingPlugin.ThemeResolver = () =>
-      (this.lastGlobalDirectives || {}).theme
+    useMarpitPlugin(
+      fittingPlugin.markdown,
+      this,
+      () => (this.lastGlobalDirectives || {}).theme
+    )
 
-    md.use(fittingPlugin.markdown, this, themeResolver)
+    // Track usage of Marpit features (for renderer)
+    md.core.ruler.push('marp_enabled', () => (md[marpEnabledSymbol] = false))
+
+    useMarpitPlugin(() =>
+      md.core.ruler.after(
+        'marp_enabled',
+        'marp_enabled_tracker',
+        () => (md[marpEnabledSymbol] = true)
+      )
+    )
   }
 
   highlighter(code: string, lang: string): string {
@@ -107,13 +132,11 @@ export class Marp extends Marpit {
 
   protected themeSetPackOptions(): ThemeSetPackOptions {
     const base = { ...super.themeSetPackOptions() }
-    const prependCSS = css => {
-      if (css) base.before = `${css}\n${base.before || ''}`
-    }
+    const prepend = css => css && (base.before = `${css}\n${base.before || ''}`)
     const { emoji, math } = this.options
 
-    prependCSS(emojiPlugin.css(emoji!))
-    prependCSS(fittingPlugin.css)
+    prepend(emojiPlugin.css(emoji!))
+    prepend(fittingPlugin.css)
 
     if (math && this.renderedMath) {
       // By default, we use KaTeX web fonts through CDN.
@@ -126,7 +149,7 @@ export class Marp extends Marpit {
       }
 
       // Add KaTeX css
-      prependCSS(mathPlugin.css(path))
+      prepend(mathPlugin.css(path))
     }
 
     return base

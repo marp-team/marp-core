@@ -1,6 +1,6 @@
 import Token from 'markdown-it/lib/token'
 import fittingCSS from './fitting.scss'
-import { Marp } from '../marp'
+import { Marp, marpEnabledSymbol } from '../marp'
 
 export const css = fittingCSS
 export const attr = 'data-marp-fitting'
@@ -26,8 +26,9 @@ function fittingCode(md, marp: Marp, themeResolver: ThemeResolver): void {
 
   const replacedRenderer = func => (...args) => {
     const rendered: string = func(...args)
-    const { fittingCode } = marp.themeSet.getThemeProp(themeResolver()!, 'meta')
+    if (!md[marpEnabledSymbol]) return rendered
 
+    const { fittingCode } = marp.themeSet.getThemeProp(themeResolver()!, 'meta')
     if (fittingCode === 'false') return rendered
 
     return rendered.replace(codeMatcher, (_, start, content, end) => {
@@ -48,7 +49,7 @@ function fittingCode(md, marp: Marp, themeResolver: ThemeResolver): void {
 }
 
 // Detect `<!-- fit -->` comment keyword in headings.
-function fittingHeader(md): void {
+function fittingHeader(md, marp: Marp): void {
   md.core.ruler.after('inline', 'marp_fitting_header', state => {
     let target = undefined
 
@@ -76,14 +77,23 @@ function fittingHeader(md): void {
       }
     }
   })
+
+  if (marp.options.inlineSVG) {
+    Object.assign(md.renderer.rules, {
+      marp_fitting_open: () =>
+        `<svg ${attr}="svg"><foreignObject><span ${svgContentAttr}>`,
+      marp_fitting_close: () => '</span></foreignObject></svg>',
+    })
+  }
 }
 
 function fittingMathBlock(md, marp: Marp): void {
-  const { math_block } = md.renderer.rules
-  if (!math_block) return
+  const { marp_math_block } = md.renderer.rules
+  if (!marp_math_block) return
 
   const replacedRenderer = func => (...args) => {
     const rendered: string = func(...args)
+    if (!md[marpEnabledSymbol]) return rendered
 
     // Rendered math block is wrapped by `<p>` tag in math plugin
     const katex = rendered.slice(3, -4)
@@ -99,19 +109,11 @@ function fittingMathBlock(md, marp: Marp): void {
     return `<p><span ${attr}="plain">${katex}</span></p>`
   }
 
-  md.renderer.rules.math_block = replacedRenderer(math_block)
+  md.renderer.rules.marp_math_block = replacedRenderer(marp_math_block)
 }
 
 export function markdown(md, marp: Marp, themeResolver: ThemeResolver): void {
-  md.use(fittingHeader)
+  md.use(fittingHeader, marp)
   md.use(fittingCode, marp, themeResolver)
   md.use(fittingMathBlock, marp)
-
-  if (marp.options.inlineSVG) {
-    Object.assign(md.renderer.rules, {
-      marp_fitting_open: () =>
-        `<svg ${attr}="svg"><foreignObject><span ${svgContentAttr}>`,
-      marp_fitting_close: () => '</span></foreignObject></svg>',
-    })
-  }
 }

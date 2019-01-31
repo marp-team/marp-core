@@ -1,10 +1,14 @@
 import { Marpit } from '@marp-team/marpit'
 import cheerio from 'cheerio'
+import MarkdownIt from 'markdown-it'
 import postcss from 'postcss'
 import context from './_helpers/context'
 import { EmojiOptions } from '../src/emoji/emoji'
-import { Marp, MarpOptions } from '../src/marp'
+import { Marp, MarpOptions, marpEnabledSymbol } from '../src/marp'
 import browser from '../src/browser'
+
+const marpitDisablePlugin = md =>
+  md.core.ruler.before('normalize', 'disable', sc => sc.marpit(false))
 
 jest.mock('../src/browser')
 jest.mock('../src/math/katex.scss')
@@ -104,8 +108,10 @@ describe('Marp', () => {
         const emoji: EmojiOptions = { unicode: false }
         const instance = marp({ emoji })
 
-        it('does not inject unicode emoji renderer', () =>
-          expect(instance.markdown.renderer.rules.unicode_emoji).toBeFalsy())
+        it("does not inject Marp's unicode emoji renderer", () =>
+          expect(
+            instance.markdown.renderer.rules.marp_unicode_emoji
+          ).toBeFalsy())
 
         it('does not convert unicode emoji', () =>
           expect(instance.render('# 👍').html).toContain('<h1>👍</h1>'))
@@ -115,8 +121,10 @@ describe('Marp', () => {
         const emoji: EmojiOptions = { unicode: true }
         const instance = marp({ emoji })
 
-        it('injects unicode emoji renderer', () =>
-          expect(instance.markdown.renderer.rules.unicode_emoji).toBeTruthy())
+        it("injects Marp's unicode emoji renderer", () =>
+          expect(
+            instance.markdown.renderer.rules.marp_unicode_emoji
+          ).toBeTruthy())
 
         it('does not convert unicode emoji', () =>
           expect(instance.render('# 👍').html).toContain('<h1>👍</h1>'))
@@ -139,6 +147,20 @@ describe('Marp', () => {
         const src = $('h1 > img[data-marp-twemoji]').attr('src')
 
         expect(src).toBe('/assets/twemoji/svg/1f44c.svg')
+      })
+    })
+
+    context('with disabled Marpit features', () => {
+      const instance = marp().use(marpitDisablePlugin)
+
+      it('does not convert emoji shorthand to twemoji image', () => {
+        const { html } = instance.render('# :heart:')
+        expect(cheerio.load(html)('img[data-marp-twemoji]')).toHaveLength(0)
+      })
+
+      it('does not convert unicode emoji to twemoji image', () => {
+        const { html } = instance.render('👍 `👍`\n\n```\n👍\n```\n\n\t👍')
+        expect(cheerio.load(html)('img[data-marp-twemoji]')).toHaveLength(0)
       })
     })
   })
@@ -192,6 +214,18 @@ describe('Marp', () => {
         expect($('p')).toHaveLength(2)
         expect($('p.class')).toHaveLength(1)
         expect($('p[title]')).toHaveLength(0)
+      })
+    })
+
+    context('with disabled Marpit features', () => {
+      const instance = marp().use(marpitDisablePlugin)
+
+      it('does not sanitize HTML', () => {
+        const { html } = instance.render('<b>abc</b>\n\n<div>\ntest\n</div>')
+        const $ = cheerio.load(html)
+
+        expect($('b')).toHaveLength(1)
+        expect($('div')).toHaveLength(1)
       })
     })
   })
@@ -335,6 +369,17 @@ describe('Marp', () => {
         expect(css).not.toContain('.katex')
       })
     })
+
+    context('with disabled Marpit features', () => {
+      const instance = marp().use(marpitDisablePlugin)
+
+      it('does not render KaTeX', () => {
+        const { html } = instance.render(`${inline}\n\n${block}`)
+        const $ = cheerio.load(html)
+
+        expect($('.katex')).toHaveLength(0)
+      })
+    })
   })
 
   describe('Element fitting', () => {
@@ -387,6 +432,15 @@ describe('Marp', () => {
             expect($('h1').text()).toContain('fitting')
           })
         }
+
+        context('with disabled Marpit features', () => {
+          const instance = marp().use(marpitDisablePlugin)
+
+          it('does not wrap by SVG', () => {
+            const { html } = instance.render(baseMd)
+            expect(cheerio.load(html)('svg')).toHaveLength(0)
+          })
+        })
       }
     )
 
@@ -427,6 +481,15 @@ describe('Marp', () => {
 
         expect($('section svg')).toHaveLength(0)
       })
+
+      context('with disabled Marpit features', () => {
+        const instance = marp().use(marpitDisablePlugin)
+
+        it('does not wrap by SVG', () => {
+          const { html } = instance.render(markdown)
+          expect(cheerio.load(html)('svg')).toHaveLength(0)
+        })
+      })
     })
 
     context('with fence (Auto scaling for fence)', () => {
@@ -462,6 +525,15 @@ describe('Marp', () => {
         expect(plainContent).toHaveLength(1)
         expect($('pre').text()).toContain('const a = 1')
       })
+
+      context('with disabled Marpit features', () => {
+        const instance = marp().use(marpitDisablePlugin)
+
+        it('does not wrap by SVG', () => {
+          const { html } = instance.render(markdown)
+          expect(cheerio.load(html)('svg')).toHaveLength(0)
+        })
+      })
     })
 
     context('with math block', () => {
@@ -487,6 +559,15 @@ describe('Marp', () => {
         const plainContent = $('p > span[data-marp-fitting="plain"] .katex')
 
         expect(plainContent.length).toBeTruthy()
+      })
+
+      context('with disabled Marpit features', () => {
+        const instance = marp().use(marpitDisablePlugin)
+
+        it('does not wrap by SVG', () => {
+          const { html } = instance.render(markdown)
+          expect(cheerio.load(html)('svg')).toHaveLength(0)
+        })
       })
     })
   })
@@ -529,6 +610,13 @@ describe('Marp', () => {
       })
     }
 
+    context('with highlight markdown option', () => {
+      const instance = marp({ markdown: { highlight: () => 'CUSTOM' } })
+
+      it('allows overriding highlighter', () =>
+        expect(instance.markdown.render('```\ntest\n```')).toContain('CUSTOM'))
+    })
+
     context('with overriden #highlighter', () => {
       const instance = marp()
 
@@ -543,6 +631,26 @@ describe('Marp', () => {
 
       it('highlights with custom highlighter', () =>
         expect($('code .customized')).toHaveLength(1))
+    })
+  })
+
+  describe('get #markdownItPlugins', () => {
+    it('extends another markdown-it instance', () => {
+      const markdownIt = new MarkdownIt().use(marp().markdownItPlugins)
+
+      expect(markdownIt.render('')).toContain('section')
+      expect(markdownIt[marpEnabledSymbol]).toBe(true)
+    })
+
+    context('with disabled Marpit features by StateCore#marpit', () => {
+      const markdownIt = new MarkdownIt()
+        .use(marp().markdownItPlugins)
+        .use(marpitDisablePlugin)
+
+      it('returns converted result of plain Markdown', () => {
+        expect(markdownIt.render('')).not.toContain('section')
+        expect(markdownIt[marpEnabledSymbol]).toBe(false)
+      })
     })
   })
 
