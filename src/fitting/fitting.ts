@@ -1,6 +1,7 @@
 import Token from 'markdown-it/lib/token'
 import fittingCSS from './fitting.scss'
-import { Marp, marpEnabledSymbol } from '../marp'
+import { Marp } from '../marp'
+import { marpEnabledSymbol } from '../symbol'
 
 export const css = fittingCSS
 export const attr = 'data-marp-fitting'

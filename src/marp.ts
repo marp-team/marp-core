@@ -2,6 +2,7 @@ import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
 import { version } from 'katex/package.json'
 import browser from './browser'
+import { marpEnabledSymbol } from './symbol'
 import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
 import * as htmlPlugin from './html/html'
@@ -23,8 +24,6 @@ export interface MarpOptions extends MarpitOptions {
 }
 
 const marpObservedSymbol = Symbol('marpObserved')
-
-export const marpEnabledSymbol = Symbol('marpEnabled')
 
 export class Marp extends Marpit {
   readonly options!: Required<MarpOptions>

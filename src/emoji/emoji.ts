@@ -2,7 +2,7 @@ import emojiRegex from 'emoji-regex'
 import Token from 'markdown-it/lib/token'
 import markdownItEmoji from 'markdown-it-emoji'
 import twemoji from 'twemoji'
-import { marpEnabledSymbol } from '../marp'
+import { marpEnabledSymbol } from '../symbol'
 import twemojiCSS from './twemoji.scss'
 
 export interface EmojiOptions {
