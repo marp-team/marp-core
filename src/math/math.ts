@@ -37,7 +37,7 @@ export function markdown(
     return false
   })
 
-  md.renderer.rules.math_inline = (tokens, idx) => {
+  md.renderer.rules.marp_math_inline = (tokens, idx) => {
     const { content } = tokens[idx]
 
     try {
@@ -64,7 +64,7 @@ export function markdown(
     }
   )
 
-  md.renderer.rules.math_block = (tokens, idx) => {
+  md.renderer.rules.marp_math_block = (tokens, idx) => {
     const { content } = tokens[idx]
 
     try {
@@ -137,7 +137,7 @@ function parseInlineMath(state, silent) {
   }
 
   return found(() => {
-    const token = state.push('math_inline', 'math', 0)
+    const token = state.push('marp_math_inline', 'math', 0)
     token.markup = '$'
     token.content = src.slice(start, match)
   }, match + 1)
@@ -178,7 +178,7 @@ function parseMathBlock(state, start, end, silent) {
 
   state.line = next + 1
 
-  const token = state.push('math_block', 'math', 0)
+  const token = state.push('marp_math_block', 'math', 0)
   token.block = true
   token.content = ''
   token.map = [start, state.line]

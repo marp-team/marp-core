@@ -10,8 +10,6 @@ import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
 
-const marpObservedSymbol = Symbol('marpObserved')
-
 export interface MarpOptions extends MarpitOptions {
   emoji?: emojiPlugin.EmojiOptions
   html?: boolean | { [tag: string]: string[] }
@@ -23,6 +21,10 @@ export interface MarpOptions extends MarpitOptions {
         katexFontPath?: string | false
       }
 }
+
+const marpObservedSymbol = Symbol('marpObserved')
+
+export const marpEnabledSymbol = Symbol('marpEnabled')
 
 export class Marp extends Marpit {
   readonly options!: Required<MarpOptions>
@@ -45,9 +47,9 @@ export class Marp extends Marpit {
         {
           breaks: true,
           linkify: true,
-          ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
           highlight: (code: string, lang: string) =>
             this.highlighter(code, lang),
+          ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
           html: !!(opts.html !== undefined ? opts.html : Marp.html),
         },
       ],
@@ -73,11 +75,18 @@ export class Marp extends Marpit {
 
     const { emoji, html, math } = this.options
 
+    const useMarpitPlugin = (() => {
+      const tmp = new Marpit()
+      tmp.markdown = md
+
+      return tmp.use.bind(tmp)
+    })()
+
     // HTML sanitizer
-    this.use(htmlPlugin.markdown, html)
+    useMarpitPlugin(htmlPlugin.markdown, html)
 
     // Emoji support
-    this.use(emojiPlugin.markdown, emoji)
+    useMarpitPlugin(emojiPlugin.markdown, emoji)
 
     // Math typesetting
     if (math) {
@@ -86,14 +95,29 @@ export class Marp extends Marpit {
           ? math.katexOption
           : {}
 
-      this.use(mathPlugin.markdown, opts, flag => (this.renderedMath = flag))
+      useMarpitPlugin(
+        mathPlugin.markdown,
+        opts,
+        flag => (this.renderedMath = flag)
+      )
     }
 
     // Fitting
-    this.use(
+    useMarpitPlugin(
       fittingPlugin.markdown,
       this,
       () => (this.lastGlobalDirectives || {}).theme
+    )
+
+    // Track usage of Marpit features (for renderer)
+    md.core.ruler.push('marp_enabled', () => (md[marpEnabledSymbol] = false))
+
+    useMarpitPlugin(() =>
+      md.core.ruler.after(
+        'marp_enabled',
+        'marp_enabled_tracker',
+        () => (md[marpEnabledSymbol] = true)
+      )
     )
   }
 

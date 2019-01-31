@@ -2,6 +2,7 @@ import emojiRegex from 'emoji-regex'
 import Token from 'markdown-it/lib/token'
 import markdownItEmoji from 'markdown-it-emoji'
 import twemoji from 'twemoji'
+import { marpEnabledSymbol } from '../marp'
 import twemojiCSS from './twemoji.scss'
 
 export interface EmojiOptions {
@@ -56,7 +57,7 @@ export function markdown(md, opts: EmojiOptions): void {
                           Object.assign(new Token(), {
                             ...t,
                             content: text,
-                            type: idx % 2 ? 'unicode_emoji' : 'text',
+                            type: idx % 2 ? 'marp_unicode_emoji' : 'text',
                           }),
                         ],
                   []
@@ -72,28 +73,32 @@ export function markdown(md, opts: EmojiOptions): void {
       }
     })
 
-    md.renderer.rules.unicode_emoji = (token: any[], idx: number): string =>
-      token[idx].content
+    md.renderer.rules.marp_unicode_emoji = (
+      token: any[],
+      idx: number
+    ): string => token[idx].content
 
     const { code_block, code_inline, fence } = md.renderer.rules
 
     if (opts.unicode === 'twemoji') {
       const wrap = text =>
-        text
-          .split(/(<[^>]*>)/g)
-          .reduce(
-            (ret, part, idx) =>
-              `${ret}${
-                idx % 2
-                  ? part
-                  : part.replace(regexForSplit, ([emoji]) =>
-                      twemojiParse(emoji)
-                    )
-              }`,
-            ''
-          )
+        md[marpEnabledSymbol]
+          ? text
+              .split(/(<[^>]*>)/g)
+              .reduce(
+                (ret, part, idx) =>
+                  `${ret}${
+                    idx % 2
+                      ? part
+                      : part.replace(regexForSplit, ([emoji]) =>
+                          twemojiParse(emoji)
+                        )
+                  }`,
+                ''
+              )
+          : text
 
-      md.renderer.rules.unicode_emoji = twemojiRenderer
+      md.renderer.rules.marp_unicode_emoji = twemojiRenderer
 
       md.renderer.rules.code_inline = (...args) => wrap(code_inline(...args))
       md.renderer.rules.code_block = (...args) => wrap(code_block(...args))
