@@ -178,6 +178,16 @@ describe('Marp', () => {
         expect(cheerio.load(html)('br')).toHaveLength(1)
       })
 
+      it('renders void element with normalized', () => {
+        expect(marp().render('<br>').html).toContain('<br />')
+        expect(marp().render('<br  >').html).toContain('<br />')
+        expect(marp().render('<br/>').html).toContain('<br />')
+        expect(marp().render('<br />').html).toContain('<br />')
+        expect(marp().render('<br class="sanitize">').html).toContain('<br />')
+        expect(marp().render('<br></br>').html).toContain('<br /><br />')
+        expect(marp().render('<BR >').html).toContain('<br />')
+      })
+
       // https://github.com/yhatt/marp/issues/243
       it('does not sanitize header and footer', () => {
         const markdown = '<!--\nheader: "**header**"\nfooter: "*footer*"\n-->'
@@ -203,18 +213,32 @@ describe('Marp', () => {
     })
 
     context('with whitelist', () => {
-      const whitelist = { p: ['class'] }
+      const m = marp({ html: { hr: ['id'], p: ['class'] } })
 
       it('allows whitelisted tags and attributes', () => {
-        const markdown =
-          '<p>\ntest\n</p>\n\n<p class="class" title="title">test</p>'
-
-        const { html } = marp({ html: whitelist }).render(markdown)
-        const $ = cheerio.load(html)
+        const md = '<p>\ntest\n</p>\n\n<p class="class" title="title">test</p>'
+        const $ = cheerio.load(m.render(md).html)
 
         expect($('p')).toHaveLength(2)
         expect($('p.class')).toHaveLength(1)
         expect($('p[title]')).toHaveLength(0)
+      })
+
+      it('renders void element with normalized', () => {
+        expect(m.render('<hr id="test">').html).toContain('<hr id="test" />')
+        expect(m.render('<hr class="test">').html).toContain('<hr />')
+        expect(m.render('<p>').html).toContain('<p>')
+      })
+    })
+
+    context("with markdown-it's xhtmlOut option as false", () => {
+      const m = marp({ markdown: { xhtmlOut: false } })
+
+      it('does not normalize void element', () => {
+        expect(m.render('<br>').html).toContain('<br>')
+        expect(m.render('<br />').html).toContain('<br />')
+        expect(m.render('<br class="sanitize">').html).toContain('<br>')
+        expect(m.render('<br></br>').html).toContain('<br></br>')
       })
     })
 
