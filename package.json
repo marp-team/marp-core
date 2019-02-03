@@ -76,6 +76,7 @@
     "rollup-plugin-postcss": "^2.0.1",
     "rollup-plugin-terser": "^4.0.3",
     "rollup-plugin-typescript": "^1.0.0",
+    "self-closing-tags": "^1.0.1",
     "stylelint": "^9.10.1",
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0",
