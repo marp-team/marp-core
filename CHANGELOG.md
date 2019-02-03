@@ -2,9 +2,17 @@
 
 ## [Unreleased]
 
+### Added
+
+- Allow using twemoji via PNG by added `emoji.twemoji.ext` option ([#67](https://github.com/marp-team/marp-core/pull/67))
+
 ### Changed
 
 - Normalize known self-closing HTML elements with `xhtmlOut: true` ([#66](https://github.com/marp-team/marp-core/pull/66))
+
+### Deprecated
+
+- `emoji.twemojiBase` option has soft-deprecated in favor of `emoji.twemoji.base` ([#67](https://github.com/marp-team/marp-core/pull/67))
 
 ## v0.5.2 - 2019-01-31
 
