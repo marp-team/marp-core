@@ -199,9 +199,23 @@ describe('Marp', () => {
     })
 
     context('with true', () => {
+      const m = marp({ html: true })
+
       it('allows HTML tag', () => {
-        const { html } = marp({ html: true }).render('<b>abc</b>')
-        expect(cheerio.load(html)('b')).toHaveLength(1)
+        const { html } = m.render('<b  data-custom="test">abc</b>')
+        expect(cheerio.load(html)('b[data-custom="test"]')).toHaveLength(1)
+      })
+
+      it('renders void element with normalized', () => {
+        expect(m.render('<br>').html).toContain('<br />')
+        expect(m.render('<br  >').html).toContain('<br />')
+        expect(m.render('<br/>').html).toContain('<br />')
+        expect(m.render('<br />').html).toContain('<br />')
+        expect(m.render('<br></br>').html).toContain('<br /><br />')
+        expect(m.render('<BR >').html).toContain('<br />')
+        expect(m.render('<br class="normalize">').html).toContain(
+          '<br class="normalize" />'
+        )
       })
     })
 
