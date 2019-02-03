@@ -227,7 +227,7 @@ describe('Marp', () => {
     })
 
     context('with whitelist', () => {
-      const m = marp({ html: { hr: ['id'], p: ['class'] } })
+      const m = marp({ html: { img: ['src'], p: ['class'] } })
 
       it('allows whitelisted tags and attributes', () => {
         const md = '<p>\ntest\n</p>\n\n<p class="class" title="title">test</p>'
@@ -239,8 +239,10 @@ describe('Marp', () => {
       })
 
       it('renders void element with normalized', () => {
-        expect(m.render('<hr id="test">').html).toContain('<hr id="test" />')
-        expect(m.render('<hr class="test">').html).toContain('<hr />')
+        expect(m.render('<img src="a.png">').html).toContain(
+          '<img src="a.png" />'
+        )
+        expect(m.render('<img class="test">').html).toContain('<img />')
         expect(m.render('<p>').html).toContain('<p>')
       })
     })
