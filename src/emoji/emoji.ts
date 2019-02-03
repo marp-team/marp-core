@@ -10,7 +10,7 @@ export interface EmojiOptions {
   twemoji?: TwemojiOptions
   unicode?: boolean | 'twemoji'
 
-  /** @deprecated */
+  /** @deprecated Use `twemoji.base` instead. */
   twemojiBase?: string
 }
 

@@ -170,7 +170,9 @@ const marp = new Marp({
   emoji: {
     shortcode: true,
     unicode: false,
-    twemojiBase: '/resources/twemoji/',
+    twemoji: {
+      base: '/resources/twemoji/',
+    },
   },
   math: {
     katexFontPath: '/resources/fonts/',
@@ -221,9 +223,10 @@ Setting about emoji conversions.
   - It can convert Unicode emoji into twemoji when setting `"twemoji"`. 🐶 → <img src="https://twemoji.maxcdn.com/2/svg/1f436.svg" alt="🐶" width="16" height="16" valign="middle" /> _(default)_
   - If you not want this aggressive conversion, please set `false`.
 
-- **`twemojiBase`**: _`string`_
+- **`twemoji`**: _`object`_
 
-  - It is corresponded to [twemoji's `base` option](https://github.com/twitter/twemoji#object-as-parameter). By default, marp-core will use online emoji images [through MaxCDN (twemoji's default)](https://github.com/twitter/twemoji#cdn-support).
+  - **`base`**: _`string`_ - It is corresponded to [twemoji's `base` option](https://github.com/twitter/twemoji#object-as-parameter). By default, marp-core will use online emoji images [through MaxCDN (twemoji's default)](https://github.com/twitter/twemoji#cdn-support).
+  - **`ext`**: _`"svg"` | `"png"`_ - Setting the file type of twemoji images. _(`svg` by default)_
 
 > **For developers:** When you setting `unicode` option as `true`, Markdown parser will convert Unicode emoji into tokens internally. The rendering result is same as in `false`.
 
