@@ -202,7 +202,7 @@ describe('Marp', () => {
       const m = marp({ html: true })
 
       it('allows HTML tag', () => {
-        const { html } = m.render('<b  data-custom="test">abc</b>')
+        const { html } = m.render('<b data-custom="test">abc</b>')
         expect(cheerio.load(html)('b[data-custom="test"]')).toHaveLength(1)
       })
 
@@ -213,7 +213,7 @@ describe('Marp', () => {
         expect(m.render('<br />').html).toContain('<br />')
         expect(m.render('<br></br>').html).toContain('<br /><br />')
         expect(m.render('<BR >').html).toContain('<br />')
-        expect(m.render('<br class="normalize">').html).toContain(
+        expect(m.render('<br  class="normalize">').html).toContain(
           '<br class="normalize" />'
         )
       })
@@ -260,10 +260,12 @@ describe('Marp', () => {
       const instance = marp().use(marpitDisablePlugin)
 
       it('does not sanitize HTML', () => {
-        const { html } = instance.render('<b>abc</b>\n\n<div>\ntest\n</div>')
+        const { html } = instance.render(
+          '<b data-custom="test">abc</b>\n\n<div>\ntest\n</div>'
+        )
         const $ = cheerio.load(html)
 
-        expect($('b')).toHaveLength(1)
+        expect($('b[data-custom="test"]')).toHaveLength(1)
         expect($('div')).toHaveLength(1)
       })
     })
