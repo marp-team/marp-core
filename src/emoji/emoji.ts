@@ -1,5 +1,4 @@
 import emojiRegex from 'emoji-regex'
-import Token from 'markdown-it/lib/token'
 import markdownItEmoji from 'markdown-it-emoji'
 import twemoji from 'twemoji'
 import { marpEnabledSymbol } from '../symbol'
@@ -71,7 +70,7 @@ export function markdown(md, opts: EmojiOptions): void {
   }
 
   if (opts.unicode) {
-    md.core.ruler.after('inline', 'marp_unicode_emoji', ({ tokens }) => {
+    md.core.ruler.after('inline', 'marp_unicode_emoji', ({ tokens, Token }) => {
       for (const token of tokens) {
         if (token.type === 'inline') {
           const newChildren: any[] = []

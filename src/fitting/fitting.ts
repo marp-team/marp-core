@@ -1,4 +1,3 @@
-import Token from 'markdown-it/lib/token'
 import fittingCSS from './fitting.scss'
 import { Marp } from '../marp'
 import { marpEnabledSymbol } from '../symbol'
@@ -12,11 +11,11 @@ export const svgContentWrapAttr = 'data-marp-fitting-svg-content-wrap'
 
 export type ThemeResolver = () => string | undefined
 
-function wrapTokensByFittingToken(tokens: any[]): any[] {
-  const open = new Token('marp_fitting_open', 'span', 1)
+function wrapTokensByFittingToken(token, tokens: any[]): any[] {
+  const open = new token('marp_fitting_open', 'span', 1)
   open.attrSet(attr, 'plain')
 
-  return [open, ...tokens, new Token('marp_fitting_close', 'span', -1)]
+  return [open, ...tokens, new token('marp_fitting_close', 'span', -1)]
 }
 
 // Wrap code block and fence renderer by fitting elements.
@@ -70,7 +69,10 @@ function fittingHeader(md, marp: Marp): void {
           }
 
           if (requireWrapping) {
-            token.children = wrapTokensByFittingToken(token.children)
+            token.children = wrapTokensByFittingToken(
+              state.Token,
+              token.children
+            )
           }
         } else if (token.type === 'heading_close') {
           target = undefined
