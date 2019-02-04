@@ -246,7 +246,7 @@ describe('Marp', () => {
     })
 
     context('with whitelist', () => {
-      const m = marp({ html: { hr: ['id'], p: ['class'] } })
+      const m = marp({ html: { img: ['src'], p: ['class'] } })
 
       it('allows whitelisted tags and attributes', () => {
         const md = '<p>\ntest\n</p>\n\n<p class="class" title="title">test</p>'
@@ -258,9 +258,27 @@ describe('Marp', () => {
       })
 
       it('renders void element with normalized', () => {
-        expect(m.render('<hr id="test">').html).toContain('<hr id="test" />')
-        expect(m.render('<hr class="test">').html).toContain('<hr />')
+        expect(m.render('<img src="a.png">').html).toContain(
+          '<img src="a.png" />'
+        )
+        expect(m.render('<img class="test">').html).toContain('<img />')
         expect(m.render('<p>').html).toContain('<p>')
+      })
+
+      context('when attributes are defined as object', () => {
+        it('allows whitelisted attributes without defined false', () => {
+          const instance = marp({ html: { p: { id: true, class: false } } })
+          const { html } = instance.render('<p id="id" class="class"></p>')
+
+          expect(html).toContain('<p id="id"></p>')
+        })
+
+        it('applies custom sanitizer to attributes when function is defined', () => {
+          const instance = marp({ html: { p: { id: () => 'sanitized' } } })
+          const { html } = instance.render('<p id></p>')
+
+          expect(html).toContain('<p id="sanitized"></p>')
+        })
       })
     })
 

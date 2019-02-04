@@ -13,7 +13,13 @@ import uncoverTheme from '../themes/uncover.scss'
 
 export interface MarpOptions extends MarpitOptions {
   emoji?: emojiPlugin.EmojiOptions
-  html?: boolean | { [tag: string]: string[] }
+  html?:
+    | boolean
+    | {
+        [tag: string]:
+          | string[]
+          | { [attr: string]: boolean | ((value: string) => string) }
+      }
   markdown?: object
   math?:
     | boolean

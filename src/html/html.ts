@@ -1,24 +1,56 @@
 import selfClosingTags from 'self-closing-tags'
 import { FilterXSS } from 'xss'
+import { friendlyAttrValue, escapeAttrValue } from 'xss/lib/default'
 import { MarpOptions } from '../marp'
 import { marpEnabledSymbol } from '../symbol'
 
 const selfClosingRegexp = /\s*\/?>$/
 
 export function markdown(md, opts: MarpOptions['html']): void {
-  const filterOpts = {
-    onIgnoreTag: (_, html) => (opts === true ? html : undefined),
-    whiteList: typeof opts === 'object' ? opts : {},
+  const whiteList = {}
+
+  if (typeof opts === 'object') {
+    for (const tag of Object.keys(opts)) {
+      const attrs = opts[tag]
+
+      if (Array.isArray(attrs)) {
+        whiteList[tag] = attrs
+      } else if (typeof attrs === 'object') {
+        whiteList[tag] = Object.keys(attrs).filter(
+          attr => attrs[attr] !== false
+        )
+      }
+    }
   }
-  const filter = new FilterXSS(filterOpts)
+
+  const filter = new FilterXSS({
+    whiteList,
+    onIgnoreTag: (_, html) => (opts === true ? html : undefined),
+    safeAttrValue: (tag, attr, value) => {
+      let ret = friendlyAttrValue(value)
+
+      if (
+        typeof opts === 'object' &&
+        opts[tag] &&
+        !Array.isArray(opts[tag]) &&
+        typeof opts[tag][attr] === 'function'
+      ) {
+        ret = opts[tag][attr](ret)
+      }
+
+      return escapeAttrValue(ret)
+    },
+  })
+
   const xhtmlOutFilter = new FilterXSS({
-    ...filterOpts,
-    onTag: (tag, html, { isClosing }: any) => {
+    onIgnoreTag: (tag, html, { isClosing }: any) => {
       if (selfClosingTags.includes(tag)) {
         const attrs = html.slice(tag.length + (isClosing ? 2 : 1), -1).trim()
         return `<${tag} ${attrs}>`.replace(selfClosingRegexp, ' />')
       }
+      return html
     },
+    whiteList: {},
   })
 
   const { html_inline, html_block } = md.renderer.rules

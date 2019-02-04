@@ -202,7 +202,16 @@ Setting whether to render raw HTML in Markdown.
 }
 ```
 
-Marp core allows only `<br>` tag by default, that is defined in [`Marp.html`](https://github.com/marp-team/marp-core/blob/3e854d0a50d4b1f36d01196169ab79ae171dbce1/src/marp.ts#L32-L34).
+```javascript
+// You may use custom attribute sanitizer by passing object.
+{
+  img: {
+    src: value => (value.startsWith('https://') ? value : '')
+  }
+}
+```
+
+Marp core allows only `<br>` tag by default, that is defined in [`Marp.html`](https://github.com/marp-team/marp-core/blob/d49064b5418053debd77485689f310bf1f7954d2/src/marp.ts#L39-L41).
 
 Whatever any option is selected, `<!-- HTML comment -->` is always parsed by Marpit for directives. When you are not disabled [Marpit's `inlineStyle` option](https://marpit-api.marp.app/marpit#Marpit) by `false`, `<style>` tags are parsed too for tweaking theme style.
 
