@@ -43,8 +43,31 @@ export function markdown(md, opts: EmojiOptions): void {
     twemojiParse(token[idx].content)
 
   if (opts.shortcode) {
-    md.use(markdownItEmoji, { shortcuts: {} })
-    if (opts.shortcode === 'twemoji') md.renderer.rules.emoji = twemojiRenderer
+    // Pick rules to avoid collision with other markdown-it plugin
+    const picker = {
+      core: { ruler: { push: (_, rule) => (picker.rule = rule) } },
+      renderer: { rules: { emoji: () => {} } },
+      rule: <Function>(() => {}),
+      utils: md.utils,
+    }
+
+    markdownItEmoji(picker, { shortcuts: {} })
+
+    md.core.ruler.push('marp_emoji', state => {
+      const { Token } = state
+
+      state.Token = function replacedToken(name, ...args) {
+        return new Token(name === 'emoji' ? 'marp_emoji' : name, ...args)
+      }
+
+      picker.rule(state)
+      state.Token = Token
+    })
+
+    md.renderer.rules.marp_emoji =
+      opts.shortcode === 'twemoji'
+        ? twemojiRenderer
+        : picker.renderer.rules.emoji
   }
 
   if (opts.unicode) {
