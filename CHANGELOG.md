@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.6.0 - 2019-02-04
+
 ### Added
 
 - Allow using twemoji via PNG by added `emoji.twemoji.ext` option ([#67](https://github.com/marp-team/marp-core/pull/67))
