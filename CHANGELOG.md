@@ -5,6 +5,11 @@
 ### Added
 
 - Allow using twemoji via PNG by added `emoji.twemoji.ext` option ([#67](https://github.com/marp-team/marp-core/pull/67))
+- Support custom sanitizer for whitelisted HTML attributes ([#68](https://github.com/marp-team/marp-core/pull/68))
+
+### Fixed
+
+- Fix over-sanitized attributes with HTML whitelist ([#68](https://github.com/marp-team/marp-core/pull/68))
 
 ### Changed
 
