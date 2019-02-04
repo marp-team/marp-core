@@ -15,6 +15,7 @@
 ### Changed
 
 - Normalize known self-closing HTML elements with `xhtmlOut: true` ([#66](https://github.com/marp-team/marp-core/pull/66))
+- Upgrade Node and dependent packages to the latest ([#70](https://github.com/marp-team/marp-core/pull/70))
 
 ### Deprecated
 
