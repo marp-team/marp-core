@@ -34,9 +34,7 @@ export function markdown(md, opts: EmojiOptions): void {
     twemoji.parse(content, {
       attributes: () => ({ 'data-marp-twemoji': '' }),
       base:
-        opts.twemojiBase ||
-        (twemojiOpts && twemojiOpts.base) ||
-        'https://twemoji.maxcdn.com/2/',
+        twemojiOpts.base || opts.twemojiBase || 'https://twemoji.maxcdn.com/2/',
       ext: `.${twemojiExt}`,
       size: twemojiExt === 'svg' ? 'svg' : 72,
     })
