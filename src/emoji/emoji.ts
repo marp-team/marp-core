@@ -1,5 +1,4 @@
 import emojiRegex from 'emoji-regex'
-import Token from 'markdown-it/lib/token'
 import markdownItEmoji from 'markdown-it-emoji'
 import twemoji from 'twemoji'
 import { marpEnabledSymbol } from '../symbol'
@@ -7,8 +6,16 @@ import twemojiCSS from './twemoji.scss'
 
 export interface EmojiOptions {
   shortcode?: boolean | 'twemoji'
-  twemojiBase?: string
+  twemoji?: TwemojiOptions
   unicode?: boolean | 'twemoji'
+
+  /** @deprecated Use `twemoji.base` instead. */
+  twemojiBase?: string
+}
+
+interface TwemojiOptions {
+  base?: string
+  ext?: 'svg' | 'png'
 }
 
 const regexForSplit = new RegExp(`(${emojiRegex().source})`, 'g')
@@ -19,26 +26,51 @@ export const css = (opts: EmojiOptions) =>
     : undefined
 
 export function markdown(md, opts: EmojiOptions): void {
+  const twemojiOpts = opts.twemoji || {}
+  const twemojiExt = twemojiOpts.ext || 'svg'
+
   const twemojiParse = (content: string): string =>
-    twemoji
-      .parse(content, {
-        base: opts.twemojiBase,
-        className: '__placeholder__',
-        ext: '.svg',
-        size: 'svg',
-      })
-      .replace('class="__placeholder__"', 'data-marp-twemoji')
+    twemoji.parse(content, {
+      attributes: () => ({ 'data-marp-twemoji': '' }),
+      base:
+        twemojiOpts.base || opts.twemojiBase || 'https://twemoji.maxcdn.com/2/',
+      ext: `.${twemojiExt}`,
+      size: twemojiExt === 'svg' ? 'svg' : 72,
+    })
 
   const twemojiRenderer = (token: any[], idx: number): string =>
     twemojiParse(token[idx].content)
 
   if (opts.shortcode) {
-    md.use(markdownItEmoji, { shortcuts: {} })
-    if (opts.shortcode === 'twemoji') md.renderer.rules.emoji = twemojiRenderer
+    // Pick rules to avoid collision with other markdown-it plugin
+    const picker = {
+      core: { ruler: { push: (_, rule) => (picker.rule = rule) } },
+      renderer: { rules: { emoji: () => {} } },
+      rule: <Function>(() => {}),
+      utils: md.utils,
+    }
+
+    markdownItEmoji(picker, { shortcuts: {} })
+
+    md.core.ruler.push('marp_emoji', state => {
+      const { Token } = state
+
+      state.Token = function replacedToken(name, ...args) {
+        return new Token(name === 'emoji' ? 'marp_emoji' : name, ...args)
+      }
+
+      picker.rule(state)
+      state.Token = Token
+    })
+
+    md.renderer.rules.marp_emoji =
+      opts.shortcode === 'twemoji'
+        ? twemojiRenderer
+        : picker.renderer.rules.emoji
   }
 
   if (opts.unicode) {
-    md.core.ruler.after('inline', 'marp_unicode_emoji', ({ tokens }) => {
+    md.core.ruler.after('inline', 'marp_unicode_emoji', ({ tokens, Token }) => {
       for (const token of tokens) {
         if (token.type === 'inline') {
           const newChildren: any[] = []

@@ -132,15 +132,34 @@ describe('Marp', () => {
       })
     })
 
-    describe('twemojiBase option', () => {
-      const instance = (emoji: EmojiOptions = {}) => new Marp({ emoji })
+    describe('twemoji option', () => {
+      const instance = (twemoji: EmojiOptions['twemoji'] = {}) =>
+        new Marp({ emoji: { twemoji } })
 
-      it('uses twemoji CDN by default', () => {
+      it('uses SVG via twemoji CDN by default', () => {
         const $ = cheerio.load(instance().render('# :ok_hand:').html)
         const src = $('h1 > img[data-marp-twemoji]').attr('src')
 
         expect(src).toBe('https://twemoji.maxcdn.com/2/svg/1f44c.svg')
       })
+
+      describe('base option', () => {
+        it('uses specified base', () =>
+          expect(
+            instance({ base: '/assets/twemoji/' }).render(':+1:').html
+          ).toContain('/assets/twemoji/svg/1f44d.svg'))
+      })
+
+      describe('ext option', () => {
+        it('uses PNG emoji by setting png', () =>
+          expect(instance({ ext: 'png' }).render(':+1:').html).toContain(
+            'https://twemoji.maxcdn.com/2/72x72/1f44d.png'
+          ))
+      })
+    })
+
+    describe('twemojiBase option [soft-deprecated]', () => {
+      const instance = (emoji: EmojiOptions = {}) => new Marp({ emoji })
 
       it('uses specified base when twemojiBase option is defined', () => {
         const marp = instance({ twemojiBase: '/assets/twemoji/' })

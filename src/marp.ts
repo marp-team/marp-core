@@ -54,7 +54,6 @@ export class Marp extends Marpit {
       ],
       emoji: {
         shortcode: 'twemoji',
-        twemojiBase: undefined,
         unicode: 'twemoji',
         ...(opts.emoji || {}),
       },
