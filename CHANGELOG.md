@@ -6,6 +6,7 @@
 
 - Allow using twemoji via PNG by added `emoji.twemoji.ext` option ([#67](https://github.com/marp-team/marp-core/pull/67))
 - Support custom sanitizer for whitelisted HTML attributes ([#68](https://github.com/marp-team/marp-core/pull/68))
+- Add usage of multiple classes in Gaia theme ([#69](https://github.com/marp-team/marp-core/pull/69))
 
 ### Fixed
 
