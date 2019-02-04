@@ -264,6 +264,22 @@ describe('Marp', () => {
         expect(m.render('<img class="test">').html).toContain('<img />')
         expect(m.render('<p>').html).toContain('<p>')
       })
+
+      context('when attributes are defined as object', () => {
+        it('allows whitelisted attributes without defined false', () => {
+          const instance = marp({ html: { p: { id: true, class: false } } })
+          const { html } = instance.render('<p id="id" class="class"></p>')
+
+          expect(html).toContain('<p id="id"></p>')
+        })
+
+        it('applies custom sanitizer to attributes when function is defined', () => {
+          const instance = marp({ html: { p: { id: () => 'sanitized' } } })
+          const { html } = instance.render('<p id></p>')
+
+          expect(html).toContain('<p id="sanitized"></p>')
+        })
+      })
     })
 
     context("with markdown-it's xhtmlOut option as false", () => {
