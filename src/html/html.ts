@@ -1,24 +1,27 @@
 import selfClosingTags from 'self-closing-tags'
 import { FilterXSS } from 'xss'
+import { friendlyAttrValue, escapeAttrValue } from 'xss/lib/default'
 import { MarpOptions } from '../marp'
 import { marpEnabledSymbol } from '../symbol'
 
 const selfClosingRegexp = /\s*\/?>$/
 
 export function markdown(md, opts: MarpOptions['html']): void {
-  const filterOpts = {
+  const filter = new FilterXSS({
     onIgnoreTag: (_, html) => (opts === true ? html : undefined),
+    safeAttrValue: (_, __, v) => escapeAttrValue(friendlyAttrValue(v)),
     whiteList: typeof opts === 'object' ? opts : {},
-  }
-  const filter = new FilterXSS(filterOpts)
+  })
+
   const xhtmlOutFilter = new FilterXSS({
-    ...filterOpts,
-    onTag: (tag, html, { isClosing }: any) => {
+    onIgnoreTag: (tag, html, { isClosing }: any) => {
       if (selfClosingTags.includes(tag)) {
         const attrs = html.slice(tag.length + (isClosing ? 2 : 1), -1).trim()
         return `<${tag} ${attrs}>`.replace(selfClosingRegexp, ' />')
       }
+      return html
     },
+    whiteList: {},
   })
 
   const { html_inline, html_block } = md.renderer.rules
