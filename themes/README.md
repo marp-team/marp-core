@@ -69,6 +69,25 @@ Gaia theme supports an additional color scheme by `gaia` class.
 <!-- class: gaia -->
 ```
 
+> :information_source: Of course you may use multiple classes, by array or separated string by space.
+>
+> ```markdown
+> ---
+> theme: gaia
+> class:
+>   - lead
+>   - invert
+> ---
+>
+> # Lead + invert
+>
+> ---
+>
+> <!-- class: lead gaia -->
+>
+> # Lead + gaia
+> ```
+
 ## Uncover
 
 [![](https://user-images.githubusercontent.com/3993388/48039495-5456b200-e1b8-11e8-8c82-ca7f7842b34d.png)][example]
