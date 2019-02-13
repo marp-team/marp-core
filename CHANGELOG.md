@@ -6,6 +6,10 @@
 
 - Remove dependency to PostCSS ([#71](https://github.com/marp-team/marp-core/pull/71))
 
+### Changed
+
+- Upgrade dependent packages to the latest ([#72](https://github.com/marp-team/marp-core/pull/72))
+
 ## v0.6.0 - 2019-02-04
 
 ### Added
