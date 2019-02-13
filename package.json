@@ -55,11 +55,11 @@
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.10",
-    "@types/jest": "^23.3.13",
+    "@types/jest": "^24.0.3",
     "autoprefixer": "^9.4.7",
     "cheerio": "^1.0.0-rc.2",
-    "codecov": "^3.1.0",
-    "cssnano": "^4.1.8",
+    "codecov": "^3.2.0",
+    "cssnano": "^4.1.9",
     "github-markdown-css": "^3.0.1",
     "jest": "^24.0.0",
     "jest-junit": "^6.2.1",
@@ -90,7 +90,7 @@
     "typescript": "^3.3.1"
   },
   "dependencies": {
-    "@marp-team/marpit": "^0.7.1",
+    "@marp-team/marpit": "^0.7.2",
     "@marp-team/marpit-svg-polyfill": "^0.2.0",
     "emoji-regex": "^7.0.3",
     "highlight.js": "^9.14.2",
