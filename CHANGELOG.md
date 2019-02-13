@@ -10,7 +10,7 @@
 
 ### Changed
 
-- Upgrade dependent packages to the latest ([#72](https://github.com/marp-team/marp-core/pull/72))
+- Upgrade dependent packages to the latest ([#73](https://github.com/marp-team/marp-core/pull/73))
 
 ## v0.6.0 - 2019-02-04
 
