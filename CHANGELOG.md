@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.6.1 - 2019-02-13
+
 ### Removed
 
 - Remove dependency to PostCSS ([#71](https://github.com/marp-team/marp-core/pull/71))
