@@ -312,22 +312,20 @@ describe('Marp', () => {
     const inline = "Euler's equation is defined as $e^{i\\pi}+1=0$."
     const block = '$$\nc=\\sqrt{a^2+b^2}\n$$'
 
-    const checkWebFont = (...urls) =>
+    const pickKaTeXWebFont = (css: string) => {
+      const walkedUrls: string[] = []
+
       postcss([
-        root => {
-          const walkedUrls: string[] = []
-
+        root =>
           root.walkAtRules('font-face', rule =>
-            rule.walkDecls('src', decl => walkedUrls.push(decl.value))
-          )
+            rule.walkDecls('src', e => {
+              if (e.value.includes('KaTeX')) walkedUrls.push(e.value)
+            })
+          ),
+      ]).process(css, { from: undefined }).css
 
-          for (const url of urls) {
-            expect(walkedUrls).toEqual(
-              expect.arrayContaining([expect.stringContaining(url)])
-            )
-          }
-        },
-      ])
+      return walkedUrls
+    }
 
     it('renders math typesetting by KaTeX', () => {
       const { html } = marp().render(`${inline}\n\n${block}`)
@@ -340,11 +338,12 @@ describe('Marp', () => {
       const { css } = marp().render(block)
       expect(css).toContain('.katex')
 
-      return checkWebFont(
-        "url('https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Mock.woff2')",
-        "url('https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Mock.woff')",
-        "url('https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Mock.ttf')"
-      ).process(css, { from: undefined })
+      const katexFonts = pickKaTeXWebFont(css)
+      for (const url of katexFonts) {
+        expect(url).toContain('https://cdn.jsdelivr.net/npm/katex')
+      }
+
+      expect(katexFonts).toMatchSnapshot('katex-css-cdn')
     })
 
     context('when math typesetting syntax is not using', () => {
@@ -404,11 +403,10 @@ describe('Marp', () => {
         const instance = marp({ math: { katexFontPath } })
         const { css } = instance.render(block)
 
-        return checkWebFont(
-          "url('/resources/fonts/KaTeX_Mock.woff2')",
-          "url('/resources/fonts/KaTeX_Mock.woff')",
-          "url('/resources/fonts/KaTeX_Mock.ttf')"
-        ).process(css, { from: undefined })
+        const katexFonts = pickKaTeXWebFont(css)
+        for (const url of katexFonts) expect(url).toContain(katexFontPath)
+
+        expect(katexFonts).toMatchSnapshot('katex-css-replace')
       })
 
       context('as false', () => {
@@ -416,11 +414,10 @@ describe('Marp', () => {
           const instance = marp({ math: { katexFontPath: false } })
           const { css } = instance.render(block)
 
-          return checkWebFont(
-            'url(fonts/KaTeX_Mock.woff2)',
-            'url("fonts/KaTeX_Mock.woff")',
-            'url("fonts/KaTeX_Mock.ttf")'
-          ).process(css, { from: undefined })
+          const katexFonts = pickKaTeXWebFont(css)
+          for (const url of katexFonts) expect(url).toContain('fonts/')
+
+          expect(katexFonts).toMatchSnapshot('katex-css-noops')
         })
       })
     })

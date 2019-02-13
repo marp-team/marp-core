@@ -23,7 +23,7 @@ describe('Browser observers', () => {
     expect(polyfill).toHaveBeenCalledTimes(1)
     expect(fittingObserver).toHaveBeenCalledTimes(1)
 
-    spy.mock.calls[0][0]()
+    spy.mock.calls[0][0](performance.now())
     expect(spy).toHaveBeenCalledTimes(2)
     expect(polyfill).toHaveBeenCalledTimes(2)
     expect(fittingObserver).toHaveBeenCalledTimes(2)

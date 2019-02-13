@@ -1,5 +1,4 @@
 import katex from 'katex'
-import postcss from 'postcss'
 import katexScss from './katex.scss'
 
 const convertedCSS = {}
@@ -81,16 +80,7 @@ export function css(path?: string): string {
 
   return (convertedCSS[path] =
     convertedCSS[path] ||
-    postcss(css =>
-      css.walkAtRules('font-face', rule =>
-        rule.walkDecls('src', decl => {
-          decl.value = decl.value.replace(
-            katexMatcher,
-            (_, matched) => `url('${path}${matched}')`
-          )
-        })
-      )
-    ).process(katexScss).css)
+    katexScss.replace(katexMatcher, (_, matched) => `url('${path}${matched}')`))
 }
 
 function isValidDelim(state, pos = state.pos) {
