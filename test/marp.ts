@@ -215,6 +215,14 @@ describe('Marp', () => {
         expect($('header > strong')).toHaveLength(1)
         expect($('footer > em')).toHaveLength(1)
       })
+
+      it('allows overriding html option through markdown-it instance', () => {
+        const instance = marp()
+        instance.markdown.set({ html: { b: [] } })
+
+        const { html } = instance.render('<b>abc</b>')
+        expect(cheerio.load(html)('b')).toHaveLength(1)
+      })
     })
 
     context('with true', () => {
