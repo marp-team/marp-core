@@ -55,7 +55,7 @@ export class Marp extends Marpit {
           highlight: (code: string, lang: string) =>
             this.highlighter(code, lang),
           ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
-          html: !!(opts.html !== undefined ? opts.html : Marp.html),
+          html: opts.html !== undefined ? opts.html : Marp.html,
         },
       ],
       emoji: {
@@ -77,7 +77,7 @@ export class Marp extends Marpit {
   protected applyMarkdownItPlugins(md = this.markdown) {
     super.applyMarkdownItPlugins(md)
 
-    const { emoji, html, math } = this.options
+    const { emoji, math } = this.options
 
     const useMarpitPlugin = (() => {
       const tmp = new Marpit()
@@ -87,7 +87,7 @@ export class Marp extends Marpit {
     })()
 
     // HTML sanitizer
-    useMarpitPlugin(htmlPlugin.markdown, html)
+    useMarpitPlugin(htmlPlugin.markdown)
 
     // Emoji support
     useMarpitPlugin(emojiPlugin.markdown, emoji)
