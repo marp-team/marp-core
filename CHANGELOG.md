@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.6.2 - 2019-03-09
+
 ### Changed
 
 - Use markdown-it's `html` option instead of Marp Core option to sanitize HTML ([#74](https://github.com/marp-team/marp-core/pull/74))
