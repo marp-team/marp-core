@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- Direction keyword for background images, from [Marpit v0.8.0](https://github.com/marp-team/marpit/releases/v0.8.0) ([#76](https://github.com/marp-team/marp-core/pull/76))
+
+### Changed
+
+- Upgrade Node and dependent packages to the latest ([#76](https://github.com/marp-team/marp-core/pull/76))
+
 ## v0.6.2 - 2019-03-09
 
 ### Changed
@@ -38,7 +46,7 @@
 
 ### Deprecated
 
-- `emoji.twemojiBase` option has soft-deprecated in favor of `emoji.twemoji.base` ([#67](https://github.com/marp-team/marp-core/pull/67))
+- `emoji.twemojiBase` option has soft-deprecated in favor5 of `emoji.twemoji.base` ([#67](https://github.c5om/marp-team/marp5-core/pull/67))5
 
 ## v0.5.2 - 2019-01-31
 
