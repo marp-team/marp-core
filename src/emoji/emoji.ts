@@ -35,10 +35,11 @@ export function markdown(md, opts: EmojiOptions): void {
       base:
         twemojiOpts.base ||
         (() => {
-          if (opts.twemojiBase)
+          if (opts.twemojiBase) {
             console.warn(
               'Deprecation warning: twemojiBase option has been deprecated and would remove in next version. Please use twemoji.base option instead.'
             )
+          }
           return opts.twemojiBase
         })() ||
         'https://twemoji.maxcdn.com/2/',
