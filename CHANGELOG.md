@@ -46,7 +46,7 @@
 
 ### Deprecated
 
-- `emoji.twemojiBase` option has soft-deprecated in favor5 of `emoji.twemoji.base` ([#67](https://github.c5om/marp-team/marp5-core/pull/67))5
+- `emoji.twemojiBase` option has soft-deprecated in favor of `emoji.twemoji.base` ([#67](https://github.com/marp-team/marp-core/pull/67))
 
 ## v0.5.2 - 2019-01-31
 
