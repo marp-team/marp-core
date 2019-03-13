@@ -68,10 +68,10 @@ references:
 
 version: 2
 jobs:
-  '10.15.1':
+  '10.15.3':
     <<: *base
     docker:
-      - image: circleci/node:10.15.1
+      - image: circleci/node:10.15.3
 
   carbon:
     <<: *base
@@ -96,7 +96,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - 10.15.1
+      - 10.15.3
       - carbon
       - boron
       - least-version
