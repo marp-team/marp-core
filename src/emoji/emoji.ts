@@ -33,7 +33,16 @@ export function markdown(md, opts: EmojiOptions): void {
     twemoji.parse(content, {
       attributes: () => ({ 'data-marp-twemoji': '' }),
       base:
-        twemojiOpts.base || opts.twemojiBase || 'https://twemoji.maxcdn.com/2/',
+        twemojiOpts.base ||
+        (() => {
+          if (opts.twemojiBase) {
+            console.warn(
+              'Deprecation warning: twemojiBase option has been deprecated and would remove in next version. Please use twemoji.base option instead.'
+            )
+          }
+          return opts.twemojiBase
+        })() ||
+        'https://twemoji.maxcdn.com/2/',
       ext: `.${twemojiExt}`,
       size: twemojiExt === 'svg' ? 'svg' : 72,
     })

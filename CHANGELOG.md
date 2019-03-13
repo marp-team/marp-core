@@ -9,6 +9,7 @@
 ### Changed
 
 - Upgrade Node and dependent packages to the latest ([#76](https://github.com/marp-team/marp-core/pull/76))
+- Output warning when used deprecated `twemojiBase` option ([#77](https://github.com/marp-team/marp-core/pull/77))
 
 ## v0.6.2 - 2019-03-09
 

@@ -14,6 +14,8 @@ const marpitDisablePlugin = md =>
 jest.mock('../src/browser')
 jest.mock('../src/math/katex.scss')
 
+afterEach(() => jest.restoreAllMocks())
+
 describe('Marp', () => {
   const marp = (opts?: MarpOptions): Marp => new Marp(opts)
 
@@ -158,15 +160,19 @@ describe('Marp', () => {
       })
     })
 
-    describe('twemojiBase option [soft-deprecated]', () => {
+    describe('twemojiBase option [deprecated]', () => {
       const instance = (emoji: EmojiOptions = {}) => new Marp({ emoji })
 
       it('uses specified base when twemojiBase option is defined', () => {
+        const warn = jest.spyOn(console, 'warn')
         const marp = instance({ twemojiBase: '/assets/twemoji/' })
         const $ = cheerio.load(marp.render('# :ok_hand:').html)
         const src = $('h1 > img[data-marp-twemoji]').attr('src')
 
         expect(src).toBe('/assets/twemoji/svg/1f44c.svg')
+        expect(warn).toBeCalledWith(
+          expect.stringContaining('Deprecation warning')
+        )
       })
     })
 
