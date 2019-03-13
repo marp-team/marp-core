@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- Direction keyword for background images, from [Marpit v0.8.0](https://github.com/marp-team/marpit/releases/v0.8.0) ([#76](https://github.com/marp-team/marp-core/pull/76))
+
+### Changed
+
+- Upgrade Node and dependent packages to the latest ([#76](https://github.com/marp-team/marp-core/pull/76))
+
 ## v0.6.2 - 2019-03-09
 
 ### Changed
