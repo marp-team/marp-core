@@ -295,12 +295,12 @@
     "@types/istanbul-lib-coverage" "^1.1.0"
     "@types/yargs" "^12.0.9"
 
-"@marp-team/marpit-svg-polyfill@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-0.2.0.tgz#e5bbf2ea9cc6ac21068019d88816fc5cd87410e4"
-  integrity sha512-OczYQQYUGPVuPPD/vQa0gS8UutIo5QOa1WiXgh80D8K8hBiSAJfKxViz0HKUUhwyURJRYiTioNYFcKQ1Ikjuww==
+"@marp-team/marpit-svg-polyfill@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-0.3.0.tgz#33c38089549fc335d6924f55306468e798300cf1"
+  integrity sha512-lQU/wOodM1RusiwkDMCEoTnS/BOEyvKPyNkLsuYA4lda4AtVBe0ZEJKm9a7D9e9CWNwvynyYDeWs0/UJj5IYIw==
   dependencies:
-    detect-browser "^3.0.1"
+    detect-browser "^4.1.0"
 
 "@marp-team/marpit@^0.8.0":
   version "0.8.0"
@@ -1630,10 +1630,10 @@ delegates@^1.0.0:
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
   integrity sha1-hMbhWbgZBP3KWaDvRM2HDTElD5o=
 
-detect-browser@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/detect-browser/-/detect-browser-3.0.1.tgz#39beead014347a8a2be1f3c4cb30a0aef2127c44"
-  integrity sha512-L6b76EfUxnoxGHM5Vz7nrshQPIbOHtitDWpGufrp5srQdJrEYi1xpUVZeFbfssWAJvUWo/iDIVlz8hOP4Z8OCw==
+detect-browser@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/detect-browser/-/detect-browser-4.1.0.tgz#4f1cd47952be8fb16511053c37275f513b96d74a"
+  integrity sha512-YKQf1QQDXXJrwNE07xHujoD+meBnjhsYFdPwxFEXS1ylJWD9GKd21lKBjuqtXzAkz4CQjwBO3DYXBU/wWwZCGA==
 
 detect-file@^1.0.0:
   version "1.0.0"
