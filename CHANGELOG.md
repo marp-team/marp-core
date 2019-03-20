@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.7.1 - 2019-03-20
+
 ### Fixed
 
 - Fix incorrect scaling in WebKit browser with custom zoom factor, by updating `@marp-team/marpit-svg-polyfill` to [v0.3.0](https://github.com/marp-team/marpit-svg-polyfill/releases/v0.3.0) ([#79](https://github.com/marp-team/marp-core/pull/79))
