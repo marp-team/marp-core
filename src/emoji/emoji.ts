@@ -1,16 +1,13 @@
+import marpitPlugin from '@marp-team/marpit/lib/markdown/marpit_plugin'
 import emojiRegex from 'emoji-regex'
 import markdownItEmoji from 'markdown-it-emoji'
 import twemoji from 'twemoji'
-import { marpEnabledSymbol } from '../symbol'
 import twemojiCSS from './twemoji.scss'
 
 export interface EmojiOptions {
   shortcode?: boolean | 'twemoji'
   twemoji?: TwemojiOptions
   unicode?: boolean | 'twemoji'
-
-  /** @deprecated Use `twemoji.base` instead. */
-  twemojiBase?: string
 }
 
 interface TwemojiOptions {
@@ -25,24 +22,15 @@ export const css = (opts: EmojiOptions) =>
     ? twemojiCSS
     : undefined
 
-export function markdown(md, opts: EmojiOptions): void {
+export const markdown = marpitPlugin(md => {
+  const opts: EmojiOptions = md.marpit.options.emoji
   const twemojiOpts = opts.twemoji || {}
   const twemojiExt = twemojiOpts.ext || 'svg'
 
   const twemojiParse = (content: string): string =>
     twemoji.parse(content, {
       attributes: () => ({ 'data-marp-twemoji': '' }),
-      base:
-        twemojiOpts.base ||
-        (() => {
-          if (opts.twemojiBase) {
-            console.warn(
-              'Deprecation warning: twemojiBase option has been deprecated and would remove in next version. Please use twemoji.base option instead.'
-            )
-          }
-          return opts.twemojiBase
-        })() ||
-        'https://twemoji.maxcdn.com/2/',
+      base: twemojiOpts.base || 'https://twemoji.maxcdn.com/2/',
       ext: `.${twemojiExt}`,
       size: twemojiExt === 'svg' ? 'svg' : 72,
     })
@@ -123,21 +111,19 @@ export function markdown(md, opts: EmojiOptions): void {
 
     if (opts.unicode === 'twemoji') {
       const wrap = text =>
-        md[marpEnabledSymbol]
-          ? text
-              .split(/(<[^>]*>)/g)
-              .reduce(
-                (ret, part, idx) =>
-                  `${ret}${
-                    idx % 2
-                      ? part
-                      : part.replace(regexForSplit, ([emoji]) =>
-                          twemojiParse(emoji)
-                        )
-                  }`,
-                ''
-              )
-          : text
+        text
+          .split(/(<[^>]*>)/g)
+          .reduce(
+            (ret, part, idx) =>
+              `${ret}${
+                idx % 2
+                  ? part
+                  : part.replace(regexForSplit, ([emoji]) =>
+                      twemojiParse(emoji)
+                    )
+              }`,
+            ''
+          )
 
       md.renderer.rules.marp_unicode_emoji = twemojiRenderer
 
@@ -146,4 +132,4 @@ export function markdown(md, opts: EmojiOptions): void {
       md.renderer.rules.fence = (...args) => wrap(fence(...args))
     }
   }
-}
+})

@@ -2,7 +2,6 @@ import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
 import { version } from 'katex/package.json'
 import browser from './browser'
-import { marpEnabledSymbol } from './symbol'
 import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
 import * as htmlPlugin from './html/html'
@@ -21,12 +20,7 @@ export interface MarpOptions extends MarpitOptions {
           | { [attr: string]: boolean | ((value: string) => string) }
       }
   markdown?: object
-  math?:
-    | boolean
-    | {
-        katexOption?: object
-        katexFontPath?: string | false
-      }
+  math?: mathPlugin.MathOptions
 }
 
 const marpObservedSymbol = Symbol('marpObserved')
@@ -74,55 +68,16 @@ export class Marp extends Marpit {
     this.themeSet.add(uncoverTheme)
   }
 
-  protected applyMarkdownItPlugins(md = this.markdown) {
+  protected applyMarkdownItPlugins(md) {
     super.applyMarkdownItPlugins(md)
 
-    const { emoji, math } = this.options
-
-    const useMarpitPlugin = (() => {
-      const tmp = new Marpit()
-      tmp.markdown = md
-
-      return tmp.use.bind(tmp)
-    })()
-
-    // HTML sanitizer
-    useMarpitPlugin(htmlPlugin.markdown)
-
-    // Emoji support
-    useMarpitPlugin(emojiPlugin.markdown, emoji)
-
-    // Math typesetting
-    if (math) {
-      const opts =
-        typeof math === 'object' && typeof math.katexOption === 'object'
-          ? math.katexOption
-          : {}
-
-      useMarpitPlugin(
-        mathPlugin.markdown,
-        opts,
-        flag => (this.renderedMath = flag)
+    md.use(htmlPlugin.markdown)
+      .use(emojiPlugin.markdown)
+      .use(mathPlugin.markdown, flag => (this.renderedMath = flag))
+      .use(
+        fittingPlugin.markdown,
+        () => (this.lastGlobalDirectives || {}).theme
       )
-    }
-
-    // Fitting
-    useMarpitPlugin(
-      fittingPlugin.markdown,
-      this,
-      () => (this.lastGlobalDirectives || {}).theme
-    )
-
-    // Track usage of Marpit features (for renderer)
-    md.core.ruler.push('marp_enabled', () => (md[marpEnabledSymbol] = false))
-
-    useMarpitPlugin(() =>
-      md.core.ruler.after(
-        'marp_enabled',
-        'marp_enabled_tracker',
-        () => (md[marpEnabledSymbol] = true)
-      )
-    )
   }
 
   highlighter(code: string, lang: string): string {

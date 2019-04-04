@@ -1,6 +1,6 @@
+import marpitPlugin from '@marp-team/marpit/lib/markdown/marpit_plugin'
 import fittingCSS from './fitting.scss'
 import { Marp } from '../marp'
-import { marpEnabledSymbol } from '../symbol'
 
 export const css = fittingCSS
 export const attr = 'data-marp-fitting'
@@ -19,20 +19,22 @@ function wrapTokensByFittingToken(token, tokens: any[]): any[] {
 }
 
 // Wrap code block and fence renderer by fitting elements.
-function fittingCode(md, marp: Marp, themeResolver: ThemeResolver): void {
+function fittingCode(md, themeResolver: ThemeResolver): void {
   const { code_block, fence } = md.renderer.rules
 
   const codeMatcher = /^(<pre[^>]*?><code[^>]*?>)([\s\S]*)(<\/code><\/pre>\n*)$/
 
   const replacedRenderer = func => (...args) => {
     const rendered: string = func(...args)
-    if (!md[marpEnabledSymbol]) return rendered
 
-    const { fittingCode } = marp.themeSet.getThemeProp(themeResolver()!, 'meta')
+    const { fittingCode } = md.marpit.themeSet.getThemeProp(
+      themeResolver()!,
+      'meta'
+    )
     if (fittingCode === 'false') return rendered
 
     return rendered.replace(codeMatcher, (_, start, content, end) => {
-      if (marp.options.inlineSVG) {
+      if (md.marpit.options.inlineSVG) {
         return [
           `${start}<svg ${attr}="svg" ${code}><foreignObject>`,
           `<span ${svgContentAttr}><span ${svgContentWrapAttr}>`,
@@ -49,7 +51,7 @@ function fittingCode(md, marp: Marp, themeResolver: ThemeResolver): void {
 }
 
 // Detect `<!-- fit -->` comment keyword in headings.
-function fittingHeader(md, marp: Marp): void {
+function fittingHeader(md): void {
   md.core.ruler.after('inline', 'marp_fitting_header', state => {
     let target = undefined
 
@@ -81,7 +83,7 @@ function fittingHeader(md, marp: Marp): void {
     }
   })
 
-  if (marp.options.inlineSVG) {
+  if (md.marpit.options.inlineSVG) {
     Object.assign(md.renderer.rules, {
       marp_fitting_open: () =>
         `<svg ${attr}="svg"><foreignObject><span ${svgContentAttr}>`,
@@ -90,18 +92,15 @@ function fittingHeader(md, marp: Marp): void {
   }
 }
 
-function fittingMathBlock(md, marp: Marp): void {
+function fittingMathBlock(md): void {
   const { marp_math_block } = md.renderer.rules
   if (!marp_math_block) return
 
   const replacedRenderer = func => (...args) => {
-    const rendered: string = func(...args)
-    if (!md[marpEnabledSymbol]) return rendered
-
     // Rendered math block is wrapped by `<p>` tag in math plugin
-    const katex = rendered.slice(3, -4)
+    const katex: string = func(...args).slice(3, -4)
 
-    if (marp.options.inlineSVG) {
+    if (md.marpit.options.inlineSVG) {
       return [
         `<p><svg ${attr}="svg" ${math}><foreignObject>`,
         `<span ${svgContentAttr}><span ${svgContentWrapAttr}>`,
@@ -115,8 +114,8 @@ function fittingMathBlock(md, marp: Marp): void {
   md.renderer.rules.marp_math_block = replacedRenderer(marp_math_block)
 }
 
-export function markdown(md, marp: Marp, themeResolver: ThemeResolver): void {
-  md.use(fittingHeader, marp)
-  md.use(fittingCode, marp, themeResolver)
-  md.use(fittingMathBlock, marp)
-}
+export const markdown = marpitPlugin((md, themeResolver: ThemeResolver) => {
+  md.use(fittingHeader)
+  md.use(fittingCode, themeResolver)
+  md.use(fittingMathBlock)
+})

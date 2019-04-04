@@ -1,8 +1,16 @@
+import marpitPlugin from '@marp-team/marpit/lib/markdown/marpit_plugin'
 import katex from 'katex'
 import katexScss from './katex.scss'
 
 const convertedCSS = {}
 const katexMatcher = /url\(['"]?fonts\/(.*?)['"]?\)/g
+
+interface MathOptionsInterface {
+  katexOption?: object
+  katexFontPath?: string | false
+}
+
+export type MathOptions = boolean | MathOptionsInterface
 
 /**
  * marp-core math plugin
@@ -12,68 +20,82 @@ const katexMatcher = /url\(['"]?fonts\/(.*?)['"]?\)/g
  *
  * @see https://github.com/waylonflinn/markdown-it-katex
  */
-export function markdown(
-  md,
-  opts: {},
-  update: (rendered: boolean) => void = () => {}
-): void {
-  const genOpts = (displayMode: boolean) => ({
-    throwOnError: false,
-    ...opts,
-    displayMode,
-  })
+export const markdown = marpitPlugin(
+  (md, updateState: (rendered: boolean) => void = () => {}) => {
+    const genOpts = (displayMode: boolean) => {
+      const math: MathOptions = md.marpit.options.math
 
-  md.core.ruler.before('block', 'marp_math_initialize', state => {
-    if (!state.inlineMode) update(false)
-  })
-
-  // Inline
-  md.inline.ruler.after('escape', 'marp_math_inline', (state, silent) => {
-    if (parseInlineMath(state, silent)) {
-      update(true)
-      return true
+      return {
+        throwOnError: false,
+        ...(typeof math === 'object' && typeof math.katexOption === 'object'
+          ? math.katexOption
+          : {}),
+        displayMode,
+      }
     }
-    return false
-  })
 
-  md.renderer.rules.marp_math_inline = (tokens, idx) => {
-    const { content } = tokens[idx]
+    md.core.ruler.before('block', 'marp_math_initialize', state => {
+      if (!state.inlineMode) {
+        updateState(false)
 
-    try {
-      return katex.renderToString(content, genOpts(false))
-    } catch (e) {
-      console.warn(e)
-      return content
-    }
-  }
+        if (md.marpit.options.math) {
+          md.block.ruler.enable('marp_math_block')
+          md.inline.ruler.enable('marp_math_inline')
+        } else {
+          md.block.ruler.disable('marp_math_block')
+          md.inline.ruler.disable('marp_math_inline')
+        }
+      }
+    })
 
-  // Block
-  md.block.ruler.after(
-    'blockquote',
-    'marp_math_block',
-    (state, start, end, silent) => {
-      if (parseMathBlock(state, start, end, silent)) {
-        update(true)
+    // Inline
+    md.inline.ruler.after('escape', 'marp_math_inline', (state, silent) => {
+      if (parseInlineMath(state, silent)) {
+        updateState(true)
         return true
       }
       return false
-    },
-    {
-      alt: ['paragraph', 'reference', 'blockquote', 'list'],
+    })
+
+    md.renderer.rules.marp_math_inline = (tokens, idx) => {
+      const { content } = tokens[idx]
+
+      try {
+        return katex.renderToString(content, genOpts(false))
+      } catch (e) {
+        console.warn(e)
+        return content
+      }
     }
-  )
 
-  md.renderer.rules.marp_math_block = (tokens, idx) => {
-    const { content } = tokens[idx]
+    // Block
+    md.block.ruler.after(
+      'blockquote',
+      'marp_math_block',
+      (state, start, end, silent) => {
+        if (parseMathBlock(state, start, end, silent)) {
+          updateState(true)
+          return true
+        }
+        return false
+      },
+      {
+        alt: ['paragraph', 'reference', 'blockquote', 'list'],
+      }
+    )
 
-    try {
-      return `<p>${katex.renderToString(content, genOpts(true))}</p>`
-    } catch (e) {
-      console.warn(e)
-      return `<p>${content}</p>`
+    md.renderer.rules.marp_math_block = (tokens, idx) => {
+      const { content } = tokens[idx]
+
+      try {
+        return `<p>${katex.renderToString(content, genOpts(true))}</p>`
+      } catch (e) {
+        console.warn(e)
+        return `<p>${content}</p>`
+      }
     }
   }
-}
+)
 
 export function css(path?: string): string {
   if (!path) return katexScss
