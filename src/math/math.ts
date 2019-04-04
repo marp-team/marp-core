@@ -35,16 +35,16 @@ export const markdown = marpitPlugin(
     }
 
     md.core.ruler.before('block', 'marp_math_initialize', state => {
-      if (!state.inlineMode) {
-        updateState(false)
+      if (state.inlineMode) return
 
-        if (md.marpit.options.math) {
-          md.block.ruler.enable('marp_math_block')
-          md.inline.ruler.enable('marp_math_inline')
-        } else {
-          md.block.ruler.disable('marp_math_block')
-          md.inline.ruler.disable('marp_math_inline')
-        }
+      updateState(false)
+
+      if (md.marpit.options.math) {
+        md.block.ruler.enable('marp_math_block')
+        md.inline.ruler.enable('marp_math_inline')
+      } else {
+        md.block.ruler.disable('marp_math_block')
+        md.inline.ruler.disable('marp_math_inline')
       }
     })
 
@@ -79,9 +79,7 @@ export const markdown = marpitPlugin(
         }
         return false
       },
-      {
-        alt: ['paragraph', 'reference', 'blockquote', 'list'],
-      }
+      { alt: ['paragraph', 'reference', 'blockquote', 'list'] }
     )
 
     md.renderer.rules.marp_math_block = (tokens, idx) => {
