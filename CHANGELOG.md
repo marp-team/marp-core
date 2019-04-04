@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Marpit to [v0.9.0](https://github.com/marp-team/marpit/releases/v0.9.0) ([#80](https://github.com/marp-team/marp-core/pull/80))
+
+### Removed
+
+- Deprecated `twemojiBase` option ([#80](https://github.com/marp-team/marp-core/pull/80))
+
 ## v0.7.1 - 2019-03-20
 
 ### Fixed

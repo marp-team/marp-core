@@ -2,7 +2,6 @@ import selfClosingTags from 'self-closing-tags'
 import { FilterXSS } from 'xss'
 import { friendlyAttrValue, escapeAttrValue } from 'xss/lib/default'
 import { MarpOptions } from '../marp'
-import { marpEnabledSymbol } from '../symbol'
 
 const selfClosingRegexp = /\s*\/?>$/
 const xhtmlOutFilter = new FilterXSS({
@@ -21,8 +20,6 @@ export function markdown(md): void {
 
   const sanitizedRenderer = (original: Function) => (...args) => {
     const ret = original(...args)
-    if (!md[marpEnabledSymbol]) return ret
-
     const whiteList = {}
     const html: MarpOptions['html'] = md.options.html
 

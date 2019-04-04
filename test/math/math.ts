@@ -11,7 +11,10 @@ const countMath = stt => stt.split('class="katex"').length - 1
 const countBlockMath = stt => stt.split('class="katex-display"').length - 1
 
 describe('markdown-it math plugin', () => {
-  const md = new MarkdownIt().use(mathPlugin)
+  const md = new MarkdownIt()
+
+  md.marpit = { options: { math: true } }
+  md.use(mathPlugin)
 
   it('renders simple inline math', () => {
     const rendered = md.render('$1+1 = 2$')
