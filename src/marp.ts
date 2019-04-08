@@ -74,10 +74,7 @@ export class Marp extends Marpit {
     md.use(htmlPlugin.markdown)
       .use(emojiPlugin.markdown)
       .use(mathPlugin.markdown, flag => (this.renderedMath = flag))
-      .use(
-        fittingPlugin.markdown,
-        () => (this.lastGlobalDirectives || {}).theme
-      )
+      .use(fittingPlugin.markdown)
   }
 
   highlighter(code: string, lang: string): string {

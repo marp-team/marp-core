@@ -492,7 +492,7 @@ describe('Marp', () => {
         expect($('pre').text()).toContain('CODE BLOCK')
       })
 
-      it('does not wrap by svg when specified theme has fittingCode meta as false', () => {
+      it('does not wrap by svg when specified uncover theme', () => {
         const instance = marp()
         const theme = instance.themeSet.get('uncover')!
         theme.meta.fittingCode = 'false'

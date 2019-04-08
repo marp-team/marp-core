@@ -3,7 +3,8 @@
  *
  * @theme uncover
  * @author Yuki Hattori
- * @fittingCode false
+ *
+ * @auto-scaling fittingHeader,math
  */
 
 @mixin color-scheme($bg: #fdfcff, $text: #202228, $highlight: #009dd5) {
