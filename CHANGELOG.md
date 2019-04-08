@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Breaking
+
+- Change auto-scaling features to require enabling by `@auto-scaling` metadata of theme CSS explicitly ([#81](https://github.com/marp-team/marp-core/pull/81))
+
 ### Changed
 
 - Upgrade Marpit to [v0.9.0](https://github.com/marp-team/marpit/releases/v0.9.0) ([#80](https://github.com/marp-team/marp-core/pull/80))
