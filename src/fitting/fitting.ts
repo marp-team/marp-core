@@ -12,8 +12,8 @@ export const svgContentWrapAttr = 'data-marp-fitting-svg-content-wrap'
 
 const codeMatcher = /^(<pre[^>]*?><code[^>]*?>)([\s\S]*)(<\/code><\/pre>\n*)$/
 
-const isEnabledFitting = (marp: Marp, key?: string): boolean => {
-  const meta = getThemeMeta(marp, 'fitting') || ''
+const isEnabledAutoScaling = (marp: Marp, key?: string): boolean => {
+  const meta = getThemeMeta(marp, 'auto-scaling') || ''
   return !!(meta === 'true' || (key && meta.includes(key)))
 }
 
@@ -24,7 +24,7 @@ function fittingCode(md): void {
   const replacedRenderer = func => (...args) => {
     const rendered: string = func(...args)
 
-    if (isEnabledFitting(md.marpit, 'code')) {
+    if (isEnabledAutoScaling(md.marpit, 'code')) {
       return rendered.replace(codeMatcher, (_, start, content, end) => {
         if (md.marpit.options.inlineSVG) {
           return [
@@ -83,14 +83,14 @@ function fittingHeader(md): void {
   })
 
   md.renderer.rules.marp_fitting_open = () =>
-    isEnabledFitting(md.marpit, 'header')
+    isEnabledAutoScaling(md.marpit, 'fittingHeader')
       ? md.marpit.options.inlineSVG
         ? `<svg ${attr}="svg"><foreignObject><span ${svgContentAttr}>`
         : `<span ${attr}="plain">`
       : ''
 
   md.renderer.rules.marp_fitting_close = () =>
-    isEnabledFitting(md.marpit, 'header')
+    isEnabledAutoScaling(md.marpit, 'fittingHeader')
       ? `</span>${md.marpit.options.inlineSVG ? '</foreignObject></svg>' : ''}`
       : ''
 }
@@ -103,7 +103,7 @@ function fittingMathBlock(md): void {
     // Rendered math block is wrapped by `<p>` tag in math plugin
     const rendered: string = marp_math_block(...args)
 
-    if (isEnabledFitting(md.marpit, 'math')) {
+    if (isEnabledAutoScaling(md.marpit, 'math')) {
       const katex = rendered.slice(3, -4)
 
       if (md.marpit.options.inlineSVG) {

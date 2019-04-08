@@ -123,23 +123,23 @@ $$
 
 ### Auto-scaling features
 
-Auto-scaling is available only if enabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and defined `@fitting` meta data in an using theme CSS. In addition, you have to run [`Marp.ready()`](#marpready) on browser context.
+Auto-scaling is available only if enabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and defined `@auto-scaling` meta data in an using theme CSS. In addition, you have to run [`Marp.ready()`](#marpready) on browser context.
 
 ```css
 /*
  * @theme enable-all-auto-scaling
- * @fitting true
+ * @auto-scaling true
  */
 ```
 
 Marp Core's scaling features will be realized by manipulating the original DOM to use inline SVG. So the theme author must take care of updated DOM in styling. Refer to [the source code of offical themes][themes].
 
-`@fitting` meta can also pick the favorite features to enable by using keyword(s).
+`@auto-scaling` meta can also pick the favorite features to enable by using keyword(s).
 
 ```css
 /*
- * @theme enable-auto-scaling-for-header-and-math
- * @fitting header,math
+ * @theme enable-auto-scaling-for-fitting-header-and-math
+ * @auto-scaling fittingHeader,math
  */
 ```
 
@@ -155,7 +155,7 @@ When the headings contains `<!-- fit -->` comment, the size of headings will res
 
 This syntax is similar to [Deckset's `[fit]` keyword](https://docs.decksetapp.com/English.lproj/Formatting/01-headings.html), but we use HTML comment to hide a fit keyword on Markdown rendered as document.
 
-> :information_source: `@fitting header` is a keyword of the `@fitting` meta to enable fitting header.
+> :information_source: `@auto-scaling fittingHeader` is a keyword of the `@auto-scaling` meta to enable fitting header.
 
 #### Math block
 
@@ -163,21 +163,21 @@ We can scale-down the viewing size of math block (surrounded by `$$`) to fit a s
 
 |              Traditional rendering               |              Auto-scaling               |
 | :----------------------------------------------: | :-------------------------------------: |
-| ![Traditional rendering](https://bit.ly/2NXoHuW) | ![Auto scaling](https://bit.ly/2M6LyCk) |
+| ![Traditional rendering](https://bit.ly/2NXoHuW) | ![Auto-scaling](https://bit.ly/2M6LyCk) |
 
-> :information_source: `@fitting math` is a keyword of the `@fitting` meta to enable math block scaling.
+> :information_source: `@auto-scaling math` is a keyword of the `@auto-scaling` meta to enable math block scaling.
 
 #### Code block
 
 Several themes also can scale-down the viewing size of the code block to fit a slide.
 
-|              Traditional rendering               |              Auto scaling               |
+|              Traditional rendering               |              Auto-scaling               |
 | :----------------------------------------------: | :-------------------------------------: |
-| ![Traditional rendering](https://bit.ly/2LyEnmi) | ![Auto scaling](https://bit.ly/2N4yWQZ) |
+| ![Traditional rendering](https://bit.ly/2LyEnmi) | ![Auto-scaling](https://bit.ly/2N4yWQZ) |
 
 These features means that the contents on a slide are not cropped, and not shown unnecessary scrollbars in code.
 
-> :information_source: `@fitting code` is a keyword of the `@fitting` meta to enable code block scaling. `uncover` theme has disabled code block scaling because we use elastic style that has not compatible with it.
+> :information_source: `@auto-scaling code` is a keyword of the `@auto-scaling` meta to enable code block scaling. `uncover` theme has disabled code block scaling because we use elastic style that has not compatible with it.
 
 ## Constructor options
 

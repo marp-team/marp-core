@@ -113,13 +113,13 @@ Marp Core will recognize the metadata to be able to enable extra features whose 
 
 In other words, the enabled feature requires taking care of manipulated DOM when styling.
 
-### `@fitting`
+### `@auto-scaling`
 
 Enable [auto-scaling features](https://github.com/marp-team/marp-core#auto-scaling-features).
 
 - `true`: Enable all features.
-- `header`: Enable fitting header.
+- `fittingHeader`: Enable fitting header.
 - `math`: Enable scaling for math block.
 - `code`: Enable scaling for code block.
 
-Through separating by comma, it can select multiple keywords for individual features. (e.g. `@fitting header,math`)
+Through separating by comma, it can select multiple keywords for individual features. (e.g. `@auto-scaling fittingHeader,math`)
