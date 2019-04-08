@@ -1,6 +1,6 @@
-# Marp-core built-in themes
+# Marp Core built-in themes
 
-We provide some nice official themes in marp-core. You can choose a favorite theme by using [Marpit `theme` directive](https://marpit.marp.app/directives?id=theme) in your Markdown.
+We provide some nice official themes in Marp Core. You can choose a favorite theme by using [Marpit `theme` directive](https://marpit.marp.app/directives?id=theme) in your Markdown.
 
 Screenshots were taken from the rendered result of [an example][example].
 
@@ -13,6 +13,8 @@ The all of built-in themes support `invert` class to use the inverted color sche
 ```markdown
 <!-- class: invert -->
 ```
+
+---
 
 ## Default
 
@@ -101,4 +103,23 @@ Uncover theme has three design concepts: simple, minimal, and modern. It's inspi
 
 ### :warning: Restrictions
 
-[Auto scaling for code block](https://github.com/marp-team/marp-core#auto-scaling-features) is disabled because uncover theme uses the elastic style that has not compatible with it.
+[Auto-scaling for code block](https://github.com/marp-team/marp-core#auto-scaling-features) is disabled because uncover theme uses the elastic style that has not compatible with it.
+
+---
+
+## Metadata for additional features
+
+Marp Core will recognize the metadata to be able to enable extra features whose side effect through manipulation to rendered DOM structure.
+
+In other words, the enabled feature requires taking care of manipulated DOM when styling.
+
+### `@fitting`
+
+Enable [auto-scaling features](https://github.com/marp-team/marp-core#auto-scaling-features).
+
+- `true`: Enable all features.
+- `header`: Enable fitting header.
+- `math`: Enable scaling for math block.
+- `code`: Enable scaling for code block.
+
+Through separating by comma, it can select multiple keywords for individual features. (e.g. `@fitting header,math`)
