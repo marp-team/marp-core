@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.8.0 - 2019-04-08
+
 ### Breaking
 
 - Change auto-scaling features to require enabling by `@auto-scaling` metadata of theme CSS explicitly ([#72](https://github.com/marp-team/marp-core/issues/72), [#81](https://github.com/marp-team/marp-core/pull/81))
