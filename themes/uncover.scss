@@ -12,7 +12,15 @@
   color: $text;
 
   &::after {
-    background: linear-gradient(-45deg, rgba($text, 0.05) 50%, transparent 50%);
+    /*
+     * Gradient with hard stops has incorrect rendering in Firefox's PDF.js
+     * @see https://github.com/mozilla/pdf.js/issues/10572
+     */
+    // background: linear-gradient(-45deg, rgba($text, 0.05) 50%, transparent 50%);
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1 1" width="1" height="1"><path d="M0 1h1v-1Z" fill="#{rgba($text, 0.05)}"/></svg>')
+      no-repeat center center;
+    background-size: cover;
+
     color: $text;
     text-shadow: 0 0 5px $bg;
   }
