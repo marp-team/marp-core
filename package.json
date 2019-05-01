@@ -81,7 +81,7 @@
     "stylelint": "^10.0.1",
     "stylelint-config-prettier": "^5.1.0",
     "stylelint-config-standard": "^18.3.0",
-    "stylelint-scss": "^3.6.0",
+    "stylelint-scss": "^3.6.1",
     "ts-jest": "24.0.2",
     "tslib": "^1.9.3",
     "tslint": "^5.16.0",
