@@ -62,7 +62,7 @@
     "cssnano": "^4.1.9",
     "github-markdown-css": "^3.0.1",
     "jest": "^24.7.1",
-    "jest-junit": "^6.3.0",
+    "jest-junit": "^6.4.0",
     "node-sass": "^4.12.0",
     "node-sass-package-importer": "^5.3.1",
     "npm-run-all": "^4.1.5",
@@ -99,6 +99,9 @@
     "markdown-it-emoji": "^1.4.0",
     "twemoji": "^12.0.1",
     "xss": "^1.0.6"
+  },
+  "resolutions": {
+    "tar": "^4.4.8"
   },
   "publishConfig": {
     "access": "public"
