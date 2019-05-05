@@ -309,10 +309,10 @@
   dependencies:
     detect-browser "^4.1.0"
 
-"@marp-team/marpit@^0.9.2":
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-0.9.2.tgz#a01df483f0b8cc85c7939e504a17ba5f805a0227"
-  integrity sha512-3k5UvKkAuT76kBWi/wUbihMlFRH4NVc7xTL9sY77fap6cQLuPTry4vy1v1RB3+i+HU0Hz27so4w605H+JqGcSw==
+"@marp-team/marpit@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-1.0.0.tgz#dac3d52f5aa43efae9e6441d3281815d70e4b0b4"
+  integrity sha512-0fLBk/bvq6uEv70QxUTyaNGH7TYhB4+Q46GYSn2SIM3JlFZ+2SVp6ThU0nX4FsPkAqSAncKXQXnl2EldpytfYw==
   dependencies:
     color-string "^1.5.3"
     js-yaml "^3.13.0"
@@ -320,7 +320,7 @@
     lodash.kebabcase "^4.1.1"
     markdown-it "^8.4.2"
     markdown-it-front-matter "^0.1.2"
-    postcss "^7.0.14"
+    postcss "^7.0.16"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -5119,6 +5119,15 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.13, postcss@^7.0.14, postcss@^7.0.2
   version "7.0.14"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.14.tgz#4527ed6b1ca0d82c53ce5ec1a2041c2346bbd6e5"
   integrity sha512-NsbD6XUUMZvBxtQAJuWDJeeC4QFsmWsfozWxCJPWf3M55K9iu2iMDaKqyoOdTJ1R4usBXuxlVFAIo8rZPQD4Bg==
+  dependencies:
+    chalk "^2.4.2"
+    source-map "^0.6.1"
+    supports-color "^6.1.0"
+
+postcss@^7.0.16:
+  version "7.0.16"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.16.tgz#48f64f1b4b558cb8b52c88987724359acb010da2"
+  integrity sha512-MOo8zNSlIqh22Uaa3drkdIAgUGEL+AD1ESiSdmElLUmE2uVDo1QloiT/IfW9qRw8Gw+Y/w69UVMGwbufMSftxA==
   dependencies:
     chalk "^2.4.2"
     source-map "^0.6.1"
