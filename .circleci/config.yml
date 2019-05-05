@@ -1,5 +1,7 @@
 references:
   base: &base
+    docker:
+      - image: circleci/node:10.15.3
     working_directory: ~/marp-core
     steps:
       - run: node --version
@@ -13,10 +15,8 @@ references:
                            && ln -snf /opt/yarn-v$YARN_VERSION/bin/yarn /usr/local/bin/yarn \
                            && ln -snf /opt/yarn-v$YARN_VERSION/bin/yarnpkg /usr/local/bin/yarnpkg \
                            && rm yarn-v$YARN_VERSION.tar.gz'
-
-            [ -n "$YARN_IGNORE_ENGINES" ] && echo '--install.ignore-engines true' >> ~/.yarnrc || true
           environment:
-            YARN_VERSION: 1.13.0
+            YARN_VERSION: 1.15.2
 
       - checkout
 
@@ -68,35 +68,38 @@ references:
 
 version: 2
 jobs:
-  '10.15.3':
+  current:
     <<: *base
-    docker:
-      - image: circleci/node:10.15.3
 
   carbon:
     <<: *base
     docker:
       - image: circleci/node:carbon
 
-  boron:
+  erbium:
     <<: *base
     docker:
-      - image: circleci/node:boron
-    environment:
-      YARN_IGNORE_ENGINES: 1
+      - image: circleci/node:12
 
-  least-version:
+  github-release:
     <<: *base
-    docker:
-      - image: circleci/node:6.14.4
-    environment:
-      YARN_IGNORE_ENGINES: 1
+    steps:
+      - checkout
+      - run:
+          name: Create release on GitHub
+          command: curl https://raw.githubusercontent.com/marp-team/marp/master/github-release.js | node
 
 workflows:
   version: 2
   build:
     jobs:
-      - 10.15.3
+      - current
       - carbon
-      - boron
-      - least-version
+      - erbium
+      - github-release:
+          context: github-release
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
