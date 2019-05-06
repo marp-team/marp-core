@@ -21,6 +21,10 @@
 - Upgrade Marpit to v1 ([#87](https://github.com/marp-team/marp-core/pull/87))
 - Swap Sass compiler from node-sass to Dart Sass ([#87](https://github.com/marp-team/marp-core/pull/87))
 
+### Removed
+
+- Remove unnecessary dependency of markdown-it ([#88](https://github.com/marp-team/marp-core/pull/88))
+
 ## v0.8.0 - 2019-04-08
 
 ### Breaking

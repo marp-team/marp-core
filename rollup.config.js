@@ -32,7 +32,7 @@ const plugins = [
 
 export default [
   {
-    external: [...Object.keys(pkg.dependencies), 'markdown-it/lib/token'],
+    external: Object.keys(pkg.dependencies),
     input: `src/${path.basename(pkg.main, '.js')}.ts`,
     output: { exports: 'named', file: pkg.main, format: 'cjs' },
     plugins,
