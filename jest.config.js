@@ -6,7 +6,8 @@ module.exports = {
   coverageThreshold: { global: { lines: 95 } },
   testEnvironment: 'node',
   testRegex: '(/(test|__tests__)/(?!_).*|(\\.|/)(test|spec))\\.[jt]s$',
-  transform: Object.assign({}, jestPreset.transform, {
+  transform: {
+    ...jestPreset.transform,
     '^.*\\.s[ac]ss$': '<rootDir>/test/_transformers/sass.ts',
-  }),
+  },
 }

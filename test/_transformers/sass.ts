@@ -1,4 +1,4 @@
-const { renderSync } = require('node-sass')
+const { renderSync } = require('sass')
 const importer = require('node-sass-package-importer')()
 
 module.exports = {

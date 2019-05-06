@@ -422,7 +422,7 @@ describe('Marp', () => {
     it('prepends CSS about fitting', () => {
       const { css } = marp().render('')
 
-      expect(css).toContain("svg[data-marp-fitting='svg']")
+      expect(css).toContain('svg[data-marp-fitting=svg]')
       expect(css).toContain('[data-marp-fitting-svg-content]')
     })
 
