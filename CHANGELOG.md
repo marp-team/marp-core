@@ -8,9 +8,13 @@
 
 ### Added
 
-- Text color shorthand via image syntax, from Marpit v1 ([#87](https://github.com/marp-team/marp-core/pull/87))
+- Shorthand for text color by image syntax, from Marpit v1 ([#87](https://github.com/marp-team/marp-core/pull/87))
 - Test with Node 12 (Erbium) ([#87](https://github.com/marp-team/marp-core/pull/87))
 - Automate GitHub release ([#87](https://github.com/marp-team/marp-core/pull/87))
+
+### Fixed
+
+- Improve rendering compatibility of uncover theme's pagination in PDF.js ([#84](https://github.com/marp-team/marp-core/pull/84), [#86](https://github.com/marp-team/marp-core/pull/87))
 
 ### Changed
 
