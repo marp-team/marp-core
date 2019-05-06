@@ -33,7 +33,7 @@
     "types/"
   ],
   "engines": {
-    "node": ">=6.14.4"
+    "node": ">=8"
   },
   "scripts": {
     "build": "yarn --silent clean && rollup -c",
@@ -63,7 +63,6 @@
     "github-markdown-css": "^3.0.1",
     "jest": "^24.7.1",
     "jest-junit": "^6.3.0",
-    "node-sass": "^4.11.0",
     "node-sass-package-importer": "^5.3.1",
     "npm-run-all": "^4.1.5",
     "postcss": "^7.0.14",
@@ -77,6 +76,7 @@
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-terser": "^4.0.3",
     "rollup-plugin-typescript": "^1.0.1",
+    "sass": "^1.20.1",
     "self-closing-tags": "^1.0.1",
     "stylelint": "^9.10.1",
     "stylelint-config-prettier": "^5.0.0",
@@ -90,7 +90,7 @@
     "typescript": "^3.4.2"
   },
   "dependencies": {
-    "@marp-team/marpit": "^0.9.2",
+    "@marp-team/marpit": "^1.0.0",
     "@marp-team/marpit-svg-polyfill": "^0.3.0",
     "emoji-regex": "^8.0.0",
     "highlight.js": "^9.15.6",
