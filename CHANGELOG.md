@@ -14,7 +14,7 @@
 
 ### Fixed
 
-- Improve rendering compatibility of uncover theme's pagination in PDF.js ([#84](https://github.com/marp-team/marp-core/pull/84), [#86](https://github.com/marp-team/marp-core/pull/87))
+- Improve rendering compatibility of uncover theme's pagination in PDF.js ([#84](https://github.com/marp-team/marp-core/pull/84), [#86](https://github.com/marp-team/marp-core/pull/86))
 
 ### Changed
 
