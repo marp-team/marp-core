@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+### Breaking
+
+- Marp Core requires Node >= 8.
+
+### Added
+
+- Text color shorthand via image syntax, from Marpit v1 ([#87](https://github.com/marp-team/marp-core/pull/87))
+- Test with Node 12 (Erbium) ([#87](https://github.com/marp-team/marp-core/pull/87))
+- Automate GitHub release ([#87](https://github.com/marp-team/marp-core/pull/87))
+
+### Changed
+
+- Upgrade Marpit to v1 ([#87](https://github.com/marp-team/marp-core/pull/87))
+- Swap Sass compiler from node-sass to Dart Sass ([#87](https://github.com/marp-team/marp-core/pull/87))
+
 ## v0.8.0 - 2019-04-08
 
 ### Breaking
