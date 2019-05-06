@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.9.0 - 2019-05-06
+
 ### Breaking
 
 - Marp Core requires Node >= 8.
