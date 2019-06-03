@@ -628,7 +628,7 @@ describe('Marp', () => {
     })
   })
 
-  describe('get #markdownItPlugins', () => {
+  describe('[DEPRECATED] get #markdownItPlugins', () => {
     it('extends another markdown-it instance', () => {
       const markdownIt = new MarkdownIt().use(marp().markdownItPlugins)
 
