@@ -9,6 +9,9 @@ import * as mathPlugin from './math/math'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
+import default43Theme from '../themes/default43.scss'
+import gaia43Theme from '../themes/gaia43.scss'
+import uncover43Theme from '../themes/uncover43.scss'
 
 export interface MarpOptions extends MarpitOptions {
   emoji?: emojiPlugin.EmojiOptions
@@ -66,6 +69,9 @@ export class Marp extends Marpit {
     this.themeSet.default = this.themeSet.add(defaultTheme)
     this.themeSet.add(gaiaTheme)
     this.themeSet.add(uncoverTheme)
+    this.themeSet.add(default43Theme)
+    this.themeSet.add(gaia43Theme)
+    this.themeSet.add(uncover43Theme)
   }
 
   protected applyMarkdownItPlugins(md) {
