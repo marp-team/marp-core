@@ -1,7 +1,6 @@
 import marpitPlugin from '@marp-team/marpit/lib/markdown/marpit_plugin'
 import fittingCSS from './fitting.scss'
-import { Marp } from '../marp'
-import { getThemeMeta } from '../theme'
+import Marp from '../marp'
 
 export const css = fittingCSS
 export const attr = 'data-marp-fitting'
@@ -13,8 +12,14 @@ export const svgContentWrapAttr = 'data-marp-fitting-svg-content-wrap'
 const codeMatcher = /^(<pre[^>]*?><code[^>]*?>)([\s\S]*)(<\/code><\/pre>\n*)$/
 
 const isEnabledAutoScaling = (marp: Marp, key?: string): boolean => {
-  const meta = getThemeMeta(marp, 'auto-scaling') || ''
-  return !!(meta === 'true' || (key && meta.includes(key)))
+  const directives: Marp['lastGlobalDirectives'] = (marp as any)
+    .lastGlobalDirectives
+
+  const theme = marp.themeSet.get((directives || {}).theme, true)
+  const meta: string | undefined =
+    theme && (marp.themeSet.getThemeMeta(theme, 'auto-scaling') as any)
+
+  return !!(meta === 'true' || (key && (meta || '').includes(key)))
 }
 
 // Wrap code block and fence renderer by fitting elements.
