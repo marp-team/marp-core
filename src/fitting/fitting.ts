@@ -12,12 +12,12 @@ export const svgContentWrapAttr = 'data-marp-fitting-svg-content-wrap'
 const codeMatcher = /^(<pre[^>]*?><code[^>]*?>)([\s\S]*)(<\/code><\/pre>\n*)$/
 
 const isEnabledAutoScaling = (marp: Marp, key?: string): boolean => {
-  const { lastGlobalDirectives } = marp as any
-  const theme = marp.themeSet.get((lastGlobalDirectives || {}).theme, true)
+  const directives: Marp['lastGlobalDirectives'] = (marp as any)
+    .lastGlobalDirectives
 
-  const meta =
-    theme &&
-    (marp.themeSet.getThemeMeta(theme, 'auto-scaling') as string | undefined)
+  const theme = marp.themeSet.get((directives || {}).theme, true)
+  const meta: string | undefined =
+    theme && (marp.themeSet.getThemeMeta(theme, 'auto-scaling') as any)
 
   return !!(meta === 'true' || (key && (meta || '').includes(key)))
 }
