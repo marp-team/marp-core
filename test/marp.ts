@@ -493,9 +493,12 @@ describe('Marp', () => {
       })
 
       it('does not wrap by svg when specified uncover theme', () => {
+        // Disable object freeze
+        jest.spyOn<any, any>(Object, 'freeze').mockImplementation(obj => obj)
+
         const instance = marp()
         const theme = instance.themeSet.get('uncover')!
-        theme.meta.fittingCode = 'false'
+        theme.meta = { ...theme.meta, fittingCode: 'false' }
 
         const uncover = `---\ntheme: uncover\n---\n\n${markdown}`
         const $ = loadCheerio(instance.render(uncover).html)
