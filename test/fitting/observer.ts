@@ -124,13 +124,11 @@ describe('Fitting observer', () => {
     it("restricts min width to <pre> element's width without padding", () => {
       const computed = jest.spyOn(window, 'getComputedStyle')
 
-      computed.mockImplementation(
-        (): any => ({
-          paddingLeft: 0,
-          paddingRight: 0,
-          getPropertyValue: () => undefined,
-        })
-      )
+      computed.mockImplementation((): any => ({
+        paddingLeft: 0,
+        paddingRight: 0,
+        getPropertyValue: () => undefined,
+      }))
 
       setClientWidth(codePre, 300) // pre width > code svg width
       setClientWidth(mathP, 400) // p width > math svg width
@@ -145,13 +143,11 @@ describe('Fitting observer', () => {
       expect(mathSvg.getAttribute('viewBox')).toBe('0 0 50 100')
 
       // Consider padding
-      computed.mockImplementation(
-        (): any => ({
-          paddingLeft: '50px',
-          paddingRight: '70px',
-          getPropertyValue: () => undefined,
-        })
-      )
+      computed.mockImplementation((): any => ({
+        paddingLeft: '50px',
+        paddingRight: '70px',
+        getPropertyValue: () => undefined,
+      }))
 
       setClientWidth(codePre, 300) // 300 - 50 - 70 = 180px
       setClientWidth(mathP, 180) // 180 - 50 - 70 = 60px
