@@ -631,14 +631,6 @@ describe('Marp', () => {
     })
   })
 
-  describe('[DEPRECATED] get #markdownItPlugins', () => {
-    it('extends another markdown-it instance', () => {
-      const markdownIt = new MarkdownIt().use(marp().markdownItPlugins)
-
-      expect(markdownIt.render('')).toContain('section')
-    })
-  })
-
   describe('.ready', () => {
     it('throws error in node environment', () =>
       expect(() => Marp.ready()).toThrowError())
