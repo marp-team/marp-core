@@ -1,4 +1,4 @@
-import { attr, code, math } from './fitting'
+import { attr, code, math } from './data'
 
 const updateAttr = (elm: Element, attr: string, value: string): true | void => {
   if (elm.getAttribute(attr) !== value) {
