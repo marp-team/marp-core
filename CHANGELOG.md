@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Improve bundle size of script for browser to be about one fifth ([#93](https://github.com/marp-team/marp-core/pull/93))
+
 ## v0.10.1 - 2019-06-17
 
 ### Changed
