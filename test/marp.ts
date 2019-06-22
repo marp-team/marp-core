@@ -313,10 +313,8 @@ describe('Marp', () => {
     })
 
     context('when math typesetting syntax is not using', () => {
-      const ret = marp().render('plain text')
-
       it('does not inject KaTeX css', () =>
-        expect(ret.css).not.toContain('.katex'))
+        expect(marp().render('plain text').css).not.toContain('.katex'))
     })
 
     context('with katexOption', () => {
