@@ -22,9 +22,12 @@ export const markdown = marpitPlugin(md => {
 
     for (const value of sizes) {
       const args = value.split(/\s+/)
-      if (args.length < 3) continue
 
-      map.set(args[0], { width: args[1], height: args[2] })
+      if (args.length === 3) {
+        map.set(args[0], { width: args[1], height: args[2] })
+      } else if (args.length === 2 && args[1] === 'false') {
+        map.delete(args[0])
+      }
     }
 
     return map
@@ -64,11 +67,12 @@ export const markdown = marpitPlugin(md => {
 
     if (customSize) {
       const { width, height } = customSize
-      const overrideTheme = Object.assign(new (Theme as any)(), {
-        ...themeInstance,
-        ...customSize,
-        css: `${themeInstance.css}\nsection{width:${width};height:${height};}`,
-      })
+      const css = `${themeInstance.css}\nsection{width:${width};height:${height};}`
+
+      const overrideTheme: Theme = Object.assign(
+        Object.create(Object.getPrototypeOf(themeInstance)),
+        { ...themeInstance, ...customSize, css }
+      )
 
       forRestore.themes.add(themeInstance)
 
@@ -77,7 +81,9 @@ export const markdown = marpitPlugin(md => {
         marp.themeSet.default = overrideTheme
       }
 
-      marp.themeSet.addTheme(overrideTheme)
+      if (marp.themeSet.has(overrideTheme.name)) {
+        marp.themeSet.addTheme(overrideTheme)
+      }
     }
   })
 })

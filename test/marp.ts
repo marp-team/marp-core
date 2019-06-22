@@ -1,8 +1,6 @@
 import { Marpit } from '@marp-team/marpit'
 import cheerio from 'cheerio'
-import MarkdownIt from 'markdown-it'
 import postcss from 'postcss'
-import context from './_helpers/context'
 import { EmojiOptions } from '../src/emoji/emoji'
 import browser from '../src/browser'
 import { Marp, MarpOptions } from '../src/marp'
