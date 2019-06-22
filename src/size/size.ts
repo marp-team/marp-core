@@ -69,10 +69,11 @@ export const markdown = marpitPlugin(md => {
       const { width, height } = customSize
       const css = `${themeInstance.css}\nsection{width:${width};height:${height};}`
 
-      const overrideTheme: Theme = Object.assign(
-        Object.create(Object.getPrototypeOf(themeInstance)),
-        { ...themeInstance, ...customSize, css }
-      )
+      const overrideTheme = Object.assign(new (Theme as any)(), {
+        ...themeInstance,
+        ...customSize,
+        css,
+      })
 
       forRestore.themes.add(themeInstance)
 
