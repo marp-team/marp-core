@@ -81,6 +81,25 @@ We provide bulit-in official themes for Marp. See more details in [themes].
 
 [themes]: ./themes/
 
+### `size` global directive
+
+Do you want a traditional 4:3 slide size? We've added the support of `size` global directive only for Marp Core (And keeping [backward compatibility of syntax with the old Marp app](https://github.com/yhatt/marp/blob/master/example.md#size) too).
+
+Our extended theming system can use `960`x`720` slide in built-in themes easier: `size: 4:3`.
+
+```markdown
+---
+theme: gaia
+size: 4:3
+---
+
+# A traditional 4:3 slide
+```
+
+If you want to use more size presets in your theme, you have to define `@size` metadata(s) in theme CSS. [Learn in the document of theme metadata for Marp Core][themes].
+
+Theme author does not have to worry an unintended design being used with unexpected slide size because user only can use pre-defined presets by author.
+
 ### Emoji support
 
 Emoji shortcode (like `:smile:`) and Unicode emoji 😄 will convert into the SVG vector image provided by [twemoji](https://github.com/twitter/twemoji) <img src="https://twemoji.maxcdn.com/2/svg/1f604.svg" alt="😄" width="16" height="16" />. It could render emoji with high resolution.
