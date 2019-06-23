@@ -96,9 +96,11 @@ size: 4:3
 # A traditional 4:3 slide
 ```
 
-If you want to use more size presets in your theme, you have to define `@size` metadata(s) in theme CSS. [Learn in the document of theme metadata for Marp Core][themes].
+If you want to use more size presets in your theme, you have to define `@size` metadata(s) in theme CSS. [Learn in the document of theme metadata for Marp Core][metadata].
 
 Theme author does not have to worry an unintended design being used with unexpected slide size because user only can use pre-defined presets by author.
+
+[metadata]: ./themes#metadata-for-additional-features
 
 ### Emoji support
 
@@ -142,7 +144,7 @@ $$
 
 ### Auto-scaling features
 
-Auto-scaling is available only if enabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and defined `@auto-scaling` meta data in an using theme CSS. In addition, you have to run [`Marp.ready()`](#marpready) on browser context.
+Auto-scaling is available only if enabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and defined [`@auto-scaling` metadata][metadata] in an using theme CSS. In addition, you have to run [`Marp.ready()`](#marpready) on browser context.
 
 ```css
 /*
@@ -196,7 +198,9 @@ Several themes also can scale-down the viewing size of the code block to fit a s
 
 These features means that the contents on a slide are not cropped, and not shown unnecessary scrollbars in code.
 
-> :information_source: `@auto-scaling code` is a keyword of the `@auto-scaling` meta to enable code block scaling. `uncover` theme has disabled code block scaling because we use elastic style that has not compatible with it.
+> :information_source: `@auto-scaling code` is a keyword of the `@auto-scaling` meta to enable code block scaling.
+>
+> `uncover` theme has disabled code block scaling because we use elastic style that has not compatible with it.
 
 ## Constructor options
 
