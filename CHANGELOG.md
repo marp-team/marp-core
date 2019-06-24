@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.11.0 - 2019-06-24
+
 ### Added
 
 - `size` global directive and `@size` theme metadata to get easier way for using 4:3 deck in built-in theme ([#91](https://github.com/marp-team/marp-core/issues/91), [#94](https://github.com/marp-team/marp-core/pull/94))
