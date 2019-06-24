@@ -6,6 +6,7 @@ import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
+import * as sizePlugin from './size/size'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
@@ -59,10 +60,14 @@ export class Marp extends Marpit {
       },
     })
 
-    // Enable table
     this.markdown.enable(['table', 'linkify'])
 
-    // Add themes
+    // Theme support
+    this.themeSet.metaType = Object.freeze({
+      'auto-scaling': String,
+      size: Array,
+    })
+
     this.themeSet.default = this.themeSet.add(defaultTheme)
     this.themeSet.add(gaiaTheme)
     this.themeSet.add(uncoverTheme)
@@ -75,6 +80,7 @@ export class Marp extends Marpit {
       .use(emojiPlugin.markdown)
       .use(mathPlugin.markdown, flag => (this.renderedMath = flag))
       .use(fittingPlugin.markdown)
+      .use(sizePlugin.markdown)
   }
 
   highlighter(code: string, lang: string): string {

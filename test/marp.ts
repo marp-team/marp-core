@@ -1,8 +1,6 @@
 import { Marpit } from '@marp-team/marpit'
 import cheerio from 'cheerio'
-import MarkdownIt from 'markdown-it'
 import postcss from 'postcss'
-import context from './_helpers/context'
 import { EmojiOptions } from '../src/emoji/emoji'
 import browser from '../src/browser'
 import { Marp, MarpOptions } from '../src/marp'
@@ -14,6 +12,12 @@ afterEach(() => jest.restoreAllMocks())
 
 describe('Marp', () => {
   const marp = (opts?: MarpOptions): Marp => new Marp(opts)
+
+  const loadCheerio = (html: string) =>
+    cheerio.load(html, {
+      lowerCaseAttributeNames: false,
+      lowerCaseTags: false,
+    })
 
   it('extends Marpit', () => expect(marp()).toBeInstanceOf(Marpit))
 
@@ -313,10 +317,8 @@ describe('Marp', () => {
     })
 
     context('when math typesetting syntax is not using', () => {
-      const ret = marp().render('plain text')
-
       it('does not inject KaTeX css', () =>
-        expect(ret.css).not.toContain('.katex'))
+        expect(marp().render('plain text').css).not.toContain('.katex'))
     })
 
     context('with katexOption', () => {
@@ -413,12 +415,6 @@ describe('Marp', () => {
   })
 
   describe('Element fitting', () => {
-    const loadCheerio = (html: string) =>
-      cheerio.load(html, {
-        lowerCaseAttributeNames: false,
-        lowerCaseTags: false,
-      })
-
     it('prepends CSS about fitting', () => {
       const { css } = marp().render('')
 
@@ -565,6 +561,30 @@ describe('Marp', () => {
         const plainContent = $('p > span[data-marp-fitting="plain"] .katex')
 
         expect(plainContent.length).toBeTruthy()
+      })
+    })
+  })
+
+  describe('size global directive', () => {
+    it('defines size custom global directive', () =>
+      expect(marp().customDirectives.global.size).toBeTruthy())
+
+    context('with size directive as 4:3', () => {
+      const size = expect.objectContaining({ width: '960', height: '720' })
+
+      it('renders inline SVG with 960x720 size', () => {
+        const instance = marp()
+        const md = (t: string) => `<!-- theme: ${t} -->\n<!-- size: 4:3 -->`
+
+        const { html } = instance.render('<!-- size: 4:3 -->')
+        expect(loadCheerio(html)('foreignObject').attr()).toStrictEqual(size)
+
+        for (const theme of instance.themeSet.themes()) {
+          const { html: themeHtml } = instance.render(md(theme.name))
+          const $ = loadCheerio(themeHtml)
+
+          expect($('foreignObject').attr()).toStrictEqual(size)
+        }
       })
     })
   })

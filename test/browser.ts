@@ -1,6 +1,5 @@
 /** @jest-environment jsdom */
 import browser from '../src/browser'
-import context from './_helpers/context'
 import fittingObserver from '../src/fitting/observer'
 
 const polyfill = jest.fn()

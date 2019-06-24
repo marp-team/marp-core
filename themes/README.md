@@ -1,14 +1,26 @@
 # Marp Core built-in themes
 
-We provide some nice official themes in Marp Core. You can choose a favorite theme by using [Marpit `theme` directive](https://marpit.marp.app/directives?id=theme) in your Markdown.
+We provide some nice built-in themes in Marp Core. You can choose a favorite theme by using [Marpit `theme` directive](https://marpit.marp.app/directives?id=theme) in your Markdown.
 
-Screenshots were taken from the rendered result of [an example][example].
+<!-- Screenshots were taken from the rendered result of [an example][example]. -->
 
 [example]: example.md
 
-### `invert` class
+### Common feature
 
-The all of built-in themes support `invert` class to use the inverted color scheme.
+These can use in the all of built-in themes.
+
+#### 4:3 slide
+
+We have `4:3` slide size preset (`960x720`) for a traditional presentation.
+
+```markdown
+<!-- size: 4:3 -->
+```
+
+#### `invert` class
+
+By using `invert` class, you can change to use the inverted color scheme.
 
 ```markdown
 <!-- class: invert -->
@@ -105,15 +117,15 @@ Uncover theme has three design concepts: simple, minimal, and modern. It's inspi
 
 [Auto-scaling for code block](https://github.com/marp-team/marp-core#auto-scaling-features) is disabled because uncover theme uses the elastic style that has not compatible with it.
 
----
+# Metadata for additional features
 
-## Metadata for additional features
+Marp Core's extended theming system will recognize the metadata to be able to enable extra features whose a side effect to the original DOM structure/the slide design through the manipulation.
 
-Marp Core will recognize the metadata to be able to enable extra features whose side effect through manipulation to rendered DOM structure.
+In other words, the enabled feature requires taking care of the manipulated DOM and the view when styling.
 
-In other words, the enabled feature requires taking care of manipulated DOM when styling.
+**_If you never want to think complex styling, it's better to define no extra metadata._** Your theme would work as same as a simple [Marpit theme CSS](https://marpit.marp.app/theme-css) if you do nothing.
 
-### `@auto-scaling`
+## `@auto-scaling [flag(s)]`
 
 Enable [auto-scaling features](https://github.com/marp-team/marp-core#auto-scaling-features).
 
@@ -122,4 +134,56 @@ Enable [auto-scaling features](https://github.com/marp-team/marp-core#auto-scali
 - `math`: Enable scaling for math block.
 - `code`: Enable scaling for code block.
 
-Through separating by comma, it can select multiple keywords for individual features. (e.g. `@auto-scaling fittingHeader,math`)
+Through separating by comma, it can select multiple keywords for individual features.
+
+```css
+/**
+ * @theme foobar
+ * @auto-scaling fittingHeader,math
+ */
+```
+
+## `@size [name] [width] [height]`
+
+Define size preset(s) for usable in [`size` global directive](https://github.com/marp-team/marp-core#size-global-directive).
+
+```css
+/**
+ * @theme foobar
+ * @size 4:3 960px 720px
+ * @size 16:9 1280px 720px
+ * @size 4K 3840px 2160px
+ */
+
+section {
+  /* A way to define default size is as same as Marpit theme CSS. */
+  width: 960px;
+  height: 720px;
+}
+```
+
+User can choose a customized size of slide deck (`section`) from defined presets via `size` global directive.
+
+```markdown
+---
+theme: foobar
+size: 4K
+---
+
+# Slide deck for 4K screen (3840x2160)
+```
+
+When the imported theme through [`@import "foo";`](https://marpit.marp.app/theme-css?id=import-rule) or [`@import-theme "bar";`](https://marpit.marp.app/theme-css?id=import-theme-rule) has `@size` metadata(s), these presets still can use in an inherited theme.
+
+Or you can use `@size [name] false` in the inherited theme if you need to disable specific preset.
+
+```css
+/**
+ * gaia-16-9 theme is based on Gaia theme, but 4:3 slide cannot use.
+ *
+ * @theme inherited-from-gaia
+ * @size 4:3 false
+ */
+
+@import 'gaia';
+```

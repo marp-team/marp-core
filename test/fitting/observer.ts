@@ -1,5 +1,4 @@
 /** @jest-environment jsdom */
-import context from '../_helpers/context'
 import Marp from '../../src/marp'
 import fittingObserver from '../../src/fitting/observer'
 
