@@ -94,7 +94,7 @@
   },
   "dependencies": {
     "@marp-team/marpit": "^1.3.0",
-    "@marp-team/marpit-svg-polyfill": "^1.1.0",
+    "@marp-team/marpit-svg-polyfill": "^1.1.1",
     "emoji-regex": "^8.0.0",
     "highlight.js": "^9.15.8",
     "katex": "^0.10.2",
