@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.12.1 - 2019-08-23
+
 ### Changed
 
 - Upgrade Marpit to [v1.3.2](https://github.com/marp-team/marpit/releases/v1.3.2) ([#100](https://github.com/marp-team/marp-core/pull/100))
