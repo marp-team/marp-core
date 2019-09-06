@@ -50,7 +50,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "types": "rimraf types && tsc --declaration --emitDeclarationOnly --outDir types",
-    "version": "curl https://raw.githubusercontent.com/marp-team/marp/master/version.js | node && git add -A CHANGELOG.md",
+    "version": "curl https://raw.githubusercontent.com/marp-team/actions/v1/lib/scripts/version.js | node && git add -A CHANGELOG.md",
     "watch": "rollup -w -c"
   },
   "devDependencies": {
