@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Update CircleCI configuration to use v2.1 ([#101](https://github.com/marp-team/marp-core/pull/101))
+
 ## v0.12.1 - 2019-08-23
 
 ### Changed
