@@ -66,12 +66,16 @@ commands:
           command: yarn check:format
 
       - run:
-          name: stylelint
-          command: yarn lint:css
+          name: TypeScript type checking
+          command: yarn check:ts
 
       - run:
           name: TSLint
           command: yarn lint:ts
+
+      - run:
+          name: stylelint
+          command: yarn lint:css
 
       - run:
           name: Jest
