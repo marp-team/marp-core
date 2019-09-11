@@ -565,6 +565,22 @@ describe('Marp', () => {
     })
   })
 
+  describe('minifyCSS option', () => {
+    it('applies minifier to rendered css', () => {
+      const { css: enabled } = marp({ minifyCSS: true }).render('')
+      const { css: disabled } = marp({ minifyCSS: false }).render('')
+
+      expect(enabled.length).toBeLessThan(disabled.length)
+    })
+
+    it('applies minifier by default', () => {
+      const { css: minifiedCSS } = marp({ minifyCSS: true }).render('')
+      const { css: defaultCSS } = marp().render('')
+
+      expect(minifiedCSS).toBe(defaultCSS)
+    })
+  })
+
   describe('size global directive', () => {
     it('defines size custom global directive', () =>
       expect(marp().customDirectives.global.size).toBeTruthy())

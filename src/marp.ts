@@ -1,5 +1,9 @@
 import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
+import postcss from 'postcss'
+import postcssMinifyParams from 'postcss-minify-params'
+import postcssMinifySelectors from 'postcss-minify-selectors'
+import postcssNormalizeWhitespace from 'postcss-normalize-whitespace'
 import { version } from 'katex/package.json'
 import browser from './browser'
 import * as emojiPlugin from './emoji/emoji'
@@ -22,9 +26,16 @@ export interface MarpOptions extends MarpitOptions {
       }
   markdown?: object
   math?: mathPlugin.MathOptions
+  minifyCSS?: boolean
 }
 
 const marpObservedSymbol = Symbol('marpObserved')
+
+const styleMinifier = postcss([
+  postcssNormalizeWhitespace,
+  postcssMinifyParams,
+  postcssMinifySelectors,
+])
 
 export class Marp extends Marpit {
   readonly options!: Required<MarpOptions>
@@ -40,6 +51,7 @@ export class Marp extends Marpit {
       inlineSVG: true,
       looseYAML: true,
       math: true,
+      minifyCSS: true,
       html: Marp.html,
       ...opts,
       markdown: [
@@ -90,6 +102,13 @@ export class Marp extends Marpit {
         : ''
     }
     return highlightjs.highlightAuto(code).value
+  }
+
+  protected renderStyle(theme?: string): string {
+    const original = super.renderStyle(theme)
+    if (!this.options.minifyCSS) return original
+
+    return styleMinifier.process(original).css
   }
 
   protected themeSetPackOptions(): ThemeSetPackOptions {
