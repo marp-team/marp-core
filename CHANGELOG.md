@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add `minifyCSS` option ([#103](https://github.com/marp-team/marp-core/pull/103))
+
 ### Changed
 
 - Update CircleCI configuration to use v2.1 ([#101](https://github.com/marp-team/marp-core/pull/101))

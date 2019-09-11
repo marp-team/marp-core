@@ -565,6 +565,37 @@ describe('Marp', () => {
     })
   })
 
+  describe('minifyCSS option', () => {
+    it('applies minifier to rendered css', () => {
+      const enabled = marp({ minifyCSS: true })
+      const disabled = marp({ minifyCSS: false })
+
+      expect(enabled.render('').css.length).toBeLessThan(
+        disabled.render('').css.length
+      )
+
+      // Custom theme
+      const customTheme = '/* @theme a */ h1 { color: #f00; }'
+
+      enabled.themeSet.add(customTheme)
+      disabled.themeSet.add(customTheme)
+
+      expect(disabled.render('<!-- theme: a -->').css).toContain(
+        'h1 { color: #f00; }'
+      )
+      expect(enabled.render('<!-- theme: a -->').css).toContain(
+        'h1{color:#f00}'
+      )
+    })
+
+    it('applies minifier by default', () => {
+      const { css: minifiedCSS } = marp({ minifyCSS: true }).render('')
+      const { css: defaultCSS } = marp().render('')
+
+      expect(minifiedCSS).toBe(defaultCSS)
+    })
+  })
+
   describe('size global directive', () => {
     it('defines size custom global directive', () =>
       expect(marp().customDirectives.global.size).toBeTruthy())
