@@ -1,5 +1,4 @@
 import autoprefixer from 'autoprefixer'
-import cssnano from 'cssnano'
 import path from 'path'
 import postcssUrl from 'postcss-url'
 import commonjs from 'rollup-plugin-commonjs'
@@ -17,6 +16,17 @@ const plugins = [
   typescript({ resolveJsonModule: false }),
   postcss({
     inject: false,
+    minimize: {
+      preset: [
+        'default',
+        {
+          // Some minifers will apply on runtime to make debug easily.
+          minifyParams: false,
+          minifySelectors: false,
+          normalizeWhitespace: false,
+        },
+      ],
+    },
     plugins: [
       postcssUrl({
         filter: '**/assets/**/*.svg',
@@ -24,7 +34,6 @@ const plugins = [
         url: 'inline',
       }),
       autoprefixer(),
-      cssnano({ preset: 'default' }),
     ],
   }),
   !process.env.ROLLUP_WATCH && terser(),
