@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.13.0 - 2019-09-12
+
 ### Added
 
 - Add `minifyCSS` option ([#103](https://github.com/marp-team/marp-core/pull/103))
