@@ -9,6 +9,8 @@
 ### Changed
 
 - Update CircleCI configuration to use v2.1 ([#101](https://github.com/marp-team/marp-core/pull/101))
+- Upgrade Marpit to [v1.4.0](https://github.com/marp-team/marpit/releases/v1.4.0) ([#105](https://github.com/marp-team/marp-core/pull/105))
+- Upgrade Node and dependent packages to the latest version ([#105](https://github.com/marp-team/marp-core/pull/105))
 
 ## v0.12.1 - 2019-08-23
 
