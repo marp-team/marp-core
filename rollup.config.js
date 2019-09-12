@@ -8,6 +8,7 @@ import postcss from 'rollup-plugin-postcss'
 import { terser } from 'rollup-plugin-terser'
 import typescript from 'rollup-plugin-typescript'
 import pkg from './package.json'
+import postcssOptimizeDefaultTheme from './scripts/postcss-optimize-default-theme'
 
 const plugins = [
   json({ preferConst: true }),
@@ -28,6 +29,7 @@ const plugins = [
       ],
     },
     plugins: [
+      postcssOptimizeDefaultTheme(),
       postcssUrl({
         filter: '**/assets/**/*.svg',
         encodeType: 'base64',

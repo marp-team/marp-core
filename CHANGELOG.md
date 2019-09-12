@@ -7,6 +7,10 @@
 - Add `minifyCSS` option ([#103](https://github.com/marp-team/marp-core/pull/103))
 - Add `dollarPrefixForGlobalDirectives` option _(not for users)_ ([#104](https://github.com/marp-team/marp-core/pull/104))
 
+### Fixed
+
+- Optimize default theme CSS by removing `.markdown-body` selector on build time ([#106](https://github.com/marp-team/marp-core/pull/106))
+
 ### Changed
 
 - Update CircleCI configuration to use v2.1 ([#101](https://github.com/marp-team/marp-core/pull/101))
