@@ -5,6 +5,7 @@
 ### Added
 
 - Add `minifyCSS` option ([#103](https://github.com/marp-team/marp-core/pull/103))
+- Add `dollarPrefixForGlobalDirectives` option _(not for users)_ ([#104](https://github.com/marp-team/marp-core/pull/104))
 
 ### Changed
 
