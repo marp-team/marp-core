@@ -6,6 +6,7 @@ import postcssMinifySelectors from 'postcss-minify-selectors'
 import postcssNormalizeWhitespace from 'postcss-normalize-whitespace'
 import { version } from 'katex/package.json'
 import browser from './browser'
+import * as dollarPlugin from './dollar/dollar'
 import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
 import * as htmlPlugin from './html/html'
@@ -27,6 +28,9 @@ export interface MarpOptions extends MarpitOptions {
   markdown?: object
   math?: mathPlugin.MathOptions
   minifyCSS?: boolean
+
+  /** @deprecated Dollar prefix for global directives is removed feature in Marpit framework, and Marp Core does not recommend too. Please use only for keeping compatibility in limited cases. */
+  dollarPrefixForGlobalDirectives?: boolean
 }
 
 const marpObservedSymbol = Symbol('marpObserved')
@@ -47,12 +51,13 @@ export class Marp extends Marpit {
   }
 
   constructor(opts: MarpOptions = {}) {
-    super(<MarpOptions>{
+    super({
       inlineSVG: true,
       looseYAML: true,
       math: true,
       minifyCSS: true,
       html: Marp.html,
+      dollarPrefixForGlobalDirectives: false,
       ...opts,
       markdown: [
         'commonmark',
@@ -70,7 +75,7 @@ export class Marp extends Marpit {
         unicode: 'twemoji',
         ...(opts.emoji || {}),
       },
-    })
+    } as MarpOptions)
 
     this.markdown.enable(['table', 'linkify'])
 
@@ -93,6 +98,7 @@ export class Marp extends Marpit {
       .use(mathPlugin.markdown, flag => (this.renderedMath = flag))
       .use(fittingPlugin.markdown)
       .use(sizePlugin.markdown)
+      .use(dollarPlugin.markdown)
   }
 
   highlighter(code: string, lang: string): string {
