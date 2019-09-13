@@ -616,6 +616,12 @@ describe('Marp', () => {
           htmlAsArray: true,
         }).html
       ).toHaveLength(1)
+
+      // $size (Custom directives extended by Marp Core)
+      const [html] = instance.render('<!-- $size: 4:3 -->', {
+        htmlAsArray: true,
+      }).html
+      expect(html).not.toContain('0 0 960 720')
     })
 
     context('with true', () => {
@@ -638,6 +644,11 @@ describe('Marp', () => {
             htmlAsArray: true,
           }).html
         ).toHaveLength(2)
+
+        const [html] = instance.render('<!-- $size: 4:3 -->', {
+          htmlAsArray: true,
+        }).html
+        expect(html).toContain('0 0 960 720')
       })
     })
   })
