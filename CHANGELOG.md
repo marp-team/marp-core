@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix dollar prefix option to support `size` directive ([#107](https://github.com/marp-team/marp-core/pull/107))
+
 ## v0.13.0 - 2019-09-12
 
 ### Added
