@@ -11,6 +11,7 @@ import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
+import * as scriptPlugin from './script/script'
 import * as sizePlugin from './size/size'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
@@ -97,6 +98,7 @@ export class Marp extends Marpit {
       .use(fittingPlugin.markdown)
       .use(sizePlugin.markdown)
       .use(dollarPlugin.markdown)
+      .use(scriptPlugin.markdown)
   }
 
   highlighter(code: string, lang: string): string {

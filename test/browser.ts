@@ -1,5 +1,5 @@
 /** @jest-environment jsdom */
-import browser from '../src/browser'
+import browser, { observer } from '../src/browser'
 import fittingObserver from '../src/fitting/observer'
 
 const polyfill = jest.fn()
@@ -13,7 +13,7 @@ jest.mock('../src/fitting/observer')
 beforeEach(() => jest.clearAllMocks())
 afterEach(() => jest.restoreAllMocks())
 
-describe('Browser observers', () => {
+describe('Browser script', () => {
   it('executes observers for polyfill and fitting', () => {
     const spy = jest.spyOn(window, 'requestAnimationFrame')
 
@@ -28,12 +28,14 @@ describe('Browser observers', () => {
     expect(fittingObserver).toHaveBeenCalledTimes(2)
   })
 
-  context('with observe argument is false', () => {
-    it('does not call window.requestAnimationFrame', () => {
-      const spy = jest.spyOn(window, 'requestAnimationFrame')
+  describe('#observer', () => {
+    context('with passed false', () => {
+      it('does not call window.requestAnimationFrame', () => {
+        const spy = jest.spyOn(window, 'requestAnimationFrame')
 
-      browser(false)
-      expect(spy).not.toHaveBeenCalled()
+        observer(false)
+        expect(spy).not.toHaveBeenCalled()
+      })
     })
   })
 })
