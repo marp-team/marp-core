@@ -43,19 +43,19 @@ const plugins = [
 
 export default [
   {
-    external: Object.keys(pkg.dependencies),
-    input: `src/${path.basename(pkg.main, '.js')}.ts`,
-    output: { exports: 'named', file: pkg.main, format: 'cjs' },
-    plugins,
-  },
-  {
     input: 'browser.js',
-    output: { file: pkg.marpBrowser, format: 'iife' },
+    output: { file: 'lib/browser.js', format: 'iife' },
     plugins,
   },
   {
     input: 'src/browser.ts',
     output: { file: 'lib/browser.cjs.js', format: 'cjs' },
+    plugins,
+  },
+  {
+    external: Object.keys(pkg.dependencies),
+    input: `src/${path.basename(pkg.main, '.js')}.ts`,
+    output: { exports: 'named', file: pkg.main, format: 'cjs' },
     plugins,
   },
 ]

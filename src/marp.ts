@@ -33,8 +33,6 @@ export interface MarpOptions extends MarpitOptions {
   dollarPrefixForGlobalDirectives?: boolean
 }
 
-const marpObservedSymbol = Symbol('marpObserved')
-
 const styleMinifier = postcss([
   postcssNormalizeWhitespace,
   postcssMinifyParams,
@@ -142,15 +140,7 @@ export class Marp extends Marpit {
     return base
   }
 
-  static ready() {
-    if (typeof window === 'undefined') {
-      throw new Error('Marp.ready() is only valid in browser context.')
-    }
-    if (window[marpObservedSymbol]) return
-
-    browser()
-    window[marpObservedSymbol] = true
-  }
+  static ready = browser
 }
 
 export default Marp
