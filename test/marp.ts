@@ -4,6 +4,7 @@ import postcss from 'postcss'
 import { EmojiOptions } from '../src/emoji/emoji'
 import browser from '../src/browser'
 import { Marp, MarpOptions } from '../src/marp'
+import browserScript from '../src/script/browser-script'
 
 jest.mock('../src/browser')
 jest.mock('../src/math/katex.scss')
@@ -410,6 +411,36 @@ describe('Marp', () => {
       it('does not inject KaTeX css', () => {
         const { css } = instance.render(`${inline}\n\n${block}`)
         expect(css).not.toContain('.katex')
+      })
+    })
+  })
+
+  describe('script option', () => {
+    it('injects <script> tag for browser context to rendered Markdown by default', () => {
+      for (const rendered of [
+        marp().render('\n---').html,
+        marp().render('\n---', { htmlAsArray: true }).html[1], // Injects to the last page
+      ]) {
+        const $ = cheerio.load(rendered)
+
+        expect($('script')).toHaveLength(1)
+        expect($('script').html()).toBe(browserScript)
+        expect($('script').attr('defer')).toBeDefined()
+      }
+    })
+
+    context('when passed false', () => {
+      it.todo('does not inject <script> tag')
+    })
+
+    context('when passed object', () => {
+      context('with source option', () => {
+        it.todo('inline')
+        it.todo('cdn')
+      })
+
+      context('with nonce option', () => {
+        it.todo('add nonce attribute to <script> tag')
       })
     })
   })

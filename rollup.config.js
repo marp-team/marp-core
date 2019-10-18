@@ -20,7 +20,7 @@ const plugins = [
   alias({
     entries: [
       {
-        find: /^.+browser-string$/,
+        find: /^.+browser-script$/,
         replacement: path.resolve(__dirname, './lib/browser.js'),
       },
     ],

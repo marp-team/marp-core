@@ -1,7 +1,14 @@
-import browserScript from './browser-string'
+import browserScript from './browser-script'
 
 export function markdown(md): void {
-  md.core.ruler.push('marp_core_script', state => {
+  md.core.ruler.before('marpit_collect', 'marp_core_script', state => {
+    const lastSlideCloseIdxRev = [...state.tokens]
+      .reverse()
+      .findIndex(t => t.type === 'marpit_slide_close')
+
+    if (lastSlideCloseIdxRev < 0) return
+
+    // Inject script token to the last page
     const { Token } = state
     const scriptToken = new Token('marp_core_script', 'script', 0)
 
@@ -10,7 +17,7 @@ export function markdown(md): void {
     scriptToken.content = browserScript
     scriptToken.attrSet('defer', '')
 
-    state.tokens.push(scriptToken)
+    state.tokens.splice(-lastSlideCloseIdxRev - 1, 0, scriptToken)
   })
 
   md.renderer.rules.marp_core_script = (tokens, idx, _, __, self) => {
