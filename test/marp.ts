@@ -2,11 +2,11 @@ import { Marpit } from '@marp-team/marpit'
 import cheerio from 'cheerio'
 import postcss from 'postcss'
 import { EmojiOptions } from '../src/emoji/emoji'
-import browser from '../src/browser'
 import { Marp, MarpOptions } from '../src/marp'
+import observer from '../src/observer'
 import browserScript from '../src/script/browser-script'
 
-jest.mock('../src/browser')
+jest.mock('../src/observer')
 jest.mock('../src/math/katex.scss')
 
 afterEach(() => jest.restoreAllMocks())
@@ -775,15 +775,18 @@ describe('Marp', () => {
       expect(() => Marp.ready()).toThrowError())
 
     context('when window object is defined in global', () => {
-      beforeEach(() => (global['window'] = jest.fn()))
+      beforeEach(() => {
+        global['window'] = jest.fn()
+        jest.spyOn(console, 'warn').mockImplementation()
+      })
       afterEach(() => delete global['window'])
 
       it('registers observers for browser only once', () => {
         Marp.ready()
-        expect(browser).toHaveBeenCalledTimes(1)
+        expect(observer).toHaveBeenCalledTimes(1)
 
         Marp.ready()
-        expect(browser).toHaveBeenCalledTimes(1)
+        expect(observer).toHaveBeenCalledTimes(1)
       })
     })
   })
