@@ -26,7 +26,6 @@
     "url": "https://github.com/marp-team/marp-core"
   },
   "main": "lib/marp.js",
-  "marpBrowser": "lib/browser.js",
   "types": "types/src/marp.d.ts",
   "files": [
     "lib/",
