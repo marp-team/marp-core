@@ -29,6 +29,7 @@ export interface MarpOptions extends MarpitOptions {
   markdown?: object
   math?: mathPlugin.MathOptions
   minifyCSS?: boolean
+  script?: boolean | scriptPlugin.ScriptOptions
 
   /** @deprecated Dollar prefix for global directives is removed feature in Marpit framework, and Marp Core does not recommend too. Please use only for keeping compatibility in limited cases. */
   dollarPrefixForGlobalDirectives?: boolean
@@ -55,9 +56,15 @@ export class Marp extends Marpit {
       looseYAML: true,
       math: true,
       minifyCSS: true,
+      script: true,
       html: Marp.html,
       dollarPrefixForGlobalDirectives: false,
       ...opts,
+      emoji: {
+        shortcode: 'twemoji',
+        unicode: 'twemoji',
+        ...(opts.emoji || {}),
+      },
       markdown: [
         'commonmark',
         {
@@ -69,11 +76,6 @@ export class Marp extends Marpit {
           html: opts.html !== undefined ? opts.html : Marp.html,
         },
       ],
-      emoji: {
-        shortcode: 'twemoji',
-        unicode: 'twemoji',
-        ...(opts.emoji || {}),
-      },
     } as MarpOptions)
 
     this.markdown.enable(['table', 'linkify'])

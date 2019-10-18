@@ -54,7 +54,7 @@ const plugins = [
 
 export default [
   {
-    input: 'browser.js',
+    input: 'scripts/browser.js',
     output: { file: 'lib/browser.js', format: 'iife' },
     plugins,
   },

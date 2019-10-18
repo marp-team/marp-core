@@ -422,25 +422,48 @@ describe('Marp', () => {
         marp().render('\n---', { htmlAsArray: true }).html[1], // Injects to the last page
       ]) {
         const $ = cheerio.load(rendered)
+        const script = $('script')
 
-        expect($('script')).toHaveLength(1)
-        expect($('script').html()).toBe(browserScript)
-        expect($('script').attr('defer')).toBeDefined()
+        expect(script).toHaveLength(1)
+        expect(script.html()).toBe(browserScript)
+        expect(script.attr('defer')).toBeUndefined()
+        expect(script.attr('nonce')).toBeUndefined()
       }
     })
 
     context('when passed false', () => {
-      it.todo('does not inject <script> tag')
+      it('does not inject <script> tag', () => {
+        const $ = cheerio.load(marp({ script: false }).render('').html)
+        expect($('script')).toHaveLength(0)
+      })
     })
 
     context('when passed object', () => {
       context('with source option', () => {
-        it.todo('inline')
-        it.todo('cdn')
+        it('injects <script> tag for jsDelivr CDN', () => {
+          const instance = marp({ script: { source: 'cdn' } })
+          const $ = cheerio.load(instance.render('').html)
+          const script = $('script')
+
+          expect(script).toHaveLength(1)
+          expect(script.html()).toBe('')
+          expect(script.attr('src')).toMatch(
+            /^https:\/\/cdn\.jsdelivr\.net\/npm\/@marp-team\/marp-core@.+\/lib\/browser\.js$/
+          )
+          expect(script.attr('defer')).toBeDefined()
+        })
       })
 
       context('with nonce option', () => {
-        it.todo('add nonce attribute to <script> tag')
+        it('adds passed nonce to <script> tag', () => {
+          for (const rendered of [
+            marp({ script: { nonce: 'test' } }).render('').html,
+            marp({ script: { nonce: 'test', source: 'cdn' } }).render('').html,
+          ]) {
+            const $ = cheerio.load(rendered)
+            expect($('script').attr('nonce')).toBe('test')
+          }
+        })
       })
     })
   })
@@ -781,7 +804,7 @@ describe('Marp', () => {
       })
       afterEach(() => delete global['window'])
 
-      it('registers observers for browser only once', () => {
+      it('registers observer for browser only once', () => {
         Marp.ready()
         expect(observer).toHaveBeenCalledTimes(1)
 
