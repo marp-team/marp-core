@@ -144,7 +144,12 @@ export class Marp extends Marpit {
     return base
   }
 
-  static ready = browser
+  static ready() {
+    console.warn(
+      '[DEPRECATION WARNING] A script for the browser that is equivalent to Marp.ready() has injected into rendered Markdown by default. Marp.ready() will remove in future so you have to use "@marp-team/marp-core/browser" instead if you want to execute browser script in script-disabled HTML manually via using such as webpack.'
+    )
+    browser()
+  }
 }
 
 export default Marp

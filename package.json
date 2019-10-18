@@ -30,7 +30,9 @@
   "types": "types/src/marp.d.ts",
   "files": [
     "lib/",
-    "types/"
+    "types/",
+    "browser.js",
+    "browser.d.ts"
   ],
   "engines": {
     "node": ">=8"
