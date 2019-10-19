@@ -192,14 +192,6 @@ describe('Marp', () => {
         expect($('header > strong')).toHaveLength(1)
         expect($('footer > em')).toHaveLength(1)
       })
-
-      it('allows overriding html option through markdown-it instance', () => {
-        const instance = marp()
-        instance.markdown.set({ html: { b: [] } })
-
-        const { html } = instance.render('<b>abc</b>')
-        expect(cheerio.load(html)('b')).toHaveLength(1)
-      })
     })
 
     context('with true', () => {
@@ -231,11 +223,19 @@ describe('Marp', () => {
     })
 
     context('with whitelist', () => {
-      const m = marp({ html: { img: ['src'], p: ['class'] } })
+      const md = '<p>\ntest\n</p>\n\n<p class="class" title="title">test</p>'
+      const html = { img: ['src'], p: ['class'] }
 
       it('allows whitelisted tags and attributes', () => {
-        const md = '<p>\ntest\n</p>\n\n<p class="class" title="title">test</p>'
-        const $ = cheerio.load(m.render(md).html)
+        const $ = cheerio.load(marp({ html }).render(md).html)
+
+        expect($('p')).toHaveLength(2)
+        expect($('p.class')).toHaveLength(1)
+        expect($('p[title]')).toHaveLength(0)
+      })
+
+      it('allows using html option passed to markdown-it option', () => {
+        const $ = cheerio.load(marp({ markdown: { html } }).render(md).html)
 
         expect($('p')).toHaveLength(2)
         expect($('p.class')).toHaveLength(1)
@@ -243,6 +243,8 @@ describe('Marp', () => {
       })
 
       it('renders void element with normalized', () => {
+        const m = marp({ html })
+
         expect(m.render('<img src="a.png">').html).toContain(
           '<img src="a.png" />'
         )
@@ -276,6 +278,14 @@ describe('Marp', () => {
         expect(m.render('<br class="sanitize">').html).toContain('<br>')
         expect(m.render('<br></br>').html).toContain('<br></br>')
       })
+    })
+
+    it('allows overriding html option through markdown-it instance', () => {
+      const instance = marp()
+      instance.markdown.set({ html: { b: [] } })
+
+      const { html } = instance.render('<b>abc</b>')
+      expect(cheerio.load(html)('b')).toHaveLength(1)
     })
   })
 
