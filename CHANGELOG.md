@@ -6,6 +6,7 @@
 
 - Upgrade Marpit to [v1.4.1](https://github.com/marp-team/marpit/releases/v1.4.1) ([#113](https://github.com/marp-team/marp-core/pull/113))
 - Upgrade dependent packages to the latest version ([#109](https://github.com/marp-team/marp-core/pull/109), [#113](https://github.com/marp-team/marp-core/pull/113))
+- Apply `font-display: swap` to Google Fonts in Gaia theme ([#114](https://github.com/marp-team/marp-core/pull/114))
 
 ## v0.13.1 - 2019-09-13
 
