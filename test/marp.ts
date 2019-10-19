@@ -2,10 +2,11 @@ import { Marpit } from '@marp-team/marpit'
 import cheerio from 'cheerio'
 import postcss from 'postcss'
 import { EmojiOptions } from '../src/emoji/emoji'
-import browser from '../src/browser'
 import { Marp, MarpOptions } from '../src/marp'
+import observer from '../src/observer'
+import browserScript from '../src/script/browser-script'
 
-jest.mock('../src/browser')
+jest.mock('../src/observer')
 jest.mock('../src/math/katex.scss')
 
 afterEach(() => jest.restoreAllMocks())
@@ -414,6 +415,59 @@ describe('Marp', () => {
     })
   })
 
+  describe('script option', () => {
+    it('injects <script> tag for browser context to rendered Markdown by default', () => {
+      for (const rendered of [
+        marp().render('\n---').html,
+        marp().render('\n---', { htmlAsArray: true }).html[1], // Injects to the last page
+      ]) {
+        const $ = cheerio.load(rendered)
+        const script = $('script')
+
+        expect(script).toHaveLength(1)
+        expect(script.html()).toBe(browserScript)
+        expect(script.attr('defer')).toBeUndefined()
+        expect(script.attr('nonce')).toBeUndefined()
+      }
+    })
+
+    context('when passed false', () => {
+      it('does not inject <script> tag', () => {
+        const $ = cheerio.load(marp({ script: false }).render('').html)
+        expect($('script')).toHaveLength(0)
+      })
+    })
+
+    context('when passed object', () => {
+      context('with source option', () => {
+        it('injects <script> tag for jsDelivr CDN', () => {
+          const instance = marp({ script: { source: 'cdn' } })
+          const $ = cheerio.load(instance.render('').html)
+          const script = $('script')
+
+          expect(script).toHaveLength(1)
+          expect(script.html()).toBe('')
+          expect(script.attr('src')).toMatch(
+            /^https:\/\/cdn\.jsdelivr\.net\/npm\/@marp-team\/marp-core@.+\/lib\/browser\.js$/
+          )
+          expect(script.attr('defer')).toBeDefined()
+        })
+      })
+
+      context('with nonce option', () => {
+        it('adds passed nonce to <script> tag', () => {
+          for (const rendered of [
+            marp({ script: { nonce: 'test' } }).render('').html,
+            marp({ script: { nonce: 'test', source: 'cdn' } }).render('').html,
+          ]) {
+            const $ = cheerio.load(rendered)
+            expect($('script').attr('nonce')).toBe('test')
+          }
+        })
+      })
+    })
+  })
+
   describe('Element fitting', () => {
     it('prepends CSS about fitting', () => {
       const { css } = marp().render('')
@@ -744,15 +798,18 @@ describe('Marp', () => {
       expect(() => Marp.ready()).toThrowError())
 
     context('when window object is defined in global', () => {
-      beforeEach(() => (global['window'] = jest.fn()))
+      beforeEach(() => {
+        global['window'] = jest.fn()
+        jest.spyOn(console, 'warn').mockImplementation()
+      })
       afterEach(() => delete global['window'])
 
-      it('registers observers for browser only once', () => {
+      it('registers observer for browser only once', () => {
         Marp.ready()
-        expect(browser).toHaveBeenCalledTimes(1)
+        expect(observer).toHaveBeenCalledTimes(1)
 
         Marp.ready()
-        expect(browser).toHaveBeenCalledTimes(1)
+        expect(observer).toHaveBeenCalledTimes(1)
       })
     })
   })

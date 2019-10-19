@@ -26,11 +26,12 @@
     "url": "https://github.com/marp-team/marp-core"
   },
   "main": "lib/marp.js",
-  "marpBrowser": "lib/browser.js",
-  "types": "types/marp.d.ts",
+  "types": "types/src/marp.d.ts",
   "files": [
     "lib/",
-    "types/"
+    "types/",
+    "browser.js",
+    "browser.d.ts"
   ],
   "engines": {
     "node": ">=8"
@@ -71,10 +72,12 @@
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
     "rollup": "^1.25.0",
+    "rollup-plugin-alias": "^2.1.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-postcss": "^2.0.3",
+    "rollup-plugin-string": "^3.0.0",
     "rollup-plugin-terser": "^5.1.2",
     "rollup-plugin-typescript": "^1.0.1",
     "sass": "^1.23.0",

@@ -11,6 +11,7 @@ import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
+import * as scriptPlugin from './script/script'
 import * as sizePlugin from './size/size'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
@@ -28,12 +29,11 @@ export interface MarpOptions extends MarpitOptions {
   markdown?: object
   math?: mathPlugin.MathOptions
   minifyCSS?: boolean
+  script?: boolean | scriptPlugin.ScriptOptions
 
   /** @deprecated Dollar prefix for global directives is removed feature in Marpit framework, and Marp Core does not recommend too. Please use only for keeping compatibility in limited cases. */
   dollarPrefixForGlobalDirectives?: boolean
 }
-
-const marpObservedSymbol = Symbol('marpObserved')
 
 const styleMinifier = postcss([
   postcssNormalizeWhitespace,
@@ -56,9 +56,15 @@ export class Marp extends Marpit {
       looseYAML: true,
       math: true,
       minifyCSS: true,
+      script: true,
       html: Marp.html,
       dollarPrefixForGlobalDirectives: false,
       ...opts,
+      emoji: {
+        shortcode: 'twemoji',
+        unicode: 'twemoji',
+        ...(opts.emoji || {}),
+      },
       markdown: [
         'commonmark',
         {
@@ -70,11 +76,6 @@ export class Marp extends Marpit {
           html: opts.html !== undefined ? opts.html : Marp.html,
         },
       ],
-      emoji: {
-        shortcode: 'twemoji',
-        unicode: 'twemoji',
-        ...(opts.emoji || {}),
-      },
     } as MarpOptions)
 
     this.markdown.enable(['table', 'linkify'])
@@ -99,6 +100,7 @@ export class Marp extends Marpit {
       .use(fittingPlugin.markdown)
       .use(sizePlugin.markdown)
       .use(dollarPlugin.markdown)
+      .use(scriptPlugin.markdown)
   }
 
   highlighter(code: string, lang: string): string {
@@ -142,14 +144,12 @@ export class Marp extends Marpit {
     return base
   }
 
+  /** @deprecated A script for the browser that is equivalent to `Marp.ready()` has injected into rendered Markdown by default. `Marp.ready()` will remove in future so you have to use `@marp-team/marp-core/browser` instead if you want to execute browser script in script-disabled HTML manually via using such as webpack. */
   static ready() {
-    if (typeof window === 'undefined') {
-      throw new Error('Marp.ready() is only valid in browser context.')
-    }
-    if (window[marpObservedSymbol]) return
-
+    console.warn(
+      '[DEPRECATION WARNING] A script for the browser that is equivalent to Marp.ready() has injected into rendered Markdown by default. Marp.ready() will remove in future so you have to use "@marp-team/marp-core/browser" instead if you want to execute browser script in script-disabled HTML manually via using such as webpack.'
+    )
     browser()
-    window[marpObservedSymbol] = true
   }
 }
 

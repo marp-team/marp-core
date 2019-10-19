@@ -1,10 +1,12 @@
 import autoprefixer from 'autoprefixer'
 import path from 'path'
 import postcssUrl from 'postcss-url'
+import alias from 'rollup-plugin-alias'
 import commonjs from 'rollup-plugin-commonjs'
 import json from 'rollup-plugin-json'
 import nodeResolve from 'rollup-plugin-node-resolve'
 import postcss from 'rollup-plugin-postcss'
+import { string } from 'rollup-plugin-string'
 import { terser } from 'rollup-plugin-terser'
 import typescript from 'rollup-plugin-typescript'
 import pkg from './package.json'
@@ -14,6 +16,15 @@ const plugins = [
   json({ preferConst: true }),
   nodeResolve({ mainFields: ['module', 'jsnext:main', 'main'] }),
   commonjs(),
+  string({ include: ['lib/*.js'] }),
+  alias({
+    entries: [
+      {
+        find: /^.+browser-script$/,
+        replacement: path.resolve(__dirname, './lib/browser.js'),
+      },
+    ],
+  }),
   typescript({ resolveJsonModule: false }),
   postcss({
     inject: false,
@@ -43,19 +54,19 @@ const plugins = [
 
 export default [
   {
-    external: Object.keys(pkg.dependencies),
-    input: `src/${path.basename(pkg.main, '.js')}.ts`,
-    output: { exports: 'named', file: pkg.main, format: 'cjs' },
-    plugins,
-  },
-  {
-    input: 'browser.js',
-    output: { file: pkg.marpBrowser, format: 'iife' },
+    input: 'scripts/browser.js',
+    output: { file: 'lib/browser.js', format: 'iife' },
     plugins,
   },
   {
     input: 'src/browser.ts',
-    output: { file: 'lib/browser.cjs.js', format: 'cjs' },
+    output: { exports: 'named', file: 'lib/browser.cjs.js', format: 'cjs' },
+    plugins,
+  },
+  {
+    external: Object.keys(pkg.dependencies),
+    input: `src/${path.basename(pkg.main, '.js')}.ts`,
+    output: { exports: 'named', file: pkg.main, format: 'cjs' },
     plugins,
   },
 ]
