@@ -1,3 +1,1 @@
-import browser from './src/browser'
-
-browser()
+module.exports = require('./lib/browser.cjs')

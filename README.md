@@ -9,7 +9,7 @@
 
 In order to use on Marp tools, we have extended from the slide deck framework **[Marpit](https://github.com/marp-team/marpit)**. You can use the practical Markdown syntax, advanced features, and official themes.
 
-## Basic usage
+## Usage
 
 We provide `Marp` class, that is inherited from [Marpit](https://github.com/marp-team/marpit).
 
@@ -20,39 +20,6 @@ import Marp from '@marp-team/marp-core'
 const marp = new Marp()
 const { html, css } = marp.render('# Hello, marp-core!')
 ```
-
-### `Marp.ready()`
-
-`Marp` class has `ready()` static method to work several features correctly. It must run on the browser context by using [Browserify](http://browserify.org/) or [webpack](https://webpack.js.org/).
-
-```javascript
-import Marp from '@marp-team/marp-core'
-
-document.addEventListener('DOMContentLoaded', () => {
-  Marp.ready()
-})
-```
-
-#### Separated bundle
-
-We also provide a separated bundle [`lib/browser.js`](https://cdn.jsdelivr.net/npm/@marp-team/marp-core/lib/browser.js) for browser context. It is useful when you cannot use bundler.
-
-Loading `lib/browser.js` will bring the almost same result as running `Marp.ready()`. Thus, you could use it through CDN as below:
-
-```html
-<html>
-  <body>
-    <!-- Please insert here rendered HTML by `Marp.render().html`... -->
-
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/@marp-team/marp-core/lib/browser.js"
-    ></script>
-  </body>
-</html>
-```
-
-CommonJS bundle is also provided in `lib/browser.cjs.js`. It have to call manually as same as `Marp.ready()`.
 
 ## Features
 
@@ -83,9 +50,7 @@ We provide bulit-in official themes for Marp. See more details in [themes].
 
 ### `size` global directive
 
-Do you want a traditional 4:3 slide size? We've added the support of `size` global directive only for Marp Core (And keeping [backward compatibility of syntax with the old Marp app](https://github.com/yhatt/marp/blob/master/example.md#size) too).
-
-Our extended theming system can use `960`x`720` slide in built-in themes easier: `size: 4:3`.
+Do you want a traditional 4:3 slide size? We've added the support of `size` global directive only for Marp Core. Our extended theming system can use `960`x`720` slide in built-in themes easier: `size: 4:3`.
 
 ```markdown
 ---
@@ -144,7 +109,7 @@ $$
 
 ### Auto-scaling features
 
-Auto-scaling is available only if enabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and defined [`@auto-scaling` metadata][metadata] in an using theme CSS. In addition, you have to run [`Marp.ready()`](#marpready) on browser context.
+Auto-scaling is available only if enabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and defined [`@auto-scaling` metadata][metadata] in an using theme CSS.
 
 ```css
 /*
@@ -223,6 +188,10 @@ const marp = new Marp({
     katexFontPath: '/resources/fonts/',
   },
   minifyCSS: true,
+  script: {
+    source: 'cdn',
+    nonce: 'xxxxxxxxxxxxxxx',
+  },
 
   // It can be included Marpit constructor options
   looseYAML: false,
@@ -268,18 +237,15 @@ Whatever any option is selected, `<!-- HTML comment -->` is always parsed by Mar
 Setting about emoji conversions.
 
 - **`shortcode`**: _`boolean` | `"twemoji"`_
-
   - By setting `false`, it does not convert any emoji shortcodes.
   - By setting `true`, it converts emoji shortcodes into Unicode emoji. `:dog:` → 🐶
   - By setting `"twemoji"` string, it converts into twemoji vector image. `:dog:` → <img src="https://twemoji.maxcdn.com/2/svg/1f436.svg" alt="🐶" width="16" height="16" valign="middle" /> _(default)_
 
-- **`unicode`**: _`boolean` | `"twemoji"`_
-
+* **`unicode`**: _`boolean` | `"twemoji"`_
   - It can convert Unicode emoji into twemoji when setting `"twemoji"`. 🐶 → <img src="https://twemoji.maxcdn.com/2/svg/1f436.svg" alt="🐶" width="16" height="16" valign="middle" /> _(default)_
   - If you not want this aggressive conversion, please set `false`.
 
 - **`twemoji`**: _`object`_
-
   - **`base`**: _`string`_ - It is corresponded to [twemoji's `base` option](https://github.com/twitter/twemoji#object-as-parameter). By default, marp-core will use online emoji images [through MaxCDN (twemoji's default)](https://github.com/twitter/twemoji#cdn-support).
   - **`ext`**: _`"svg"` | `"png"`_ - Setting the file type of twemoji images. _(`svg` by default)_
 
@@ -287,21 +253,32 @@ Setting about emoji conversions.
 
 ### `math`: _`boolean` | `object`_
 
-Enable or disable [math typesetting](#math-typesetting) syntax. The default value is `true`.
-
-You can modify KaTeX further settings by passing an object of sub-options.
+Enable or disable [math typesetting](#math-typesetting) syntax (`true` by default). You can modify KaTeX further settings by passing an object of sub-options.
 
 - **`katexOption`**: _`object`_
-
   - The options passing to KaTeX. Please refer to [KaTeX document](https://khan.github.io/KaTeX/docs/options.html).
 
-- **`katexFontPath`**: _`string` | `false`_
-
+* **`katexFontPath`**: _`string` | `false`_
   - By default, marp-core will use [online web-font resources through jsDelivr CDN](https://cdn.jsdelivr.net/npm/katex@latest/dist/fonts/). You have to set path to fonts directory if you want to use local resources. If you set `false`, we will not manipulate the path (Use KaTeX's original path: `fonts/KaTeX_***-***.woff2`).
 
 ### `minifyCSS`: _`boolean`_
 
 Enable or disable minification for rendered CSS. `true` by default.
+
+### `script`: _`boolean` | `object`_
+
+Setting about an injected helper script for the browser context. This script is necessary for applying [WebKit polyfill](https://github.com/marp-team/marpit-svg-polyfill) and rendering [auto-scaled elements](#auto-scaling-features) correctly.
+
+- **`true`**: Inject the inline helper script into the last of slides. (default)
+- **`false`**: Not inject helper script. Developer must execute a helper script manually, exported in [`@marp-team/marp-core/browser`](src/browser.ts). Requires bundler such as [webpack](https://webpack.js.org/). It's suitable to the fully-controlled tool such as [Marp Web](https://github.com/marp-team/marp-web).
+
+You can control details of behavior by passing `object`.
+
+- **`source`**: _`string`_ - Choose the kind of script.
+  - **`inline`**: Inject the inline script. It would work correctly also in the environment that there is not network. (default)
+  - **`cdn`**: Inject script referred through [jsDelivr CDN](https://www.jsdelivr.com/). It's better choice on the restricted environment by [CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
+
+* **`nonce`**: _`string`_ - Set [`nonce` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#attr-nonce) of `<script>`.
 
 ## Contributing
 

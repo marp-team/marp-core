@@ -6,6 +6,7 @@
     "noImplicitAny": false,
     "outDir": "lib",
     "resolveJsonModule": true,
+    "rootDir": ".",
     "sourceMap": true,
     "strict": true,
     "target": "es2015"
