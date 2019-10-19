@@ -17,6 +17,10 @@
 
 - `Marp.ready()` had deprecated in favor of new entrypoint `@marp-team/marp-core/browser` ([#115](https://github.com/marp-team/marp-core/pull/115))
 
+### Removed
+
+- Remove unused inline web font from default theme ([#116](https://github.com/marp-team/marp-core/pull/116))
+
 ## v0.13.1 - 2019-09-13
 
 ### Fixed
