@@ -50,9 +50,7 @@ We provide bulit-in official themes for Marp. See more details in [themes].
 
 ### `size` global directive
 
-Do you want a traditional 4:3 slide size? We've added the support of `size` global directive only for Marp Core (And keeping [backward compatibility of syntax with the old Marp app](https://github.com/yhatt/marp/blob/master/example.md#size) too).
-
-Our extended theming system can use `960`x`720` slide in built-in themes easier: `size: 4:3`.
+Do you want a traditional 4:3 slide size? We've added the support of `size` global directive only for Marp Core. Our extended theming system can use `960`x`720` slide in built-in themes easier: `size: 4:3`.
 
 ```markdown
 ---
