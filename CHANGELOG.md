@@ -2,11 +2,20 @@
 
 ## [Unreleased]
 
+### Added
+
+- Inject the inline helper script for browser into rendered Markdown automatically ([#115](https://github.com/marp-team/marp-core/pull/115))
+- Add `script` constructor option ([#115](https://github.com/marp-team/marp-core/pull/115))
+
 ### Changed
 
 - Upgrade Marpit to [v1.4.1](https://github.com/marp-team/marpit/releases/v1.4.1) ([#113](https://github.com/marp-team/marp-core/pull/113))
 - Upgrade dependent packages to the latest version ([#109](https://github.com/marp-team/marp-core/pull/109), [#113](https://github.com/marp-team/marp-core/pull/113))
 - Apply `font-display: swap` to Google Fonts in Gaia theme ([#114](https://github.com/marp-team/marp-core/pull/114))
+
+### Deprecated
+
+- `Marp.ready()` had deprecated in favor of new entrypoint `@marp-team/marp-core/browser` ([#115](https://github.com/marp-team/marp-core/pull/115))
 
 ## v0.13.1 - 2019-09-13
 
