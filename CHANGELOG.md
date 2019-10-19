@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.14.0 - 2019-10-19
+
 ### Added
 
 - Inject the inline helper script for browser into rendered Markdown automatically ([#115](https://github.com/marp-team/marp-core/pull/115))
