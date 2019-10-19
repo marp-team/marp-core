@@ -46,9 +46,7 @@ export class Marp extends Marpit {
 
   private renderedMath: boolean = false
 
-  static html: MarpOptions['html'] = {
-    br: [],
-  }
+  static readonly html = { br: [] }
 
   constructor(opts: MarpOptions = {}) {
     super({
@@ -57,7 +55,6 @@ export class Marp extends Marpit {
       math: true,
       minifyCSS: true,
       script: true,
-      html: Marp.html,
       dollarPrefixForGlobalDirectives: false,
       ...opts,
       emoji: {
@@ -70,10 +67,9 @@ export class Marp extends Marpit {
         {
           breaks: true,
           linkify: true,
-          highlight: (code: string, lang: string) =>
-            this.highlighter(code, lang),
-          ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
+          highlight: (code, lang) => this.highlighter(code, lang),
           html: opts.html !== undefined ? opts.html : Marp.html,
+          ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
         },
       ],
     } as MarpOptions)

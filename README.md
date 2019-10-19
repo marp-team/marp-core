@@ -203,11 +203,12 @@ const marp = new Marp({
 
 ### `html`: _`boolean`_ | _`object`_
 
-Setting whether to render raw HTML in Markdown.
+Setting whether to render raw HTML in Markdown. It's an alias to `markdown.html` ([markdown-it option](https://markdown-it.github.io/markdown-it/#MarkdownIt.new)) but has additional feature about HTML whitelist.
 
 - `true`: The all HTML will be allowed.
 - `false`: All HTML except supported in Marpit Markdown will be disallowed.
-- By passing `object`, you can set the whitelist to specify allowed tags and attributes.
+
+By passing `object`, you can set the whitelist to specify allowed tags and attributes.
 
 ```javascript
 // Specify tag name as key, and attributes to allow as string array.
@@ -229,8 +230,6 @@ Setting whether to render raw HTML in Markdown.
 Marp core allows only `<br>` tag by default, that is defined in [`Marp.html`](https://github.com/marp-team/marp-core/blob/d49064b5418053debd77485689f310bf1f7954d2/src/marp.ts#L39-L41).
 
 Whatever any option is selected, `<!-- HTML comment -->` is always parsed by Marpit for directives. When you are not disabled [Marpit's `inlineStyle` option](https://marpit-api.marp.app/marpit#Marpit) by `false`, `<style>` tags are parsed too for tweaking theme style.
-
-> :information_source: `html` flag in `markdown` option cannot use because of overridden by this.
 
 ### `emoji`: _`object`_
 
