@@ -11,7 +11,8 @@
 
 - Upgrade Marpit to [v1.4.1](https://github.com/marp-team/marpit/releases/v1.4.1) ([#113](https://github.com/marp-team/marp-core/pull/113))
 - Upgrade dependent packages to the latest version ([#109](https://github.com/marp-team/marp-core/pull/109), [#113](https://github.com/marp-team/marp-core/pull/113))
-- Apply `font-display: swap` to Google Fonts in Gaia theme ([#114](https://github.com/marp-team/marp-core/pull/114))
+- Apply `font-display: swap` to Google Fonts in gaia theme ([#114](https://github.com/marp-team/marp-core/pull/114))
+- Define `word-wrap` css property as `break-word` in gaia and uncover theme ([#108](https://github.com/marp-team/marp-core/pull/108), [#119](https://github.com/marp-team/marp-core/pull/119))
 - Reduce inconsistency about `html` option between Marp Core and markdown-it option ([#111](https://github.com/marp-team/marp-core/pull/111), [#117](https://github.com/marp-team/marp-core/pull/117))
 
 ### Deprecated

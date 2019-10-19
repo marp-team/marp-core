@@ -77,6 +77,7 @@ section {
   position: relative;
   text-align: center;
   width: 1280px;
+  word-wrap: break-word;
   z-index: 0;
 
   &::after {
