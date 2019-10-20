@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix type definition for browser to export default func ([#120](https://github.com/marp-team/marp-core/pull/120))
+
 ## v0.14.0 - 2019-10-19
 
 ### Added
