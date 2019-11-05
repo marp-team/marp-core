@@ -39,6 +39,11 @@ describe('Marp', () => {
       const $ = cheerio.load(marp().markdown.render(address))
       expect($(`a[href="${address}"]`).text()).toBe(address)
     })
+
+    it('has enabled strikethrough syntax', () => {
+      const $ = cheerio.load(marp().markdown.render('~~strikethrough~~'))
+      expect($('s')).toHaveLength(1)
+    })
   })
 
   describe('emoji option', () => {

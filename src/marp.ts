@@ -74,7 +74,7 @@ export class Marp extends Marpit {
       ],
     } as MarpOptions)
 
-    this.markdown.enable(['table', 'linkify'])
+    this.markdown.enable(['table', 'linkify', 'strikethrough'])
 
     // Theme support
     this.themeSet.metaType = Object.freeze({
