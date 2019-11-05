@@ -10,6 +10,11 @@
 
 - Fix type definition for browser to export default func ([#120](https://github.com/marp-team/marp-core/pull/120))
 
+### Changed
+
+- Upgrade Node for development to v12 LTS ([#125](https://github.com/marp-team/marp-core/pull/125))
+- Upgrade dependent packages to the latest version ([#125](https://github.com/marp-team/marp-core/pull/125))
+
 ## v0.14.0 - 2019-10-19
 
 ### Added
