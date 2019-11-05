@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.15.0 - 2019-11-05
+
 ### Added
 
 - GFM strikethrough syntax ([#102](https://github.com/marp-team/marp-core/issues/102), [#124](https://github.com/marp-team/marp-core/pull/124) by [@matsubara0507](https://github.com/matsubara0507))
