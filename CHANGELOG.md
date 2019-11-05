@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- GFM strikethrough syntax ([#102](https://github.com/marp-team/marp-core/issues/102), [#124](https://github.com/marp-team/marp-core/pull/124) by [@matsubara0507](https://github.com/matsubara0507))
+
 ### Fixed
 
 - Fix type definition for browser to export default func ([#120](https://github.com/marp-team/marp-core/pull/120))
