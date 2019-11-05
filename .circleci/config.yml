@@ -21,8 +21,8 @@ commands:
         default: 1.19.1
     steps:
       - run:
-          name: Upgrade yarn
-          command: yarn policies set-version << parameters.yarn >>
+          name: Upgrade yarn for current user
+          command: cd ~ && yarn policies set-version << parameters.yarn >>
 
       - restore_cache:
           keys:
