@@ -31,9 +31,10 @@ Marp Markdown is based on [Marpit](https://github.com/marp-team/marpit) and [Com
 
 - **Marpit**
   - Enable [inline SVG mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and loose YAML parsing by default.
-- **CommonMark**
+
+* **CommonMark**
   - For security reason, HTML tag only allows whitelisted elements by default.
-  - [Support table syntax based on GitHub Flavored Markdown.](https://help.github.com/articles/organizing-information-with-tables/)
+  - Support [table](https://github.github.com/gfm/#tables-extension-) and [strikethrough](https://github.github.com/gfm/#strikethrough-extension-) syntax, based on [GitHub Flavored Markdown](https://github.github.com/gfm/).
   - Line breaks in paragraph will convert to `<br>` tag.
   - Auto convert URL like text into hyperlink.
 
