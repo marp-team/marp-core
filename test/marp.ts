@@ -665,63 +665,6 @@ describe('Marp', () => {
     })
   })
 
-  describe('dollarPrefixForGlobalDirectives option', () => {
-    it('cannot use dollar prefix for global directives by default', () => {
-      const instance = marp({ minifyCSS: false })
-
-      // $theme
-      expect(instance.render('<!-- $theme: gaia -->').css).not.toContain(
-        '@theme gaia'
-      )
-
-      // $style
-      expect(
-        instance.render('<!-- $style: "h6 { color: orange }" -->').css
-      ).not.toContain('color: orange')
-
-      // $headingDivider
-      expect(
-        instance.render('<!-- $headingDivider: 1 -->\n\n# 1\n# 2', {
-          htmlAsArray: true,
-        }).html
-      ).toHaveLength(1)
-
-      // $size (Custom directives extended by Marp Core)
-      const [html] = instance.render('<!-- $size: 4:3 -->', {
-        htmlAsArray: true,
-      }).html
-      expect(html).not.toContain('0 0 960 720')
-    })
-
-    context('with true', () => {
-      it('can use dollar prefix as aliases for global directives', () => {
-        const instance = marp({
-          dollarPrefixForGlobalDirectives: true,
-          minifyCSS: false,
-        })
-
-        expect(instance.render('<!-- $theme: gaia -->').css).toContain(
-          '@theme gaia'
-        )
-
-        expect(
-          instance.render('<!-- $style: "h6 { color: orange }" -->').css
-        ).toContain('color: orange')
-
-        expect(
-          instance.render('<!-- $headingDivider: 1 -->\n\n# 1\n# 2', {
-            htmlAsArray: true,
-          }).html
-        ).toHaveLength(2)
-
-        const [html] = instance.render('<!-- $size: 4:3 -->', {
-          htmlAsArray: true,
-        }).html
-        expect(html).toContain('0 0 960 720')
-      })
-    })
-  })
-
   describe('size global directive', () => {
     it('defines size custom global directive', () =>
       expect(marp().customDirectives.global.size).toBeTruthy())
