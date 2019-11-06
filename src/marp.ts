@@ -68,7 +68,7 @@ export class Marp extends Marpit {
           breaks: true,
           linkify: true,
           highlight: (code, lang) => this.highlighter(code, lang),
-          html: opts.html !== undefined ? opts.html : Marp.html,
+          html: opts.html ?? Marp.html,
           ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
         },
       ],
