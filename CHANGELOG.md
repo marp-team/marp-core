@@ -7,6 +7,10 @@
 - Upgrade Marpit to [v1.4.2](https://github.com/marp-team/marpit/releases/v1.4.2) ([#126](https://github.com/marp-team/marp-core/pull/126))
 - Upgrade dependent packages to the latest version ([#126](https://github.com/marp-team/marp-core/pull/126))
 
+### Removed
+
+- Remove dollar prefix plugin for obsolated syntax ([#127](https://github.com/marp-team/marp-core/pull/127))
+
 ## v0.15.0 - 2019-11-05
 
 ### Added

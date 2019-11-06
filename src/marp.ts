@@ -6,7 +6,6 @@ import postcssMinifySelectors from 'postcss-minify-selectors'
 import postcssNormalizeWhitespace from 'postcss-normalize-whitespace'
 import { version } from 'katex/package.json'
 import browser from './browser'
-import * as dollarPlugin from './dollar/dollar'
 import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
 import * as htmlPlugin from './html/html'
@@ -30,9 +29,6 @@ export interface MarpOptions extends MarpitOptions {
   math?: mathPlugin.MathOptions
   minifyCSS?: boolean
   script?: boolean | scriptPlugin.ScriptOptions
-
-  /** @deprecated Dollar prefix for global directives is removed feature in Marpit framework, and Marp Core does not recommend too. Please use only for keeping compatibility in limited cases. */
-  dollarPrefixForGlobalDirectives?: boolean
 }
 
 const styleMinifier = postcss([
@@ -55,7 +51,6 @@ export class Marp extends Marpit {
       math: true,
       minifyCSS: true,
       script: true,
-      dollarPrefixForGlobalDirectives: false,
       ...opts,
       emoji: {
         shortcode: 'twemoji',
@@ -95,7 +90,6 @@ export class Marp extends Marpit {
       .use(mathPlugin.markdown, flag => (this.renderedMath = flag))
       .use(fittingPlugin.markdown)
       .use(sizePlugin.markdown)
-      .use(dollarPlugin.markdown)
       .use(scriptPlugin.markdown)
   }
 
