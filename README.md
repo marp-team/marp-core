@@ -228,9 +228,9 @@ By passing `object`, you can set the whitelist to specify allowed tags and attri
 }
 ```
 
-Marp core allows only `<br>` tag by default, that is defined in [`Marp.html`](https://github.com/marp-team/marp-core/blob/d49064b5418053debd77485689f310bf1f7954d2/src/marp.ts#L39-L41).
+Marp core allows only `<br>` tag by default, that is defined in [`Marp.html`](https://github.com/marp-team/marp-core/blob/5c3593320f1c1234f3b2556ecd1ff1f91d69c77a/src/marp.ts#L45).
 
-Whatever any option is selected, `<!-- HTML comment -->` is always parsed by Marpit for directives. When you are not disabled [Marpit's `inlineStyle` option](https://marpit-api.marp.app/marpit#Marpit) by `false`, `<style>` tags are parsed too for tweaking theme style.
+Whatever any option is selected, `<!-- HTML comment -->` and `<style>` tag are always parsed for directives / tweaking style.
 
 ### `emoji`: _`object`_
 
