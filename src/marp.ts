@@ -63,7 +63,7 @@ export class Marp extends Marpit {
           breaks: true,
           linkify: true,
           highlight: (code, lang) => this.highlighter(code, lang),
-          html: opts.html !== undefined ? opts.html : Marp.html,
+          html: opts.html ?? Marp.html,
           ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
         },
       ],
@@ -123,9 +123,7 @@ export class Marp extends Marpit {
         | string
         | undefined = `https://cdn.jsdelivr.net/npm/katex@${version}/dist/fonts/`
 
-      if (typeof math === 'object') {
-        path = math.katexFontPath === false ? undefined : math.katexFontPath
-      }
+      if (typeof math === 'object') path = math.katexFontPath || undefined
 
       // Add KaTeX css
       prepend(mathPlugin.css(path))
