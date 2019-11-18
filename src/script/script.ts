@@ -64,10 +64,9 @@ export function markdown(md): void {
 
     // Prepend scripts
     const token = tokens[idx]
-    const { marpCoreScriptTokens } = token.meta || {}
 
-    if (marpCoreScriptTokens) {
-      return `${original}${marpCoreScriptTokens
+    if (token?.meta?.marpCoreScriptTokens) {
+      return `${original}${token.meta.marpCoreScriptTokens
         .filter(t => t.type === 'marp_core_script')
         .map(t => `<script${self.renderAttrs(t)}>${t.content || ''}</script>`)
         .join('')}`
