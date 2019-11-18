@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade dependent packages to the latest version ([#130](https://github.com/marp-team/marp-core/pull/130))
+
 ## v0.15.1 - 2019-11-06
 
 ### Changed
