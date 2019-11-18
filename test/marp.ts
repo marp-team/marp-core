@@ -435,6 +435,9 @@ describe('Marp', () => {
       for (const rendered of [
         marp().render('\n---').html,
         marp().render('\n---', { htmlAsArray: true }).html[1], // Injects to the last page
+        marp({ inlineSVG: false }).render('\n---').html,
+        marp({ inlineSVG: false }).render('\n---', { htmlAsArray: true })
+          .html[1],
       ]) {
         const $ = cheerio.load(rendered)
         const script = $('script')

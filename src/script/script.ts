@@ -30,6 +30,7 @@ export function markdown(md): void {
     if (lastSlideCloseIdxRev < 0) return
 
     // Inject script token to the last page
+    const token = state.tokens[state.tokens.length - lastSlideCloseIdxRev - 1]
     const { Token } = state
     const scriptToken = new Token('marp_core_script', 'script', 0)
 
@@ -50,11 +51,28 @@ export function markdown(md): void {
 
     if (opts.nonce) scriptToken.attrSet('nonce', opts.nonce)
 
-    state.tokens.splice(-lastSlideCloseIdxRev - 1, 0, scriptToken)
+    token.meta = token.meta || {}
+    token.meta.marpCoreScriptTokens = token.meta.marpCoreScriptTokens || []
+    token.meta.marpCoreScriptTokens.push(scriptToken)
   })
 
-  md.renderer.rules.marp_core_script = (tokens, idx, _, __, self) => {
+  const { marpit_slide_close } = md.renderer.rules
+
+  md.renderer.rules.marpit_slide_close = (tokens, idx, opts, env, self) => {
+    const renderer = marpit_slide_close || self.renderToken
+    const original = renderer.call(self, tokens, idx, opts, env, self)
+
+    // Prepend scripts
     const token = tokens[idx]
-    return `<script${self.renderAttrs(token)}>${token.content || ''}</script>`
+    const { marpCoreScriptTokens } = token.meta || {}
+
+    if (marpCoreScriptTokens) {
+      return `${original}${marpCoreScriptTokens
+        .filter(t => t.type === 'marp_core_script')
+        .map(t => `<script${self.renderAttrs(t)}>${t.content || ''}</script>`)
+        .join('')}`
+    }
+
+    return original
   }
 }
