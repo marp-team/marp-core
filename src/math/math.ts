@@ -194,9 +194,9 @@ function parseMathBlock(state, start, end, silent) {
   token.map = [start, state.line]
   token.markup = '$$'
 
-  if (firstLine && firstLine.trim()) token.content += `${firstLine}\n`
+  if (firstLine?.trim()) token.content += `${firstLine}\n`
   token.content += state.getLines(start + 1, next, tShift[start], true)
-  if (lastLine && lastLine.trim()) token.content += lastLine
+  if (lastLine?.trim()) token.content += lastLine
 
   return true
 }
