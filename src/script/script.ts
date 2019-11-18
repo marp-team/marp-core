@@ -62,7 +62,7 @@ export function markdown(md): void {
     const renderer = marpit_slide_close || self.renderToken
     const original = renderer.call(self, tokens, idx, opts, env, self)
 
-    // Prepend scripts
+    // Append scripts
     const token = tokens[idx]
 
     if (token?.meta?.marpCoreScriptTokens) {
