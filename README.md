@@ -269,7 +269,7 @@ Enable or disable minification for rendered CSS. `true` by default.
 
 Setting about an injected helper script for the browser context. This script is necessary for applying [WebKit polyfill](https://github.com/marp-team/marpit-svg-polyfill) and rendering [auto-scaled elements](#auto-scaling-features) correctly.
 
-- **`true`**: Inject the inline helper script into the last of slides. (default)
+- **`true`**: Inject the inline helper script into after the last of slides. (default)
 - **`false`**: Not inject helper script. Developer must execute a helper script manually, exported in [`@marp-team/marp-core/browser`](src/browser.ts). Requires bundler such as [webpack](https://webpack.js.org/). It's suitable to the fully-controlled tool such as [Marp Web](https://github.com/marp-team/marp-web).
 
 You can control details of behavior by passing `object`.

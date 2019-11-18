@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix visual regression by moving script position to after closing section ([#131](https://github.com/marp-team/marp-core/pull/131))
+
 ### Changed
 
 - Upgrade dependent packages to the latest version ([#130](https://github.com/marp-team/marp-core/pull/130))
