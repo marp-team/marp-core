@@ -282,7 +282,7 @@ You can control details of behavior by passing `object`.
 
 ## Contributing
 
-Are you interested in contributing? Please see [CONTRIBUTING.md](.github/CONTRIBUTING.md).
+Are you interested in contributing? Please see [CONTRIBUTING.md](.github/CONTRIBUTING.md) and [the common contributing guideline for Marp team](https://github.com/marp-team/.github/blob/master/CONTRIBUTING.md).
 
 ## Author
 

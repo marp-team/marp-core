@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Update community health files ([#133](https://github.com/marp-team/marp-core/pull/133))
+
 ## v0.15.2 - 2019-11-18
 
 ### Fixed
