@@ -5,6 +5,7 @@
 ### Changed
 
 - Update community health files ([#133](https://github.com/marp-team/marp-core/pull/133))
+- Upgrade Node and dependent packages to the latest version ([#138](https://github.com/marp-team/marp-core/pull/138))
 
 ## v0.15.2 - 2019-11-18
 
