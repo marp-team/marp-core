@@ -312,22 +312,22 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@marp-team/marpit-svg-polyfill@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-1.1.1.tgz#b0b999243b9fd4d09ab3160260c1748683eef4ab"
-  integrity sha512-OC9ORNDHvnp2mTOSsB7ZnrD1Seuzz1j9lznWxoxoFu+V+8RkGhxjLxHXlPrcBqF2wbId99aSEaYuKZthPWsE0g==
+"@marp-team/marpit-svg-polyfill@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-1.2.0.tgz#3a6046e4222b6db7fc009a7d3a9ffef5cc8e60bd"
+  integrity sha512-UodxNSTmuFlLAoKs32V/IWF2GEdhFS/JmqJPXEAHHb1R2EYH1VVQceZ46IaX//Up0qiBfgFRbP6EVOXD52RZrw==
 
-"@marp-team/marpit@^1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-1.4.2.tgz#ee5b3be4046ca1fd303ac92210e3124233c41e58"
-  integrity sha512-Lm30WLOqCcB6SwICz3IfEDHYUQG15TtEw8tyVUPMbX/PQhXvkVieLjF3zWQymwJIBQ7+STD0VuMKkbeo6Hpj0A==
+"@marp-team/marpit@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-1.5.0.tgz#29e5c63e640f2628040fee57bf8ffb3d273105eb"
+  integrity sha512-J2NThr5oJh0VVHfz1teX1eXnuu1duSF65DK8TfCD2r70KDJmcTwBGYVdUpfqTo3t21QFA2DZv6zjSrgEtnN1IA==
   dependencies:
     color-string "^1.5.3"
     js-yaml "^3.13.0"
     lodash.kebabcase "^4.1.1"
     markdown-it "^10.0.0"
     markdown-it-front-matter "^0.1.2"
-    postcss "^7.0.21"
+    postcss "^7.0.26"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -5018,6 +5018,15 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.2, postcss@^7.0.21
   version "7.0.24"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.24.tgz#972c3c5be431b32e40caefe6c81b5a19117704c2"
   integrity sha512-Xl0XvdNWg+CblAXzNvbSOUvgJXwSjmbAKORqyw9V2AlHrm1js2gFw9y3jibBAhpKZi8b5JzJCVh/FyzPsTtgTA==
+  dependencies:
+    chalk "^2.4.2"
+    source-map "^0.6.1"
+    supports-color "^6.1.0"
+
+postcss@^7.0.26:
+  version "7.0.26"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.26.tgz#5ed615cfcab35ba9bbb82414a4fa88ea10429587"
+  integrity sha512-IY4oRjpXWYshuTDFxMVkJDtWIk2LhsTlu8bZnbEJA4+bYT16Lvpo8Qv6EvDumhYRgzjZl489pmsY3qVgJQ08nA==
   dependencies:
     chalk "^2.4.2"
     source-map "^0.6.1"

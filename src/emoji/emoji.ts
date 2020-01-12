@@ -1,4 +1,4 @@
-import marpitPlugin from '@marp-team/marpit/lib/markdown/marpit_plugin'
+import marpitPlugin from '@marp-team/marpit/plugin'
 import emojiRegex from 'emoji-regex'
 import markdownItEmoji from 'markdown-it-emoji'
 import twemoji from 'twemoji'

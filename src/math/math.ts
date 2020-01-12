@@ -1,4 +1,4 @@
-import marpitPlugin from '@marp-team/marpit/lib/markdown/marpit_plugin'
+import marpitPlugin from '@marp-team/marpit/plugin'
 import katex from 'katex'
 import katexScss from './katex.scss'
 
