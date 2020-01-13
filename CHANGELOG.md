@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Upgrade Marpit to [v1.5.0](https://github.com/marp-team/marpit/releases/v1.5.0) ([#142](https://github.com/marp-team/marp-core/pull/142))
 - Update community health files ([#133](https://github.com/marp-team/marp-core/pull/133))
 - Upgrade Node and dependent packages to the latest version ([#138](https://github.com/marp-team/marp-core/pull/138))
 
