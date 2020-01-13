@@ -2,11 +2,19 @@
 
 ## [Unreleased]
 
+### Breaking
+
+- Marp Core requires Node >= 10 ([#143](https://github.com/marp-team/marp-core/pull/143))
+
 ### Changed
 
 - Upgrade Marpit to [v1.5.0](https://github.com/marp-team/marpit/releases/v1.5.0) ([#142](https://github.com/marp-team/marp-core/pull/142))
 - Update community health files ([#133](https://github.com/marp-team/marp-core/pull/133))
-- Upgrade Node and dependent packages to the latest version ([#138](https://github.com/marp-team/marp-core/pull/138))
+- Upgrade Node and dependent packages to the latest version ([#138](https://github.com/marp-team/marp-core/pull/138), [#143](https://github.com/marp-team/marp-core/pull/143))
+
+### Removed
+
+- EOL Node 8 is no longer supported ([#143](https://github.com/marp-team/marp-core/pull/143))
 
 ## v0.15.2 - 2019-11-18
 

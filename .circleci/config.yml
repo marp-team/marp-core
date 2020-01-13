@@ -90,13 +90,6 @@ jobs:
     steps:
       - audit
 
-  test-node8:
-    executor:
-      name: node
-      version: '8'
-    steps:
-      - test
-
   test-node10:
     executor:
       name: node
@@ -107,7 +100,7 @@ jobs:
   test-node12:
     executor:
       name: node
-      version: '12.13.1' # Specify LTS version for development
+      version: '12.14.1' # Specify LTS version for development
     steps:
       - test
 
@@ -115,9 +108,6 @@ workflows:
   test:
     jobs:
       - audit
-      - test-node8:
-          requires:
-            - audit
       - test-node10:
           requires:
             - audit
