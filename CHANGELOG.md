@@ -19,6 +19,7 @@
 ### Removed
 
 - EOL Node 8 is no longer supported ([#143](https://github.com/marp-team/marp-core/pull/143))
+- Remove deprecated `Marp.ready()` (Use `@marp-team/marp-core/browser` entrypoint) ([#145](https://github.com/marp-team/marp-core/pull/145))
 
 ## v0.15.2 - 2019-11-18
 

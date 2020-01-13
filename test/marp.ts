@@ -3,7 +3,6 @@ import cheerio from 'cheerio'
 import postcss from 'postcss'
 import { EmojiOptions } from '../src/emoji/emoji'
 import { Marp, MarpOptions } from '../src/marp'
-import observer from '../src/observer'
 import browserScript from '../src/script/browser-script'
 
 jest.mock('../src/observer')
@@ -751,27 +750,6 @@ describe('Marp', () => {
 
       it('highlights with custom highlighter', () =>
         expect($('code .customized')).toHaveLength(1))
-    })
-  })
-
-  describe('.ready', () => {
-    it('throws error in node environment', () =>
-      expect(() => Marp.ready()).toThrowError())
-
-    context('when window object is defined in global', () => {
-      beforeEach(() => {
-        global['window'] = jest.fn()
-        jest.spyOn(console, 'warn').mockImplementation()
-      })
-      afterEach(() => delete global['window'])
-
-      it('registers observer for browser only once', () => {
-        Marp.ready()
-        expect(observer).toHaveBeenCalledTimes(1)
-
-        Marp.ready()
-        expect(observer).toHaveBeenCalledTimes(1)
-      })
     })
   })
 })
