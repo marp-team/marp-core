@@ -5,7 +5,6 @@ import postcssMinifyParams from 'postcss-minify-params'
 import postcssMinifySelectors from 'postcss-minify-selectors'
 import postcssNormalizeWhitespace from 'postcss-normalize-whitespace'
 import { version } from 'katex/package.json'
-import browser from './browser'
 import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
 import * as htmlPlugin from './html/html'
@@ -130,14 +129,6 @@ export class Marp extends Marpit {
     }
 
     return base
-  }
-
-  /** @deprecated A script for the browser that is equivalent to `Marp.ready()` has injected into rendered Markdown by default. `Marp.ready()` will remove in future so you have to use `@marp-team/marp-core/browser` instead if you want to execute browser script in script-disabled HTML manually via using such as webpack. */
-  static ready() {
-    console.warn(
-      '[DEPRECATION WARNING] A script for the browser that is equivalent to Marp.ready() has injected into rendered Markdown by default. Marp.ready() will remove in future so you have to use "@marp-team/marp-core/browser" instead if you want to execute browser script in script-disabled HTML manually via using such as webpack.'
-    )
-    browser()
   }
 }
 
