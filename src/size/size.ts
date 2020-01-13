@@ -1,4 +1,4 @@
-import marpitPlugin from '@marp-team/marpit/lib/markdown/marpit_plugin'
+import marpitPlugin from '@marp-team/marpit/plugin'
 import { Theme } from '@marp-team/marpit'
 import { Marp } from '../marp'
 

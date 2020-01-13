@@ -1,4 +1,4 @@
-import marpitPlugin from '@marp-team/marpit/lib/markdown/marpit_plugin'
+import marpitPlugin from '@marp-team/marpit/plugin'
 import fittingCSS from './fitting.scss'
 import Marp from '../marp'
 import { attr, code, math, svgContentAttr, svgContentWrapAttr } from './data'

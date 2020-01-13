@@ -1,4 +1,4 @@
-import { Marpit, MarpitOptions, ThemeSetPackOptions } from '@marp-team/marpit'
+import { Marpit, Options, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
 import postcss from 'postcss'
 import postcssMinifyParams from 'postcss-minify-params'
@@ -16,7 +16,7 @@ import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
 
-export interface MarpOptions extends MarpitOptions {
+export interface MarpOptions extends Options {
   emoji?: emojiPlugin.EmojiOptions
   html?:
     | boolean
