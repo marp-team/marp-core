@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.0.0 - 2020-01-13
+
 ### Breaking
 
 - Marp Core requires Node >= 10 ([#143](https://github.com/marp-team/marp-core/pull/143))
