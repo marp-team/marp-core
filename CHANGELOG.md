@@ -6,6 +6,10 @@
 
 - Marp Core requires Node >= 10 ([#143](https://github.com/marp-team/marp-core/pull/143))
 
+### Added
+
+- Expose selected size as `data-size` attribute ([#135](https://github.com/marp-team/marp-core/issues/135), [#144](https://github.com/marp-team/marp-core/pull/144))
+
 ### Changed
 
 - Upgrade Marpit to [v1.5.0](https://github.com/marp-team/marpit/releases/v1.5.0) ([#142](https://github.com/marp-team/marp-core/pull/142))
