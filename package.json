@@ -34,7 +34,7 @@
     "browser.d.ts"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "scripts": {
     "build": "yarn -s clean && rollup -c",
