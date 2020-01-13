@@ -4,7 +4,11 @@
 
 ### Breaking
 
-- Marp Core requires Node >= 10 ([#143](https://github.com/marp-team/marp-core/pull/143))
+- Marp Core requires Node >= 10 ([#135](https://github.com/marp-team/marp-core/issues/135), [#143](https://github.com/marp-team/marp-core/pull/143))
+
+### Added
+
+- Expose selected size as `data-size` attribute ([#143](https://github.com/marp-team/marp-core/pull/144))
 
 ### Changed
 
