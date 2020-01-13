@@ -1,4 +1,4 @@
-import { Marpit, Theme } from '@marp-team/marpit'
+import { Marpit, Options, Theme } from '@marp-team/marpit'
 import cheerio from 'cheerio'
 import postcss from 'postcss'
 import { markdown as sizePlugin } from '../../src/size/size'
@@ -6,8 +6,11 @@ import { markdown as sizePlugin } from '../../src/size/size'
 const metaType = { size: Array }
 
 describe('Size plugin', () => {
-  const marpit = (callback: (marpit: Marpit) => void = () => {}) =>
-    new Marpit().use(sizePlugin).use(({ marpit }) => {
+  const marpit = (
+    callback: (marpit: Marpit) => void = () => {},
+    opts?: Options
+  ) =>
+    new Marpit(opts).use(sizePlugin).use(({ marpit }) => {
       marpit.themeSet.metaType = metaType
       callback(marpit)
     })
@@ -42,7 +45,7 @@ describe('Size plugin', () => {
     expect(marpit().customDirectives.global.size).toBeTruthy())
 
   context('when specified theme has theme metadata', () => {
-    const instance = marpit(m => {
+    const initializeTheme = m => {
       m.themeSet.add('/* @theme a *//* @size test 640px 480px */')
       m.themeSet.add(
         '/* @theme b *//* @size test2 800px 600px  */\n@import "a";'
@@ -51,7 +54,10 @@ describe('Size plugin', () => {
       m.themeSet.add(
         '/* @theme d *//* @size test false *//* @size test2 - invalid defintion */\n@import "b";'
       )
-    })
+    }
+
+    const instance = marpit(initializeTheme)
+    const inlineSVGinstance = marpit(initializeTheme, { inlineSVG: true })
 
     it('adds width and height style for section and @page rule', async () => {
       const { css } = instance.render('<!-- theme: a -->\n<!-- size: test -->')
@@ -76,10 +82,22 @@ describe('Size plugin', () => {
     it('exposes selected size into <section> element as data-size attribute', () => {
       const { html } = instance.render('<!--\ntheme: a\nsize: test\n-->\n\n---')
       const $ = cheerio.load(html)
-
-      $('section')
+      const attrs = $('section')
         .map((_, e) => $(e).data('size'))
-        .each((_, attr) => expect(attr).toBe('test'))
+        .get()
+
+      expect(attrs).toStrictEqual(['test', 'test'])
+
+      // Apply data attribute to each layers of advanced background in inline SVG mode
+      const { html: htmlAdv } = inlineSVGinstance.render(
+        '<!--\ntheme: a\nsize: test\n-->\n\n![bg](dummy)'
+      )
+      const $adv = cheerio.load(htmlAdv)
+      const attrsAdv = $adv('section')
+        .map((_, e) => $adv(e).data('size'))
+        .get()
+
+      expect(attrsAdv).toStrictEqual(['test', 'test', 'test'])
     })
 
     it('ignores undefined size name', () => {

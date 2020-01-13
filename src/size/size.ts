@@ -101,4 +101,18 @@ export const markdown = marpitPlugin(md => {
       if (marpitDirectives) token.attrSet('data-size', state[sizePluginSymbol])
     }
   })
+
+  md.core.ruler.after(
+    'marpit_advanced_background',
+    'marp_size_apply_advanced_background',
+    state => {
+      if (state.inlineMode || !state[sizePluginSymbol]) return
+
+      for (const token of state.tokens) {
+        if (token.type === 'marpit_advanced_pseudo_section_open') {
+          token.attrSet('data-size', state[sizePluginSymbol])
+        }
+      }
+    }
+  )
 })
