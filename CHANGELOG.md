@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.0.1 - 2020-01-17
+
 ### Fixed
 
 - v1.0.0 throws "z is not a function" ([#146](https://github.com/marp-team/marp-core/issues/146), [#147](https://github.com/marp-team/marp-core/pull/147))
