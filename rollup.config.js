@@ -64,7 +64,7 @@ export default [
     plugins,
   },
   {
-    external: Object.keys(pkg.dependencies),
+    external: [...Object.keys(pkg.dependencies), '@marp-team/marpit/plugin'],
     input: `src/${path.basename(pkg.main, '.js')}.ts`,
     output: { exports: 'named', file: pkg.main, format: 'cjs' },
     plugins,
