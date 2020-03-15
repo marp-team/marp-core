@@ -15,13 +15,6 @@ const plugin = postcss.plugin('postcss-optimize-default-theme', () => css => {
       rule.remove()
     }
   })
-
-  // Remove unused web fonts
-  css.walkAtRules('font-face', rule => {
-    rule.walkDecls('font-family', decl => {
-      if (decl.value === 'octicons-link') rule.remove()
-    })
-  })
 })
 
 export default plugin
