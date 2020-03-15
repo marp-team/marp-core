@@ -10,3 +10,7 @@ rules:
     - null
   scss/at-rule-no-unknown:
     - true
+  value-keyword-case:
+    - lower
+    - ignoreProperties:
+        - /^--/

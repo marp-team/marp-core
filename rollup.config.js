@@ -25,7 +25,7 @@ const plugins = [
       },
     ],
   }),
-  typescript({ resolveJsonModule: false }),
+  typescript(),
   postcss({
     inject: false,
     minimize: {
