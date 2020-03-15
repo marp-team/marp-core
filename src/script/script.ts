@@ -9,11 +9,11 @@ interface ScriptOptionsInternal {
 
 export interface ScriptOptions extends Partial<ScriptOptionsInternal> {}
 
-const defaultOptions: ScriptOptionsInternal = { source: 'inline' }
+const defaultOptions = { source: 'inline' } as const
 
 export function markdown(md): void {
   const marp: Marp = md.marpit
-  const opts = (() => {
+  const opts = ((): false | ScriptOptionsInternal => {
     if (marp.options.script === false) return false
     if (marp.options.script === true) return defaultOptions
 
