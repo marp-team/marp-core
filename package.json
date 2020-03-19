@@ -76,8 +76,8 @@
     "postcss-url": "^8.0.0",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.0.6",
-    "rollup-plugin-postcss": "^2.4.1",
+    "rollup": "^2.1.0",
+    "rollup-plugin-postcss": "^2.5.0",
     "rollup-plugin-string": "^3.0.0",
     "rollup-plugin-terser": "^5.3.0",
     "sass": "^1.26.3",
@@ -85,7 +85,7 @@
     "stylelint": "^13.2.1",
     "stylelint-config-prettier": "^8.0.1",
     "stylelint-config-standard": "^20.0.0",
-    "stylelint-scss": "^3.14.2",
+    "stylelint-scss": "^3.15.0",
     "ts-jest": "25.2.1",
     "tslib": "^1.11.1",
     "tslint": "^6.1.0",
@@ -106,6 +106,9 @@
     "postcss-normalize-whitespace": "^4.0.2",
     "twemoji": "^12.1.5",
     "xss": "^1.0.6"
+  },
+  "resolutions": {
+    "**/gonzales-pe/minimist": "^1.2.5"
   },
   "publishConfig": {
     "access": "public"
