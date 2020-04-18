@@ -31,7 +31,7 @@ export function markdown(md): void {
           whiteList[tag] = attrs
         } else if (typeof attrs === 'object') {
           whiteList[tag] = Object.keys(attrs).filter(
-            attr => attrs[attr] !== false
+            (attr) => attrs[attr] !== false
           )
         }
       }

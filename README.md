@@ -223,7 +223,7 @@ By passing `object`, you can set the whitelist to specify allowed tags and attri
 // You may use custom attribute sanitizer by passing object.
 {
   img: {
-    src: value => (value.startsWith('https://') ? value : '')
+    src: (value) => (value.startsWith('https://') ? value : '')
   }
 }
 ```

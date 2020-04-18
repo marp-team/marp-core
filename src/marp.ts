@@ -86,7 +86,7 @@ export class Marp extends Marpit {
 
     md.use(htmlPlugin.markdown)
       .use(emojiPlugin.markdown)
-      .use(mathPlugin.markdown, flag => (this.renderedMath = flag))
+      .use(mathPlugin.markdown, (flag) => (this.renderedMath = flag))
       .use(fittingPlugin.markdown)
       .use(sizePlugin.markdown)
       .use(scriptPlugin.markdown)
@@ -110,7 +110,8 @@ export class Marp extends Marpit {
 
   protected themeSetPackOptions(): ThemeSetPackOptions {
     const base = { ...super.themeSetPackOptions() }
-    const prepend = css => css && (base.before = `${css}\n${base.before || ''}`)
+    const prepend = (css) =>
+      css && (base.before = `${css}\n${base.before || ''}`)
     const { emoji, math } = this.options
 
     prepend(emojiPlugin.css(emoji!))

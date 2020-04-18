@@ -73,7 +73,7 @@ describe('Fitting observer', () => {
       // CSS variables
       jest
         .spyOn(CSSStyleDeclaration.prototype, 'getPropertyValue')
-        .mockImplementation(p =>
+        .mockImplementation((p) =>
           p === '--preserve-aspect-ratio' ? 'ok' : 'ng'
         )
 

@@ -22,7 +22,7 @@ const isEnabledAutoScaling = (marp: Marp, key?: string): boolean => {
 function fittingCode(md): void {
   const { code_block, fence } = md.renderer.rules
 
-  const replacedRenderer = func => (...args) => {
+  const replacedRenderer = (func) => (...args) => {
     const rendered: string = func(...args)
 
     if (isEnabledAutoScaling(md.marpit, 'code')) {
@@ -48,7 +48,7 @@ function fittingCode(md): void {
 
 // Detect `<!-- fit -->` comment keyword in headings.
 function fittingHeader(md): void {
-  md.core.ruler.after('inline', 'marp_fitting_header', state => {
+  md.core.ruler.after('inline', 'marp_fitting_header', (state) => {
     let target = undefined
 
     for (const token of state.tokens) {
@@ -122,8 +122,6 @@ function fittingMathBlock(md): void {
   }
 }
 
-export const markdown = marpitPlugin(md => {
-  md.use(fittingHeader)
-    .use(fittingCode)
-    .use(fittingMathBlock)
+export const markdown = marpitPlugin((md) => {
+  md.use(fittingHeader).use(fittingCode).use(fittingMathBlock)
 })

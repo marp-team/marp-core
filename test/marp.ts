@@ -301,9 +301,9 @@ describe('Marp', () => {
       const walkedUrls: string[] = []
 
       postcss([
-        root =>
-          root.walkAtRules('font-face', rule =>
-            rule.walkDecls('src', e => {
+        (root) =>
+          root.walkAtRules('font-face', (rule) =>
+            rule.walkDecls('src', (e) => {
               if (e.value.includes('KaTeX')) walkedUrls.push(e.value)
             })
           ),
@@ -561,7 +561,7 @@ describe('Marp', () => {
 
       it('does not wrap by svg when specified uncover theme', () => {
         // Disable object freeze
-        jest.spyOn<any, any>(Object, 'freeze').mockImplementation(obj => obj)
+        jest.spyOn<any, any>(Object, 'freeze').mockImplementation((obj) => obj)
 
         const instance = marp()
         const theme = instance.themeSet.get('uncover')!
