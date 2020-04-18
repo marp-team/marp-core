@@ -14,7 +14,7 @@ interface RestorableThemes {
 
 const sizePluginSymbol = Symbol('marp-size-plugin')
 
-export const markdown = marpitPlugin(md => {
+export const markdown = marpitPlugin((md) => {
   const marp: Marp = md.marpit
   const { render } = marp
 
@@ -42,7 +42,7 @@ export const markdown = marpitPlugin(md => {
 
   // Define `size` global directive
   Object.defineProperty(marp.customDirectives.global, 'size', {
-    value: size => (typeof size === 'string' ? { size } : {}),
+    value: (size) => (typeof size === 'string' ? { size } : {}),
   })
 
   // Override render method to restore original theme set
@@ -50,50 +50,54 @@ export const markdown = marpitPlugin(md => {
     try {
       return render.apply<Marp, any[], any>(marp, args)
     } finally {
-      forRestore.themes.forEach(theme => marp.themeSet.addTheme(theme))
+      forRestore.themes.forEach((theme) => marp.themeSet.addTheme(theme))
 
       if (forRestore.default) marp.themeSet.default = forRestore.default
     }
   }
 
-  md.core.ruler.after('marpit_directives_global_parse', 'marp_size', state => {
-    if (state.inlineMode) return
+  md.core.ruler.after(
+    'marpit_directives_global_parse',
+    'marp_size',
+    (state) => {
+      if (state.inlineMode) return
 
-    forRestore.themes.clear()
-    forRestore.default = undefined
+      forRestore.themes.clear()
+      forRestore.default = undefined
 
-    const { theme, size } = (marp as any).lastGlobalDirectives
-    if (!size) return
+      const { theme, size } = (marp as any).lastGlobalDirectives
+      if (!size) return
 
-    const themeInstance = marp.themeSet.get(theme, true) as Theme
-    const customSize = definedSizes(themeInstance).get(size)
+      const themeInstance = marp.themeSet.get(theme, true) as Theme
+      const customSize = definedSizes(themeInstance).get(size)
 
-    if (customSize) {
-      state[sizePluginSymbol] = size
+      if (customSize) {
+        state[sizePluginSymbol] = size
 
-      const { width, height } = customSize
-      const css = `${themeInstance.css}\nsection{width:${width};height:${height};}`
+        const { width, height } = customSize
+        const css = `${themeInstance.css}\nsection{width:${width};height:${height};}`
 
-      const overrideTheme = Object.assign(new (Theme as any)(), {
-        ...themeInstance,
-        ...customSize,
-        css,
-      })
+        const overrideTheme = Object.assign(new (Theme as any)(), {
+          ...themeInstance,
+          ...customSize,
+          css,
+        })
 
-      forRestore.themes.add(themeInstance)
+        forRestore.themes.add(themeInstance)
 
-      if (themeInstance === marp.themeSet.default) {
-        forRestore.default = themeInstance
-        marp.themeSet.default = overrideTheme
-      }
+        if (themeInstance === marp.themeSet.default) {
+          forRestore.default = themeInstance
+          marp.themeSet.default = overrideTheme
+        }
 
-      if (marp.themeSet.has(overrideTheme.name)) {
-        marp.themeSet.addTheme(overrideTheme)
+        if (marp.themeSet.has(overrideTheme.name)) {
+          marp.themeSet.addTheme(overrideTheme)
+        }
       }
     }
-  })
+  )
 
-  md.core.ruler.after('marpit_directives_apply', 'marp_size_apply', state => {
+  md.core.ruler.after('marpit_directives_apply', 'marp_size_apply', (state) => {
     if (state.inlineMode || !state[sizePluginSymbol]) return
 
     for (const token of state.tokens) {
@@ -105,7 +109,7 @@ export const markdown = marpitPlugin(md => {
   md.core.ruler.after(
     'marpit_advanced_background',
     'marp_size_apply_advanced_background',
-    state => {
+    (state) => {
       if (state.inlineMode || !state[sizePluginSymbol]) return
 
       for (const token of state.tokens) {

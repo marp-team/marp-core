@@ -10,7 +10,7 @@ const updateAttr = (elm: Element, attr: string, value: string): true | void => {
 export default function fittingObserver(): void {
   Array.from(
     document.querySelectorAll<HTMLElement>(`svg[${attr}="svg"]`),
-    svg => {
+    (svg) => {
       const foreignObject = svg.firstChild as SVGForeignObjectElement
       const container = foreignObject.firstChild as HTMLSpanElement
       const { scrollWidth, scrollHeight } = container

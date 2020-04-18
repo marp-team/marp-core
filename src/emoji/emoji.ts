@@ -22,7 +22,7 @@ export const css = (opts: EmojiOptions) =>
     ? twemojiCSS
     : undefined
 
-export const markdown = marpitPlugin(md => {
+export const markdown = marpitPlugin((md) => {
   const opts: EmojiOptions = md.marpit.options.emoji
   const twemojiOpts = opts.twemoji || {}
   const twemojiExt = twemojiOpts.ext || 'svg'
@@ -49,7 +49,7 @@ export const markdown = marpitPlugin(md => {
 
     markdownItEmoji(picker, { shortcuts: {} })
 
-    md.core.ruler.push('marp_emoji', state => {
+    md.core.ruler.push('marp_emoji', (state) => {
       const { Token } = state
 
       state.Token = function replacedToken(name, ...args) {
@@ -110,7 +110,7 @@ export const markdown = marpitPlugin(md => {
     const { code_block, code_inline, fence } = md.renderer.rules
 
     if (opts.unicode === 'twemoji') {
-      const wrap = text =>
+      const wrap = (text) =>
         text
           .split(/(<[^>]*>)/g)
           .reduce(

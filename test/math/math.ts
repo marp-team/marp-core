@@ -7,8 +7,8 @@
 import MarkdownIt from 'markdown-it'
 import { markdown as mathPlugin } from '../../src/math/math'
 
-const countMath = stt => stt.split('class="katex"').length - 1
-const countBlockMath = stt => stt.split('class="katex-display"').length - 1
+const countMath = (stt) => stt.split('class="katex"').length - 1
+const countBlockMath = (stt) => stt.split('class="katex-display"').length - 1
 
 describe('markdown-it math plugin', () => {
   const md = new MarkdownIt()

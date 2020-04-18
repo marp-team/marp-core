@@ -54,6 +54,10 @@
     "version": "curl https://raw.githubusercontent.com/marp-team/actions/v1/lib/scripts/version.js | node && git add -A CHANGELOG.md",
     "watch": "rollup -w -c"
   },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.0",
     "@rollup/plugin-commonjs": "^11.1.0",

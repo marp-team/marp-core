@@ -20,12 +20,12 @@ export function markdown(md): void {
     return { ...defaultOptions, ...marp.options.script }
   })()
 
-  md.core.ruler.before('marpit_collect', 'marp_core_script', state => {
+  md.core.ruler.before('marpit_collect', 'marp_core_script', (state) => {
     if (opts === false) return
 
     const lastSlideCloseIdxRev = [...state.tokens]
       .reverse()
-      .findIndex(t => t.type === 'marpit_slide_close')
+      .findIndex((t) => t.type === 'marpit_slide_close')
 
     if (lastSlideCloseIdxRev < 0) return
 
@@ -67,8 +67,8 @@ export function markdown(md): void {
 
     if (token?.meta?.marpCoreScriptTokens) {
       return `${original}${token.meta.marpCoreScriptTokens
-        .filter(t => t.type === 'marp_core_script')
-        .map(t => `<script${self.renderAttrs(t)}>${t.content || ''}</script>`)
+        .filter((t) => t.type === 'marp_core_script')
+        .map((t) => `<script${self.renderAttrs(t)}>${t.content || ''}</script>`)
         .join('')}`
     }
 

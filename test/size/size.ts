@@ -22,14 +22,14 @@ describe('Size plugin', () => {
     const collectedDecls: Record<string, any> = {}
 
     await postcss([
-      root => {
+      (root) => {
         const collect = (rule: postcss.Rule | postcss.AtRule, to) =>
           rule.walkDecls(({ prop, value }) => {
             to[prop] = value
           })
 
-        root.walkRules(selector, rule => collect(rule, collectedDecls))
-        root.walkAtRules(atRule => {
+        root.walkRules(selector, (rule) => collect(rule, collectedDecls))
+        root.walkAtRules((atRule) => {
           const name = `@${atRule.name}`
 
           collectedDecls[name] = collectedDecls[name] || {}
@@ -45,7 +45,7 @@ describe('Size plugin', () => {
     expect(marpit().customDirectives.global.size).toBeTruthy())
 
   context('when specified theme has theme metadata', () => {
-    const initializeTheme = m => {
+    const initializeTheme = (m) => {
       m.themeSet.add('/* @theme a *//* @size test 640px 480px */')
       m.themeSet.add(
         '/* @theme b *//* @size test2 800px 600px  */\n@import "a";'
@@ -147,7 +147,7 @@ describe('Size plugin', () => {
     const defaultCSS = '/* @theme a *//* @size test 640px 480px */'
     const defaultTheme = Theme.fromCSS(defaultCSS, { metaType })
 
-    const instance = marpit(m => {
+    const instance = marpit((m) => {
       m.themeSet.default = defaultTheme
     })
 

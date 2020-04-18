@@ -34,7 +34,7 @@ export const markdown = marpitPlugin(
       }
     }
 
-    md.core.ruler.before('block', 'marp_math_initialize', state => {
+    md.core.ruler.before('block', 'marp_math_initialize', (state) => {
       if (state.inlineMode) return
 
       updateState(false)
