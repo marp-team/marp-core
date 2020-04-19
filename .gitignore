@@ -1,4 +1,6 @@
 lib/
+/sandbox/**
+!/sandbox/README.md
 tmp/
 types/
 

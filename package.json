@@ -47,7 +47,9 @@
     "lint:ts": "tslint \"{src,test}/**/*.ts\"",
     "lint:css": "stylelint \"{src,themes}/**/*.{css,scss}\"",
     "prepack": "npm-run-all --parallel check:* lint:* test:coverage --parallel build types",
-    "preversion": "npm-run-all --parallel check:* lint:* test:coverage",
+    "preversion": "run-p check:* lint:* test:coverage",
+    "sandbox": "run-p watch sandbox:watch",
+    "sandbox:watch": "mkdirp lib && nodemon",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "types": "rimraf types && tsc --declaration --emitDeclarationOnly --outDir types",
@@ -58,7 +60,12 @@
     "semi": false,
     "singleQuote": true
   },
+  "nodemonConfig": {
+    "watch": "./lib",
+    "exec": "./node_modules/.bin/marp"
+  },
   "devDependencies": {
+    "@marp-team/marp-cli": "^0.17.4",
     "@rollup/plugin-alias": "^3.1.0",
     "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-json": "^4.0.2",
@@ -75,7 +82,9 @@
     "jest-junit": "^10.0.0",
     "jest-plugin-context": "^2.9.0",
     "markdown-it": "^10.0.0",
+    "mkdirp": "^1.0.4",
     "node-sass-package-importer": "^5.3.2",
+    "nodemon": "^2.0.3",
     "npm-run-all": "^4.1.5",
     "postcss-url": "^8.0.0",
     "prettier": "^2.0.4",

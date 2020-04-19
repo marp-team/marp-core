@@ -2,6 +2,7 @@
 .vscode/
 coverage/
 lib/
+sandbox/
 types/
 node_modules
 package.json
