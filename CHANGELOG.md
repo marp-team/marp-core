@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add sandbox directory to make easy to develop core ([#157](https://github.com/marp-team/marp-core/pull/157))
+
 ## v1.1.1 - 2020-04-18
 
 ### Changed

@@ -13,6 +13,9 @@ yarn build
 # Watch
 yarn watch
 
+# Watch with sandbox
+yarn sandbox
+
 # Output type definitions
 yarn types
 ```
