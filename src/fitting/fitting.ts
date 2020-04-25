@@ -8,12 +8,10 @@ export const css = fittingCSS
 const codeMatcher = /^(<pre[^>]*?><code[^>]*?>)([\s\S]*)(<\/code><\/pre>\n*)$/
 
 const isEnabledAutoScaling = (marp: Marp, key?: string): boolean => {
-  const directives: Marp['lastGlobalDirectives'] = (marp as any)
-    .lastGlobalDirectives
-
+  const directives: Marp['lastGlobalDirectives'] = Marp['lastGlobalDirectives']
   const theme = marp.themeSet.get((directives || {}).theme, true)
   const meta: string | undefined =
-    theme && (marp.themeSet.getThemeMeta(theme, 'auto-scaling') as any)
+    theme && (marp.themeSet.getThemeMeta(theme, 'auto-scaling') as string)
 
   return !!(meta === 'true' || (key && (meta || '').includes(key)))
 }

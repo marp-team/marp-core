@@ -5,8 +5,9 @@ import postcssMinifyParams from 'postcss-minify-params'
 import postcssMinifySelectors from 'postcss-minify-selectors'
 import postcssNormalizeWhitespace from 'postcss-normalize-whitespace'
 import { version } from 'katex/package.json'
+import * as fittingV2Plugin from './fitting-v2/'
 import * as emojiPlugin from './emoji/emoji'
-import * as fittingPlugin from './fitting/fitting'
+// import * as fittingPlugin from './fitting/fitting'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
 import * as scriptPlugin from './script/script'
@@ -87,9 +88,10 @@ export class Marp extends Marpit {
     md.use(htmlPlugin.markdown)
       .use(emojiPlugin.markdown)
       .use(mathPlugin.markdown, (flag) => (this.renderedMath = flag))
-      .use(fittingPlugin.markdown)
+      // .use(fittingPlugin.markdown)
       .use(sizePlugin.markdown)
       .use(scriptPlugin.markdown)
+      .use(fittingV2Plugin.markdown)
   }
 
   highlighter(code: string, lang: string): string {
@@ -115,7 +117,8 @@ export class Marp extends Marpit {
     const { emoji, math } = this.options
 
     prepend(emojiPlugin.css(emoji!))
-    prepend(fittingPlugin.css)
+    // prepend(fittingPlugin.css)
+    prepend(fittingV2Plugin.css)
 
     if (math && this.renderedMath) {
       // By default, we use KaTeX web fonts through CDN.

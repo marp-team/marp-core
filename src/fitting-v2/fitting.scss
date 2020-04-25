@@ -1,0 +1,14 @@
+section[data-marp-core-fitting~='code'] {
+  --marp-core-fitting-code: true;
+}
+section[data-marp-core-fitting~='math'] {
+  --marp-core-fitting-math: true;
+}
+section[data-marp-core-fitting~='header'] {
+  --marp-core-fitting-header: true;
+}
+[data-marp-core-fitting-element],
+[data-marp-core-fitting-content] {
+  display: inline;
+  display: contents;
+}
