@@ -13,7 +13,7 @@ $color-dark: #455a64;
 $color-primary: #0288d1;
 $color-secondary: #81d4fa;
 
-@import url('https://fonts.googleapis.com/css?family=Lato:400,900|Roboto+Mono:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,900;1,400;1,900&family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700');
 @import '~highlight.js/styles/sunburst';
 
 @mixin color-scheme($bg, $text, $highlight) {
