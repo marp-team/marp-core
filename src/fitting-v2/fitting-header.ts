@@ -40,7 +40,7 @@ export const fittingHeaderPlugin = marpitPlugin((md) => {
   })
 
   md.renderer.rules.marp_fitting_header_open = () =>
-    `<span ${fittingElementAttr}><span ${fittingContentAttr}>`
+    `<span ${fittingElementAttr}="header"><span ${fittingContentAttr}>`
 
   md.renderer.rules.marp_fitting_header_close = () => '</span></span>'
 })

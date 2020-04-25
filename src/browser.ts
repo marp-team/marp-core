@@ -1,6 +1,5 @@
-import observer from './observer'
-
-export { observer }
+import { observe as marpitSVGPolyfill } from '@marp-team/marpit-svg-polyfill'
+import { observer as fittingObserver } from './fitting-v2/observer/'
 
 export default function browser(): void {
   if (typeof window === 'undefined') {
@@ -15,5 +14,7 @@ export default function browser(): void {
   }
 
   Object.defineProperty(window, 'marpCoreBrowserScript', { value: true })
-  observer()
+
+  marpitSVGPolyfill()
+  fittingObserver()
 }

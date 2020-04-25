@@ -4,7 +4,6 @@
  * @theme uncover
  * @author Yuki Hattori
  *
- * @auto-scaling fittingHeader,math
  * @size 4:3 960px 720px
  */
 
@@ -80,6 +79,10 @@ section {
   word-wrap: break-word;
   z-index: 0;
 
+  --marp-core-fitting-math: true;
+  // --marp-core-fitting-code: true;
+  --marp-core-fitting-header: true;
+
   &::after {
     align-items: flex-end;
     display: flex;
@@ -112,10 +115,8 @@ section {
     margin-bottom: 0;
   }
 
-  svg[data-marp-fitting='svg'] {
+  [data-marp-core-fitting-element] {
     max-height: 660px; // Slide height - padding * 2
-
-    --preserve-aspect-ratio: xMidYMid meet;
   }
 
   p,

@@ -12,7 +12,7 @@ export const fittingCodePlugin = marpitPlugin((md) => {
     return rendered.replace(
       codeMatcher,
       (_, start, content, end) =>
-        `${start}<span ${fittingElementAttr}><span ${fittingContentAttr}>${content}</span></span>${end}`
+        `${start}<span ${fittingElementAttr}="code"><span ${fittingContentAttr}>${content}</span></span>${end}`
     )
   }
 

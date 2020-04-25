@@ -1,14 +1,39 @@
-section[data-marp-core-fitting~='code'] {
-  --marp-core-fitting-code: true;
-}
-section[data-marp-core-fitting~='math'] {
-  --marp-core-fitting-math: true;
-}
-section[data-marp-core-fitting~='header'] {
-  --marp-core-fitting-header: true;
-}
 [data-marp-core-fitting-element],
 [data-marp-core-fitting-content] {
   display: inline;
   display: contents;
+}
+
+[data-marp-core-fitting-element='code'],
+[data-marp-core-fitting-element='math'] {
+  --marp-core-fitting-shrink-only: true;
+}
+
+[data-marp-core-fitting-element='math'] {
+  text-align: center;
+}
+
+[data-marp-core-fitting-element][data-marp-core-fitting-element-enabled] {
+  > svg {
+    display: block;
+    height: auto;
+    max-height: inherit;
+    width: 100%;
+
+    &[preserveAspectRatio^='xMid'] [data-marp-core-fitting-content] {
+      margin: 0 auto;
+    }
+    &[preserveAspectRatio^='xMax'] [data-marp-core-fitting-content] {
+      margin: 0 0 0 auto;
+    }
+  }
+
+  [data-marp-core-fitting-content] {
+    display: table;
+    white-space: nowrap;
+  }
+
+  &[data-marp-core-fitting-element='code'] [data-marp-core-fitting-content] {
+    white-space: pre;
+  }
 }

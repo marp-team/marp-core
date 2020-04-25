@@ -4,14 +4,13 @@
  * @theme default
  * @author Yuki Hattori
  *
- * @auto-scaling true
  * @size 4:3 960px 720px
  */
 
 @import '~github-markdown-css';
 @import '~highlight.js/styles/github-gist';
 
-svg[data-marp-fitting='svg'] {
+[data-marp-core-fitting-element] {
   max-height: 563px; // Slide height - padding * 2
 }
 
@@ -64,7 +63,7 @@ pre {
   line-height: 1.15;
   overflow: visible;
 
-  code svg[data-marp-fitting='svg'] {
+  code [data-marp-core-fitting-element] {
     // Slide height - padding * 2 - code's padding * 3 - code's border * 2
     max-height: 529px;
   }
@@ -100,6 +99,10 @@ section {
   justify-content: center;
   padding: 78.5px;
   width: 1280px;
+
+  --marp-core-fitting-code: true;
+  --marp-core-fitting-math: true;
+  --marp-core-fitting-header: true;
 
   > *:last-child,
   &[data-footer] > :nth-last-child(2) {

@@ -15,6 +15,6 @@ export const fittingMathPlugin = marpitPlugin((md) => {
     // Rendered math block is wrapped by `<p>` tag in math plugin
     const katex = rendered.slice(3, -4)
 
-    return `<p><span ${fittingElementAttr}><span ${fittingContentAttr}>${katex}</span></span></p>`
+    return `<p><span ${fittingElementAttr}="math"><span ${fittingContentAttr}>${katex}</span></span></p>`
   }
 })

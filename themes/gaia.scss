@@ -4,7 +4,6 @@
  * @theme gaia
  * @author Yuki Hattori
  *
- * @auto-scaling true
  * @size 4:3 960px 720px
  */
 
@@ -73,7 +72,7 @@ $color-secondary: #81d4fa;
   }
 }
 
-svg[data-marp-fitting='svg'] {
+[data-marp-core-fitting-element] {
   max-height: 580px; // Slide height - padding * 2
 }
 
@@ -153,7 +152,7 @@ pre {
     padding: 0.5em;
     font-size: 0.7em;
 
-    svg[data-marp-fitting='svg'] {
+    [data-marp-core-fitting-element] {
       max-height: calc(580px - 1em);
     }
   }
@@ -224,6 +223,10 @@ section {
   width: 1280px;
   word-wrap: break-word;
 
+  --marp-core-fitting-code: true;
+  --marp-core-fitting-math: true;
+  --marp-core-fitting-header: true;
+
   > *:first-child,
   > header:first-child + * {
     margin-top: 0;
@@ -252,10 +255,6 @@ section {
     h5,
     h6 {
       text-align: center;
-
-      svg[data-marp-fitting='svg'] {
-        --preserve-aspect-ratio: xMidYMid meet;
-      }
     }
 
     p {
@@ -271,10 +270,6 @@ section {
       > h6,
       > p {
         text-align: left;
-      }
-
-      svg[data-marp-fitting='svg']:not([data-marp-fitting-math]) {
-        --preserve-aspect-ratio: xMinYMin meet;
       }
     }
 
