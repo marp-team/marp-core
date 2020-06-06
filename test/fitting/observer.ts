@@ -165,7 +165,7 @@ describe('Fitting observer', () => {
     let mathContent: HTMLSpanElement
 
     beforeEach(() => {
-      document.body.innerHTML = new Marp({mathjax: true}).render(
+      document.body.innerHTML = new Marp({ mathjax: true }).render(
         '```\nauto-scalble\n```\n\n$$ auto-scalable $$'
       ).html
 
