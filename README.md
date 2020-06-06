@@ -74,7 +74,7 @@ Emoji shortcode (like `:smile:`) and Unicode emoji 😄 will convert into the SV
 
 ### Math typesetting
 
-We have [Pandoc's Markdown style](https://pandoc.org/MANUAL.html#math) math typesetting support by [KaTeX](https://khan.github.io/KaTeX/). Surround your formula by `$...$` to render math as inline, and `$$...$$` to render as block.
+We have [Pandoc's Markdown style](https://pandoc.org/MANUAL.html#math) math typesetting support. Surround your formula by `$...$` to render math as inline, and `$$...$$` to render as block.
 
 <table>
 <thead>
@@ -107,6 +107,8 @@ $$
 </td>
 </tbody>
 </table>
+
+You can choose a library for math from [KaTeX](https://khan.github.io/KaTeX/) and [MathJax](https://www.mathjax.org/) in [the constructor option](#constructor-options). By default, we prefer KaTeX for compatibility and performance, but MathJax has better syntax support than KaTeX.
 
 ### Auto-scaling features
 
@@ -144,15 +146,17 @@ This syntax is similar to [Deckset's `[fit]` keyword](https://docs.decksetapp.co
 
 > :information_source: `@auto-scaling fittingHeader` is a keyword of the `@auto-scaling` meta to enable fitting header.
 
-#### Math block
+#### KaTeX Math block
 
-We can scale-down the viewing size of math block (surrounded by `$$`) to fit a slide automatically.
+We can scale-down the viewing size of KaTeX math block (surrounded by `$$`) to fit a slide automatically.
 
 |              Traditional rendering               |              Auto-scaling               |
 | :----------------------------------------------: | :-------------------------------------: |
 | ![Traditional rendering](https://bit.ly/2NXoHuW) | ![Auto-scaling](https://bit.ly/2M6LyCk) |
 
 > :information_source: `@auto-scaling math` is a keyword of the `@auto-scaling` meta to enable math block scaling.
+>
+> _Please notice that the math block rendered by MathJax would always be scaled-down and cannot control whether scale via metadata._
 
 #### Code block
 
@@ -185,9 +189,7 @@ const marp = new Marp({
       base: '/resources/twemoji/',
     },
   },
-  math: {
-    katexFontPath: '/resources/fonts/',
-  },
+  math: 'mathjax',
   minifyCSS: true,
   script: {
     source: 'cdn',
@@ -251,14 +253,17 @@ Setting about emoji conversions.
 
 > **For developers:** When you setting `unicode` option as `true`, Markdown parser will convert Unicode emoji into tokens internally. The rendering result is same as in `false`.
 
-### `math`: _`boolean` | `object`_
+### `math`: _`boolean` | `"katex"` | `"mathjax"` | `object`_
 
-Enable or disable [math typesetting](#math-typesetting) syntax (`true` by default). You can modify KaTeX further settings by passing an object of sub-options.
+Enable or disable [math typesetting](#math-typesetting) syntax. You can choose a library for math by passing **`katex`** (default) or **`mathjax`**, and modify more settings by passing an object of sub-options.
 
-- **`katexOption`**: _`object`_
+- **`lib`**: _`"katex"` | `"mathjax"`_
+  - Choose a library for math typesetting. _(`katex` by default)_
+
+* **`katexOption`**: _`object`_
   - The options passing to KaTeX. Please refer to [KaTeX document](https://khan.github.io/KaTeX/docs/options.html).
 
-* **`katexFontPath`**: _`string` | `false`_
+- **`katexFontPath`**: _`string` | `false`_
   - By default, marp-core will use [online web-font resources through jsDelivr CDN](https://cdn.jsdelivr.net/npm/katex@latest/dist/fonts/). You have to set path to fonts directory if you want to use local resources. If you set `false`, we will not manipulate the path (Use KaTeX's original path: `fonts/KaTeX_***-***.woff2`).
 
 ### `minifyCSS`: _`boolean`_
