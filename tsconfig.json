@@ -7,10 +7,11 @@
     "noImplicitAny": false,
     "resolveJsonModule": true,
     "rootDir": ".",
+    // TODO: Marp team does not allow to enable "skipLibCheck". Please revert when improved MathJax typing.
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es2015",
-    "skipLibCheck": true
+    "target": "es2015"
   },
   "include": ["src"]
 }
