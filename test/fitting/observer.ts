@@ -155,4 +155,78 @@ describe('Fitting observer', () => {
       expect(mathSvg.getAttribute('viewBox')).toBe('0 0 60 100')
     })
   })
+
+  context('when the auto-scalable elements is rendered with MathJax', () => {
+    let codeSvg: SVGSVGElement
+    let codePre: HTMLPreElement
+    let codeContent: HTMLSpanElement
+    let mathSvg: SVGSVGElement
+    let mathP: HTMLParagraphElement
+    let mathContent: HTMLSpanElement
+
+    beforeEach(() => {
+      document.body.innerHTML = new Marp({mathjax: true}).render(
+        '```\nauto-scalble\n```\n\n$$ auto-scalable $$'
+      ).html
+
+      codeSvg = document.querySelector<SVGSVGElement>(
+        'svg[data-marp-fitting-code]'
+      )!
+      codePre = document.querySelector<HTMLPreElement>('section pre')!
+      codeContent = codeSvg.querySelector<HTMLSpanElement>(
+        'span[data-marp-fitting-svg-content]'
+      )!
+      mathSvg = document.querySelector<SVGSVGElement>(
+        'svg[data-marp-fitting-math]'
+      )!
+      mathP = <HTMLParagraphElement>mathSvg.parentElement
+      mathContent = <HTMLSpanElement>(
+        mathSvg.querySelector('span[data-marp-fitting-svg-content]')!
+      )
+
+      setContentSize(codeContent, 200, 100)
+      setContentSize(mathContent, 50, 100)
+    })
+
+    const setClientWidth = (target, clientWidth) =>
+      Object.defineProperty(target, 'clientWidth', {
+        configurable: true,
+        get: () => clientWidth,
+      })
+
+    it("restricts min width to <pre> element's width without padding", () => {
+      const computed = jest.spyOn(window, 'getComputedStyle')
+
+      computed.mockImplementation((): any => ({
+        paddingLeft: 0,
+        paddingRight: 0,
+        getPropertyValue: () => undefined,
+      }))
+
+      setClientWidth(codePre, 300) // pre width > code svg width
+      setClientWidth(mathP, 400) // p width > math svg width
+      fittingObserver()
+      expect(codeSvg.getAttribute('viewBox')).toBe('0 0 300 100')
+      expect(mathSvg.getAttribute('viewBox')).toBe('0 0 400 100')
+
+      setClientWidth(codePre, 100) // pre width < code svg width
+      setClientWidth(mathP, 25) // o width < math svg width
+      fittingObserver()
+      expect(codeSvg.getAttribute('viewBox')).toBe('0 0 200 100')
+      expect(mathSvg.getAttribute('viewBox')).toBe('0 0 50 100')
+
+      // Consider padding
+      computed.mockImplementation((): any => ({
+        paddingLeft: '50px',
+        paddingRight: '70px',
+        getPropertyValue: () => undefined,
+      }))
+
+      setClientWidth(codePre, 300) // 300 - 50 - 70 = 180px
+      setClientWidth(mathP, 180) // 180 - 50 - 70 = 60px
+      fittingObserver()
+      expect(codeSvg.getAttribute('viewBox')).toBe('0 0 200 100')
+      expect(mathSvg.getAttribute('viewBox')).toBe('0 0 60 100')
+    })
+  })
 })
