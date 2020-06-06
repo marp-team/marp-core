@@ -52,6 +52,9 @@ const plugins = [
   !process.env.ROLLUP_WATCH && terser(),
 ]
 
+const external = (deps) => (id) =>
+  deps.some((dep) => dep === id || id.startsWith(`${dep}/`))
+
 export default [
   {
     input: 'scripts/browser.js',
@@ -64,7 +67,7 @@ export default [
     plugins,
   },
   {
-    external: [...Object.keys(pkg.dependencies), '@marp-team/marpit/plugin'],
+    external: external(Object.keys(pkg.dependencies)),
     input: `src/${path.basename(pkg.main, '.js')}.ts`,
     output: { exports: 'named', file: pkg.main, format: 'cjs' },
     plugins,

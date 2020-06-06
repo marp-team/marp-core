@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Marp math option injects KaTeX css with replacing web font URL to CDN: katex-css-cdn 1`] = `
+exports[`Marp math option with KaTeX (default) injects KaTeX css with replacing web font URL to CDN: katex-css-cdn 1`] = `
 Array [
   "url('https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/fonts/KaTeX_AMS-Regular.woff2') format(\\"woff2\\"),url('https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/fonts/KaTeX_AMS-Regular.woff') format(\\"woff\\"),url('https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/fonts/KaTeX_AMS-Regular.ttf') format(\\"truetype\\")",
   "url('https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/fonts/KaTeX_Caligraphic-Bold.woff2') format(\\"woff2\\"),url('https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/fonts/KaTeX_Caligraphic-Bold.woff') format(\\"woff\\"),url('https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/fonts/KaTeX_Caligraphic-Bold.ttf') format(\\"truetype\\")",
@@ -25,7 +25,7 @@ Array [
 ]
 `;
 
-exports[`Marp math option with katexFontPath as false does not replace KaTeX web font URL: katex-css-noops 1`] = `
+exports[`Marp math option with KaTeX (default) with katexFontPath as false does not replace KaTeX web font URL: katex-css-noops 1`] = `
 Array [
   "url(fonts/KaTeX_AMS-Regular.woff2) format(\\"woff2\\"),url(fonts/KaTeX_AMS-Regular.woff) format(\\"woff\\"),url(fonts/KaTeX_AMS-Regular.ttf) format(\\"truetype\\")",
   "url(fonts/KaTeX_Caligraphic-Bold.woff2) format(\\"woff2\\"),url(fonts/KaTeX_Caligraphic-Bold.woff) format(\\"woff\\"),url(fonts/KaTeX_Caligraphic-Bold.ttf) format(\\"truetype\\")",
@@ -50,7 +50,7 @@ Array [
 ]
 `;
 
-exports[`Marp math option with katexFontPath replaces KaTeX web font URL with specified path: katex-css-replace 1`] = `
+exports[`Marp math option with KaTeX (default) with katexFontPath replaces KaTeX web font URL with specified path: katex-css-replace 1`] = `
 Array [
   "url('/resources/fonts/KaTeX_AMS-Regular.woff2') format(\\"woff2\\"),url('/resources/fonts/KaTeX_AMS-Regular.woff') format(\\"woff\\"),url('/resources/fonts/KaTeX_AMS-Regular.ttf') format(\\"truetype\\")",
   "url('/resources/fonts/KaTeX_Caligraphic-Bold.woff2') format(\\"woff2\\"),url('/resources/fonts/KaTeX_Caligraphic-Bold.woff') format(\\"woff\\"),url('/resources/fonts/KaTeX_Caligraphic-Bold.ttf') format(\\"truetype\\")",
