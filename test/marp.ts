@@ -320,7 +320,7 @@ describe('Marp', () => {
     })
 
     it('renders math typesetting by MathJax', () => {
-      const { html } = marp({mathjax: true}).render(`${inline}\n\n${block}`)
+      const { html } = marp({ mathjax: true }).render(`${inline}\n\n${block}`)
       const $ = cheerio.load(html)
 
       expect($('.MathJax')).toHaveLength(2)

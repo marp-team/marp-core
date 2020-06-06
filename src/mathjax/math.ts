@@ -1,17 +1,17 @@
 import marpitPlugin from '@marp-team/marpit/plugin'
 
-import { mathjax } from "mathjax-full/js/mathjax";
-import { TeX } from "mathjax-full/js/input/tex";
-import { SVG } from "mathjax-full/js/output/svg";
-import { liteAdaptor } from "mathjax-full/js/adaptors/liteAdaptor";
-import { RegisterHTMLHandler } from "mathjax-full/js/handlers/html";
-import { AllPackages } from "mathjax-full/js/input/tex/AllPackages";
+import { mathjax } from 'mathjax-full/js/mathjax'
+import { TeX } from 'mathjax-full/js/input/tex'
+import { SVG } from 'mathjax-full/js/output/svg'
+import { liteAdaptor } from 'mathjax-full/js/adaptors/liteAdaptor'
+import { RegisterHTMLHandler } from 'mathjax-full/js/handlers/html'
+import { AllPackages } from 'mathjax-full/js/input/tex/AllPackages'
 
-const adaptor = liteAdaptor();
-RegisterHTMLHandler(adaptor);
-const tex = new TeX({ packages: AllPackages });
-const svg = new SVG({ fontCache: "none" });
-const mathDocument = mathjax.document("", { InputJax: tex, OutputJax: svg });
+const adaptor = liteAdaptor()
+RegisterHTMLHandler(adaptor)
+const tex = new TeX({ packages: AllPackages })
+const svg = new SVG({ fontCache: 'none' })
+const mathDocument = mathjax.document('', { InputJax: tex, OutputJax: svg })
 
 interface MathOptionsInterface {
   katexOption?: object
@@ -92,7 +92,9 @@ export const markdown = marpitPlugin(
       const { content } = tokens[idx]
 
       try {
-        return `<p>${adaptor.outerHTML(mathDocument.convert(content, genOpts(true)))}</p>`
+        return `<p>${adaptor.outerHTML(
+          mathDocument.convert(content, genOpts(true))
+        )}</p>`
       } catch (e) {
         console.warn(e)
         return `<p>${content}</p>`

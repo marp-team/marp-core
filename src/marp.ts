@@ -89,7 +89,10 @@ export class Marp extends Marpit {
 
     md.use(htmlPlugin.markdown)
       .use(emojiPlugin.markdown)
-      .use(this.options.mathjax ? mathjaxPlugin.markdown : mathPlugin.markdown, (flag) => (this.renderedMath = flag))
+      .use(
+        this.options.mathjax ? mathjaxPlugin.markdown : mathPlugin.markdown,
+        (flag) => (this.renderedMath = flag)
+      )
       .use(fittingPlugin.markdown)
       .use(sizePlugin.markdown)
       .use(scriptPlugin.markdown)
