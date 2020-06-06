@@ -434,7 +434,7 @@ describe('Marp', () => {
       })
 
       context('when math typesetting syntax is not using', () => {
-        it('does not inject KaTeX css', () =>
+        it('does not inject MathJax css', () =>
           expect(
             marp({ math: 'mathjax' }).render('plain text').css
           ).not.toContain('mjx-container'))
