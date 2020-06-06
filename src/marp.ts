@@ -9,6 +9,7 @@ import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
+import * as mathjaxPlugin from './mathjax/math'
 import * as scriptPlugin from './script/script'
 import * as sizePlugin from './size/size'
 import defaultTheme from '../themes/default.scss'
@@ -25,6 +26,7 @@ export interface MarpOptions extends Options {
           | { [attr: string]: boolean | ((value: string) => string) }
       }
   markdown?: object
+  mathjax?: boolean
   math?: mathPlugin.MathOptions
   minifyCSS?: boolean
   script?: boolean | scriptPlugin.ScriptOptions
@@ -47,6 +49,7 @@ export class Marp extends Marpit {
     super({
       inlineSVG: true,
       looseYAML: true,
+      mathjax: false,
       math: true,
       minifyCSS: true,
       script: true,
@@ -86,7 +89,7 @@ export class Marp extends Marpit {
 
     md.use(htmlPlugin.markdown)
       .use(emojiPlugin.markdown)
-      .use(mathPlugin.markdown, (flag) => (this.renderedMath = flag))
+      .use(this.options.mathjax ? mathjaxPlugin.markdown : mathPlugin.markdown, (flag) => (this.renderedMath = flag))
       .use(fittingPlugin.markdown)
       .use(sizePlugin.markdown)
       .use(scriptPlugin.markdown)
@@ -126,7 +129,7 @@ export class Marp extends Marpit {
       if (typeof math === 'object') path = math.katexFontPath || undefined
 
       // Add KaTeX css
-      prepend(mathPlugin.css(path))
+      prepend(this.options.mathjax ? mathjaxPlugin.css() : mathPlugin.css(path))
     }
 
     return base

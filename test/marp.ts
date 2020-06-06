@@ -319,6 +319,13 @@ describe('Marp', () => {
       expect($('.katex')).toHaveLength(2)
     })
 
+    it('renders math typesetting by MathJax', () => {
+      const { html } = marp({mathjax: true}).render(`${inline}\n\n${block}`)
+      const $ = cheerio.load(html)
+
+      expect($('.MathJax')).toHaveLength(2)
+    })
+
     it('injects KaTeX css with replacing web font URL to CDN', () => {
       const { css } = marp().render(block)
       expect(css).toContain('.katex')
