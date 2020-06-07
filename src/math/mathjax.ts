@@ -47,7 +47,7 @@ export const block = () =>
       const { content } = tokens[idx]
 
       try {
-        const converted = document.convert(content, { display: false })
+        const converted = document.convert(content, { display: true })
         const svg: any = adaptor.firstChild(converted)
         const svgHeight = adaptor.getAttribute(svg, 'height')
 
