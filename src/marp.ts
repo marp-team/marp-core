@@ -38,8 +38,6 @@ const styleMinifier = postcss([
 export class Marp extends Marpit {
   readonly options!: Required<MarpOptions>
 
-  private renderedMath: boolean = false
-
   static readonly html = { br: [] }
 
   constructor(opts: MarpOptions = {}) {
