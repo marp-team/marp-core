@@ -78,7 +78,6 @@
     "cheerio": "^1.0.0-rc.3",
     "codecov": "^3.7.0",
     "github-markdown-css": "^4.0.0",
-    "globalthis": "^1.0.1",
     "jest": "^26.0.1",
     "jest-junit": "^10.0.0",
     "jest-plugin-context": "^2.9.0",
