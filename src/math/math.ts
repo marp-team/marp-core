@@ -1,106 +1,75 @@
 import marpitPlugin from '@marp-team/marpit/plugin'
-import katex from 'katex'
-import katexScss from './katex.scss'
-
-const convertedCSS = {}
-const katexMatcher = /url\(['"]?fonts\/(.*?)['"]?\)/g
+import * as katex from './katex'
+import * as mathjax from './mathjax'
 
 interface MathOptionsInterface {
+  lib?: 'katex' | 'mathjax'
   katexOption?: object
   katexFontPath?: string | false
 }
 
-export type MathOptions = boolean | MathOptionsInterface
+const contextSymbol = Symbol('marp-math-context')
 
-/**
- * marp-core math plugin
- *
- * It is implemented based on markdown-it-katex plugin. However, that is no
- * longer maintained by author. So we have ported math typesetting parser.
- *
- * @see https://github.com/waylonflinn/markdown-it-katex
- */
-export const markdown = marpitPlugin(
-  (md, updateState: (rendered: boolean) => void = () => {}) => {
-    const genOpts = (displayMode: boolean) => {
-      const math: MathOptions = md.marpit.options.math
+export type MathOptions =
+  | boolean
+  | MathOptionsInterface['lib']
+  | MathOptionsInterface
 
-      return {
-        throwOnError: false,
-        ...(typeof math === 'object' && typeof math.katexOption === 'object'
-          ? math.katexOption
-          : {}),
-        displayMode,
-      }
+export const markdown = marpitPlugin((md) => {
+  const opts: MathOptions | undefined = md.marpit.options.math
+  if (!opts) return
+
+  const parsedOpts =
+    typeof opts !== 'object'
+      ? { lib: typeof opts === 'string' ? opts : undefined }
+      : opts
+
+  Object.defineProperty(md.marpit, contextSymbol, { writable: true })
+
+  md.core.ruler.before('block', 'marp_math_initialize', ({ inlineMode }) => {
+    if (!inlineMode) md.marpit[contextSymbol] = null
+  })
+
+  // Inline
+  md.inline.ruler.after('escape', 'marp_math_inline', (state, silent) => {
+    if (parseInlineMath(state, silent)) {
+      md.marpit[contextSymbol] = parsedOpts
+      return true
     }
+    return false
+  })
 
-    md.core.ruler.before('block', 'marp_math_initialize', (state) => {
-      if (state.inlineMode) return
-
-      updateState(false)
-
-      if (md.marpit.options.math) {
-        md.block.ruler.enable('marp_math_block')
-        md.inline.ruler.enable('marp_math_inline')
-      } else {
-        md.block.ruler.disable('marp_math_block')
-        md.inline.ruler.disable('marp_math_inline')
-      }
-    })
-
-    // Inline
-    md.inline.ruler.after('escape', 'marp_math_inline', (state, silent) => {
-      if (parseInlineMath(state, silent)) {
-        updateState(true)
+  // Block
+  md.block.ruler.after(
+    'blockquote',
+    'marp_math_block',
+    (state, start, end, silent) => {
+      if (parseMathBlock(state, start, end, silent)) {
+        md.marpit[contextSymbol] = parsedOpts
         return true
       }
       return false
-    })
+    },
+    { alt: ['paragraph', 'reference', 'blockquote', 'list'] }
+  )
 
-    md.renderer.rules.marp_math_inline = (tokens, idx) => {
-      const { content } = tokens[idx]
-
-      try {
-        return katex.renderToString(content, genOpts(false))
-      } catch (e) {
-        console.warn(e)
-        return content
-      }
-    }
-
-    // Block
-    md.block.ruler.after(
-      'blockquote',
-      'marp_math_block',
-      (state, start, end, silent) => {
-        if (parseMathBlock(state, start, end, silent)) {
-          updateState(true)
-          return true
-        }
-        return false
-      },
-      { alt: ['paragraph', 'reference', 'blockquote', 'list'] }
-    )
-
-    md.renderer.rules.marp_math_block = (tokens, idx) => {
-      const { content } = tokens[idx]
-
-      try {
-        return `<p>${katex.renderToString(content, genOpts(true))}</p>`
-      } catch (e) {
-        console.warn(e)
-        return `<p>${content}</p>`
-      }
-    }
+  // Renderer
+  if (parsedOpts.lib === 'mathjax') {
+    md.renderer.rules.marp_math_inline = mathjax.inline()
+    md.renderer.rules.marp_math_block = mathjax.block()
+  } else {
+    md.renderer.rules.marp_math_inline = katex.inline(parsedOpts.katexOption)
+    md.renderer.rules.marp_math_block = katex.block(parsedOpts.katexOption)
   }
-)
+})
 
-export function css(path?: string): string {
-  if (!path) return katexScss
+export const css = (marpit: any): string | null => {
+  const opts: MathOptionsInterface | null = marpit[contextSymbol]
+  if (!opts) return null
 
-  return (convertedCSS[path] =
-    convertedCSS[path] ||
-    katexScss.replace(katexMatcher, (_, matched) => `url('${path}${matched}')`))
+  if (opts.lib === 'mathjax') return mathjax.css()
+
+  return katex.css(opts.katexFontPath)
 }
 
 function isValidDelim(state, pos = state.pos) {

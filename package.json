@@ -113,6 +113,7 @@
     "highlight.js": "^9.18.1",
     "katex": "^0.11.1",
     "markdown-it-emoji": "^1.4.0",
+    "mathjax-full": "^3.0.5",
     "postcss": "^7.0.27",
     "postcss-minify-params": "^4.0.2",
     "postcss-minify-selectors": "^4.0.2",

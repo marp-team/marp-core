@@ -4,7 +4,6 @@ import postcss from 'postcss'
 import postcssMinifyParams from 'postcss-minify-params'
 import postcssMinifySelectors from 'postcss-minify-selectors'
 import postcssNormalizeWhitespace from 'postcss-normalize-whitespace'
-import { version } from 'katex/package.json'
 import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
 import * as htmlPlugin from './html/html'
@@ -38,8 +37,6 @@ const styleMinifier = postcss([
 
 export class Marp extends Marpit {
   readonly options!: Required<MarpOptions>
-
-  private renderedMath: boolean = false
 
   static readonly html = { br: [] }
 
@@ -86,7 +83,7 @@ export class Marp extends Marpit {
 
     md.use(htmlPlugin.markdown)
       .use(emojiPlugin.markdown)
-      .use(mathPlugin.markdown, (flag) => (this.renderedMath = flag))
+      .use(mathPlugin.markdown)
       .use(fittingPlugin.markdown)
       .use(sizePlugin.markdown)
       .use(scriptPlugin.markdown)
@@ -112,22 +109,13 @@ export class Marp extends Marpit {
     const base = { ...super.themeSetPackOptions() }
     const prepend = (css) =>
       css && (base.before = `${css}\n${base.before || ''}`)
-    const { emoji, math } = this.options
+    const { emoji } = this.options
 
     prepend(emojiPlugin.css(emoji!))
     prepend(fittingPlugin.css)
 
-    if (math && this.renderedMath) {
-      // By default, we use KaTeX web fonts through CDN.
-      let path:
-        | string
-        | undefined = `https://cdn.jsdelivr.net/npm/katex@${version}/dist/fonts/`
-
-      if (typeof math === 'object') path = math.katexFontPath || undefined
-
-      // Add KaTeX css
-      prepend(mathPlugin.css(path))
-    }
+    const mathCss = mathPlugin.css(this)
+    if (mathCss) prepend(mathCss)
 
     return base
   }

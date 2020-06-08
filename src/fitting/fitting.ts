@@ -98,7 +98,7 @@ function fittingHeader(md): void {
 
 function fittingMathBlock(md): void {
   const { marp_math_block } = md.renderer.rules
-  if (!marp_math_block) return
+  if (!marp_math_block || marp_math_block.scaled) return
 
   md.renderer.rules.marp_math_block = (...args) => {
     // Rendered math block is wrapped by `<p>` tag in math plugin

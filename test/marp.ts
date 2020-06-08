@@ -297,111 +297,147 @@ describe('Marp', () => {
     const inline = "Euler's equation is defined as $e^{i\\pi}+1=0$."
     const block = '$$\nc=\\sqrt{a^2+b^2}\n$$'
 
-    const pickKaTeXWebFont = (css: string) => {
-      const walkedUrls: string[] = []
+    context('with KaTeX (default)', () => {
+      const pickKaTeXWebFont = (css: string) => {
+        const walkedUrls: string[] = []
 
-      postcss([
-        (root) =>
-          root.walkAtRules('font-face', (rule) =>
-            rule.walkDecls('src', (e) => {
-              if (e.value.includes('KaTeX')) walkedUrls.push(e.value)
-            })
-          ),
-      ]).process(css, { from: undefined }).css
+        postcss([
+          (root) =>
+            root.walkAtRules('font-face', (rule) =>
+              rule.walkDecls('src', (e) => {
+                if (e.value.includes('KaTeX')) walkedUrls.push(e.value)
+              })
+            ),
+        ]).process(css, { from: undefined }).css
 
-      return walkedUrls
-    }
-
-    it('renders math typesetting by KaTeX', () => {
-      const { html } = marp().render(`${inline}\n\n${block}`)
-      const $ = cheerio.load(html)
-
-      expect($('.katex')).toHaveLength(2)
-    })
-
-    it('injects KaTeX css with replacing web font URL to CDN', () => {
-      const { css } = marp().render(block)
-      expect(css).toContain('.katex')
-
-      const katexFonts = pickKaTeXWebFont(css)
-      for (const url of katexFonts) {
-        expect(url).toContain('https://cdn.jsdelivr.net/npm/katex')
+        return walkedUrls
       }
 
-      expect(katexFonts).toMatchSnapshot('katex-css-cdn')
-    })
+      it('renders math typesetting by KaTeX', () => {
+        for (const instance of [
+          marp(),
+          marp({ math: true }),
+          marp({ math: 'katex' }),
+          marp({ math: {} }),
+          marp({ math: { lib: 'katex' } }),
+        ]) {
+          const { html } = instance.render(`${inline}\n\n${block}`)
+          const $ = cheerio.load(html)
 
-    context('when math typesetting syntax is not using', () => {
-      it('does not inject KaTeX css', () =>
-        expect(marp().render('plain text').css).not.toContain('.katex'))
-    })
-
-    context('with katexOption', () => {
-      it('renders KaTeX with specified option', () => {
-        const instance = marp({
-          math: { katexOption: { macros: { '\\RR': '\\mathbb{R}' } } },
-        })
-        const { html } = instance.render(`# $\\RR$\n\n## $\\mathbb{R}$`)
-        const $ = cheerio.load(html)
-
-        const h1 = $('h1')
-        h1.find('annotation').remove()
-
-        const h2 = $('h2')
-        h2.find('annotation').remove()
-
-        expect(h1.html()).toBe(h2.html())
+          expect($('.katex')).toHaveLength(2)
+        }
       })
 
-      context('when throwOnError is true', () => {
-        const instance = marp({
-          math: { katexOption: { throwOnError: true } },
-        })
-
-        it('fallbacks to plain text on raising error', () => {
-          const warnSpy = jest
-            .spyOn(console, 'warn')
-            .mockImplementation(() => {})
-
-          const inlineHTML = instance.render('# Fallback to text $}$!').html
-          const $inline = cheerio.load(inlineHTML)
-
-          expect(warnSpy.mock.calls).toHaveLength(1)
-          expect($inline('h1').text()).toBe('Fallback to text }!')
-
-          const blockHTML = instance.render('$$\n}\n$$').html
-          const $block = cheerio.load(blockHTML)
-          const blockText = $block('p').text()
-
-          expect(warnSpy.mock.calls).toHaveLength(2)
-          expect(blockText.trim()).toBe('}')
-        })
-      })
-    })
-
-    context('with katexFontPath', () => {
-      const katexFontPath = '/resources/fonts/'
-
-      it('replaces KaTeX web font URL with specified path', () => {
-        const instance = marp({ math: { katexFontPath } })
-        const { css } = instance.render(block)
+      it('injects KaTeX css with replacing web font URL to CDN', () => {
+        const { css } = marp().render(block)
+        expect(css).toContain('.katex')
 
         const katexFonts = pickKaTeXWebFont(css)
-        for (const url of katexFonts) expect(url).toContain(katexFontPath)
+        for (const url of katexFonts) {
+          expect(url).toContain('https://cdn.jsdelivr.net/npm/katex')
+        }
 
-        expect(katexFonts).toMatchSnapshot('katex-css-replace')
+        expect(katexFonts).toMatchSnapshot('katex-css-cdn')
       })
 
-      context('as false', () => {
-        it('does not replace KaTeX web font URL', () => {
-          const instance = marp({ math: { katexFontPath: false } })
+      context('when math typesetting syntax is not using', () => {
+        it('does not inject KaTeX css', () =>
+          expect(marp().render('plain text').css).not.toContain('.katex'))
+      })
+
+      context('with katexOption', () => {
+        it('renders KaTeX with specified option', () => {
+          const instance = marp({
+            math: { katexOption: { macros: { '\\RR': '\\mathbb{R}' } } },
+          })
+          const { html } = instance.render(`# $\\RR$\n\n## $\\mathbb{R}$`)
+          const $ = cheerio.load(html)
+
+          const h1 = $('h1')
+          h1.find('annotation').remove()
+
+          const h2 = $('h2')
+          h2.find('annotation').remove()
+
+          expect(h1.html()).toBe(h2.html())
+        })
+
+        context('when throwOnError is true', () => {
+          const instance = marp({
+            math: { katexOption: { throwOnError: true } },
+          })
+
+          it('fallbacks to plain text on raising error', () => {
+            const warnSpy = jest
+              .spyOn(console, 'warn')
+              .mockImplementation(() => {})
+
+            const inlineHTML = instance.render('# Fallback to text $}$!').html
+            const $inline = cheerio.load(inlineHTML)
+
+            expect(warnSpy.mock.calls).toHaveLength(1)
+            expect($inline('h1').text()).toBe('Fallback to text }!')
+
+            const blockHTML = instance.render('$$\n}\n$$').html
+            const $block = cheerio.load(blockHTML)
+            const blockText = $block('p').text()
+
+            expect(warnSpy.mock.calls).toHaveLength(2)
+            expect(blockText.trim()).toBe('}')
+          })
+        })
+      })
+
+      context('with katexFontPath', () => {
+        const katexFontPath = '/resources/fonts/'
+
+        it('replaces KaTeX web font URL with specified path', () => {
+          const instance = marp({ math: { katexFontPath } })
           const { css } = instance.render(block)
 
           const katexFonts = pickKaTeXWebFont(css)
-          for (const url of katexFonts) expect(url).toContain('fonts/')
+          for (const url of katexFonts) expect(url).toContain(katexFontPath)
 
-          expect(katexFonts).toMatchSnapshot('katex-css-noops')
+          expect(katexFonts).toMatchSnapshot('katex-css-replace')
         })
+
+        context('as false', () => {
+          it('does not replace KaTeX web font URL', () => {
+            const instance = marp({ math: { katexFontPath: false } })
+            const { css } = instance.render(block)
+
+            const katexFonts = pickKaTeXWebFont(css)
+            for (const url of katexFonts) expect(url).toContain('fonts/')
+
+            expect(katexFonts).toMatchSnapshot('katex-css-noops')
+          })
+        })
+      })
+    })
+
+    context('with MathJax', () => {
+      it('renders math typesetting by MathJax', () => {
+        for (const instance of [
+          marp({ math: 'mathjax' }),
+          marp({ math: { lib: 'mathjax' } }),
+        ]) {
+          const { html } = instance.render(`${inline}\n\n${block}`)
+          const $ = cheerio.load(html)
+
+          expect($('.MathJax')).toHaveLength(2)
+        }
+      })
+
+      it('injects MathJax css', () => {
+        const { css } = marp({ math: 'mathjax' }).render(block)
+        expect(css).toContain('mjx-container')
+      })
+
+      context('when math typesetting syntax is not using', () => {
+        it('does not inject MathJax css', () =>
+          expect(
+            marp({ math: 'mathjax' }).render('plain text').css
+          ).not.toContain('mjx-container'))
       })
     })
 
@@ -632,6 +668,13 @@ describe('Marp', () => {
         const plainContent = $('p > span[data-marp-fitting="plain"] .katex')
 
         expect(plainContent.length).toBeTruthy()
+      })
+
+      context('with MathJax', () => {
+        it('does not wrap math block because it has already supported auto-scaling', () => {
+          const $ = loadCheerio(marp({ math: 'mathjax' }).render(markdown).html)
+          expect($('[data-marp-fitting]')).toHaveLength(0)
+        })
       })
     })
   })
