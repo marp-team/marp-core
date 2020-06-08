@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.2.0 - 2020-06-08
+
 ### Added
 
 - Transform Unicode 13.0 emojis into SVG images ([#167](https://github.com/marp-team/marp-core/pull/167))
