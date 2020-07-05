@@ -55,7 +55,7 @@ describe('Marp', () => {
         expect(css).toContain('img[data-marp-twemoji]')
       })
 
-      context('with true', () => {
+      describe('with true', () => {
         const emoji: EmojiOptions = { shortcode: true }
 
         it('converts emoji shorthand to unicode emoji', () => {
@@ -64,7 +64,7 @@ describe('Marp', () => {
         })
       })
 
-      context('with false', () => {
+      describe('with false', () => {
         const emoji: EmojiOptions = { shortcode: false }
 
         it('does not convert emoji shorthand', () => {
@@ -75,7 +75,7 @@ describe('Marp', () => {
     })
 
     describe('unicode option', () => {
-      context('with twemoji (by default)', () => {
+      describe('with twemoji (by default)', () => {
         const instance = marp()
 
         it('converts unicode emoji to twemoji image', () => {
@@ -112,7 +112,7 @@ describe('Marp', () => {
         })
       })
 
-      context('with false', () => {
+      describe('with false', () => {
         const emoji: EmojiOptions = { unicode: false }
         const instance = marp({ emoji })
 
@@ -125,7 +125,7 @@ describe('Marp', () => {
           expect(instance.render('# 👍').html).toContain('<h1>👍</h1>'))
       })
 
-      context('with true', () => {
+      describe('with true', () => {
         const emoji: EmojiOptions = { unicode: true }
         const instance = marp({ emoji })
 
@@ -167,7 +167,7 @@ describe('Marp', () => {
   })
 
   describe('html option', () => {
-    context('with default option', () => {
+    describe('with default option', () => {
       it('sanitizes HTML tag by default', () => {
         const { html } = marp().render('<b>abc</b>')
         expect(cheerio.load(html)('b')).toHaveLength(0)
@@ -198,7 +198,7 @@ describe('Marp', () => {
       })
     })
 
-    context('with true', () => {
+    describe('with true', () => {
       const m = marp({ html: true })
 
       it('allows HTML tag', () => {
@@ -219,14 +219,14 @@ describe('Marp', () => {
       })
     })
 
-    context('with false', () => {
+    describe('with false', () => {
       it('sanitizes <br> tag', () => {
         const { html } = marp({ html: false }).render('sanitize<br>break')
         expect(cheerio.load(html)('br')).toHaveLength(0)
       })
     })
 
-    context('with whitelist', () => {
+    describe('with whitelist', () => {
       const md = '<p>\ntest\n</p>\n\n<p class="class" title="title">test</p>'
       const html = { img: ['src'], p: ['class'] }
 
@@ -256,7 +256,7 @@ describe('Marp', () => {
         expect(m.render('<p>').html).toContain('<p>')
       })
 
-      context('when attributes are defined as object', () => {
+      describe('when attributes are defined as object', () => {
         it('allows whitelisted attributes without defined false', () => {
           const instance = marp({ html: { p: { id: true, class: false } } })
           const { html } = instance.render('<p id="id" class="class"></p>')
@@ -273,7 +273,7 @@ describe('Marp', () => {
       })
     })
 
-    context("with markdown-it's xhtmlOut option as false", () => {
+    describe("with markdown-it's xhtmlOut option as false", () => {
       const m = marp({ markdown: { xhtmlOut: false } })
 
       it('does not normalize void element', () => {
@@ -297,7 +297,7 @@ describe('Marp', () => {
     const inline = "Euler's equation is defined as $e^{i\\pi}+1=0$."
     const block = '$$\nc=\\sqrt{a^2+b^2}\n$$'
 
-    context('with KaTeX (default)', () => {
+    describe('with KaTeX (default)', () => {
       const pickKaTeXWebFont = (css: string) => {
         const walkedUrls: string[] = []
 
@@ -340,12 +340,12 @@ describe('Marp', () => {
         expect(katexFonts).toMatchSnapshot('katex-css-cdn')
       })
 
-      context('when math typesetting syntax is not using', () => {
+      describe('when math typesetting syntax is not using', () => {
         it('does not inject KaTeX css', () =>
           expect(marp().render('plain text').css).not.toContain('.katex'))
       })
 
-      context('with katexOption', () => {
+      describe('with katexOption', () => {
         it('renders KaTeX with specified option', () => {
           const instance = marp({
             math: { katexOption: { macros: { '\\RR': '\\mathbb{R}' } } },
@@ -362,7 +362,7 @@ describe('Marp', () => {
           expect(h1.html()).toBe(h2.html())
         })
 
-        context('when throwOnError is true', () => {
+        describe('when throwOnError is true', () => {
           const instance = marp({
             math: { katexOption: { throwOnError: true } },
           })
@@ -388,7 +388,7 @@ describe('Marp', () => {
         })
       })
 
-      context('with katexFontPath', () => {
+      describe('with katexFontPath', () => {
         const katexFontPath = '/resources/fonts/'
 
         it('replaces KaTeX web font URL with specified path', () => {
@@ -401,7 +401,7 @@ describe('Marp', () => {
           expect(katexFonts).toMatchSnapshot('katex-css-replace')
         })
 
-        context('as false', () => {
+        describe('as false', () => {
           it('does not replace KaTeX web font URL', () => {
             const instance = marp({ math: { katexFontPath: false } })
             const { css } = instance.render(block)
@@ -415,7 +415,7 @@ describe('Marp', () => {
       })
     })
 
-    context('with MathJax', () => {
+    describe('with MathJax', () => {
       it('renders math typesetting by MathJax', () => {
         for (const instance of [
           marp({ math: 'mathjax' }),
@@ -433,7 +433,7 @@ describe('Marp', () => {
         expect(css).toContain('mjx-container')
       })
 
-      context('when math typesetting syntax is not using', () => {
+      describe('when math typesetting syntax is not using', () => {
         it('does not inject MathJax css', () =>
           expect(
             marp({ math: 'mathjax' }).render('plain text').css
@@ -441,7 +441,7 @@ describe('Marp', () => {
       })
     })
 
-    context('with false', () => {
+    describe('with false', () => {
       const instance = marp({ math: false })
 
       it('does not render KaTeX', () => {
@@ -484,15 +484,15 @@ describe('Marp', () => {
       }
     })
 
-    context('when passed false', () => {
+    describe('when passed false', () => {
       it('does not inject <script> tag', () => {
         const $ = cheerio.load(marp({ script: false }).render('').html)
         expect($('script')).toHaveLength(0)
       })
     })
 
-    context('when passed object', () => {
-      context('with source option', () => {
+    describe('when passed object', () => {
+      describe('with source option', () => {
         it('injects <script> tag for jsDelivr CDN', () => {
           const instance = marp({ script: { source: 'cdn' } })
           const $ = cheerio.load(instance.render('').html)
@@ -507,7 +507,7 @@ describe('Marp', () => {
         })
       })
 
-      context('with nonce option', () => {
+      describe('with nonce option', () => {
         it('adds passed nonce to <script> tag', () => {
           for (const rendered of [
             marp({ script: { nonce: 'test' } }).render('').html,
@@ -529,46 +529,43 @@ describe('Marp', () => {
       expect(css).toContain('[data-marp-fitting-svg-content]')
     })
 
-    context(
-      'when fit comment keyword contains in heading (Fitting header)',
-      () => {
-        const baseMd = '# <!--fit--> fitting'
+    describe('when fit comment keyword contains in heading (Fitting header)', () => {
+      const baseMd = '# <!--fit--> fitting'
 
-        for (const markdown of [
-          baseMd,
-          `text\n\n${baseMd}`, // Fitting header with content
-          `${baseMd}\n\n## <!--fit--> fitting2`, // Multiple headers
-        ]) {
-          it('wraps by <svg data-marp-fitting="svg">', () => {
-            const { html, comments } = marp().render(markdown)
-            const $ = loadCheerio(html)
-            const svgContent = $(
-              [
-                'h1',
-                'svg[data-marp-fitting="svg"]',
-                'foreignObject',
-                'span[data-marp-fitting-svg-content]',
-              ].join('>')
-            )
+      for (const markdown of [
+        baseMd,
+        `text\n\n${baseMd}`, // Fitting header with content
+        `${baseMd}\n\n## <!--fit--> fitting2`, // Multiple headers
+      ]) {
+        it('wraps by <svg data-marp-fitting="svg">', () => {
+          const { html, comments } = marp().render(markdown)
+          const $ = loadCheerio(html)
+          const svgContent = $(
+            [
+              'h1',
+              'svg[data-marp-fitting="svg"]',
+              'foreignObject',
+              'span[data-marp-fitting-svg-content]',
+            ].join('>')
+          )
 
-            expect(svgContent).toHaveLength(1)
-            expect($('h1').text()).toContain('fitting')
-            expect(comments[0]).toHaveLength(0)
-          })
+          expect(svgContent).toHaveLength(1)
+          expect($('h1').text()).toContain('fitting')
+          expect(comments[0]).toHaveLength(0)
+        })
 
-          it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
-            const $ = loadCheerio(
-              marp({ inlineSVG: false }).render(markdown).html
-            )
+        it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
+          const $ = loadCheerio(
+            marp({ inlineSVG: false }).render(markdown).html
+          )
 
-            expect($('h1 > span[data-marp-fitting="plain"]')).toHaveLength(1)
-            expect($('h1').text()).toContain('fitting')
-          })
-        }
+          expect($('h1 > span[data-marp-fitting="plain"]')).toHaveLength(1)
+          expect($('h1').text()).toContain('fitting')
+        })
       }
-    )
+    })
 
-    context('with code block (Auto scaling for code block)', () => {
+    describe('with code block (Auto scaling for code block)', () => {
       const markdown = '\tCODE BLOCK'
 
       it('wraps code block by <svg data-marp-fitting="svg">', () => {
@@ -591,7 +588,9 @@ describe('Marp', () => {
       it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
         const $ = loadCheerio(marp({ inlineSVG: false }).render(markdown).html)
 
-        expect($('pre > code > span[data-marp-fitting="plain"]').length).toBe(1)
+        expect($('pre > code > span[data-marp-fitting="plain"]')).toHaveLength(
+          1
+        )
         expect($('pre').text()).toContain('CODE BLOCK')
       })
 
@@ -610,7 +609,7 @@ describe('Marp', () => {
       })
     })
 
-    context('with fence (Auto scaling for fence)', () => {
+    describe('with fence (Auto scaling for fence)', () => {
       const markdown = '```typescript\nconst a = 1\n```'
 
       it('wraps code block by <svg data-marp-fitting="svg">', () => {
@@ -645,7 +644,7 @@ describe('Marp', () => {
       })
     })
 
-    context('with math block', () => {
+    describe('with math block', () => {
       const markdown = '$$ y=ax^2 $$'
 
       it('wraps code block by <svg data-marp-fitting="svg">', () => {
@@ -670,7 +669,7 @@ describe('Marp', () => {
         expect(plainContent.length).toBeTruthy()
       })
 
-      context('with MathJax', () => {
+      describe('with MathJax', () => {
         it('does not wrap math block because it has already supported auto-scaling', () => {
           const $ = loadCheerio(marp({ math: 'mathjax' }).render(markdown).html)
           expect($('[data-marp-fitting]')).toHaveLength(0)
@@ -714,7 +713,7 @@ describe('Marp', () => {
     it('defines size custom global directive', () =>
       expect(marp().customDirectives.global.size).toBeTruthy())
 
-    context('with size directive as 4:3', () => {
+    describe('with size directive as 4:3', () => {
       const size = expect.objectContaining({ width: '960', height: '720' })
 
       it('renders inline SVG with 960x720 size', () => {
@@ -744,14 +743,14 @@ describe('Marp', () => {
   })
 
   describe('#highlighter', () => {
-    context('when fence is rendered without lang', () => {
+    describe('when fence is rendered without lang', () => {
       const $ = cheerio.load(marp().markdown.render('```\n# test\n```'))
 
       it('highlights code automatically', () =>
         expect($('code [class^="hljs-"]').length).toBeGreaterThan(0))
     })
 
-    context('when fence is rendered with specified lang', () => {
+    describe('when fence is rendered with specified lang', () => {
       const $ = cheerio.load(marp().markdown.render('```markdown\n# test\n```'))
 
       it('highlights code with specified lang', () => {
@@ -762,7 +761,7 @@ describe('Marp', () => {
 
     // Plain text rendering
     for (const lang of ['text', 'plain', 'noHighlight', 'no-highlight']) {
-      context(`when fence is rendered with ${lang} lang`, () => {
+      describe(`when fence is rendered with ${lang} lang`, () => {
         const $ = cheerio.load(
           marp().markdown.render(`\`\`\`${lang}\n# test\n\`\`\``)
         )
@@ -772,14 +771,14 @@ describe('Marp', () => {
       })
     }
 
-    context('with highlight markdown option', () => {
+    describe('with highlight markdown option', () => {
       const instance = marp({ markdown: { highlight: () => 'CUSTOM' } })
 
       it('allows overriding highlighter', () =>
         expect(instance.markdown.render('```\ntest\n```')).toContain('CUSTOM'))
     })
 
-    context('with overriden #highlighter', () => {
+    describe('with overriden #highlighter', () => {
       const instance = marp()
 
       instance.highlighter = (code, lang) => {

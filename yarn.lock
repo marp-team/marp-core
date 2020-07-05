@@ -812,14 +812,7 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
-"@types/jest-plugin-context@^2.9.3":
-  version "2.9.3"
-  resolved "https://registry.yarnpkg.com/@types/jest-plugin-context/-/jest-plugin-context-2.9.3.tgz#14439e6ff3de75c56b149055c6a1c129ae51bf07"
-  integrity sha512-qd6q2tN9EfkLmJrM++1cGP3R2sM/hCGxMvGf4XBDSmLNdvcNZRwZLmwKZ8a+UyYiAQPq/5afJC5FxKhvgaEORw==
-  dependencies:
-    "@types/jest" "*"
-
-"@types/jest@*", "@types/jest@^25.2.3":
+"@types/jest@^25.2.3":
   version "25.2.3"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-25.2.3.tgz#33d27e4c4716caae4eced355097a47ad363fdcaf"
   integrity sha512-JXc1nK/tXHiDhV55dvfzqtmP4S3sy3T3ouV2tkViZgxY/zeUkcpQcQPGRlgF4KmWzWW5oiWYSZwtCB+2RsE4Fw==
@@ -4644,11 +4637,6 @@ jest-mock@^26.0.1:
   integrity sha512-MpYTBqycuPYSY6xKJognV7Ja46/TeRbAZept987Zp+tuJvMN0YBWyyhG9mXyYQaU3SBI0TUlSaO5L3p49agw7Q==
   dependencies:
     "@jest/types" "^26.0.1"
-
-jest-plugin-context@^2.9.0:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/jest-plugin-context/-/jest-plugin-context-2.9.0.tgz#602aacbe61213a3bb229067db0eee9e003eb1931"
-  integrity sha1-YCqsvmEhOjuyKQZ9sO7p4APrGTE=
 
 jest-pnp-resolver@^1.2.1:
   version "1.2.1"

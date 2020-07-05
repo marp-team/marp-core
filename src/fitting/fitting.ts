@@ -1,7 +1,7 @@
 import marpitPlugin from '@marp-team/marpit/plugin'
-import fittingCSS from './fitting.scss'
-import Marp from '../marp'
+import { Marp } from '../marp'
 import { attr, code, math, svgContentAttr, svgContentWrapAttr } from './data'
+import fittingCSS from './fitting.scss'
 
 export const css = fittingCSS
 

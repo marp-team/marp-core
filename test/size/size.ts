@@ -44,7 +44,7 @@ describe('Size plugin', () => {
   it('defines size custom global directive', () =>
     expect(marpit().customDirectives.global.size).toBeTruthy())
 
-  context('when specified theme has theme metadata', () => {
+  describe('when specified theme has theme metadata', () => {
     const initializeTheme = (m) => {
       m.themeSet.add('/* @theme a *//* @size test 640px 480px */')
       m.themeSet.add(
@@ -143,7 +143,7 @@ describe('Size plugin', () => {
     })
   })
 
-  context('when default theme has size metadata', () => {
+  describe('when default theme has size metadata', () => {
     const defaultCSS = '/* @theme a *//* @size test 640px 480px */'
     const defaultTheme = Theme.fromCSS(defaultCSS, { metaType })
 

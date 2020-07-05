@@ -4,15 +4,15 @@ import postcss from 'postcss'
 import postcssMinifyParams from 'postcss-minify-params'
 import postcssMinifySelectors from 'postcss-minify-selectors'
 import postcssNormalizeWhitespace from 'postcss-normalize-whitespace'
+import defaultTheme from '../themes/default.scss'
+import gaiaTheme from '../themes/gaia.scss'
+import uncoverTheme from '../themes/uncover.scss'
 import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
 import * as scriptPlugin from './script/script'
 import * as sizePlugin from './size/size'
-import defaultTheme from '../themes/default.scss'
-import gaiaTheme from '../themes/gaia.scss'
-import uncoverTheme from '../themes/uncover.scss'
 
 export interface MarpOptions extends Options {
   emoji?: emojiPlugin.EmojiOptions

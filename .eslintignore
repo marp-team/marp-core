@@ -1,0 +1,5 @@
+coverage
+lib
+sandbox
+node_modules
+types

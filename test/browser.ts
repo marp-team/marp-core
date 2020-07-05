@@ -31,7 +31,7 @@ describe('Browser script', () => {
 })
 
 describe('Observer', () => {
-  context('with passed false', () => {
+  describe('with passed false', () => {
     it('does not call window.requestAnimationFrame', () => {
       const spy = jest.spyOn(window, 'requestAnimationFrame')
 
