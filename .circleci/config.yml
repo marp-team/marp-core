@@ -61,7 +61,7 @@ commands:
           command: yarn check:ts
 
       - run:
-          name: TSLint
+          name: ESLint
           command: yarn lint:ts
 
       - run:

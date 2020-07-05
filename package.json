@@ -102,9 +102,6 @@
     "stylelint-scss": "^3.17.2",
     "ts-jest": "26.1.0",
     "tslib": "^2.0.0",
-    "tslint": "^6.1.2",
-    "tslint-config-airbnb": "^5.11.2",
-    "tslint-config-prettier": "^1.17.0",
     "typescript": "^3.9.5"
   },
   "dependencies": {
