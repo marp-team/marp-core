@@ -44,7 +44,7 @@
     "clean": "rimraf lib",
     "format": "prettier \"**/*.{css,js,json,md,scss,ts,yaml,yml}\"",
     "format:write": "yarn -s format --write",
-    "lint:js": "eslint --ext .js,.jsx,.ts,.tsx --report-unused-disable-directives --cache .",
+    "lint:js": "eslint --ext .js,.ts --report-unused-disable-directives --cache .",
     "lint:css": "stylelint \"{src,themes}/**/*.{css,scss}\"",
     "prepack": "npm-run-all --parallel check:* lint:* test:coverage --parallel build types",
     "preversion": "run-p check:* lint:* test:coverage",
