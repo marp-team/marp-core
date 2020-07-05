@@ -6,7 +6,7 @@ module.exports = {
   coverageThreshold: { global: { lines: 95 } },
   setupFiles: ['jest-plugin-context/setup'],
   testEnvironment: 'node',
-  testRegex: '(/(test|__tests__)/(?!_).*|(\\.|/)(test|spec))\\.[jt]s$',
+  testRegex: '(/(test|__tests__)/(?![_.]).*|(\\.|/)(test|spec))\\.[jt]s$',
   transform: {
     ...jestPreset.transform,
     '^.*\\.s[ac]ss$': '<rootDir>/test/_transformers/sass.ts',

@@ -62,7 +62,7 @@ commands:
 
       - run:
           name: ESLint
-          command: yarn lint:ts
+          command: yarn lint:js
 
       - run:
           name: stylelint
