@@ -4,7 +4,7 @@ import * as mathjax from './mathjax'
 
 interface MathOptionsInterface {
   lib?: 'katex' | 'mathjax'
-  katexOption?: object
+  katexOption?: Record<string, unknown>
   katexFontPath?: string | false
 }
 

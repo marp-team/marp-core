@@ -8,6 +8,6 @@ module.exports = {
   testRegex: '(/(test|__tests__)/(?![_.]).*|(\\.|/)(test|spec))\\.[jt]s$',
   transform: {
     ...jestPreset.transform,
-    '^.*\\.s[ac]ss$': '<rootDir>/test/_transformers/sass.ts',
+    '^.*\\.s[ac]ss$': '<rootDir>/test/_transformers/sass.js',
   },
 }

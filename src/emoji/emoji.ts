@@ -42,8 +42,8 @@ export const markdown = marpitPlugin((md) => {
     // Pick rules to avoid collision with other markdown-it plugin
     const picker = {
       core: { ruler: { push: (_, rule) => (picker.rule = rule) } },
-      renderer: { rules: { emoji: () => {} } },
-      rule: <Function>(() => {}),
+      renderer: { rules: { emoji: () => {} } }, // eslint-disable-line @typescript-eslint/no-empty-function
+      rule: (() => {}) as (...args: any[]) => void, // eslint-disable-line @typescript-eslint/no-empty-function
       utils: md.utils,
     }
 

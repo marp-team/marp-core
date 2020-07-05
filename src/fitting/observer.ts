@@ -16,17 +16,17 @@ export default function fittingObserver(): void {
       const { scrollWidth, scrollHeight } = container
 
       let minWidth = 1
-      let shrinkBase: HTMLElement | undefined
+      let shrinkBase: HTMLElement | null | undefined
 
-      if (svg.hasAttribute(code)) shrinkBase = svg.parentElement!.parentElement! // <pre>
-      if (svg.hasAttribute(math)) shrinkBase = svg.parentElement! // <p>
+      if (svg.hasAttribute(code)) shrinkBase = svg.parentElement?.parentElement // <pre>
+      if (svg.hasAttribute(math)) shrinkBase = svg.parentElement // <p>
 
       if (shrinkBase) {
         const computed = getComputedStyle(shrinkBase)
         const mw = Math.ceil(
           shrinkBase.clientWidth -
-            parseFloat(computed.paddingLeft!) -
-            parseFloat(computed.paddingRight!)
+            parseFloat(computed.paddingLeft || '0') -
+            parseFloat(computed.paddingRight || '0')
         )
 
         if (mw) minWidth = mw

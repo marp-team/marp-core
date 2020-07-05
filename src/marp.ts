@@ -23,7 +23,7 @@ export interface MarpOptions extends Options {
           | string[]
           | { [attr: string]: boolean | ((value: string) => string) }
       }
-  markdown?: object
+  markdown?: object // eslint-disable-line @typescript-eslint/ban-types
   math?: mathPlugin.MathOptions
   minifyCSS?: boolean
   script?: boolean | scriptPlugin.ScriptOptions
@@ -111,7 +111,7 @@ export class Marp extends Marpit {
       css && (base.before = `${css}\n${base.before || ''}`)
     const { emoji } = this.options
 
-    prepend(emojiPlugin.css(emoji!))
+    prepend(emojiPlugin.css(emoji))
     prepend(fittingPlugin.css)
 
     const mathCss = mathPlugin.css(this)

@@ -7,7 +7,7 @@ const metaType = { size: Array }
 
 describe('Size plugin', () => {
   const marpit = (
-    callback: (marpit: Marpit) => void = () => {},
+    callback: (marpit: Marpit) => void = () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
     opts?: Options
   ) =>
     new Marpit(opts).use(sizePlugin).use(({ marpit }) => {
@@ -162,9 +162,9 @@ describe('Size plugin', () => {
     it('reverts manipulated theme after rendering', () => {
       instance.render('<!-- size: test -->')
 
-      expect(instance.themeSet.default!.css).toBe(defaultCSS)
-      expect(instance.themeSet.default!.width).toBeUndefined()
-      expect(instance.themeSet.default!.height).toBeUndefined()
+      expect(instance.themeSet.default.css).toBe(defaultCSS)
+      expect(instance.themeSet.default.width).toBeUndefined()
+      expect(instance.themeSet.default.height).toBeUndefined()
     })
   })
 })

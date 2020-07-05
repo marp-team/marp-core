@@ -1,8 +1,8 @@
-import postcss from 'postcss'
+import { plugin as postCSSplugin } from 'postcss'
 
 const defaultThemeMatcher = /@theme +default/
 
-const plugin = postcss.plugin('postcss-optimize-default-theme', () => (css) => {
+const plugin = postCSSplugin('postcss-optimize-default-theme', () => (css) => {
   if (!defaultThemeMatcher.test(css.source.input.css)) return
 
   // Remove rules for .markdown-body selector

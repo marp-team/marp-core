@@ -18,7 +18,9 @@ const xhtmlOutFilter = new FilterXSS({
 export function markdown(md): void {
   const { html_inline, html_block } = md.renderer.rules
 
-  const sanitizedRenderer = (original: Function) => (...args) => {
+  const sanitizedRenderer = (original: (...args: any[]) => string) => (
+    ...args
+  ) => {
     const ret = original(...args)
     const whiteList = {}
     const html: MarpOptions['html'] = md.options.html

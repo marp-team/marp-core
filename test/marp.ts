@@ -370,7 +370,7 @@ describe('Marp', () => {
           it('fallbacks to plain text on raising error', () => {
             const warnSpy = jest
               .spyOn(console, 'warn')
-              .mockImplementation(() => {})
+              .mockImplementation(() => {}) // eslint-disable-line @typescript-eslint/no-empty-function
 
             const inlineHTML = instance.render('# Fallback to text $}$!').html
             const $inline = cheerio.load(inlineHTML)
@@ -599,7 +599,7 @@ describe('Marp', () => {
         jest.spyOn<any, any>(Object, 'freeze').mockImplementation((obj) => obj)
 
         const instance = marp()
-        const theme = instance.themeSet.get('uncover')!
+        const theme = instance.themeSet.get('uncover')
         theme.meta = { ...theme.meta, fittingCode: 'false' }
 
         const uncover = `---\ntheme: uncover\n---\n\n${markdown}`
