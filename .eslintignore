@@ -1,0 +1,6 @@
+browser.d.ts
+coverage
+lib
+node_modules
+sandbox
+types

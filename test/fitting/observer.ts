@@ -1,7 +1,8 @@
 /** @jest-environment jsdom-fifteen */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 // TODO: Use Jest built-in jsdom environment if https://github.com/jsdom/jsdom/issues/2961 was fixed
-import Marp from '../../src/marp'
 import fittingObserver from '../../src/fitting/observer'
+import { Marp } from '../../src/marp'
 
 afterEach(() => jest.restoreAllMocks())
 
@@ -12,7 +13,7 @@ describe('Fitting observer', () => {
       scrollHeight: { configurable: true, get: () => height },
     })
 
-  context('when the fitting header is rendered', () => {
+  describe('when the fitting header is rendered', () => {
     let svg: SVGSVGElement
     let foreignObj: SVGForeignObjectElement
     let content: HTMLSpanElement
@@ -83,7 +84,7 @@ describe('Fitting observer', () => {
     })
   })
 
-  context('when the auto-scalable elements is rendered', () => {
+  describe('when the auto-scalable elements is rendered', () => {
     let codeSvg: SVGSVGElement
     let codePre: HTMLPreElement
     let codeContent: HTMLSpanElement

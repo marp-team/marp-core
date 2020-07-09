@@ -1,5 +1,5 @@
-import marpitPlugin from '@marp-team/marpit/plugin'
 import { Theme } from '@marp-team/marpit'
+import marpitPlugin from '@marp-team/marpit/plugin'
 import { Marp } from '../marp'
 
 interface DefinedSize {

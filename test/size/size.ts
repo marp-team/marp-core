@@ -7,7 +7,7 @@ const metaType = { size: Array }
 
 describe('Size plugin', () => {
   const marpit = (
-    callback: (marpit: Marpit) => void = () => {},
+    callback: (marpit: Marpit) => void = () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
     opts?: Options
   ) =>
     new Marpit(opts).use(sizePlugin).use(({ marpit }) => {
@@ -44,7 +44,7 @@ describe('Size plugin', () => {
   it('defines size custom global directive', () =>
     expect(marpit().customDirectives.global.size).toBeTruthy())
 
-  context('when specified theme has theme metadata', () => {
+  describe('when specified theme has theme metadata', () => {
     const initializeTheme = (m) => {
       m.themeSet.add('/* @theme a *//* @size test 640px 480px */')
       m.themeSet.add(
@@ -143,7 +143,7 @@ describe('Size plugin', () => {
     })
   })
 
-  context('when default theme has size metadata', () => {
+  describe('when default theme has size metadata', () => {
     const defaultCSS = '/* @theme a *//* @size test 640px 480px */'
     const defaultTheme = Theme.fromCSS(defaultCSS, { metaType })
 
@@ -162,9 +162,12 @@ describe('Size plugin', () => {
     it('reverts manipulated theme after rendering', () => {
       instance.render('<!-- size: test -->')
 
-      expect(instance.themeSet.default!.css).toBe(defaultCSS)
-      expect(instance.themeSet.default!.width).toBeUndefined()
-      expect(instance.themeSet.default!.height).toBeUndefined()
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const defaultTheme = instance.themeSet.default!
+
+      expect(defaultTheme.css).toBe(defaultCSS)
+      expect(defaultTheme.width).toBeUndefined()
+      expect(defaultTheme.height).toBeUndefined()
     })
   })
 })

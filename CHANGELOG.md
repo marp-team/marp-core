@@ -10,6 +10,7 @@
 
 - Upgrade Marpit SVG polyfill to [v1.4.0](https://github.com/marp-team/marpit-svg-polyfill/releases/v1.4.0) ([#170](https://github.com/marp-team/marp-core/pull/170))
 - Upgrade development Node LTS and dependent packages to the latest version ([#170](https://github.com/marp-team/marp-core/pull/170))
+- Migrate from TSLint to ESLint ([#169](https://github.com/marp-team/marp-core/pull/169))
 
 ## v1.2.0 - 2020-06-08
 

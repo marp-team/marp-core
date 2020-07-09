@@ -1,13 +1,13 @@
 import { name, version } from '../../package.json'
+import { Marp } from '../marp'
 import browserScript from './browser-script'
-import Marp from '../marp'
 
 interface ScriptOptionsInternal {
   nonce?: string
   source: 'inline' | 'cdn'
 }
 
-export interface ScriptOptions extends Partial<ScriptOptionsInternal> {}
+export type ScriptOptions = Partial<ScriptOptionsInternal>
 
 const defaultOptions = { source: 'inline' } as const
 

@@ -5,7 +5,7 @@ import katexScss from './katex.scss'
 const convertedCSS = Object.create(null)
 const katexMatcher = /url\(['"]?fonts\/(.*?)['"]?\)/g
 
-export const inline = (opts: object = {}) => (tokens, idx) => {
+export const inline = (opts: Record<string, unknown> = {}) => (tokens, idx) => {
   const { content } = tokens[idx]
 
   try {
@@ -20,7 +20,7 @@ export const inline = (opts: object = {}) => (tokens, idx) => {
   }
 }
 
-export const block = (opts: object = {}) => (tokens, idx) => {
+export const block = (opts: Record<string, unknown> = {}) => (tokens, idx) => {
   const { content } = tokens[idx]
 
   try {
