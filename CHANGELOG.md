@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.2.1 - 2020-07-09
+
 ### Added
 
 - Test against Node 14 ([#171](https://github.com/marp-team/marp-core/pull/171))
