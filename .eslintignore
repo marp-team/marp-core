@@ -1,5 +1,6 @@
+browser.d.ts
 coverage
 lib
-sandbox
 node_modules
+sandbox
 types
