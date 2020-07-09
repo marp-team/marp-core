@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Test against Node 14 ([#171](https://github.com/marp-team/marp-core/pull/171))
+
 ### Changed
 
 - Upgrade Marpit SVG polyfill to [v1.4.0](https://github.com/marp-team/marpit-svg-polyfill/releases/v1.4.0) ([#170](https://github.com/marp-team/marp-core/pull/170))
