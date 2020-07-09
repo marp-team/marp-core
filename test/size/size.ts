@@ -162,9 +162,12 @@ describe('Size plugin', () => {
     it('reverts manipulated theme after rendering', () => {
       instance.render('<!-- size: test -->')
 
-      expect(instance.themeSet.default.css).toBe(defaultCSS)
-      expect(instance.themeSet.default.width).toBeUndefined()
-      expect(instance.themeSet.default.height).toBeUndefined()
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const defaultTheme = instance.themeSet.default!
+
+      expect(defaultTheme.css).toBe(defaultCSS)
+      expect(defaultTheme.width).toBeUndefined()
+      expect(defaultTheme.height).toBeUndefined()
     })
   })
 })

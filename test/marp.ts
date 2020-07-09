@@ -599,7 +599,7 @@ describe('Marp', () => {
         jest.spyOn<any, any>(Object, 'freeze').mockImplementation((obj) => obj)
 
         const instance = marp()
-        const theme = instance.themeSet.get('uncover')
+        const theme = instance.themeSet.get('uncover')! // eslint-disable-line @typescript-eslint/no-non-null-assertion
         theme.meta = { ...theme.meta, fittingCode: 'false' }
 
         const uncover = `---\ntheme: uncover\n---\n\n${markdown}`
