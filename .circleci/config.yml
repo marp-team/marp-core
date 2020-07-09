@@ -103,6 +103,13 @@ jobs:
     steps:
       - test
 
+  test-node14:
+    executor:
+      name: node
+      version: '14'
+    steps:
+      - test
+
 workflows:
   test:
     jobs:
@@ -111,5 +118,8 @@ workflows:
           requires:
             - audit
       - test-node12:
+          requires:
+            - audit
+      - test-node14:
           requires:
             - audit
