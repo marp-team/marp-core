@@ -187,3 +187,7 @@ Or you can use `@size [name] false` in the inherited theme if you need to disabl
 
 @import 'gaia';
 ```
+
+## Example Themes Created by Marp Users
+
+- https://github.com/ttyskg/marp-themes
