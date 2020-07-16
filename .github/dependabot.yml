@@ -17,5 +17,5 @@ updates:
       - 'marp-team/maintainers'
     schedule:
       interval: weekly
-    versioning-strategy: increase-if-necessary
-    open-pull-requests-limit: 0 # Disabled: Dependabot does not allow relaxed versioning :(
+    # versioning-strategy: increase-if-necessary
+    open-pull-requests-limit: 0 # Dependabot does not allow relaxed versioning :(
