@@ -581,10 +581,10 @@
     twemoji "^13.0.0"
     xss "^1.0.7"
 
-"@marp-team/marpit-svg-polyfill@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-1.4.0.tgz#79cdc42f20bc18d407521ba7098ddac0a24916be"
-  integrity sha512-mSPd76jReFdO7tBYziZEx/6+SacnpxO3XEAey++LLmw97kIlIg+9Grz3do5wOzz9De8o5x8pHwMP131YU+Junw==
+"@marp-team/marpit-svg-polyfill@^1.4.0", "@marp-team/marpit-svg-polyfill@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-1.5.0.tgz#420db83762914e2dd0f0019300e2ba703deed0a0"
+  integrity sha512-1JksTIO/Kq3D2FxfoJaBs0Qcq/gvzQqGyEiVNJY+4NfOtUhkGzYyMfGa0ESAkfRCyFZqjrF3WinK+ZILppbJEA==
 
 "@marp-team/marpit@^1.6.2":
   version "1.6.2"
