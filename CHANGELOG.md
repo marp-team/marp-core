@@ -6,6 +6,10 @@
 
 - Setup GitHub Dependabot for marp-team packages ([#172](https://github.com/marp-team/marp-core/pull/172))
 
+### Changed
+
+- Upgrade Marpit SVG polyfill to [v1.5.0](https://github.com/marp-team/marpit-svg-polyfill/releases/v1.5.0) ([#176](https://github.com/marp-team/marp-core/pull/176))
+
 ## v1.2.1 - 2020-07-09
 
 ### Added
