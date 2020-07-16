@@ -1,0 +1,19 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    reviewers:
+      - 'marp-team/maintainers'
+    schedule:
+      interval: daily
+    allow:
+      - dependency-name: '@marp-team/*'
+    versioning-strategy: increase
+
+  - package-ecosystem: github-actions
+    directory: '/'
+    reviewers:
+      - 'marp-team/maintainers'
+    schedule:
+      interval: weekly
