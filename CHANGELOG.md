@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.2.2 - 2020-07-18
+
 ### Added
 
 - Setup GitHub Dependabot for marp-team packages ([#172](https://github.com/marp-team/marp-core/pull/172))
