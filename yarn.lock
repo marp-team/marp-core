@@ -541,34 +541,34 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@marp-team/marp-cli@0.18.3":
-  version "0.18.3"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-0.18.3.tgz#1e25e887d0f947d0ba2d25467652fa3e5e928b2e"
-  integrity sha512-mj2g4MG2INHz+iVWaORBzT2VxEwM4VYrgU+s1+pavyztQUAZLbAPoZnEj0jwMAq28qKVPc785t2wtvEf42h93w==
+"@marp-team/marp-cli@0.19.0":
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-0.19.0.tgz#27ec41946dd9dfad9c4af1c8b1a7bd80c769d6dd"
+  integrity sha512-w4kIGwKAJa7NoT8vhAbwNFNXINgZ2Q/ggyf81V1wlduwjN8KhBowDcWWoNkJntstEDZi7FlCrQDDPYwOmDBnpw==
   dependencies:
-    "@marp-team/marp-core" "^1.2.1"
+    "@marp-team/marp-core" "^1.2.2"
     "@marp-team/marpit" "^1.6.2"
-    chokidar "^3.4.0"
+    chokidar "^3.4.1"
     chrome-launcher "^0.13.4"
     cosmiconfig "^6.0.0"
     express "^4.17.1"
     globby "^11.0.1"
     import-from "^3.0.0"
     pptxgenjs "^3.2.1"
-    puppeteer-core "~5.0.0"
+    puppeteer-core "~5.2.0"
     serve-index "^1.9.1"
     tmp "^0.2.1"
     v8-compile-cache "^2.1.1"
     ws "^7.3.1"
-    yargs "^15.4.0"
+    yargs "^15.4.1"
 
-"@marp-team/marp-core@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-1.2.1.tgz#73b0829ec503ffddcf1757f8dd5f18be7c40bd44"
-  integrity sha512-rXG31a08xbyrtYhmKzzTFcYNEsG3gw79ugp0kOj/NP0GezurzSVP/DBM37qtLVPFLqpDJqSxxkYyuVILWtkJnA==
+"@marp-team/marp-core@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-1.2.2.tgz#51980401e999c7bd7f626d3f9fe5833e6b0a3d2c"
+  integrity sha512-7F/Gkq6ob83yeIDnFTlJVCKD23byd6fxEifOfMG5t4LS2CZw1oSI0jwPbuvJxYMBxZxKXzJ5eW7/I4tfqLjjDA==
   dependencies:
     "@marp-team/marpit" "^1.6.2"
-    "@marp-team/marpit-svg-polyfill" "^1.4.0"
+    "@marp-team/marpit-svg-polyfill" "^1.5.0"
     emoji-regex "^9.0.0"
     highlight.js "^10.1.1"
     katex "^0.11.1"
@@ -581,7 +581,7 @@
     twemoji "^13.0.0"
     xss "^1.0.7"
 
-"@marp-team/marpit-svg-polyfill@^1.4.0", "@marp-team/marpit-svg-polyfill@^1.5.0":
+"@marp-team/marpit-svg-polyfill@^1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-1.5.0.tgz#420db83762914e2dd0f0019300e2ba703deed0a0"
   integrity sha512-1JksTIO/Kq3D2FxfoJaBs0Qcq/gvzQqGyEiVNJY+4NfOtUhkGzYyMfGa0ESAkfRCyFZqjrF3WinK+ZILppbJEA==
@@ -1735,10 +1735,10 @@ cheerio@^1.0.0-rc.3:
     lodash "^4.15.0"
     parse5 "^3.0.1"
 
-"chokidar@>=2.0.0 <4.0.0", chokidar@^3.2.2, chokidar@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.4.0.tgz#b30611423ce376357c765b9b8f904b9fba3c0be8"
-  integrity sha512-aXAaho2VJtisB/1fg1+3nlLJqGOuewTzQpd/Tz0yTg2R0e4IGtshYvtjowyEumcBv2z+y4+kc75Mz7j5xJskcQ==
+"chokidar@>=2.0.0 <4.0.0", chokidar@^3.2.2, chokidar@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.4.1.tgz#e905bdecf10eaa0a0b1db0c664481cc4cbc22ba1"
+  integrity sha512-TQTJyr2stihpC4Sya9hs2Xh+O2wf+igjL36Y75xx2WdHuiICcn/XJza46Jwt0eT5hVpQOzo3FpY3cj3RVYLX0g==
   dependencies:
     anymatch "~3.1.1"
     braces "~3.0.2"
@@ -2408,6 +2408,11 @@ detect-newline@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-3.1.0.tgz#576f5dfc63ae1a192ff192d8ad3af6308991b651"
   integrity sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==
+
+devtools-protocol@0.0.767361:
+  version "0.0.767361"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.767361.tgz#5977f2558b84f9df36f62501bdddb82f3ae7b66b"
+  integrity sha512-ziRTdhEVQ9jEwedaUaXZ7kl9w9TF/7A3SXQ0XuqrJB+hMS62POHZUWTbumDN2ehRTfvWqTPc2Jw4gUl/jggmHA==
 
 diff-sequences@^25.2.6:
   version "25.2.6"
@@ -5402,11 +5407,6 @@ minimist@^1.1.1, minimist@^1.2.0, minimist@^1.2.5:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
-mitt@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/mitt/-/mitt-2.0.1.tgz#9e8a075b4daae82dd91aac155a0ece40ca7cb393"
-  integrity sha512-FhuJY+tYHLnPcBHQhbUFzscD5512HumCPE4URXZUgPi3IvOJi4Xva5IIgy3xX56GqCmw++MAm5UURG6kDBYTdg==
-
 mixin-deep@^1.2.0:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/mixin-deep/-/mixin-deep-1.3.2.tgz#1120b43dc359a785dce65b55b82e257ccf479566"
@@ -6623,16 +6623,16 @@ pupa@^2.0.1:
   dependencies:
     escape-goat "^2.0.0"
 
-puppeteer-core@~5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-5.0.0.tgz#ddcc9efd9e2ecf6b5fc5e39a7a0a9859ab297943"
-  integrity sha512-kGspNm5xNuz4/R8wtIJKZGfiox0dUVknMqZYqQ8TowwoZhIUrQ7TgIx6NqXRdQZSRPgcDuUg9zWMH+Z1dUe64w==
+puppeteer-core@~5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-5.2.0.tgz#d5474cfb0814440dfe36b949f40fcaa8885b7ae4"
+  integrity sha512-+gG1mW4ve7e4f1H18KWyEdbSc5Sb9+zxGBlb6CCclCf5rDsuPhYubTfOWJZB4L759D4XDtf04GOp+lmTmd61Nw==
   dependencies:
     debug "^4.1.0"
+    devtools-protocol "0.0.767361"
     extract-zip "^2.0.0"
     https-proxy-agent "^4.0.0"
     mime "^2.0.3"
-    mitt "^2.0.1"
     pkg-dir "^4.2.0"
     progress "^2.0.1"
     proxy-from-env "^1.0.0"
@@ -8795,7 +8795,7 @@ yargs-parser@18.x, yargs-parser@^18.1.2, yargs-parser@^18.1.3:
     camelcase "^5.0.0"
     decamelize "^1.2.0"
 
-yargs@^15.3.1, yargs@^15.4.0:
+yargs@^15.3.1, yargs@^15.4.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-15.4.1.tgz#0d87a16de01aee9d8bec2bfbf74f67851730f4f8"
   integrity sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
