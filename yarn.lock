@@ -541,10 +541,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@marp-team/marp-cli@0.19.0":
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-0.19.0.tgz#27ec41946dd9dfad9c4af1c8b1a7bd80c769d6dd"
-  integrity sha512-w4kIGwKAJa7NoT8vhAbwNFNXINgZ2Q/ggyf81V1wlduwjN8KhBowDcWWoNkJntstEDZi7FlCrQDDPYwOmDBnpw==
+"@marp-team/marp-cli@0.20.0":
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-0.20.0.tgz#fad41420260eea1dd2d4db4200c8c0cdde85efa3"
+  integrity sha512-s27IqRa+CaIoZFsE80aeNQ5Jqj3Lr1wfLE8YQqsqU7fo9FtCHD1eA4XWy9rVx8tBl75reUreuAZvCs1QdlnYrw==
   dependencies:
     "@marp-team/marp-core" "^1.2.2"
     "@marp-team/marpit" "^1.6.2"
@@ -555,7 +555,7 @@
     globby "^11.0.1"
     import-from "^3.0.0"
     pptxgenjs "^3.2.1"
-    puppeteer-core "~5.2.0"
+    puppeteer-core "~5.2.1"
     serve-index "^1.9.1"
     tmp "^0.2.1"
     v8-compile-cache "^2.1.1"
@@ -2409,10 +2409,10 @@ detect-newline@^3.0.0:
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-3.1.0.tgz#576f5dfc63ae1a192ff192d8ad3af6308991b651"
   integrity sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==
 
-devtools-protocol@0.0.767361:
-  version "0.0.767361"
-  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.767361.tgz#5977f2558b84f9df36f62501bdddb82f3ae7b66b"
-  integrity sha512-ziRTdhEVQ9jEwedaUaXZ7kl9w9TF/7A3SXQ0XuqrJB+hMS62POHZUWTbumDN2ehRTfvWqTPc2Jw4gUl/jggmHA==
+devtools-protocol@0.0.781568:
+  version "0.0.781568"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.781568.tgz#4cdca90a952d2c77831096ff6cd32695d8715a04"
+  integrity sha512-9Uqnzy6m6zEStluH9iyJ3iHyaQziFnMnLeC8vK0eN6smiJmIx7+yB64d67C2lH/LZra+5cGscJAJsNXO+MdPMg==
 
 diff-sequences@^25.2.6:
   version "25.2.6"
@@ -6623,13 +6623,13 @@ pupa@^2.0.1:
   dependencies:
     escape-goat "^2.0.0"
 
-puppeteer-core@~5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-5.2.0.tgz#d5474cfb0814440dfe36b949f40fcaa8885b7ae4"
-  integrity sha512-+gG1mW4ve7e4f1H18KWyEdbSc5Sb9+zxGBlb6CCclCf5rDsuPhYubTfOWJZB4L759D4XDtf04GOp+lmTmd61Nw==
+puppeteer-core@~5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-5.2.1.tgz#0d21b5bbb30c82db9b439d255a459f3538cc7235"
+  integrity sha512-gLjEOrzwgcnwRH+sm4hS1TBqe2/DN248nRb2hYB7+lZ9kCuLuACNvuzlXILlPAznU3Ob+mEvVEBDcLuFa0zq3g==
   dependencies:
     debug "^4.1.0"
-    devtools-protocol "0.0.767361"
+    devtools-protocol "0.0.781568"
     extract-zip "^2.0.0"
     https-proxy-agent "^4.0.0"
     mime "^2.0.3"
