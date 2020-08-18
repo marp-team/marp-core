@@ -1,3 +1,5 @@
 import { browser } from '../src/browser'
 
-browser(document.currentScript.getRootNode())
+const script = document.currentScript
+
+browser(script ? script.getRootNode() : document)
