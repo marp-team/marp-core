@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.3.0 - 2020-08-18
+
 ### Changed
 
 - Upgrade Marpit SVG polyfill to [v1.7.0](https://github.com/marp-team/marpit-svg-polyfill/releases/v1.7.0) ([#184](https://github.com/marp-team/marp-core/pull/184), [#185](https://github.com/marp-team/marp-core/pull/185))
