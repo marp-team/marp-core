@@ -6,6 +6,7 @@
 
 - Upgrade Marpit SVG polyfill to [v1.7.0](https://github.com/marp-team/marpit-svg-polyfill/releases/v1.7.0) ([#184](https://github.com/marp-team/marp-core/pull/184), [#185](https://github.com/marp-team/marp-core/pull/185))
 - Update browser script to make changeable the target root ([#185](https://github.com/marp-team/marp-core/pull/185))
+- Upgrade dependent packages to the latest version ([#186](https://github.com/marp-team/marp-core/pull/186))
 
 ### Deprecated
 
