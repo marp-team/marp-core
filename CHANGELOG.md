@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Marpit SVG polyfill to [v1.7.0](https://github.com/marp-team/marpit-svg-polyfill/releases/v1.7.0) ([#184](https://github.com/marp-team/marp-core/pull/184), [#185](https://github.com/marp-team/marp-core/pull/185))
+- Update browser script to make changeable the target root ([#185](https://github.com/marp-team/marp-core/pull/185))
+
+### Deprecated
+
+- `observe()` with boolean argument from `@marp-team/marp-core/browser` has been deprecated in favor of the usage of the option object ([#185](https://github.com/marp-team/marp-core/pull/185))
+
 ## v1.2.2 - 2020-07-18
 
 ### Added
