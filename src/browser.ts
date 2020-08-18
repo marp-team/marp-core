@@ -1,19 +1,32 @@
-import observer from './observer'
-
+import { observer } from './observer'
 export { observer }
 
-export default function browser(): void {
+const marpCoreBrowserScript = Symbol()
+
+export const browser = (target: ParentNode = document): (() => void) => {
   if (typeof window === 'undefined') {
     throw new Error(
       "Marp Core's browser script is valid only in browser context."
     )
   }
 
-  if (window['marpCoreBrowserScript']) {
+  if (target[marpCoreBrowserScript]) {
     console.warn("Marp Core's browser script has already executed.")
-    return
+    return target[marpCoreBrowserScript]
   }
 
-  Object.defineProperty(window, 'marpCoreBrowserScript', { value: true })
-  observer()
+  const cleanupObserver = observer({ target })
+  const cleanup = () => {
+    cleanupObserver()
+    delete target[marpCoreBrowserScript]
+  }
+
+  Object.defineProperty(target, marpCoreBrowserScript, {
+    configurable: true,
+    value: cleanup,
+  })
+
+  return cleanup
 }
+
+export default browser

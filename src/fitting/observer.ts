@@ -7,9 +7,9 @@ const updateAttr = (elm: Element, attr: string, value: string): true | void => {
   }
 }
 
-export default function fittingObserver(): void {
+export default function fittingObserver(target: ParentNode = document): void {
   Array.from(
-    document.querySelectorAll<HTMLElement>(`svg[${attr}="svg"]`),
+    target.querySelectorAll<HTMLElement>(`svg[${attr}="svg"]`),
     (svg) => {
       const foreignObject = svg.firstChild as SVGForeignObjectElement
       const container = foreignObject.firstChild as HTMLSpanElement
