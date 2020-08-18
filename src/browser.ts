@@ -10,10 +10,7 @@ export const browser = (target: ParentNode = document): (() => void) => {
     )
   }
 
-  if (target[marpCoreBrowserScript]) {
-    console.warn("Marp Core's browser script has already executed.")
-    return target[marpCoreBrowserScript]
-  }
+  if (target[marpCoreBrowserScript]) return target[marpCoreBrowserScript]
 
   const cleanupObserver = observer({ target })
   const cleanup = () => {

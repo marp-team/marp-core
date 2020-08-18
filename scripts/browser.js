@@ -1,3 +1,3 @@
-import browser from '../src/browser'
+import { browser } from '../src/browser'
 
-browser()
+browser(document.currentScript.getRootNode())
