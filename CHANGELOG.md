@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.4.0 - 2020-12-05
+
 ### Breaking
 
 - Stopped auto-detection of syntax highlight for code block ([#202](https://github.com/marp-team/marp-core/issues/202), [#205](https://github.com/marp-team/marp-core/pull/205))
