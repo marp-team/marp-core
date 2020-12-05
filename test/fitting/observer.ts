@@ -1,6 +1,5 @@
-/** @jest-environment jsdom-fifteen */
+/** @jest-environment jsdom */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-// TODO: Use Jest built-in jsdom environment if https://github.com/jsdom/jsdom/issues/2961 was fixed
 import fittingObserver from '../../src/fitting/observer'
 import { Marp } from '../../src/marp'
 
