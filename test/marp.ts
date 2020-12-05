@@ -64,7 +64,9 @@ describe('Marp', () => {
           const $heart = cheerio.load(render('# :heart:').html)
           expect($heart('h1').html()).toBe('&#x2764;&#xFE0F;')
 
-          const $smiling = cheerio.load(render('# :smiling_face_with_three_hearts:').html)
+          const $smiling = cheerio.load(
+            render('# :smiling_face_with_three_hearts:').html
+          )
           expect($smiling('h1').html()).toBe('&#x1F970;')
         })
       })
@@ -794,7 +796,9 @@ describe('Marp', () => {
         return '<b class="customized">customized</b>'
       }
 
-      const $ = cheerio.load(instance.markdown.render('```markdown {attrs}\ntest\n```'))
+      const $ = cheerio.load(
+        instance.markdown.render('```markdown {attrs}\ntest\n```')
+      )
 
       it('highlights with custom highlighter', () =>
         expect($('code .customized')).toHaveLength(1))
