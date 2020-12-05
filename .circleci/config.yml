@@ -26,15 +26,15 @@ commands:
 
       - restore_cache:
           keys:
-            - v2.3-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "yarn.lock" }}-{{ .Branch }}
-            - v2.3-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "yarn.lock" }}-
-            - v2.3-dependencies-{{ .Environment.CIRCLE_JOB }}-
+            - v2.4-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "yarn.lock" }}-{{ .Branch }}
+            - v2.4-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "yarn.lock" }}-
+            - v2.4-dependencies-{{ .Environment.CIRCLE_JOB }}-
 
       - run: yarn install
       - steps: << parameters.postinstall >>
 
       - save_cache:
-          key: v2.3-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "yarn.lock" }}-{{ .Branch }}
+          key: v2.4-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "yarn.lock" }}-{{ .Branch }}
           paths:
             - ~/.cache/yarn
 
@@ -99,14 +99,14 @@ jobs:
   test-node12:
     executor:
       name: node
-      version: '12.18.2' # Specify LTS version for development
+      version: '12'
     steps:
       - test
 
   test-node14:
     executor:
       name: node
-      version: '14'
+      version: '14.15.1' # Specify LTS version for development
     steps:
       - test
 
