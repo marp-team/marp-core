@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Breaking
+
+- Stopped auto-detection of syntax highlight for code block ([#202](https://github.com/marp-team/marp-core/issues/202), [#205](https://github.com/marp-team/marp-core/pull/205))
+
 ### Added
 
 - Support more emoji shorthands ([#203](https://github.com/marp-team/marp-core/pull/203))
