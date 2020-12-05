@@ -1,4 +1,4 @@
-const { jestPreset } = require('ts-jest')
+const { defaults: tsjPreset } = require('ts-jest/presets')
 
 module.exports = {
   collectCoverageFrom: ['src/**/*.{j,t}s'],
@@ -7,7 +7,7 @@ module.exports = {
   testEnvironment: 'node',
   testRegex: '(/(test|__tests__)/(?![_.]).*|(\\.|/)(test|spec))\\.[jt]s$',
   transform: {
-    ...jestPreset.transform,
+    ...tsjPreset.transform,
     '^.*\\.s[ac]ss$': '<rootDir>/test/_transformers/sass.js',
   },
 }

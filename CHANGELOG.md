@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+### Added
+
+- Support more emoji shorthands ([#203](https://github.com/marp-team/marp-core/pull/203))
+
+### Changed
+
+- Use Node 14 LTS for development ([#203](https://github.com/marp-team/marp-core/pull/203))
+- Upgrade Marpit to [v1.6.3](https://github.com/marp-team/marpit/releases/v1.6.3) ([#203](https://github.com/marp-team/marp-core/pull/203))
+- Upgrade dependent packages to the latest version ([#203](https://github.com/marp-team/marp-core/pull/203))
+
 ## v1.3.0 - 2020-08-18
 
 ### Changed

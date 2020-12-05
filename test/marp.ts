@@ -59,8 +59,15 @@ describe('Marp', () => {
         const emoji: EmojiOptions = { shortcode: true }
 
         it('converts emoji shorthand to unicode emoji', () => {
-          const $ = cheerio.load(marp({ emoji }).render('# :heart:').html)
-          expect($('h1').html()).toBe('&#x2764;&#xFE0F;')
+          const { render } = marp({ emoji })
+
+          const $heart = cheerio.load(render('# :heart:').html)
+          expect($heart('h1').html()).toBe('&#x2764;&#xFE0F;')
+
+          const $smiling = cheerio.load(
+            render('# :smiling_face_with_three_hearts:').html
+          )
+          expect($smiling('h1').html()).toBe('&#x1F970;')
         })
       })
 
@@ -781,14 +788,17 @@ describe('Marp', () => {
     describe('with overriden #highlighter', () => {
       const instance = marp()
 
-      instance.highlighter = (code, lang) => {
+      instance.highlighter = (code, lang, attrs) => {
         expect(code.trim()).toBe('test')
         expect(lang).toBe('markdown')
+        expect(attrs).toBe('{attrs}')
 
         return '<b class="customized">customized</b>'
       }
 
-      const $ = cheerio.load(instance.markdown.render('```markdown\ntest\n```'))
+      const $ = cheerio.load(
+        instance.markdown.render('```markdown {attrs}\ntest\n```')
+      )
 
       it('highlights with custom highlighter', () =>
         expect($('code .customized')).toHaveLength(1))

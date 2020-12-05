@@ -58,7 +58,7 @@ export class Marp extends Marpit {
         {
           breaks: true,
           linkify: true,
-          highlight: (code, lang) => this.highlighter(code, lang),
+          highlight: (code, lang, attrs) => this.highlighter(code, lang, attrs),
           html: opts.html ?? Marp.html,
           ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
         },
@@ -89,7 +89,7 @@ export class Marp extends Marpit {
       .use(scriptPlugin.markdown)
   }
 
-  highlighter(code: string, lang: string): string {
+  highlighter(code: string, lang: string, attrs: string): string {
     if (lang) {
       return highlightjs.getLanguage(lang)
         ? highlightjs.highlight(lang, code, true).value
