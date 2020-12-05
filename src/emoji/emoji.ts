@@ -1,5 +1,5 @@
 import marpitPlugin from '@marp-team/marpit/plugin'
-import emojiRegex from 'emoji-regex'
+import emojiRegex from 'emoji-regex/RGI_Emoji'
 import markdownItEmoji from 'markdown-it-emoji'
 import twemoji from 'twemoji'
 import twemojiCSS from './twemoji.scss'

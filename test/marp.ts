@@ -59,8 +59,13 @@ describe('Marp', () => {
         const emoji: EmojiOptions = { shortcode: true }
 
         it('converts emoji shorthand to unicode emoji', () => {
-          const $ = cheerio.load(marp({ emoji }).render('# :heart:').html)
-          expect($('h1').html()).toBe('&#x2764;&#xFE0F;')
+          const { render } = marp({ emoji })
+
+          const $heart = cheerio.load(render('# :heart:').html)
+          expect($heart('h1').html()).toBe('&#x2764;&#xFE0F;')
+
+          const $smiling = cheerio.load(render('# :smiling_face_with_three_hearts:').html)
+          expect($smiling('h1').html()).toBe('&#x1F970;')
         })
       })
 
