@@ -753,8 +753,8 @@ describe('Marp', () => {
     describe('when fence is rendered without lang', () => {
       const $ = cheerio.load(marp().markdown.render('```\n# test\n```'))
 
-      it('highlights code automatically', () =>
-        expect($('code [class^="hljs-"]').length).toBeGreaterThan(0))
+      it('does not highlight code', () =>
+        expect($('code [class^="hljs-"]')).toHaveLength(0))
     })
 
     describe('when fence is rendered with specified lang', () => {

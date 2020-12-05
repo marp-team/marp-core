@@ -89,13 +89,12 @@ export class Marp extends Marpit {
       .use(scriptPlugin.markdown)
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   highlighter(code: string, lang: string, attrs: string): string {
-    if (lang) {
-      return highlightjs.getLanguage(lang)
-        ? highlightjs.highlight(lang, code, true).value
-        : ''
+    if (lang && highlightjs.getLanguage(lang)) {
+      return highlightjs.highlight(lang, code, true).value
     }
-    return highlightjs.highlightAuto(code).value
+    return ''
   }
 
   protected renderStyle(theme?: string): string {
