@@ -1,5 +1,4 @@
-/** @jest-environment jsdom-fifteen */
-// TODO: Use Jest built-in jsdom environment if https://github.com/jsdom/jsdom/issues/2961 was fixed
+/** @jest-environment jsdom */
 import { browser, observer } from '../src/browser'
 import fittingObserver from '../src/fitting/observer'
 
@@ -53,16 +52,6 @@ describe('Observer', () => {
     it('does not call window.requestAnimationFrame', () => {
       const spy = jest.spyOn(window, 'requestAnimationFrame')
       const cleanup = observer({ once: true })
-
-      expect(spy).not.toHaveBeenCalled()
-      cleanup()
-    })
-  })
-
-  describe('[DEPRECATED] with passed false', () => {
-    it('does not call window.requestAnimationFrame', () => {
-      const spy = jest.spyOn(window, 'requestAnimationFrame')
-      const cleanup = observer(false)
 
       expect(spy).not.toHaveBeenCalled()
       cleanup()

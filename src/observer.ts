@@ -6,25 +6,10 @@ type ObserverOptions = {
   target?: ParentNode
 }
 
-export function observer(opts?: ObserverOptions): () => void
-/** @deprecated Usage of observer() with boolean option has been deprecated. Please replace with the usage of option object. */
-export function observer(keep?: boolean): () => void
-export function observer(opts: ObserverOptions | boolean = {}): () => void {
-  const _opts =
-    typeof opts === 'boolean'
-      ? ((keep): ObserverOptions => {
-          const once = !keep
-          console.warn(
-            `[DEPRECATION WARNING] Usage of observer() with boolean option has been deprecated. Please replace with the usage of option object: observer({ once: ${
-              once ? 'true' : 'false'
-            } }).`
-          )
-
-          return { once }
-        })(opts)
-      : opts
-
-  const { once = false, target = document } = _opts
+export function observer({
+  once = false,
+  target = document,
+}: ObserverOptions = {}): () => void {
   const polyfillFuncs = polyfills()
 
   let enabled = !once
