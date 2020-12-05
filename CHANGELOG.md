@@ -12,6 +12,10 @@
 - Upgrade Marpit to [v1.6.3](https://github.com/marp-team/marpit/releases/v1.6.3) ([#203](https://github.com/marp-team/marp-core/pull/203))
 - Upgrade dependent packages to the latest version ([#203](https://github.com/marp-team/marp-core/pull/203))
 
+### Removed
+
+- `observer()` with boolean argument in `@marp-team/marp-core/browser` ([#204](https://github.com/marp-team/marp-core/pull/204))
+
 ## v1.3.0 - 2020-08-18
 
 ### Changed
@@ -22,7 +26,7 @@
 
 ### Deprecated
 
-- `observe()` with boolean argument from `@marp-team/marp-core/browser` has been deprecated in favor of the usage of the option object ([#185](https://github.com/marp-team/marp-core/pull/185))
+- `observer()` with boolean argument from `@marp-team/marp-core/browser` has been deprecated in favor of the usage of the option object ([#185](https://github.com/marp-team/marp-core/pull/185))
 
 ## v1.2.2 - 2020-07-18
 
