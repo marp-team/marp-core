@@ -781,14 +781,15 @@ describe('Marp', () => {
     describe('with overriden #highlighter', () => {
       const instance = marp()
 
-      instance.highlighter = (code, lang) => {
+      instance.highlighter = (code, lang, attrs) => {
         expect(code.trim()).toBe('test')
         expect(lang).toBe('markdown')
+        expect(attrs).toBe('{attrs}')
 
         return '<b class="customized">customized</b>'
       }
 
-      const $ = cheerio.load(instance.markdown.render('```markdown\ntest\n```'))
+      const $ = cheerio.load(instance.markdown.render('```markdown {attrs}\ntest\n```'))
 
       it('highlights with custom highlighter', () =>
         expect($('code .customized')).toHaveLength(1))
