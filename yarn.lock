@@ -559,13 +559,13 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@marp-team/marp-cli@0.22.1":
-  version "0.22.1"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-0.22.1.tgz#c73469fe0eb076c7dd91845e52c92600682e3a7d"
-  integrity sha512-v/qhwp/DiQ8EkJAFlVPkKZrOH8hJYbWSv57H30eXrJnLqcSkysMh4Hek/FnjmZv8iUd7jtejmqUVbtTyArpl3w==
+"@marp-team/marp-cli@0.23.0":
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-0.23.0.tgz#a02e65e88d8065660802b0bfeb676d61496c3136"
+  integrity sha512-SPDmn4zDvBWKgI9pufsbuRJGvDfYxj6Bqcbj89JYE9AnB1g48cJ/R25ljhX2lDZs5qc4hR9eFott06IPFnsuAQ==
   dependencies:
-    "@marp-team/marp-core" "^1.3.0"
-    "@marp-team/marpit" "^1.6.2"
+    "@marp-team/marp-core" "^1.4.0"
+    "@marp-team/marpit" "^1.6.3"
     chokidar "^3.4.3"
     chrome-launcher "^0.13.4"
     cosmiconfig "^7.0.0"
@@ -577,21 +577,21 @@
     serve-index "^1.9.1"
     tmp "^0.2.1"
     v8-compile-cache "^2.2.0"
-    ws "^7.4.0"
+    ws "^7.4.1"
     yargs "^16.1.1"
 
-"@marp-team/marp-core@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-1.3.0.tgz#c4ab1304e21a858060bdcef307457414bdcf33a3"
-  integrity sha512-mwB7WhdIk+5XhUR+mpkGSy7umN8OrHUp0lR/AGELDJ1n/L0x/uRtKJaFyDptklRb6HLh5aabMl7hPLjsV72tlw==
+"@marp-team/marp-core@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-1.4.0.tgz#4923431f1afb66d4f0eb01ed4c94d0305c903ba1"
+  integrity sha512-Uncn1dvI9Vxf578xZojwayyir+8olflYIscsKqlh03UeYilOeR1PNt8BrbPvviIadEtr1btFR7Oqi8yA5qwj5A==
   dependencies:
-    "@marp-team/marpit" "^1.6.2"
+    "@marp-team/marpit" "^1.6.3"
     "@marp-team/marpit-svg-polyfill" "^1.7.0"
-    emoji-regex "^9.0.0"
-    highlight.js "^10.1.2"
+    emoji-regex "^9.2.0"
+    highlight.js "^10.4.1"
     katex "^0.12.0"
-    markdown-it-emoji "^1.4.0"
-    mathjax-full "^3.0.5"
+    markdown-it-emoji "^2.0.0"
+    mathjax-full "^3.1.2"
     postcss "^7.0.32"
     postcss-minify-params "^4.0.2"
     postcss-minify-selectors "^4.0.2"
@@ -604,7 +604,7 @@
   resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-1.7.0.tgz#cd4e26f2a66d487bb79db7ea5c651d21e7561d07"
   integrity sha512-zgxLmO6ndj7DjYQqJ7i5Re62hkHFdx2j5xMa1plKeU3nmmpldXC4iBPTEuw2K/T3RBbgq9Dm2JViThKZSFbAMQ==
 
-"@marp-team/marpit@^1.6.2", "@marp-team/marpit@^1.6.3":
+"@marp-team/marpit@^1.6.3":
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-1.6.3.tgz#6402078b711298d23a475060e611ad399e2283a6"
   integrity sha512-sfz+I2zo2KQ9hSn7p7NVJ5DeOe2cSk62EWxWciIo5mDnou5PgWpFuI7hGfuxn/pPfqvBZPsS7eU8HIwhxAXxjA==
@@ -2580,7 +2580,7 @@ emoji-regex@^8.0.0:
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
   integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
 
-emoji-regex@^9.0.0, emoji-regex@^9.2.0:
+emoji-regex@^9.2.0:
   version "9.2.0"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-9.2.0.tgz#a26da8e832b16a9753309f25e35e3c0efb9a066a"
   integrity sha512-DNc3KFPK18bPdElMJnf/Pkv5TXhxFU3YFDEuGLDRtPmV4rkmCjBkCSEp22u6rBHdSN9Vlp/GK7k98prmE1Jgug==
@@ -3596,7 +3596,7 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
 
-highlight.js@^10.1.2, highlight.js@^10.4.1:
+highlight.js@^10.4.1:
   version "10.4.1"
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.4.1.tgz#d48fbcf4a9971c4361b3f95f302747afe19dbad0"
   integrity sha512-yR5lWvNz7c85OhVAEAeFhVCc/GV4C30Fjzc/rCP0aCWzc1UUOPUk55dK/qdwTZHBvMZo+eZ2jpk62ndX/xMFlg==
@@ -5269,11 +5269,6 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-markdown-it-emoji@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/markdown-it-emoji/-/markdown-it-emoji-1.4.0.tgz#9bee0e9a990a963ba96df6980c4fddb05dfb4dcc"
-  integrity sha1-m+4OmpkKljupbfaYDE/dsF37Tcw=
-
 markdown-it-emoji@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/markdown-it-emoji/-/markdown-it-emoji-2.0.0.tgz#3164ad4c009efd946e98274f7562ad611089a231"
@@ -5300,7 +5295,7 @@ marky@^1.2.0:
   resolved "https://registry.yarnpkg.com/marky/-/marky-1.2.1.tgz#a3fcf82ffd357756b8b8affec9fdbf3a30dc1b02"
   integrity sha512-md9k+Gxa3qLH6sUKpeC2CNkJK/Ld+bEz5X96nYwloqphQE0CKCVEKco/6jxEZixinqNdz5RFi/KaCyfbMDMAXQ==
 
-mathjax-full@^3.0.5, mathjax-full@^3.1.2:
+mathjax-full@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/mathjax-full/-/mathjax-full-3.1.2.tgz#53ac5b38252379d515d60e99092672b42725bf6a"
   integrity sha512-jFCwRFdFwIOa8J7r6VZT0AIv9ZwbLQ9aPc9YZp695NTvv7XKU2NunJodA+zDWzElIFJ7mTsImyfe5R3QyRNZjw==
@@ -8684,7 +8679,7 @@ write-file-atomic@^3.0.0, write-file-atomic@^3.0.3:
     signal-exit "^3.0.2"
     typedarray-to-buffer "^3.1.5"
 
-ws@^7.0.0, ws@^7.2.3, ws@^7.4.0:
+ws@^7.0.0, ws@^7.2.3, ws@^7.4.1:
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.1.tgz#a333be02696bd0e54cea0434e21dcc8a9ac294bb"
   integrity sha512-pTsP8UAfhy3sk1lSk/O/s4tjD0CRwvMnzvwr4OKGX7ZvqZtUyx4KIJB5JWbkykPoc55tixMGgTNoh3k4FkNGFQ==
