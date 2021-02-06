@@ -6,6 +6,7 @@
 
 - Upgrade Marpit to [v1.6.4](https://github.com/marp-team/marpit/releases/v1.6.4) ([#210](https://github.com/marp-team/marp-core/pull/210))
 - Upgrade dependent packages to the latest version ([#210](https://github.com/marp-team/marp-core/pull/210))
+- Rename `master` branch into `main` ([#211](https://github.com/marp-team/marp-core/pull/211))
 
 ## v1.4.0 - 2020-12-05
 
