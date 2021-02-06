@@ -62,12 +62,12 @@ describe('Marp', () => {
           const { render } = marp({ emoji })
 
           const $heart = cheerio.load(render('# :heart:').html)
-          expect($heart('h1').html()).toBe('&#x2764;&#xFE0F;')
+          expect($heart('h1').html()).toBe('\u2764\ufe0f')
 
           const $smiling = cheerio.load(
             render('# :smiling_face_with_three_hearts:').html
           )
-          expect($smiling('h1').html()).toBe('&#x1F970;')
+          expect($smiling('h1').html()).toBe('\u{1f970}')
         })
       })
 
