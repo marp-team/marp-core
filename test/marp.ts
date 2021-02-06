@@ -347,6 +347,31 @@ describe('Marp', () => {
         expect(katexFonts).toMatchSnapshot('katex-css-cdn')
       })
 
+      it('has a unique context for macro by Markdown rendering', () => {
+        const instance = marp()
+
+        const plain = cheerio
+          .load(instance.render('$x^2$').html)('.katex-html')
+          .html()
+
+        // KaTeX can modify macros through \gdef
+        const globallyDefined = cheerio
+          .load(instance.render('$\\gdef\\foo{x^2}$ $\\foo$').html)(
+            '.katex-html'
+          )
+          .eq(1)
+          .html()
+
+        expect(globallyDefined).toBe(plain)
+
+        // Defined command through \gdef in another rendering cannot use
+        const notDefined = cheerio
+          .load(instance.render('$\\foo$').html)('.katex-html')
+          .html()
+
+        expect(notDefined).not.toBe(plain)
+      })
+
       describe('when math typesetting syntax is not using', () => {
         it('does not inject KaTeX css', () =>
           expect(marp().render('plain text').css).not.toContain('.katex'))
@@ -438,6 +463,30 @@ describe('Marp', () => {
       it('injects MathJax css', () => {
         const { css } = marp({ math: 'mathjax' }).render(block)
         expect(css).toContain('mjx-container')
+      })
+
+      it('has a unique context for macro by Markdown rendering', () => {
+        const instance = marp({ math: 'mathjax' })
+
+        const plain = cheerio
+          .load(instance.render('$x^2$').html)('mjx-container')
+          .html()
+
+        const defined = cheerio
+          .load(instance.render('$\\def\\foo{x^2}$ $\\foo$').html)(
+            'mjx-container'
+          )
+          .eq(1)
+          .html()
+
+        expect(defined).toBe(plain)
+
+        // Defined command through \def in another rendering cannot use
+        const notDefined = cheerio
+          .load(instance.render('$\\foo$').html)('mjx-container')
+          .html()
+
+        expect(notDefined).not.toBe(plain)
       })
 
       describe('when math typesetting syntax is not using', () => {

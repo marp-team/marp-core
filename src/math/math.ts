@@ -1,14 +1,13 @@
 import marpitPlugin from '@marp-team/marpit/plugin'
+import { getMathContext, setMathContext } from './context'
 import * as katex from './katex'
 import * as mathjax from './mathjax'
 
-interface MathOptionsInterface {
+export interface MathOptionsInterface {
   lib?: 'katex' | 'mathjax'
   katexOption?: Record<string, unknown>
   katexFontPath?: string | false
 }
-
-const contextSymbol = Symbol('marp-math-context')
 
 export type MathOptions =
   | boolean
@@ -24,19 +23,38 @@ export const markdown = marpitPlugin((md) => {
       ? { lib: typeof opts === 'string' ? opts : undefined }
       : opts
 
-  Object.defineProperty(md.marpit, contextSymbol, { writable: true })
+  // Initialize
+  const { parse, parseInline } = md
 
-  md.core.ruler.before('block', 'marp_math_initialize', ({ inlineMode }) => {
-    if (!inlineMode) md.marpit[contextSymbol] = null
-  })
+  const initializeMathContext = () =>
+    setMathContext(md.marpit, () => ({
+      enabled: false,
+      options: parsedOpts,
+      katexMacroContext: {
+        ...((parsedOpts.katexOption?.macros as any) || {}),
+      },
+      mathjaxContext: null,
+    }))
+
+  md.parse = function (...args) {
+    initializeMathContext()
+    return parse.apply(this, args)
+  }
+
+  md.parseInline = function (...args) {
+    initializeMathContext()
+    return parseInline.apply(this, args)
+  }
+
+  const enableMath = () =>
+    setMathContext(md.marpit, (ctx) => ({ ...ctx, enabled: true }))
 
   // Inline
   md.inline.ruler.after('escape', 'marp_math_inline', (state, silent) => {
-    if (parseInlineMath(state, silent)) {
-      md.marpit[contextSymbol] = parsedOpts
-      return true
-    }
-    return false
+    const ret = parseInlineMath(state, silent)
+    if (ret) enableMath()
+
+    return ret
   })
 
   // Block
@@ -44,32 +62,31 @@ export const markdown = marpitPlugin((md) => {
     'blockquote',
     'marp_math_block',
     (state, start, end, silent) => {
-      if (parseMathBlock(state, start, end, silent)) {
-        md.marpit[contextSymbol] = parsedOpts
-        return true
-      }
-      return false
+      const ret = parseMathBlock(state, start, end, silent)
+      if (ret) enableMath()
+
+      return ret
     },
     { alt: ['paragraph', 'reference', 'blockquote', 'list'] }
   )
 
   // Renderer
   if (parsedOpts.lib === 'mathjax') {
-    md.renderer.rules.marp_math_inline = mathjax.inline()
-    md.renderer.rules.marp_math_block = mathjax.block()
+    md.renderer.rules.marp_math_inline = mathjax.inline(md.marpit)
+    md.renderer.rules.marp_math_block = mathjax.block(md.marpit)
   } else {
-    md.renderer.rules.marp_math_inline = katex.inline(parsedOpts.katexOption)
-    md.renderer.rules.marp_math_block = katex.block(parsedOpts.katexOption)
+    md.renderer.rules.marp_math_inline = katex.inline(md.marpit)
+    md.renderer.rules.marp_math_block = katex.block(md.marpit)
   }
 })
 
 export const css = (marpit: any): string | null => {
-  const opts: MathOptionsInterface | null = marpit[contextSymbol]
-  if (!opts) return null
+  const { enabled, options } = getMathContext(marpit)
+  if (!enabled) return null
 
-  if (opts.lib === 'mathjax') return mathjax.css()
+  if (options.lib === 'mathjax') return mathjax.css(marpit)
 
-  return katex.css(opts.katexFontPath)
+  return katex.css(options.katexFontPath)
 }
 
 function isValidDelim(state, pos = state.pos) {

@@ -1,17 +1,23 @@
 import katex from 'katex'
 import { version } from 'katex/package.json'
+import { getMathContext } from './context'
 import katexScss from './katex.scss'
 
 const convertedCSS = Object.create(null)
 const katexMatcher = /url\(['"]?fonts\/(.*?)['"]?\)/g
 
-export const inline = (opts: Record<string, unknown> = {}) => (tokens, idx) => {
+export const inline = (marpit: any) => (tokens, idx) => {
   const { content } = tokens[idx]
+  const {
+    options: { katexOption },
+    katexMacroContext,
+  } = getMathContext(marpit)
 
   try {
     return katex.renderToString(content, {
       throwOnError: false,
-      ...opts,
+      ...(katexOption || {}),
+      macros: katexMacroContext,
       displayMode: false,
     })
   } catch (e) {
@@ -20,13 +26,18 @@ export const inline = (opts: Record<string, unknown> = {}) => (tokens, idx) => {
   }
 }
 
-export const block = (opts: Record<string, unknown> = {}) => (tokens, idx) => {
+export const block = (marpit: any) => (tokens, idx) => {
   const { content } = tokens[idx]
+  const {
+    options: { katexOption },
+    katexMacroContext,
+  } = getMathContext(marpit)
 
   try {
     return `<p>${katex.renderToString(content, {
       throwOnError: false,
-      ...opts,
+      ...(katexOption || {}),
+      macros: katexMacroContext,
       displayMode: true,
     })}</p>`
   } catch (e) {

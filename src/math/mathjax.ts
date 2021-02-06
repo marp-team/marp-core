@@ -4,6 +4,7 @@ import { TeX } from 'mathjax-full/js/input/tex'
 import { AllPackages } from 'mathjax-full/js/input/tex/AllPackages'
 import { mathjax } from 'mathjax-full/js/mathjax'
 import { SVG } from 'mathjax-full/js/output/svg'
+import { getMathContext, setMathContext } from './context'
 
 interface MathJaxContext {
   adaptor: LiteAdaptor
@@ -11,10 +12,10 @@ interface MathJaxContext {
   document: ReturnType<typeof mathjax['document']>
 }
 
-let lazyContext: MathJaxContext | undefined
+const context = (marpit: any): MathJaxContext => {
+  let { mathjaxContext } = getMathContext(marpit)
 
-const context = (): MathJaxContext => {
-  if (!lazyContext) {
+  if (!mathjaxContext) {
     const adaptor = liteAdaptor()
     RegisterHTMLHandler(adaptor)
 
@@ -23,13 +24,15 @@ const context = (): MathJaxContext => {
     const document = mathjax.document('', { InputJax: tex, OutputJax: svg })
     const css = adaptor.textContent(svg.styleSheet(document) as any)
 
-    lazyContext = { adaptor, css, document }
+    mathjaxContext = { adaptor, css, document }
+    setMathContext(marpit, (ctx) => ({ ...ctx, mathjaxContext }))
   }
-  return lazyContext
+
+  return mathjaxContext
 }
 
-export const inline = () => (tokens, idx) => {
-  const { adaptor, document } = context()
+export const inline = (marpit: any) => (tokens, idx) => {
+  const { adaptor, document } = context(marpit)
   const { content } = tokens[idx]
 
   try {
@@ -40,10 +43,10 @@ export const inline = () => (tokens, idx) => {
   }
 }
 
-export const block = () =>
+export const block = (marpit: any) =>
   Object.assign(
     (tokens, idx) => {
-      const { adaptor, document } = context()
+      const { adaptor, document } = context(marpit)
       const { content } = tokens[idx]
 
       try {
@@ -66,4 +69,4 @@ export const block = () =>
     { scaled: true }
   )
 
-export const css = () => context().css
+export const css = (marpit: any) => context(marpit).css
