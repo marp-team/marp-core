@@ -22,7 +22,7 @@ export function markdown(md): void {
     ...args
   ) => {
     const ret = original(...args)
-    const whiteList = {}
+    const allowList = {}
     const html: MarpOptions['html'] = md.options.html
 
     if (typeof html === 'object') {
@@ -30,9 +30,9 @@ export function markdown(md): void {
         const attrs = html[tag]
 
         if (Array.isArray(attrs)) {
-          whiteList[tag] = attrs
+          allowList[tag] = attrs
         } else if (typeof attrs === 'object') {
-          whiteList[tag] = Object.keys(attrs).filter(
+          allowList[tag] = Object.keys(attrs).filter(
             (attr) => attrs[attr] !== false
           )
         }
@@ -40,7 +40,7 @@ export function markdown(md): void {
     }
 
     const filter = new FilterXSS({
-      whiteList,
+      whiteList: allowList,
       onIgnoreTag: (_, rawHtml) => (html === true ? rawHtml : undefined),
       safeAttrValue: (tag, attr, value) => {
         let ret = friendlyAttrValue(value)

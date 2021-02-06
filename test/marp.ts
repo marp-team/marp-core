@@ -233,11 +233,11 @@ describe('Marp', () => {
       })
     })
 
-    describe('with whitelist', () => {
+    describe('with allowlist', () => {
       const md = '<p>\ntest\n</p>\n\n<p class="class" title="title">test</p>'
       const html = { img: ['src'], p: ['class'] }
 
-      it('allows whitelisted tags and attributes', () => {
+      it('allows tags and attributes in allowlist', () => {
         const $ = cheerio.load(marp({ html }).render(md).html)
 
         expect($('p')).toHaveLength(2)
@@ -264,7 +264,7 @@ describe('Marp', () => {
       })
 
       describe('when attributes are defined as object', () => {
-        it('allows whitelisted attributes without defined false', () => {
+        it('allows attributes in allowlist without defined false', () => {
           const instance = marp({ html: { p: { id: true, class: false } } })
           const { html } = instance.render('<p id="id" class="class"></p>')
 
