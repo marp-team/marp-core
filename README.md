@@ -1,7 +1,7 @@
 # @marp-team/marp-core
 
-[![CircleCI](https://img.shields.io/circleci/project/github/marp-team/marp-core/master.svg?style=flat-square&logo=circleci)](https://circleci.com/gh/marp-team/marp-core/)
-[![Codecov](https://img.shields.io/codecov/c/github/marp-team/marp-core/master.svg?style=flat-square&logo=codecov)](https://codecov.io/gh/marp-team/marp-core)
+[![CircleCI](https://img.shields.io/circleci/project/github/marp-team/marp-core/main.svg?style=flat-square&logo=circleci)](https://circleci.com/gh/marp-team/marp-core/)
+[![Codecov](https://img.shields.io/codecov/c/github/marp-team/marp-core/main.svg?style=flat-square&logo=codecov)](https://codecov.io/gh/marp-team/marp-core)
 [![npm](https://img.shields.io/npm/v/@marp-team/marp-core.svg?style=flat-square&logo=npm)](https://www.npmjs.com/package/@marp-team/marp-core)
 [![LICENSE](https://img.shields.io/github/license/marp-team/marp-core.svg?style=flat-square)](./LICENSE)
 
@@ -33,7 +33,7 @@ Marp Markdown is based on [Marpit](https://github.com/marp-team/marpit) and [Com
   - Enable [inline SVG mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and loose YAML parsing by default.
 
 * **CommonMark**
-  - For security reason, HTML tag only allows whitelisted elements by default.
+  - For security reason, HTML tag only allows `<br />` by default.
   - Support [table](https://github.github.com/gfm/#tables-extension-) and [strikethrough](https://github.github.com/gfm/#strikethrough-extension-) syntax, based on [GitHub Flavored Markdown](https://github.github.com/gfm/).
   - Line breaks in paragraph will convert to `<br>` tag.
   - Auto convert URL like text into hyperlink.
@@ -206,12 +206,12 @@ const marp = new Marp({
 
 ### `html`: _`boolean`_ | _`object`_
 
-Setting whether to render raw HTML in Markdown. It's an alias to `markdown.html` ([markdown-it option](https://markdown-it.github.io/markdown-it/#MarkdownIt.new)) but has additional feature about HTML whitelist.
+Setting whether to render raw HTML in Markdown. It's an alias to `markdown.html` ([markdown-it option](https://markdown-it.github.io/markdown-it/#MarkdownIt.new)) but has additional feature about HTML allowlist.
 
 - `true`: The all HTML will be allowed.
 - `false`: All HTML except supported in Marpit Markdown will be disallowed.
 
-By passing `object`, you can set the whitelist to specify allowed tags and attributes.
+By passing `object`, you can set the allowlist to specify allowed tags and attributes.
 
 ```javascript
 // Specify tag name as key, and attributes to allow as string array.

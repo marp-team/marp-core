@@ -6,6 +6,7 @@
 
 - Upgrade Marpit to [v1.6.4](https://github.com/marp-team/marpit/releases/v1.6.4) ([#210](https://github.com/marp-team/marp-core/pull/210))
 - Upgrade dependent packages to the latest version ([#210](https://github.com/marp-team/marp-core/pull/210))
+- Rename `master` branch into `main` ([#211](https://github.com/marp-team/marp-core/pull/211))
 
 ## v1.4.0 - 2020-12-05
 
@@ -316,12 +317,12 @@
 ### Added
 
 - Allow using twemoji via PNG by added `emoji.twemoji.ext` option ([#67](https://github.com/marp-team/marp-core/pull/67))
-- Support custom sanitizer for whitelisted HTML attributes ([#68](https://github.com/marp-team/marp-core/pull/68))
+- Support custom sanitizer for HTML attributes within allowlist ([#68](https://github.com/marp-team/marp-core/pull/68))
 - Add usage of multiple classes in Gaia theme ([#69](https://github.com/marp-team/marp-core/pull/69))
 
 ### Fixed
 
-- Fix over-sanitized attributes with HTML whitelist ([#68](https://github.com/marp-team/marp-core/pull/68))
+- Fix over-sanitized attributes with HTML allowlist ([#68](https://github.com/marp-team/marp-core/pull/68))
 
 ### Changed
 
@@ -510,7 +511,7 @@
 
 ### Added
 
-- Support HTML whitelisting ([#26](https://github.com/marp-team/marp-core/pull/26))
+- Support HTML allowlisting ([#26](https://github.com/marp-team/marp-core/pull/26))
 
 ### Fixed
 
