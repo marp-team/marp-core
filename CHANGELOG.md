@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.4.1 - 2021-02-06
+
 ### Fixed
 
 - KaTeX: Persist defined global macro between math renderings ([#212](https://github.com/marp-team/marp-core/pull/212))
