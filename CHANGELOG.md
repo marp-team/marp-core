@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- KaTeX: Persist defined global macro between math renderings ([#212](https://github.com/marp-team/marp-core/pull/212))
+- MathJax: Prevent leaking defined macro between Markdown renderings ([#212](https://github.com/marp-team/marp-core/pull/212))
+
 ### Changed
 
 - Upgrade Marpit to [v1.6.4](https://github.com/marp-team/marpit/releases/v1.6.4) ([#210](https://github.com/marp-team/marp-core/pull/210))
