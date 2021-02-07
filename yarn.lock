@@ -558,36 +558,36 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@marp-team/marp-cli@0.23.0":
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-0.23.0.tgz#a02e65e88d8065660802b0bfeb676d61496c3136"
-  integrity sha512-SPDmn4zDvBWKgI9pufsbuRJGvDfYxj6Bqcbj89JYE9AnB1g48cJ/R25ljhX2lDZs5qc4hR9eFott06IPFnsuAQ==
+"@marp-team/marp-cli@0.23.1":
+  version "0.23.1"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-0.23.1.tgz#ff3026d41dfe693008e3a44eac251b0d7505027c"
+  integrity sha512-wl2/SHO4UZxtJhMZkqV34rRSYS97qi/R9mVKbCmMOgi6qj4aV8fJXQ2RQEfYSeTUcs3at3CLMce89HYUtVTzJw==
   dependencies:
-    "@marp-team/marp-core" "^1.4.0"
-    "@marp-team/marpit" "^1.6.3"
-    chokidar "^3.4.3"
+    "@marp-team/marp-core" "^1.4.1"
+    "@marp-team/marpit" "^1.6.4"
+    chokidar "^3.5.1"
     chrome-launcher "^0.13.4"
     cosmiconfig "^7.0.0"
     express "^4.17.1"
-    globby "^11.0.1"
+    globby "^11.0.2"
     import-from "^3.0.0"
-    pptxgenjs "^3.3.1"
-    puppeteer-core "~5.5.0"
+    pptxgenjs "^3.4.0"
+    puppeteer-core "~7.0.1"
     serve-index "^1.9.1"
     tmp "^0.2.1"
     v8-compile-cache "^2.2.0"
-    ws "^7.4.1"
-    yargs "^16.1.1"
+    ws "^7.4.3"
+    yargs "^16.2.0"
 
-"@marp-team/marp-core@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-1.4.0.tgz#4923431f1afb66d4f0eb01ed4c94d0305c903ba1"
-  integrity sha512-Uncn1dvI9Vxf578xZojwayyir+8olflYIscsKqlh03UeYilOeR1PNt8BrbPvviIadEtr1btFR7Oqi8yA5qwj5A==
+"@marp-team/marp-core@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-1.4.1.tgz#2b45311e76bf703f3e35d24f608f29d54ee19ef3"
+  integrity sha512-mtWoJV5THX0Aa3//ZExPKeYorb/FSTBZm1VVuyeXuxjKPrPU0McqDRxpQkX6RRbvhKm3shKPjr9ngaV61MCl9A==
   dependencies:
-    "@marp-team/marpit" "^1.6.3"
+    "@marp-team/marpit" "^1.6.4"
     "@marp-team/marpit-svg-polyfill" "^1.7.0"
-    emoji-regex "^9.2.0"
-    highlight.js "^10.4.1"
+    emoji-regex "^9.2.1"
+    highlight.js "^10.5.0"
     katex "^0.12.0"
     markdown-it-emoji "^2.0.0"
     mathjax-full "^3.1.2"
@@ -598,12 +598,12 @@
     twemoji "^13.0.1"
     xss "^1.0.8"
 
-"@marp-team/marpit-svg-polyfill@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-1.7.0.tgz#cd4e26f2a66d487bb79db7ea5c651d21e7561d07"
-  integrity sha512-zgxLmO6ndj7DjYQqJ7i5Re62hkHFdx2j5xMa1plKeU3nmmpldXC4iBPTEuw2K/T3RBbgq9Dm2JViThKZSFbAMQ==
+"@marp-team/marpit-svg-polyfill@^1.7.0", "@marp-team/marpit-svg-polyfill@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-1.7.1.tgz#be98fcd3758c2be60980dc31f17116a90262cf03"
+  integrity sha512-dSZLyPNzBY+lrcIPF1dC9dcYcU3MPFigtjQDxLZP48uWq5oaMSnPLGtDsiDjlqVHk6MAmMuw7qy1i4+tt9HhpA==
 
-"@marp-team/marpit@^1.6.3", "@marp-team/marpit@^1.6.4":
+"@marp-team/marpit@^1.6.4":
   version "1.6.4"
   resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-1.6.4.tgz#ccd5d398c4cf056256457c83d6d9f5298450e976"
   integrity sha512-8odh43KrTefjMfD4c1Z5idDS95xO+F+A1PP+gznbjGsnFrzT8q10uSo+J4oexJONFH2Jo926IKwixseVU4M8NA==
@@ -1773,7 +1773,7 @@ cheerio@^1.0.0-rc.5:
     parse5 "^6.0.0"
     parse5-htmlparser2-tree-adapter "^6.0.0"
 
-"chokidar@>=2.0.0 <4.0.0", chokidar@^3.2.2, chokidar@^3.4.3:
+"chokidar@>=2.0.0 <4.0.0", chokidar@^3.2.2, chokidar@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.1.tgz#ee9ce7bbebd2b79f49f304799d5468e31e14e68a"
   integrity sha512-9+s+Od+W0VJJzawDma/gvBNQqkTiqYTWLuZoyAsivsI4AaWTCzHG06/TMjsf1cYe9Cb97UCEhjz7HvnPk2p/tw==
@@ -2451,10 +2451,10 @@ detect-newline@^3.0.0:
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-3.1.0.tgz#576f5dfc63ae1a192ff192d8ad3af6308991b651"
   integrity sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==
 
-devtools-protocol@0.0.818844:
-  version "0.0.818844"
-  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.818844.tgz#d1947278ec85b53e4c8ca598f607a28fa785ba9e"
-  integrity sha512-AD1hi7iVJ8OD0aMLQU5VK0XH9LDlA1+BcPIgrAxPfaibx2DbWucuyOhc4oyQCbnvDDO68nN6/LcKfqTP343Jjg==
+devtools-protocol@0.0.847576:
+  version "0.0.847576"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.847576.tgz#2f201bfb68aa9ef4497199fbd7f5d5dfde3b200b"
+  integrity sha512-0M8kobnSQE0Jmly7Mhbeq0W/PpZfnuK+WjN2ZRVPbGqYwCHCioAVp84H0TcLimgECcN5H976y5QiXMGBC9JKmg==
 
 diff-sequences@^26.6.2:
   version "26.6.2"
@@ -2607,7 +2607,7 @@ emoji-regex@^8.0.0:
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
   integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
 
-emoji-regex@^9.2.0, emoji-regex@^9.2.1:
+emoji-regex@^9.2.1:
   version "9.2.1"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-9.2.1.tgz#c9b25604256bb3428964bead3ab63069d736f7ee"
   integrity sha512-117l1H6U4X3Krn+MrzYrL57d5H7siRHWraBs7s+LjRuFK7Fe7hJqnJ0skWlinqsycVLU5YAo6L8CsEYQ0V5prg==
@@ -3620,7 +3620,7 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
 
-highlight.js@^10.4.1, highlight.js@^10.5.0:
+highlight.js@^10.5.0:
   version "10.5.0"
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.5.0.tgz#3f09fede6a865757378f2d9ebdcbc15ba268f98f"
   integrity sha512-xTmvd9HiIHR6L53TMC7TKolEj65zG1XU+Onr8oi86mYa+nLcIbxTTWkpW7CsEwv/vK7u1zb8alZIMLDqqN6KTw==
@@ -3766,6 +3766,14 @@ https-proxy-agent@^4.0.0:
   integrity sha512-zoDhWrkR3of1l9QAL8/scJZyLu8j/gBkcwcaQOZh7Gyh/+uJQzGVETdgT30akuwkpL8HTRfssqI3BZuV18teDg==
   dependencies:
     agent-base "5"
+    debug "4"
+
+https-proxy-agent@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-5.0.0.tgz#e2a90542abb68a762e0a0850f6c9edadfd8506b2"
+  integrity sha512-EkYm5BcKUGiduxzSt3Eppko+PiNWNEpa4ySk9vTC6wDsQJW9rHSa+UhGNJoRYp7bz6Ht1eaRIa6QaJqO5rCFbA==
+  dependencies:
+    agent-base "6"
     debug "4"
 
 https@^1.0.0:
@@ -6672,7 +6680,7 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.2, postcss@^7.0.21
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-pptxgenjs@^3.3.1:
+pptxgenjs@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/pptxgenjs/-/pptxgenjs-3.4.0.tgz#5b597fc64abc4d09e73556cc1a93c233bcc325d5"
   integrity sha512-3vzborXFDXsgVn0JJDKQ2gBy9CaHRo3Fv+og0BfGGWX4TbUZKQuo20OwMi7ZRa2MsJzUpSBd3yulv7kx2ckiIg==
@@ -6778,15 +6786,15 @@ pupa@^2.0.1:
   dependencies:
     escape-goat "^2.0.0"
 
-puppeteer-core@~5.5.0:
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-5.5.0.tgz#dfb6266efe5a933cbf1a368d27025a6fd4f5a884"
-  integrity sha512-tlA+1n+ziW/Db03hVV+bAecDKse8ihFRXYiEypBe9IlLRvOCzYFG6qrCMBYK34HO/Q/Ecjc+tvkHRAfLVH+NgQ==
+puppeteer-core@~7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-7.0.1.tgz#4d4bbc910ef879680045902a26ee932715af7352"
+  integrity sha512-CIOSYtfTFbaG/li8ZJzkqPQ15tuUb9hDTfzQ/AV/kWhv1OKV/T+VzCGx1DU2CdhoEsmLBYmVb1SQ6h0eQSRuXg==
   dependencies:
     debug "^4.1.0"
-    devtools-protocol "0.0.818844"
+    devtools-protocol "0.0.847576"
     extract-zip "^2.0.0"
-    https-proxy-agent "^4.0.0"
+    https-proxy-agent "^5.0.0"
     node-fetch "^2.6.1"
     pkg-dir "^4.2.0"
     progress "^2.0.1"
@@ -8744,7 +8752,7 @@ write-file-atomic@^3.0.0, write-file-atomic@^3.0.3:
     signal-exit "^3.0.2"
     typedarray-to-buffer "^3.1.5"
 
-ws@^7.0.0, ws@^7.2.3, ws@^7.4.1:
+ws@^7.0.0, ws@^7.2.3, ws@^7.4.3:
   version "7.4.3"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.3.tgz#1f9643de34a543b8edb124bdcbc457ae55a6e5cd"
   integrity sha512-hr6vCR76GsossIRsr8OLR9acVVm1jyfEWvhbNjtgPOrfvAlKzvyeg/P6r8RuDjRyrcQoPQT7K0DGEPc7Ae6jzA==
@@ -8839,7 +8847,7 @@ yargs@^15.4.1:
     y18n "^4.0.0"
     yargs-parser "^18.1.2"
 
-yargs@^16.1.1:
+yargs@^16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-16.2.0.tgz#1c82bf0f6b6a66eafce7ef30e376f49a12477f66"
   integrity sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==
