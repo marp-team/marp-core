@@ -1,8 +1,14 @@
 import type { MathOptionsInterface } from './math'
 
 type MathContext = {
+  /** Whether Markdown is using math syntax  */
   enabled: boolean
+
+  /** Math options that have passed into Marp Core instance */
   options: MathOptionsInterface
+
+  /** Whether Math plugin is processing in the context for current render */
+  processing: boolean
 
   // Library specific contexts
   katexMacroContext: Record<string, string>

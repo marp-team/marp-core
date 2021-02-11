@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- KaTeX does not be rendered together with header/footer ([#214](https://github.com/marp-team/marp-core/issues/214), [#215](https://github.com/marp-team/marp-core/pull/215))
+
 ## v1.4.2 - 2021-02-07
 
 ### Changed
