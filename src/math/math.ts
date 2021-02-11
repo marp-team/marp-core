@@ -26,25 +26,40 @@ export const markdown = marpitPlugin((md) => {
   // Initialize
   const { parse, parseInline } = md
 
-  const initializeMathContext = () =>
+  const initializeMathContext = () => {
+    if (getMathContext(md.marpit).processing) return false
+
     setMathContext(md.marpit, () => ({
       enabled: false,
       options: parsedOpts,
+      processing: true,
       katexMacroContext: {
         ...((parsedOpts.katexOption?.macros as any) || {}),
       },
       mathjaxContext: null,
     }))
 
-  md.parse = function (...args) {
-    initializeMathContext()
-    return parse.apply(this, args)
+    return true
   }
 
-  md.parseInline = function (...args) {
-    initializeMathContext()
-    return parseInline.apply(this, args)
+  const parseWithMath = <F extends (this: any, ...args: any[]) => any>(
+    func: F
+  ) => {
+    return function (this: ThisType<F>, ...args: Parameters<F>) {
+      const initialized = initializeMathContext()
+
+      try {
+        return func.apply(this, args)
+      } finally {
+        if (initialized) {
+          setMathContext(md.marpit, (ctx) => ({ ...ctx, processing: false }))
+        }
+      }
+    }
   }
+
+  md.parse = parseWithMath(parse)
+  md.parseInline = parseWithMath(parseInline)
 
   const enableMath = () =>
     setMathContext(md.marpit, (ctx) => ({ ...ctx, enabled: true }))
