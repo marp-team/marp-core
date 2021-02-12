@@ -558,12 +558,12 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@marp-team/marp-cli@0.23.1":
-  version "0.23.1"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-0.23.1.tgz#ff3026d41dfe693008e3a44eac251b0d7505027c"
-  integrity sha512-wl2/SHO4UZxtJhMZkqV34rRSYS97qi/R9mVKbCmMOgi6qj4aV8fJXQ2RQEfYSeTUcs3at3CLMce89HYUtVTzJw==
+"@marp-team/marp-cli@0.23.2":
+  version "0.23.2"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-0.23.2.tgz#f986ce58690b0f784c0a7e54e38bda4bb86d7183"
+  integrity sha512-UDWo6OvGOd9sSMwv6bG3zWqRiF3BFqJRLIylXgrJEwsIhS0IriRVwRzhvRKd25Wx0jlBM6xv02VdHQDzA2M6Fw==
   dependencies:
-    "@marp-team/marp-core" "^1.4.1"
+    "@marp-team/marp-core" "^1.4.3"
     "@marp-team/marpit" "^1.6.4"
     chokidar "^3.5.1"
     chrome-launcher "^0.13.4"
@@ -572,20 +572,20 @@
     globby "^11.0.2"
     import-from "^3.0.0"
     pptxgenjs "^3.4.0"
-    puppeteer-core "~7.0.1"
+    puppeteer-core "7.0.1"
     serve-index "^1.9.1"
     tmp "^0.2.1"
     v8-compile-cache "^2.2.0"
     ws "^7.4.3"
     yargs "^16.2.0"
 
-"@marp-team/marp-core@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-1.4.1.tgz#2b45311e76bf703f3e35d24f608f29d54ee19ef3"
-  integrity sha512-mtWoJV5THX0Aa3//ZExPKeYorb/FSTBZm1VVuyeXuxjKPrPU0McqDRxpQkX6RRbvhKm3shKPjr9ngaV61MCl9A==
+"@marp-team/marp-core@^1.4.3":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-1.4.3.tgz#1d6785ec66f16e29ffc464b0191e07e21685d724"
+  integrity sha512-3JB8YvkgXuyxGvX17CNgaZxCvmOAY/hYn61b3d90hL4HZ9bL6ND3MF6QJQrUfogxztqfGfZf427rJdhRnp+uYA==
   dependencies:
     "@marp-team/marpit" "^1.6.4"
-    "@marp-team/marpit-svg-polyfill" "^1.7.0"
+    "@marp-team/marpit-svg-polyfill" "^1.7.1"
     emoji-regex "^9.2.1"
     highlight.js "^10.5.0"
     katex "^0.12.0"
@@ -598,7 +598,7 @@
     twemoji "^13.0.1"
     xss "^1.0.8"
 
-"@marp-team/marpit-svg-polyfill@^1.7.0", "@marp-team/marpit-svg-polyfill@^1.7.1":
+"@marp-team/marpit-svg-polyfill@^1.7.1":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-1.7.1.tgz#be98fcd3758c2be60980dc31f17116a90262cf03"
   integrity sha512-dSZLyPNzBY+lrcIPF1dC9dcYcU3MPFigtjQDxLZP48uWq5oaMSnPLGtDsiDjlqVHk6MAmMuw7qy1i4+tt9HhpA==
@@ -6786,7 +6786,7 @@ pupa@^2.0.1:
   dependencies:
     escape-goat "^2.0.0"
 
-puppeteer-core@~7.0.1:
+puppeteer-core@7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-7.0.1.tgz#4d4bbc910ef879680045902a26ee932715af7352"
   integrity sha512-CIOSYtfTFbaG/li8ZJzkqPQ15tuUb9hDTfzQ/AV/kWhv1OKV/T+VzCGx1DU2CdhoEsmLBYmVb1SQ6h0eQSRuXg==
