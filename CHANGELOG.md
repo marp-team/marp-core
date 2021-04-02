@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed a deprecation warning of highlight.js ([#219](https://github.com/marp-team/marp-core/issues/219))
+
+### Changed
+
+- Upgrade Node LTS and dependent packages to the latest version ([#219](https://github.com/marp-team/marp-core/pull/219))
+
 ## v1.4.3 - 2021-02-11
 
 ### Fixed
