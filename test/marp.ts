@@ -307,16 +307,18 @@ describe('Marp', () => {
     describe('with KaTeX (default)', () => {
       const pickKaTeXWebFont = (css: string) => {
         const walkedUrls: string[] = []
-
-        postcss([
-          (root) =>
-            root.walkAtRules('font-face', (rule) =>
+        const walkerPlugin = {
+          postcssPlugin: 'postcss-katex-walker',
+          AtRule: (rule) => {
+            if (rule.name === 'font-face') {
               rule.walkDecls('src', (e) => {
                 if (e.value.includes('KaTeX')) walkedUrls.push(e.value)
               })
-            ),
-        ]).process(css, { from: undefined }).css
+            }
+          },
+        }
 
+        postcss([walkerPlugin]).process(css, { from: undefined }).css
         return walkedUrls
       }
 

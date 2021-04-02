@@ -1,7 +1,11 @@
 import { Marpit, Options, Theme } from '@marp-team/marpit'
 import cheerio from 'cheerio'
-import postcss from 'postcss'
+import postcss, { AtRule, Rule } from 'postcss'
 import { markdown as sizePlugin } from '../../src/size/size'
+
+interface CollectedDecls {
+  [k: string]: string | CollectedDecls
+}
 
 const metaType = { size: Array }
 
@@ -19,22 +23,28 @@ describe('Size plugin', () => {
     css: string,
     selector = 'div.marpit > section'
   ) => {
-    const collectedDecls: Record<string, any> = {}
+    const collectedDecls: CollectedDecls = {}
 
     await postcss([
-      (root) => {
-        const collect = (rule: postcss.Rule | postcss.AtRule, to) =>
-          rule.walkDecls(({ prop, value }) => {
-            to[prop] = value
+      {
+        postcssPlugin: 'postcss-collect-decl-walker',
+        Root: (root) => {
+          const collect = (rule: Rule | AtRule, to: CollectedDecls) =>
+            rule.walkDecls(({ prop, value }) => {
+              to[prop] = value
+            })
+
+          root.walkRules(selector, (rule) => collect(rule, collectedDecls))
+          root.walkAtRules((atRule) => {
+            const name = `@${atRule.name}`
+            const current = collectedDecls[name]
+            const obj =
+              typeof current === 'object' ? current : ({} as CollectedDecls)
+
+            collectedDecls[name] = obj
+            collect(atRule, obj)
           })
-
-        root.walkRules(selector, (rule) => collect(rule, collectedDecls))
-        root.walkAtRules((atRule) => {
-          const name = `@${atRule.name}`
-
-          collectedDecls[name] = collectedDecls[name] || {}
-          collect(atRule, collectedDecls[name])
-        })
+        },
       },
     ]).process(css, { from: undefined })
 
@@ -66,7 +76,7 @@ describe('Size plugin', () => {
       const decls = await collectDecls(css)
       expect(decls.width).toBe('640px')
       expect(decls.height).toBe('480px')
-      expect(decls['@page'].size).toBe('640px 480px')
+      expect(decls['@page']).toHaveProperty('size', '640px 480px')
     })
 
     it('reverts manipulated theme after rendering', () => {
@@ -125,7 +135,7 @@ describe('Size plugin', () => {
 
       expect(decls.width).toBe('640px')
       expect(decls.height).toBe('480px')
-      expect(decls['@page'].size).toBe('640px 480px')
+      expect(decls['@page']).toHaveProperty('size', '640px 480px')
     })
 
     it('can override defined size in inherited theme', async () => {
@@ -134,7 +144,7 @@ describe('Size plugin', () => {
 
       expect(decls.width).toBe('6px')
       expect(decls.height).toBe('4px')
-      expect(decls['@page'].size).toBe('6px 4px')
+      expect(decls['@page']).toHaveProperty('size', '6px 4px')
     })
 
     it('can disable defined size in inherited theme by `@size [name] false`', async () => {
