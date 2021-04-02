@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.5.0 - 2021-04-02
+
 ### Fixed
 
 - Fixed a deprecation warning of highlight.js ([#219](https://github.com/marp-team/marp-core/issues/219))
