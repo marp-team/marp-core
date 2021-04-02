@@ -92,7 +92,10 @@ export class Marp extends Marpit {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   highlighter(code: string, lang: string, attrs: string): string {
     if (lang && highlightjs.getLanguage(lang)) {
-      return highlightjs.highlight(lang, code, true).value
+      return highlightjs.highlight(code, {
+        language: lang,
+        ignoreIllegals: true,
+      }).value
     }
     return ''
   }
