@@ -17,60 +17,11 @@ $color-secondary: #81d4fa;
 @import '~highlight.js/styles/sunburst';
 
 @mixin color-scheme($bg, $text, $highlight) {
-  color: $text;
-  background-color: $bg;
-
-  a,
-  mark {
-    color: $highlight;
-  }
-
-  code {
-    background: mix($text, $bg, 80%);
-    color: $bg;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    strong {
-      color: $highlight;
-    }
-  }
-
-  pre > code {
-    background: $text;
-  }
-
-  header,
-  footer,
-  section::after,
-  blockquote::before,
-  blockquote::after {
-    color: mix($text, $bg, 80%);
-  }
-
-  table {
-    th,
-    td {
-      border-color: $text;
-    }
-
-    thead th {
-      background: $text;
-      color: $bg;
-    }
-
-    tbody > tr:nth-child(odd) {
-      td,
-      th {
-        background: rgba($text, 0.1);
-      }
-    }
-  }
+  --color-background: #{$bg};
+  --color-background-stripe: #{rgba($text, 0.1)};
+  --color-foreground: #{$text};
+  --color-dimmed: #{mix($text, $bg, 80%)};
+  --color-highlight: #{$highlight};
 }
 
 svg[data-marp-fitting='svg'] {
@@ -206,7 +157,32 @@ table {
   }
 }
 
+header,
+footer,
+section::after {
+  box-sizing: border-box;
+  font-size: 66%;
+  height: 70px;
+  line-height: 50px;
+  overflow: hidden;
+  padding: 10px 25px;
+  position: absolute;
+}
+
+header {
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+footer {
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 section {
+  background-color: var(--color-background);
   background-image: linear-gradient(
     135deg,
     rgba(#888, 0),
@@ -214,6 +190,7 @@ section {
     rgba(#fff, 0) 50%,
     rgba(#fff, 0.05)
   );
+  color: var(--color-foreground);
   font-size: 35px;
   font-family: 'Lato', 'Avenir Next', 'Avenir', 'Trebuchet MS', 'Segoe UI',
     sans-serif;
@@ -224,12 +201,70 @@ section {
   width: 1280px;
   word-wrap: break-word;
 
+  @include color-scheme($color-light, $color-dark, $color-primary);
+
+  &::after {
+    right: 0;
+    bottom: 0;
+    font-size: 80%;
+  }
+
+  a,
+  mark {
+    color: var(--color-highlight);
+  }
+
+  code {
+    background: var(--color-dimmed);
+    color: var(--color-background);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    strong {
+      color: var(--color-highlight);
+    }
+  }
+
+  pre > code {
+    background: var(--color-foreground);
+  }
+
+  header,
+  footer,
+  section::after,
+  blockquote::before,
+  blockquote::after {
+    color: var(--color-dimmed);
+  }
+
+  table {
+    th,
+    td {
+      border-color: var(--color-foreground);
+    }
+
+    thead th {
+      background: var(--color-foreground);
+      color: var(--color-background);
+    }
+
+    tbody > tr:nth-child(odd) {
+      td,
+      th {
+        background: var(--color-background-stripe, transparent);
+      }
+    }
+  }
+
   > *:first-child,
   > header:first-child + * {
     margin-top: 0;
   }
-
-  @include color-scheme($color-light, $color-dark, $color-primary);
 
   &.invert {
     @include color-scheme($color-dark, $color-light, $color-secondary);
@@ -290,34 +325,4 @@ section {
       margin-right: auto;
     }
   }
-}
-
-header,
-footer,
-section::after {
-  box-sizing: border-box;
-  font-size: 66%;
-  height: 70px;
-  line-height: 50px;
-  overflow: hidden;
-  padding: 10px 25px;
-  position: absolute;
-}
-
-header {
-  left: 0;
-  right: 0;
-  top: 0;
-}
-
-footer {
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-section::after {
-  right: 0;
-  bottom: 0;
-  font-size: 80%;
 }
