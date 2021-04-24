@@ -6,6 +6,7 @@
 
 - Upgrade Marpit to [v2.0.0](https://github.com/marp-team/marpit/releases/v2.0.0) ([#220](https://github.com/marp-team/marp-core/pull/220))
 - Allow color customization through CSS variables in Gaia and Uncover theme ([#209](https://github.com/marp-team/marp-core/issues/209), [#221](https://github.com/marp-team/marp-core/pull/221))
+- Upgrade Node LTS and dependent packages to the latest version ([#222](https://github.com/marp-team/marp-core/pull/222))
 
 ## v1.5.0 - 2021-04-02
 
