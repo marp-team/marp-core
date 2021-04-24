@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v2.0.0 - 2021-04-24
+
 ### Added
 
 - Allow color customization through CSS variables in Gaia and Uncover theme ([#209](https://github.com/marp-team/marp-core/issues/209), [#221](https://github.com/marp-team/marp-core/pull/221))
