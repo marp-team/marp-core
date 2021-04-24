@@ -110,12 +110,12 @@ jobs:
     steps:
       - test
 
-  test-node16:
-    executor:
-      name: node
-      version: '16'
-    steps:
-      - test
+  # test-node16:
+  #   executor:
+  #     name: node
+  #     version: '16'
+  #   steps:
+  #     - test
 
 workflows:
   test:
@@ -130,6 +130,6 @@ workflows:
       - test-node14:
           requires:
             - audit
-      - test-node16:
-          requires:
-            - audit
+      # - test-node16:
+      #     requires:
+      #       - audit
