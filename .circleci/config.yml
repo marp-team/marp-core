@@ -106,9 +106,16 @@ jobs:
   test-node14:
     executor:
       name: node
-      version: '14.16.0' # Specify LTS version for development
+      version: '14.16.1' # Specify LTS version for development
     steps:
       - test
+
+  # test-node16:
+  #   executor:
+  #     name: node
+  #     version: '16'
+  #   steps:
+  #     - test
 
 workflows:
   test:
@@ -123,3 +130,6 @@ workflows:
       - test-node14:
           requires:
             - audit
+      # - test-node16:
+      #     requires:
+      #       - audit
