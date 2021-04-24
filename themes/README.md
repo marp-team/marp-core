@@ -102,6 +102,23 @@ Gaia theme supports an additional color scheme by `gaia` class.
 > # Lead + gaia
 > ```
 
+### Custom color (CSS variables)
+
+Color scheme for Gaia theme has defined by CSS variables. You also can use the custom color scheme by inline style.
+
+```html
+<style>
+  :root {
+    --color-background: #fff !important;
+    --color-foreground: #333 !important;
+    --color-highlight: #f96 !important;
+    --color-dimmed: #888 !important;
+  }
+</style>
+```
+
+`!important` is required to make custom colors force against specific color defined by HTML classes like `invert` and `gaia`. See also: [marp-team/marp-core#221](https://github.com/marp-team/marp-core/pull/221)
+
 ## Uncover
 
 [![](https://user-images.githubusercontent.com/3993388/48039495-5456b200-e1b8-11e8-8c82-ca7f7842b34d.png)][example]
@@ -115,7 +132,29 @@ Uncover theme has three design concepts: simple, minimal, and modern. It's inspi
 
 ### :warning: Restrictions
 
-[Auto-scaling for code block](https://github.com/marp-team/marp-core#auto-scaling-features) is disabled because uncover theme uses the elastic style that has not compatible with it.
+_[Auto-scaling for code block](https://github.com/marp-team/marp-core#auto-scaling-features) is disabled_ because uncover theme uses the elastic style that has not compatible with it.
+
+### Custom color (CSS variables)
+
+Color scheme for Uncover theme has defined by CSS variables. You also can use the custom color scheme by inline style.
+
+```html
+<style>
+  :root {
+    --color-background: #ddd !important;
+    --color-background-code: #ccc !important;
+    --color-background-paginate: rgba(128, 128, 128, 0.05) !important;
+    --color-foreground: #345 !important;
+    --color-highlight: #99c !important;
+    --color-highlight-hover: #aaf !important;
+    --color-highlight-heading: #99c !important;
+    --color-header: #bbb !important;
+    --color-header-shadow: transparent !important;
+  }
+</style>
+```
+
+`!important` is required to make custom colors force against specific color defined by HTML classes like `invert`. See also: [marp-team/marp-core#221](https://github.com/marp-team/marp-core/pull/221)
 
 # Metadata for additional features
 

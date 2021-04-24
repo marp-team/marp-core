@@ -5,4 +5,7 @@ module.exports = {
   engine,
   server: true,
   inputDir: path.join(__dirname, './sandbox'),
+  options: {
+    minifyCSS: false,
+  },
 }
