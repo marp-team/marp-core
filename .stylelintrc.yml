@@ -14,3 +14,5 @@ rules:
     - lower
     - ignoreProperties:
         - /^--/
+  no-invalid-position-at-import-rule:
+    - null

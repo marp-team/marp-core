@@ -101,7 +101,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "sass": "^1.32.11",
     "self-closing-tags": "^1.0.1",
-    "stylelint": "~13.12.0",
+    "stylelint": "^13.13.0",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^22.0.0",
     "stylelint-scss": "^3.19.0",
