@@ -6,6 +6,10 @@
 
 - Fix to work `markdown.typographer` option ([#228](https://github.com/marp-team/marp-core/pull/228))
 
+### Changed
+
+- Upgrade dependent packages to the latest version ([#229](https://github.com/marp-team/marp-core/pull/229))
+
 ## v2.0.1 - 2021-04-27
 
 ### Changed
