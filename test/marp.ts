@@ -1,5 +1,5 @@
 import { Marpit } from '@marp-team/marpit'
-import cheerio from 'cheerio'
+import cheerio, { CheerioOptions } from 'cheerio'
 import postcss from 'postcss'
 import { EmojiOptions } from '../src/emoji/emoji'
 import { Marp, MarpOptions } from '../src/marp'
@@ -13,10 +13,11 @@ afterEach(() => jest.restoreAllMocks())
 describe('Marp', () => {
   const marp = (opts?: MarpOptions): Marp => new Marp(opts)
 
-  const loadCheerio = (html: string) =>
+  const loadCheerio = (html: string, opts?: CheerioOptions) =>
     cheerio.load(html, {
       lowerCaseAttributeNames: false,
       lowerCaseTags: false,
+      ...opts,
     })
 
   it('extends Marpit', () => expect(marp()).toBeInstanceOf(Marpit))
@@ -607,7 +608,7 @@ describe('Marp', () => {
       ]) {
         it('wraps by <svg data-marp-fitting="svg">', () => {
           const { html, comments } = marp().render(markdown)
-          const $ = loadCheerio(html)
+          const $ = loadCheerio(html, { xmlMode: true })
           const svgContent = $(
             [
               'h1',
@@ -637,7 +638,7 @@ describe('Marp', () => {
       const markdown = '\tCODE BLOCK'
 
       it('wraps code block by <svg data-marp-fitting="svg">', () => {
-        const $ = loadCheerio(marp().render(markdown).html)
+        const $ = loadCheerio(marp().render(markdown).html, { xmlMode: true })
         const svgContent = $(
           [
             'pre',
@@ -681,7 +682,7 @@ describe('Marp', () => {
       const markdown = '```typescript\nconst a = 1\n```'
 
       it('wraps code block by <svg data-marp-fitting="svg">', () => {
-        const $ = loadCheerio(marp().render(markdown).html)
+        const $ = loadCheerio(marp().render(markdown).html, { xmlMode: true })
         const svgContent = $(
           [
             'pre',
@@ -789,11 +790,13 @@ describe('Marp', () => {
         const md = (t: string) => `<!-- theme: ${t} -->\n<!-- size: 4:3 -->`
 
         const { html } = instance.render('<!-- size: 4:3 -->')
-        expect(loadCheerio(html)('foreignObject').attr()).toStrictEqual(size)
+        expect(
+          loadCheerio(html, { xmlMode: true })('foreignObject').attr()
+        ).toStrictEqual(size)
 
         for (const theme of instance.themeSet.themes()) {
           const { html: themeHtml } = instance.render(md(theme.name))
-          const $ = loadCheerio(themeHtml)
+          const $ = loadCheerio(themeHtml, { xmlMode: true })
 
           expect($('foreignObject').attr()).toStrictEqual(size)
         }
