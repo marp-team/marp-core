@@ -45,6 +45,9 @@ describe('Marp', () => {
     })
 
     it('can enable typographer option by markdown option', () => {
+      const $original = cheerio.load(marp().markdown.render('"(c)"'))
+      expect($original('p').text()).toBe('"(c)"')
+
       const $ = cheerio.load(
         marp({ markdown: { typographer: true } }).markdown.render('"(c)"')
       )
