@@ -41,6 +41,14 @@ export class Marp extends Marpit {
   static readonly html = { br: [] }
 
   constructor(opts: MarpOptions = {}) {
+    const mdOpts: Record<string, any> = {
+      breaks: true,
+      linkify: true,
+      highlight: (code, lang, attrs) => this.highlighter(code, lang, attrs),
+      html: opts.html ?? Marp.html,
+      ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
+    }
+
     super({
       inlineSVG: true,
       looseYAML: true,
@@ -53,19 +61,13 @@ export class Marp extends Marpit {
         unicode: 'twemoji',
         ...(opts.emoji || {}),
       },
-      markdown: [
-        'commonmark',
-        {
-          breaks: true,
-          linkify: true,
-          highlight: (code, lang, attrs) => this.highlighter(code, lang, attrs),
-          html: opts.html ?? Marp.html,
-          ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
-        },
-      ],
+      markdown: ['commonmark', mdOpts],
     } as MarpOptions)
 
     this.markdown.enable(['table', 'linkify', 'strikethrough'])
+
+    if (mdOpts.typographer)
+      this.markdown.enable(['replacements', 'smartquotes'])
 
     // Theme support
     this.themeSet.metaType = Object.freeze({
