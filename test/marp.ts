@@ -43,6 +43,13 @@ describe('Marp', () => {
       const $ = cheerio.load(marp().markdown.render('~~strikethrough~~'))
       expect($('s')).toHaveLength(1)
     })
+
+    it('can enable typographer option by markdown option', () => {
+      const $ = cheerio.load(
+        marp({ markdown: { typographer: true } }).markdown.render('"(c)"')
+      )
+      expect($('p').text()).toBe('“©”')
+    })
   })
 
   describe('emoji option', () => {
