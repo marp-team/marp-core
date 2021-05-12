@@ -6,6 +6,7 @@ import postcssMinifySelectors from 'postcss-minify-selectors'
 import postcssNormalizeWhitespace from 'postcss-normalize-whitespace'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
+import intelliTheme from '../themes/intelli.css'
 import uncoverTheme from '../themes/uncover.scss'
 import * as emojiPlugin from './emoji/emoji'
 import * as fittingPlugin from './fitting/fitting'
@@ -77,6 +78,7 @@ export class Marp extends Marpit {
 
     this.themeSet.default = this.themeSet.add(defaultTheme)
     this.themeSet.add(gaiaTheme)
+    this.themeSet.add(intelliTheme)
     this.themeSet.add(uncoverTheme)
   }
 

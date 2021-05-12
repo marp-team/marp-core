@@ -1,0 +1,356 @@
+/*!
+ * Intelli theme
+ *
+ * @theme intelli
+ * @author Yuki Hattori
+ * @size 4:3 960px 720px
+ * @auto-scaling true
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,400..900&family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+section {
+  /* Fonts */
+  --font-size: 34px;
+  --font-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Helvetica Neue', 'Ubuntu', 'Cantarell', 'Droid Sans', sans-serif;
+  --font-monospace: 'Source Code Pro', 'Courier New', Courier, monospace;
+  --font-feature-settings: 'calt' 1;
+
+  /* Scale factor */
+  --scale-factor: 1;
+
+  /* Colors */
+  --color-black: #1d1f21;
+  --color-white: #fcfcfc;
+  --color-gray-1: #222;
+  --color-gray-2: #444;
+  --color-gray-3: #bbb;
+  --color-gray-4: #eee;
+  --color-blue: hsl(220, 99%, 60%);
+  --color-blue-light: hsl(220, 100%, 70%);
+
+  --color-forground: var(--color-black);
+  --color-background: var(--color-white);
+  --color-code: var(--color-gray-4);
+  --color-code-border: var(--color-gray-3);
+  --color-link: var(--color-blue);
+  --color-link-hover: var(--color-blue-light);
+  --color-table-border: var(--color-forground);
+  --color-table-border-secondary: var(--color-gray-3);
+
+  /* Spacings */
+  --section-horizontal-padding: calc(var(--scale-factor) * 80px);
+  --section-vertical-padding: calc(var(--scale-factor) * 60px);
+  --table-cell-horizontal-padding: calc(var(--scale-factor) * 10px);
+  --table-cell-vertical-padding: calc(var(--scale-factor) * 6px);
+  --flow-spacing: calc(var(--font-size) * 0.4);
+  --flow-spacing-large: calc(var(--font-size) * 0.8);
+  --flow-spacing-xlarge: var(--font-size);
+
+  /* Components */
+  --header-font-size: calc(var(--font-size) * 1.6);
+  --h1-font-size: calc(var(--font-size) * 1.7);
+  --h2-font-size: calc(var(--font-size) * 1.5);
+  --h3-font-size: calc(var(--font-size) * 1.3);
+  --h4-font-size: calc(var(--font-size) * 1.1);
+  --h5-font-size: calc(var(--font-size) * 0.9);
+  --h6-font-size: calc(var(--font-size) * 0.7);
+}
+
+/* Reset CSS */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+blockquote,
+dl,
+figure,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+ol,
+p,
+pre,
+table,
+ul {
+  margin-top: 0;
+  margin-bottom: var(--flow-spacing);
+}
+
+/* Theme setting */
+section {
+  align-items: stretch;
+  background: var(--color-background);
+  color: var(--color-forground);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  font-family: var(--font-sans-serif);
+  font-feature-settings: var(--font-feature-settings);
+  font-size: var(--font-size);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  padding: var(--section-vertical-padding) var(--section-horizontal-padding);
+  word-wrap: break-word;
+}
+
+section[data-size='4:3'] {
+  --scale-factor: 0.75;
+}
+
+section[data-header] {
+  --section-vertical-padding-top: calc(var(--scale-factor) * 100px);
+  padding-top: var(--section-vertical-padding-top);
+}
+
+/* Pagination */
+section::after {
+  background: var(--color-forground);
+  bottom: calc((var(--section-vertical-padding) - var(--font-size)) / 2);
+  color: var(--color-background);
+  font-size: calc(var(--font-size) * 0.65);
+  font-weight: 700;
+  height: var(--font-size);
+  line-height: var(--font-size);
+  min-width: var(--font-size);
+  padding: calc(var(--font-size) * 0.15);
+  right: calc((var(--section-vertical-padding) - var(--font-size)) / 2);
+  text-align: center;
+}
+
+/* Classes */
+section.invert {
+  --color-forground: var(--color-white);
+  --color-background: var(--color-black);
+  --color-code: var(--color-gray-2);
+  --color-code-border: var(--color-gray-3);
+  --color-table-border-secondary: var(--color-gray-2);
+}
+
+section.title {
+  --h1-font-size: calc(var(--font-size) * 2.1);
+  --h2-font-size: calc(var(--font-size) * 1.7);
+  --h3-font-size: calc(var(--font-size) * 1.4);
+  justify-content: center;
+}
+
+section *:last-child,
+section[data-footer] *:nth-last-child(2) {
+  margin-bottom: 0;
+}
+
+/* HTML elements */
+address,
+cite,
+dfn,
+em,
+i,
+var {
+  font-variation-settings: var(--font-feature-settings), 'slnt' -10;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  --flow-spacing: var(--flow-spacing-large);
+  font-weight: 700;
+  letter-spacing: -0.07em;
+  line-height: 1;
+}
+
+h1 {
+  --flow-spacing: var(--flow-spacing-xlarge);
+  font-size: var(--h1-font-size);
+  position: relative;
+}
+
+h2 {
+  --flow-spacing: var(--flow-spacing-xlarge);
+  font-size: var(--h2-font-size);
+  position: relative;
+}
+
+h1::after,
+h2::after {
+  bottom: 0;
+  content: '';
+  display: block;
+  left: 0;
+  right: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+h1::after {
+  border-top: thin solid currentColor;
+}
+
+section > h1::after {
+  right: calc(var(--section-horizontal-padding) * -1);
+}
+
+h2::after {
+  border-top: thin dotted currentColor;
+  opacity: 0.65;
+}
+
+h3 {
+  font-size: var(--h3-font-size);
+}
+
+h4 {
+  font-size: var(--h4-font-size);
+}
+
+h5 {
+  font-size: var(--h5-font-size);
+}
+
+h6 {
+  font-size: var(--h6-font-size);
+}
+
+section[data-header] header:first-child {
+  --header-height: calc(var(--section-vertical-padding-top) * 0.5);
+  --header-font-size: calc(var(--header-height) * 0.75);
+
+  background: var(--color-forground);
+  color: var(--color-background);
+  font-size: var(--header-font-size);
+  font-weight: 700;
+  left: 0;
+  line-height: var(--header-height);
+  margin: 0;
+  position: absolute;
+  top: calc(var(--section-vertical-padding-top) * 0.25);
+  height: var(--header-height);
+  padding: 0 calc(var(--section-horizontal-padding) * 0.75);
+  overflow: hidden;
+  display: block;
+}
+
+section[data-header] header:first-child strong,
+section[data-header] header:first-child b,
+h1 strong,
+h1 b,
+h2 strong,
+h2 b,
+h3 strong,
+h3 b,
+h4 strong,
+h4 b,
+h5 strong,
+h5 b,
+h6 strong,
+h6 b {
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: top;
+}
+
+img[alt~='center'] {
+  display: block;
+  margin: 0 auto var(--flow-spacing) auto;
+}
+
+a {
+  color: var(--color-link);
+}
+
+a:hover {
+  transition: color ease-out 0.15s;
+  color: var(--color-link-hover);
+}
+
+code,
+kbd {
+  font-size: 0.8em;
+  font-family: var(--font-monospace);
+  background: var(--color-code);
+  padding: 0.05em 0.2em;
+  margin: 0 0.1em;
+}
+
+kbd {
+  border-radius: 0.2em;
+  color: currentColor;
+  border: thin solid var(--color-code-border);
+  border-bottom-width: 2px;
+  box-shadow: none;
+}
+
+blockquote {
+  --blockquote-horizontal-padding: var(--section-horizontal-padding);
+  --flow-spacing: var(--flow-spacing-large);
+
+  position: relative;
+  margin-left: var(--blockquote-horizontal-padding);
+  margin-right: var(--blockquote-horizontal-padding);
+}
+
+blockquote::before {
+  pointer-events: none;
+  text-align: center;
+
+  position: absolute;
+  display: block;
+  left: calc(var(--blockquote-horizontal-padding) * -1);
+  top: 0;
+  content: '\201C';
+  font-size: var(--blockquote-horizontal-padding);
+  width: var(--blockquote-horizontal-padding);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+table {
+  --flow-spacing: var(--flow-spacing-large);
+  border-spacing: 0;
+}
+
+td,
+th {
+  border: 0 solid var(--color-table-border);
+  font-size: 0.9rem;
+  padding: var(--table-cell-vertical-padding)
+    var(--table-cell-horizontal-padding);
+}
+
+thead tr:last-child td,
+thead tr:last-child th {
+  border-bottom-width: medium;
+}
+
+tbody tr:not(:first-child) td,
+tbody tr:not(:first-child) th {
+  border-top-color: var(--color-table-border-secondary);
+  border-top-width: thin;
+}
+
+pre {
+  background: var(--color-code);
+  padding: 0.5em;
+}
+
+pre > code {
+  display: contents;
+}
+
+pre > code svg[data-marp-fitting='svg'] {
+  max-height: calc(720px - (var(--section-vertical-padding) * 2) - 1em);
+}
