@@ -5,6 +5,7 @@ import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import autoprefixer from 'autoprefixer'
+import cssnano from 'cssnano'
 import postcssUrl from 'postcss-url'
 import postcss from 'rollup-plugin-postcss'
 import { string } from 'rollup-plugin-string'
@@ -28,17 +29,6 @@ const plugins = [
   typescript(),
   postcss({
     inject: false,
-    minimize: {
-      preset: [
-        'default',
-        {
-          // Some minifers will apply on runtime to make debug easily.
-          minifyParams: false,
-          minifySelectors: false,
-          normalizeWhitespace: false,
-        },
-      ],
-    },
     plugins: [
       postcssOptimizeDefaultTheme(),
       postcssUrl({
@@ -47,6 +37,17 @@ const plugins = [
         url: 'inline',
       }),
       autoprefixer(),
+      cssnano({
+        preset: [
+          'default',
+          {
+            // Some minifers will apply on runtime to make debug easily.
+            minifyParams: false,
+            minifySelectors: false,
+            normalizeWhitespace: false,
+          },
+        ],
+      }),
     ],
   }),
   !process.env.ROLLUP_WATCH && terser(),
