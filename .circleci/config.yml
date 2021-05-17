@@ -43,7 +43,7 @@ commands:
       - checkout
       - install:
           postinstall:
-            - run: yarn audit
+            - run: yarn -s check:audit
 
   test:
     steps:
@@ -87,7 +87,7 @@ jobs:
   audit:
     executor: node
     steps:
-      - yarn -s check:audit
+      - audit
 
   test-node10:
     executor:
