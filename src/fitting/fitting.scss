@@ -21,6 +21,7 @@ svg[data-marp-fitting='svg'].__reflow__ {
 [data-marp-fitting-svg-content] {
   display: table;
   white-space: nowrap;
+  width: max-content;
 }
 
 [data-marp-fitting-svg-content-wrap] {
