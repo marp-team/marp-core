@@ -87,7 +87,7 @@ jobs:
   audit:
     executor: node
     steps:
-      - audit
+      - yarn -s check:audit
 
   test-node10:
     executor:

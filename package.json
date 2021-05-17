@@ -38,7 +38,7 @@
   },
   "scripts": {
     "build": "yarn -s clean && rollup -c",
-    "check:audit": "yarn audit",
+    "check:audit": "echo \"[WARNING] Temporally limited yarn audit only to dependencies.\" && yarn audit --groups dependencies",
     "check:format": "yarn -s format -c",
     "check:ts": "tsc --noEmit",
     "clean": "rimraf lib",
