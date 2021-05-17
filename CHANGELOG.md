@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v2.0.3 - 2021-05-17
+
 ### Fixed
 
 - Fitting header with single emoji has unexpected zoom animation ([#232](https://github.com/marp-team/marp-core/issues/232), [#233](https://github.com/marp-team/marp-core/pull/233))
