@@ -22,25 +22,27 @@ const isEnabledAutoScaling = (marp: Marp, key?: string): boolean => {
 function fittingCode(md): void {
   const { code_block, fence } = md.renderer.rules
 
-  const replacedRenderer = (func) => (...args) => {
-    const rendered: string = func(...args)
+  const replacedRenderer =
+    (func) =>
+    (...args) => {
+      const rendered: string = func(...args)
 
-    if (isEnabledAutoScaling(md.marpit, 'code')) {
-      return rendered.replace(codeMatcher, (_, start, content, end) => {
-        if (md.marpit.options.inlineSVG) {
-          return [
-            `${start}<svg ${attr}="svg" ${code}><foreignObject>`,
-            `<span ${svgContentAttr}><span ${svgContentWrapAttr}>`,
-            content,
-            `</span></span></foreignObject></svg>${end}`,
-          ].join('')
-        }
-        return `${start}<span ${attr}="plain">${content}</span>${end}`
-      })
+      if (isEnabledAutoScaling(md.marpit, 'code')) {
+        return rendered.replace(codeMatcher, (_, start, content, end) => {
+          if (md.marpit.options.inlineSVG) {
+            return [
+              `${start}<svg ${attr}="svg" ${code}><foreignObject>`,
+              `<span ${svgContentAttr}><span ${svgContentWrapAttr}>`,
+              content,
+              `</span></span></foreignObject></svg>${end}`,
+            ].join('')
+          }
+          return `${start}<span ${attr}="plain">${content}</span>${end}`
+        })
+      }
+
+      return rendered
     }
-
-    return rendered
-  }
 
   md.renderer.rules.code_block = replacedRenderer(code_block)
   md.renderer.rules.fence = replacedRenderer(fence)

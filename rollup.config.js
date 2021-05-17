@@ -47,7 +47,7 @@ const plugins = [
             normalizeWhitespace: false,
           },
         ],
-      })
+      }),
     ],
   }),
   !process.env.ROLLUP_WATCH && terser(),

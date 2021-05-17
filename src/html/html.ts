@@ -18,49 +18,49 @@ const xhtmlOutFilter = new FilterXSS({
 export function markdown(md): void {
   const { html_inline, html_block } = md.renderer.rules
 
-  const sanitizedRenderer = (original: (...args: any[]) => string) => (
-    ...args
-  ) => {
-    const ret = original(...args)
-    const allowList = {}
-    const html: MarpOptions['html'] = md.options.html
+  const sanitizedRenderer =
+    (original: (...args: any[]) => string) =>
+    (...args) => {
+      const ret = original(...args)
+      const allowList = {}
+      const html: MarpOptions['html'] = md.options.html
 
-    if (typeof html === 'object') {
-      for (const tag of Object.keys(html)) {
-        const attrs = html[tag]
+      if (typeof html === 'object') {
+        for (const tag of Object.keys(html)) {
+          const attrs = html[tag]
 
-        if (Array.isArray(attrs)) {
-          allowList[tag] = attrs
-        } else if (typeof attrs === 'object') {
-          allowList[tag] = Object.keys(attrs).filter(
-            (attr) => attrs[attr] !== false
-          )
+          if (Array.isArray(attrs)) {
+            allowList[tag] = attrs
+          } else if (typeof attrs === 'object') {
+            allowList[tag] = Object.keys(attrs).filter(
+              (attr) => attrs[attr] !== false
+            )
+          }
         }
       }
+
+      const filter = new FilterXSS({
+        whiteList: allowList,
+        onIgnoreTag: (_, rawHtml) => (html === true ? rawHtml : undefined),
+        safeAttrValue: (tag, attr, value) => {
+          let ret = friendlyAttrValue(value)
+
+          if (
+            typeof html === 'object' &&
+            html[tag] &&
+            !Array.isArray(html[tag]) &&
+            typeof html[tag][attr] === 'function'
+          ) {
+            ret = html[tag][attr](ret)
+          }
+
+          return escapeAttrValue(ret)
+        },
+      })
+
+      const sanitized = filter.process(ret)
+      return md.options.xhtmlOut ? xhtmlOutFilter.process(sanitized) : sanitized
     }
-
-    const filter = new FilterXSS({
-      whiteList: allowList,
-      onIgnoreTag: (_, rawHtml) => (html === true ? rawHtml : undefined),
-      safeAttrValue: (tag, attr, value) => {
-        let ret = friendlyAttrValue(value)
-
-        if (
-          typeof html === 'object' &&
-          html[tag] &&
-          !Array.isArray(html[tag]) &&
-          typeof html[tag][attr] === 'function'
-        ) {
-          ret = html[tag][attr](ret)
-        }
-
-        return escapeAttrValue(ret)
-      },
-    })
-
-    const sanitized = filter.process(ret)
-    return md.options.xhtmlOut ? xhtmlOutFilter.process(sanitized) : sanitized
-  }
 
   md.renderer.rules.html_inline = sanitizedRenderer(html_inline)
   md.renderer.rules.html_block = sanitizedRenderer(html_block)
