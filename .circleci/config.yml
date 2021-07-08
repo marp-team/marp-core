@@ -23,6 +23,8 @@ commands:
       - run:
           name: Upgrade yarn for current user
           command: cd ~ && yarn policies set-version << parameters.yarn >>
+          environment:
+            NODE_OPTIONS: ''
 
       - restore_cache:
           keys:
