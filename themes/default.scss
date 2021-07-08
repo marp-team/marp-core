@@ -9,7 +9,7 @@
  */
 
 @import '~github-markdown-css';
-@import '~highlight.js/styles/github-gist';
+@import '~highlight.js/styles/github';
 
 svg[data-marp-fitting='svg'] {
   max-height: 563px; // Slide height - padding * 2
