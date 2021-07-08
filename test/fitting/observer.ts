@@ -1,4 +1,4 @@
-/** @jest-environment ./jsdom */
+/** @jest-environment jsdom */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import fittingObserver from '../../src/fitting/observer'
 import { Marp } from '../../src/marp'
