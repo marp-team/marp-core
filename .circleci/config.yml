@@ -23,8 +23,6 @@ commands:
       - run:
           name: Upgrade yarn for current user
           command: cd ~ && yarn policies set-version << parameters.yarn >>
-          environment:
-            NODE_OPTIONS: ''
 
       - restore_cache:
           keys:
@@ -92,11 +90,9 @@ jobs:
       - audit
 
   test-node10:
-    environment:
-      NODE_OPTIONS: '--require "./globalThis.js"'
     executor:
       name: node
-      version: '10.24.1'
+      version: '10.24.0'
     steps:
       - test
 
