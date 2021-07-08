@@ -89,12 +89,13 @@ jobs:
     steps:
       - audit
 
-  test-node10:
+  test-install-node10:
     executor:
       name: node
-      version: '10.24.0'
+      version: '10.24.1'
     steps:
-      - test
+      - checkout
+      - install
 
   test-node12:
     executor:
@@ -121,7 +122,7 @@ workflows:
   test:
     jobs:
       - audit
-      - test-node10:
+      - test-install-node10:
           requires:
             - audit
       - test-node12:
