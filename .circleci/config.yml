@@ -90,9 +90,11 @@ jobs:
       - audit
 
   test-node10:
+    environment:
+      NODE_OPTIONS: '--require "./globalThis.js"'
     executor:
       name: node
-      version: '10.24.0'
+      version: '10.24.1'
     steps:
       - test
 
