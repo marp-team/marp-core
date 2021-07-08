@@ -7,7 +7,7 @@ executors:
         type: string
         default: lts
     docker:
-      - image: circleci/node:<< parameters.version >>
+      - image: cimg/node:<< parameters.version >>
     working_directory: ~/marp-core
 
 commands:
@@ -92,30 +92,30 @@ jobs:
   test-node10:
     executor:
       name: node
-      version: '10'
+      version: '10.24.0'
     steps:
       - test
 
   test-node12:
     executor:
       name: node
-      version: '12'
+      version: '12.22'
     steps:
       - test
 
   test-node14:
     executor:
       name: node
-      version: '14.16.1' # Specify LTS version for development
+      version: '14.17.3' # Specify LTS version for development
     steps:
       - test
 
-  # test-node16:
-  #   executor:
-  #     name: node
-  #     version: '16'
-  #   steps:
-  #     - test
+  test-node16:
+    executor:
+      name: node
+      version: '16.4'
+    steps:
+      - test
 
 workflows:
   test:
@@ -130,6 +130,6 @@ workflows:
       - test-node14:
           requires:
             - audit
-      # - test-node16:
-      #     requires:
-      #       - audit
+      - test-node16:
+          requires:
+            - audit
