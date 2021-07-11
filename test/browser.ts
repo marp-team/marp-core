@@ -1,4 +1,4 @@
-/** @jest-environment ./jsdom */
+/** @jest-environment jsdom */
 import { browser, observer } from '../src/browser'
 import fittingObserver from '../src/fitting/observer'
 
