@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade dependent packages to the latest version ([#241](https://github.com/marp-team/marp-core/pull/241))
+
+### Deprecated
+
+- End-of-Lifed Node.js 10 support (Still can use but no longer tested) ([#241](https://github.com/marp-team/marp-core/pull/241))
+
 ## v2.0.3 - 2021-05-17
 
 ### Fixed
