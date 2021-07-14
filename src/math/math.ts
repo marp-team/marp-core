@@ -1,27 +1,37 @@
 import marpitPlugin from '@marp-team/marpit/plugin'
+import { Marp } from '../marp'
 import { getMathContext, setMathContext } from './context'
 import * as katex from './katex'
 import * as mathjax from './mathjax'
 
+export type MathPreferredLibrary = 'katex' | 'mathjax'
+
 export interface MathOptionsInterface {
-  lib?: 'katex' | 'mathjax'
+  lib?: MathPreferredLibrary
   katexOption?: Record<string, unknown>
   katexFontPath?: string | false
 }
 
-export type MathOptions =
-  | boolean
-  | MathOptionsInterface['lib']
-  | MathOptionsInterface
+export type MathOptions = boolean | MathPreferredLibrary | MathOptionsInterface
 
 export const markdown = marpitPlugin((md) => {
-  const opts: MathOptions | undefined = md.marpit.options.math
+  const marp: Marp = md.marpit
+  const opts: MathOptions | undefined = marp.options.math
+
   if (!opts) return
 
   const parsedOpts =
     typeof opts !== 'object'
       ? { lib: typeof opts === 'string' ? opts : undefined }
       : opts
+
+  // Define `math` global directive to choose preferred library
+  Object.defineProperty(marp.customDirectives.global, 'math', {
+    value: (math: unknown): { math?: MathPreferredLibrary } => {
+      if (math === 'katex' || math === 'mathjax') return { math }
+      return {}
+    },
+  })
 
   // Initialize
   const { parse, parseInline } = md
@@ -86,13 +96,20 @@ export const markdown = marpitPlugin((md) => {
   )
 
   // Renderer
-  if (parsedOpts.lib === 'mathjax') {
-    md.renderer.rules.marp_math_inline = mathjax.inline(md.marpit)
-    md.renderer.rules.marp_math_block = mathjax.block(md.marpit)
-  } else {
-    md.renderer.rules.marp_math_inline = katex.inline(md.marpit)
-    md.renderer.rules.marp_math_block = katex.block(md.marpit)
+  const getPreferredLibrary = () => {
+    const prefferedByDirective: MathPreferredLibrary | undefined = (marp as any)
+      .lastGlobalDirectives.math
+
+    // TODO: Change the default math library from `katex` to `mathjax` in the next major version
+    const preferredLibrary = prefferedByDirective ?? parsedOpts.lib ?? 'katex'
+    return preferredLibrary === 'mathjax' ? mathjax : katex
   }
+
+  const getRenderer = (type: 'inline' | 'block') => (tokens: any, idx: any) =>
+    getPreferredLibrary()[type](md.marpit)(tokens, idx)
+
+  md.renderer.rules.marp_math_inline = getRenderer('inline')
+  md.renderer.rules.marp_math_block = getRenderer('block')
 })
 
 export const css = (marpit: any): string | null => {
@@ -103,6 +120,8 @@ export const css = (marpit: any): string | null => {
 
   return katex.css(options.katexFontPath)
 }
+
+// ---
 
 function isValidDelim(state, pos = state.pos) {
   const ret = { openable: true, closable: true }
