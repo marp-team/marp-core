@@ -502,6 +502,30 @@ describe('Marp', () => {
         expect(notDefined).not.toBe(plain)
       })
 
+      describe('math global directive', () => {
+        it('allows to switch rendering library from katex to mathjax', () => {
+          const instance = marp({ math: 'katex' })
+          const { html } = instance.render(
+            `<!-- math: mathjax -->\n\n${inline}\n\n${block}`
+          )
+          const $ = cheerio.load(html)
+
+          expect($('.MathJax')).toHaveLength(2)
+          expect($('.katex')).not.toHaveLength(2)
+        })
+
+        it('allows to switch rendering library from mathjax to katex', () => {
+          const instance = marp({ math: 'mathjax' })
+          const { html } = instance.render(
+            `<!-- math: katex -->\n\n${inline}\n\n${block}`
+          )
+          const $ = cheerio.load(html)
+
+          expect($('.MathJax')).not.toHaveLength(2)
+          expect($('.katex')).toHaveLength(2)
+        })
+      })
+
       describe('when math typesetting syntax is not using', () => {
         it('does not inject MathJax css', () =>
           expect(

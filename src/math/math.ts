@@ -37,9 +37,9 @@ export const markdown = marpitPlugin((md) => {
   const { parse, parseInline } = md
 
   const initializeMathContext = () => {
-    if (getMathContext(md.marpit).processing) return false
+    if (getMathContext(marp).processing) return false
 
-    setMathContext(md.marpit, () => ({
+    setMathContext(marp, () => ({
       enabled: false,
       options: parsedOpts,
       processing: true,
@@ -62,7 +62,7 @@ export const markdown = marpitPlugin((md) => {
         return func.apply(this, args)
       } finally {
         if (initialized) {
-          setMathContext(md.marpit, (ctx) => ({ ...ctx, processing: false }))
+          setMathContext(marp, (ctx) => ({ ...ctx, processing: false }))
         }
       }
     }
@@ -72,7 +72,7 @@ export const markdown = marpitPlugin((md) => {
   md.parseInline = parseWithMath(parseInline)
 
   const enableMath = () =>
-    setMathContext(md.marpit, (ctx) => ({ ...ctx, enabled: true }))
+    setMathContext(marp, (ctx) => ({ ...ctx, enabled: true }))
 
   // Inline
   md.inline.ruler.after('escape', 'marp_math_inline', (state, silent) => {
@@ -96,17 +96,35 @@ export const markdown = marpitPlugin((md) => {
   )
 
   // Renderer
-  const getPreferredLibrary = () => {
-    const prefferedByDirective: MathPreferredLibrary | undefined = (marp as any)
-      .lastGlobalDirectives.math
+  md.core.ruler.after(
+    'marpit_directives_global_parse',
+    'marp_math_directive',
+    () => {
+      const { enabled } = getMathContext(marp)
+      if (!enabled) return
 
-    // TODO: Change the default math library from `katex` to `mathjax` in the next major version
-    const preferredLibrary = prefferedByDirective ?? parsedOpts.lib ?? 'katex'
-    return preferredLibrary === 'mathjax' ? mathjax : katex
+      const preffered: MathPreferredLibrary | undefined = (marp as any)
+        .lastGlobalDirectives.math
+
+      setMathContext(marp, (ctx) => ({
+        ...ctx,
+        options: {
+          ...ctx.options,
+
+          // TODO: Change the default math library from `katex` to `mathjax` in the next major version
+          lib: preffered ?? parsedOpts.lib ?? 'katex',
+        },
+      }))
+    }
+  )
+
+  const getPreferredLibrary = () => {
+    const { options } = getMathContext(marp)
+    return options.lib === 'mathjax' ? mathjax : katex
   }
 
   const getRenderer = (type: 'inline' | 'block') => (tokens: any, idx: any) =>
-    getPreferredLibrary()[type](md.marpit)(tokens, idx)
+    getPreferredLibrary()[type](marp)(tokens, idx)
 
   md.renderer.rules.marp_math_inline = getRenderer('inline')
   md.renderer.rules.marp_math_block = getRenderer('block')
