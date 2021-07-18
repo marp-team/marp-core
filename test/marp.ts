@@ -502,6 +502,53 @@ describe('Marp', () => {
         expect(notDefined).not.toBe(plain)
       })
 
+      describe('math global directive', () => {
+        it('allows to switch rendering library from katex to mathjax', () => {
+          const instance = marp({ math: 'katex' })
+          const { html, css } = instance.render(
+            `<!-- math: mathjax -->\n\n${inline}\n\n${block}`
+          )
+          const $ = cheerio.load(html)
+
+          expect($('.MathJax')).toHaveLength(2)
+          expect($('.katex')).not.toHaveLength(2)
+
+          expect(css).toContain('mjx-container')
+          expect(css).not.toContain('.katex')
+        })
+
+        it('allows to switch rendering library from mathjax to katex', () => {
+          const instance = marp({ math: 'mathjax' })
+          const { html, css } = instance.render(
+            `<!-- math: katex -->\n\n${inline}\n\n${block}`
+          )
+          const $ = cheerio.load(html)
+
+          expect($('.MathJax')).not.toHaveLength(2)
+          expect($('.katex')).toHaveLength(2)
+
+          expect(css).not.toContain('mjx-container')
+          expect(css).toContain('.katex')
+        })
+
+        it('ignores if defined unknown keyword', () => {
+          const katex = marp({ math: 'katex' })
+
+          for (const keyword of ['unknown', 'false', 'true']) {
+            const katexRendered = katex.render(
+              `<!-- math: ${keyword} -->\n\n${inline}`
+            )
+            const $katex = cheerio.load(katexRendered.html)
+
+            expect($katex('.MathJax')).not.toHaveLength(1)
+            expect($katex('.katex')).toHaveLength(1)
+
+            expect(katexRendered.css).not.toContain('mjx-container')
+            expect(katexRendered.css).toContain('.katex')
+          }
+        })
+      })
+
       describe('when math typesetting syntax is not using', () => {
         it('does not inject MathJax css', () =>
           expect(

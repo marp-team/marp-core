@@ -1,21 +1,23 @@
 import marpitPlugin from '@marp-team/marpit/plugin'
+import { Marp } from '../marp'
 import { getMathContext, setMathContext } from './context'
 import * as katex from './katex'
 import * as mathjax from './mathjax'
 
+export type MathPreferredLibrary = 'katex' | 'mathjax'
+
 export interface MathOptionsInterface {
-  lib?: 'katex' | 'mathjax'
+  lib?: MathPreferredLibrary
   katexOption?: Record<string, unknown>
   katexFontPath?: string | false
 }
 
-export type MathOptions =
-  | boolean
-  | MathOptionsInterface['lib']
-  | MathOptionsInterface
+export type MathOptions = boolean | MathPreferredLibrary | MathOptionsInterface
 
 export const markdown = marpitPlugin((md) => {
-  const opts: MathOptions | undefined = md.marpit.options.math
+  const marp: Marp = md.marpit
+  const opts: MathOptions | undefined = marp.options.math
+
   if (!opts) return
 
   const parsedOpts =
@@ -23,13 +25,21 @@ export const markdown = marpitPlugin((md) => {
       ? { lib: typeof opts === 'string' ? opts : undefined }
       : opts
 
+  // Define `math` global directive to choose preferred library
+  Object.defineProperty(marp.customDirectives.global, 'math', {
+    value: (math: unknown): { math?: MathPreferredLibrary } => {
+      if (math === 'katex' || math === 'mathjax') return { math }
+      return {}
+    },
+  })
+
   // Initialize
   const { parse, parseInline } = md
 
   const initializeMathContext = () => {
-    if (getMathContext(md.marpit).processing) return false
+    if (getMathContext(marp).processing) return false
 
-    setMathContext(md.marpit, () => ({
+    setMathContext(marp, () => ({
       enabled: false,
       options: parsedOpts,
       processing: true,
@@ -52,7 +62,7 @@ export const markdown = marpitPlugin((md) => {
         return func.apply(this, args)
       } finally {
         if (initialized) {
-          setMathContext(md.marpit, (ctx) => ({ ...ctx, processing: false }))
+          setMathContext(marp, (ctx) => ({ ...ctx, processing: false }))
         }
       }
     }
@@ -62,7 +72,7 @@ export const markdown = marpitPlugin((md) => {
   md.parseInline = parseWithMath(parseInline)
 
   const enableMath = () =>
-    setMathContext(md.marpit, (ctx) => ({ ...ctx, enabled: true }))
+    setMathContext(marp, (ctx) => ({ ...ctx, enabled: true }))
 
   // Inline
   md.inline.ruler.after('escape', 'marp_math_inline', (state, silent) => {
@@ -86,13 +96,38 @@ export const markdown = marpitPlugin((md) => {
   )
 
   // Renderer
-  if (parsedOpts.lib === 'mathjax') {
-    md.renderer.rules.marp_math_inline = mathjax.inline(md.marpit)
-    md.renderer.rules.marp_math_block = mathjax.block(md.marpit)
-  } else {
-    md.renderer.rules.marp_math_inline = katex.inline(md.marpit)
-    md.renderer.rules.marp_math_block = katex.block(md.marpit)
+  md.core.ruler.after(
+    'marpit_directives_global_parse',
+    'marp_math_directive',
+    () => {
+      const { enabled } = getMathContext(marp)
+      if (!enabled) return
+
+      const preffered: MathPreferredLibrary | undefined = (marp as any)
+        .lastGlobalDirectives.math
+
+      setMathContext(marp, (ctx) => ({
+        ...ctx,
+        options: {
+          ...ctx.options,
+
+          // TODO: Change the default math library from `katex` to `mathjax` in the next major version
+          lib: preffered ?? parsedOpts.lib ?? 'katex',
+        },
+      }))
+    }
+  )
+
+  const getPreferredLibrary = () => {
+    const { options } = getMathContext(marp)
+    return options.lib === 'mathjax' ? mathjax : katex
   }
+
+  const getRenderer = (type: 'inline' | 'block') => (tokens: any, idx: any) =>
+    getPreferredLibrary()[type](marp)(tokens, idx)
+
+  md.renderer.rules.marp_math_inline = getRenderer('inline')
+  md.renderer.rules.marp_math_block = getRenderer('block')
 })
 
 export const css = (marpit: any): string | null => {
@@ -103,6 +138,8 @@ export const css = (marpit: any): string | null => {
 
   return katex.css(options.katexFontPath)
 }
+
+// ---
 
 function isValidDelim(state, pos = state.pos) {
   const ret = { openable: true, closable: true }

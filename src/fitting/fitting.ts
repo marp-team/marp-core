@@ -1,5 +1,6 @@
 import marpitPlugin from '@marp-team/marpit/plugin'
 import { Marp } from '../marp'
+import { getMathContext } from '../math/context'
 import { attr, code, math, svgContentAttr, svgContentWrapAttr } from './data'
 import fittingCSS from './fitting.scss'
 
@@ -98,15 +99,19 @@ function fittingHeader(md): void {
       : ''
 }
 
-function fittingMathBlock(md): void {
+function fittingKaTeXMathBlock(md): void {
   const { marp_math_block } = md.renderer.rules
-  if (!marp_math_block || marp_math_block.scaled) return
+  if (!marp_math_block) return
 
   md.renderer.rules.marp_math_block = (...args) => {
-    // Rendered math block is wrapped by `<p>` tag in math plugin
+    // Rendered math block is wrapped by `<p>` tag in KaTeX
     const rendered: string = marp_math_block(...args)
 
-    if (isEnabledAutoScaling(md.marpit, 'math')) {
+    const {
+      options: { lib },
+    } = getMathContext(md.marpit)
+
+    if (lib === 'katex' && isEnabledAutoScaling(md.marpit, 'math')) {
       const katex = rendered.slice(3, -4)
 
       if (md.marpit.options.inlineSVG) {
@@ -125,5 +130,5 @@ function fittingMathBlock(md): void {
 }
 
 export const markdown = marpitPlugin((md) => {
-  md.use(fittingHeader).use(fittingCode).use(fittingMathBlock)
+  md.use(fittingHeader).use(fittingCode).use(fittingKaTeXMathBlock)
 })

@@ -14,6 +14,17 @@ describe('markdown-it math plugin', () => {
   const md = new MarkdownIt()
 
   md.marpit = { options: { math: true } }
+
+  // Mock Marpit instance
+  md.use(() => {
+    Object.assign(md.marpit, {
+      customDirectives: { global: {} },
+      lastGlobalDirectives: {},
+    })
+    md.core.ruler.push('marpit_directives_global_parse', () => {
+      // no ops
+    })
+  })
   md.use(mathPlugin)
 
   it('renders simple inline math', () => {
