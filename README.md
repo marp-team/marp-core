@@ -110,6 +110,32 @@ $$
 
 You can choose a library for math from [KaTeX](https://khan.github.io/KaTeX/) and [MathJax](https://www.mathjax.org/) in [the constructor option](#constructor-options). By default, we prefer KaTeX for compatibility and performance, but MathJax has better syntax support than KaTeX.
 
+#### `math` global directive
+
+Through `math` global directive, Marp Core is supporting to declare math library that will be used within current Markdown.
+
+Set **`katex`** or **`mathjax`** in the `math` global directive like this:
+
+```markdown
+---
+# Declare to use MathJax in this Markdown
+math: mathjax
+---
+
+$$
+\begin{align}
+x &= 1+1 \tag{1} \\
+  &= 2
+\end{align}
+$$
+```
+
+If not declared, Marp Core will use the default library to render math (KaTeX in v2).
+
+We may change the default in the future and would break existing slides, so recommend to declare the library whenever to use math typesetting.
+
+> :warning: The declaration of math library is given priority over [`math` JS constructor option](#math-constructor-option), but you cannot turn on again via `math` global directive if disabled math typesetting by the constructor.
+
 ### Auto-scaling features
 
 Auto-scaling is available only if enabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and defined [`@auto-scaling` metadata][metadata] in an using theme CSS.
@@ -253,9 +279,11 @@ Setting about emoji conversions.
 
 > **For developers:** When you setting `unicode` option as `true`, Markdown parser will convert Unicode emoji into tokens internally. The rendering result is same as in `false`.
 
-### `math`: _`boolean` | `"katex"` | `"mathjax"` | `object`_
+### `math`: _`boolean` | `"katex"` | `"mathjax"` | `object`_ <a name="math-constructor-option" id="math-constructor-option"></a>
 
-Enable or disable [math typesetting](#math-typesetting) syntax. You can choose a library for math by passing **`katex`** (default) or **`mathjax`**, and modify more settings by passing an object of sub-options.
+Enable or disable [math typesetting](#math-typesetting) syntax and [`math` global directive](#math-global-directive).
+
+You can choose the default library for math by passing **`"katex"`** (default) or **`"mathjax"`**, and modify more settings by passing an object of sub-options.
 
 - **`lib`**: _`"katex"` | `"mathjax"`_
   - Choose a library for math typesetting. _(`katex` by default)_
