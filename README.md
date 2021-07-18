@@ -108,7 +108,7 @@ $$
 </tbody>
 </table>
 
-You can choose a library for math from [KaTeX](https://khan.github.io/KaTeX/) and [MathJax](https://www.mathjax.org/) in [the constructor option](#constructor-options). By default, we prefer KaTeX for compatibility and performance, but MathJax has better syntax support than KaTeX.
+You can choose using library for math from [KaTeX](https://khan.github.io/KaTeX/) and [MathJax](https://www.mathjax.org/) in [`math` global directive](#math-global-directive) (or [JS constructor option](#math-constructor-option)). By default, we prefer KaTeX for compatibility and performance, but MathJax has better rendering and syntax support than KaTeX.
 
 #### `math` global directive
 
@@ -286,13 +286,13 @@ Enable or disable [math typesetting](#math-typesetting) syntax and [`math` globa
 You can choose the default library for math by passing **`"katex"`** (default) or **`"mathjax"`**, and modify more settings by passing an object of sub-options.
 
 - **`lib`**: _`"katex"` | `"mathjax"`_
-  - Choose a library for math typesetting. _(`katex` by default)_
+  - Choose the default library for math typesetting. _(`katex` by default)_
 
 * **`katexOption`**: _`object`_
-  - The options passing to KaTeX. Please refer to [KaTeX document](https://khan.github.io/KaTeX/docs/options.html).
+  - Options that will be passed to KaTeX. Please refer to [KaTeX document](https://khan.github.io/KaTeX/docs/options.html).
 
 - **`katexFontPath`**: _`string` | `false`_
-  - By default, marp-core will use [online web-font resources through jsDelivr CDN](https://cdn.jsdelivr.net/npm/katex@latest/dist/fonts/). You have to set path to fonts directory if you want to use local resources. If you set `false`, we will not manipulate the path (Use KaTeX's original path: `fonts/KaTeX_***-***.woff2`).
+  - By default, Marp Core will use [online web-font resources through jsDelivr CDN](https://cdn.jsdelivr.net/npm/katex@latest/dist/fonts/). You have to set path to fonts directory if you want to use local resources. If you set `false`, we will not manipulate the path (Use KaTeX's original path: `fonts/KaTeX_***-***.woff2`).
 
 ### `minifyCSS`: _`boolean`_
 
