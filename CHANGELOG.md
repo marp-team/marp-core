@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v2.1.0 - 2021-07-19
+
 ### Added
 
 - `math` global directive for switching math typesetting library in current Markdown ([#243](https://github.com/marp-team/marp-core/issues/243), [#246](https://github.com/marp-team/marp-core/pull/246))
