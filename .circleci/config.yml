@@ -93,6 +93,8 @@ jobs:
     executor:
       name: node
       version: '10.24.1'
+    environment:
+      NODE_ENV: production
     steps:
       - checkout
       - install
