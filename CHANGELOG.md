@@ -8,6 +8,7 @@
 
 ### Changed
 
+- Upgrade Marpit to [v2.1.1](https://github.com/marp-team/marpit/releases/v2.1.1) ([#253](https://github.com/marp-team/marp-core/pull/253))
 - Upgrade dependent packages to the latest version ([#253](https://github.com/marp-team/marp-core/pull/253))
 
 ## v2.1.0 - 2021-07-19
