@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Define the default 16:9 size preset to built-in themes ([#250](https://github.com/marp-team/marp-core/pull/250))
+
+## v2.1.0 - 2021-07-19
+
 ### Added
 
 - `math` global directive for switching math typesetting library in current Markdown ([#243](https://github.com/marp-team/marp-core/issues/243), [#246](https://github.com/marp-team/marp-core/pull/246))
