@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v2.1.1 - 2021-08-14
+
 ### Fixed
 
 - Define the default 16:9 size preset to built-in themes ([#250](https://github.com/marp-team/marp-core/pull/250))
