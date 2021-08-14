@@ -13,6 +13,9 @@ module.exports = {
   rules: {
     'import/order': ['error', { alphabetize: { order: 'asc' } }],
   },
+  settings: {
+    'import/ignore': ['@rollup/plugin-node-resolve'],
+  },
   overrides: [
     {
       files: ['**/*.ts', '**/*.tsx'],

@@ -30,7 +30,7 @@ commands:
             - v2.4-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "yarn.lock" }}-
             - v2.4-dependencies-{{ .Environment.CIRCLE_JOB }}-
 
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
       - steps: << parameters.postinstall >>
 
       - save_cache:
@@ -89,14 +89,6 @@ jobs:
     steps:
       - audit
 
-  test-install-node10:
-    executor:
-      name: node
-      version: '10.24.1'
-    steps:
-      - checkout
-      - install
-
   test-node12:
     executor:
       name: node
@@ -107,7 +99,7 @@ jobs:
   test-node14:
     executor:
       name: node
-      version: '14.17.3' # Specify LTS version for development
+      version: '14.17.5' # Specify LTS version for development
     steps:
       - test
 
@@ -122,9 +114,6 @@ workflows:
   test:
     jobs:
       - audit
-      - test-install-node10:
-          requires:
-            - audit
       - test-node12:
           requires:
             - audit

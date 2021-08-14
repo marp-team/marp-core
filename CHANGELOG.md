@@ -6,6 +6,11 @@
 
 - Define the default 16:9 size preset to built-in themes ([#250](https://github.com/marp-team/marp-core/pull/250))
 
+### Changed
+
+- Upgrade Marpit to [v2.1.1](https://github.com/marp-team/marpit/releases/v2.1.1) ([#253](https://github.com/marp-team/marp-core/pull/253))
+- Upgrade dependent packages to the latest version ([#253](https://github.com/marp-team/marp-core/pull/253))
+
 ## v2.1.0 - 2021-07-19
 
 ### Added

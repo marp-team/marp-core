@@ -34,7 +34,8 @@ exports[`markdown-it math plugin does not recognize inline block math 1`] = `
 exports[`markdown-it math plugin does not render block math with indented up to 4 spaces (code block) 1`] = `
 "<pre><code>$$
 1+1 = 2
-$$</code></pre>
+$$
+</code></pre>
 "
 `;
 
