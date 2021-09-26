@@ -161,7 +161,7 @@
 ### Added
 
 - Transform Unicode 13.0 emojis into SVG images ([#167](https://github.com/marp-team/marp-core/pull/167))
-- Add MathJax v3 support to math plugin ([#164](https://github.com/marp-team/marp-core/issues/164), [#165](https://github.com/marp-team/marp-core/pull/165) by [@nzt](https://github.com/nzt), [#166](https://github.com/marp-team/marp-core/pull/166))
+- Add MathJax v3 support to math plugin ([#164](https://github.com/marp-team/marp-core/issues/164), [#165](https://github.com/marp-team/marp-core/pull/165) by [@tani](https://github.com/tani), [#166](https://github.com/marp-team/marp-core/pull/166))
 - Add sandbox directory to make easy to develop core ([#157](https://github.com/marp-team/marp-core/pull/157))
 
 ### Changed
