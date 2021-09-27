@@ -523,10 +523,10 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@marp-team/marp-cli@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-1.4.0.tgz#7e76f77e64ee25ef91007373d834b964c746ee8e"
-  integrity sha512-hFTROi3ysLAD6rkwGJkmsM3eRK+UKwWXcmDH9mRF4nHBeozKRFzZULQX8v7PNdiU++xmKQBpDBK+o2DZlvJtgQ==
+"@marp-team/marp-cli@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-1.4.1.tgz#87a0d05dd406412e8fa2cd3d2894fa6751562c20"
+  integrity sha512-IYaCHGA67YdswzZcT6J419dwJ3dXNlwJ3lHA9F/uOVlAV0flPCOpneMRG4puWSmSSDxEtxWJ9fsaM8VVMyvWYQ==
   dependencies:
     "@marp-team/marp-core" "^2.1.1"
     "@marp-team/marpit" "^2.1.1"
