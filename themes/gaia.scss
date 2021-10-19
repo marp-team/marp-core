@@ -25,10 +25,6 @@ $color-secondary: #81d4fa;
   --color-highlight: #{$highlight};
 }
 
-svg[data-marp-fitting='svg'] {
-  max-height: 580px; // Slide height - padding * 2
-}
-
 h1,
 h2,
 h3,
@@ -39,6 +35,10 @@ h6 {
 
   strong {
     font-weight: inherit;
+  }
+
+  &::part(auto-scaling) {
+    max-height: 580px; // Slide height - padding * 2
   }
 }
 
@@ -95,7 +95,6 @@ code {
 pre {
   display: block;
   margin: 1em 0 0 0;
-  min-height: 1em;
   overflow: visible;
 
   code {
@@ -104,10 +103,10 @@ pre {
     min-width: 100%;
     padding: 0.5em;
     font-size: 0.7em;
+  }
 
-    svg[data-marp-fitting='svg'] {
-      max-height: calc(580px - 1em);
-    }
+  &::part(auto-scaling) {
+    max-height: calc(580px - 1em);
   }
 }
 
@@ -231,8 +230,12 @@ section {
     }
   }
 
-  pre > code {
+  pre {
     background: var(--color-foreground);
+  }
+
+  pre > code {
+    background: transparent;
   }
 
   header,

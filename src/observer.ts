@@ -1,5 +1,4 @@
 import { polyfills } from '@marp-team/marpit-svg-polyfill'
-import fittingObserver from './fitting/observer'
 
 type ObserverOptions = {
   once?: boolean
@@ -16,8 +15,6 @@ export function observer({
 
   const observer = () => {
     for (const polyfill of polyfillFuncs) polyfill({ target })
-    fittingObserver(target)
-
     if (enabled) window.requestAnimationFrame(observer)
   }
   observer()

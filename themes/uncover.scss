@@ -81,12 +81,6 @@ section {
     margin-bottom: 0;
   }
 
-  svg[data-marp-fitting='svg'] {
-    max-height: 660px; // Slide height - padding * 2
-
-    --preserve-aspect-ratio: xMidYMid meet;
-  }
-
   p,
   blockquote {
     margin: 0 0 15px 0;
@@ -103,6 +97,12 @@ section {
     strong {
       color: var(--color-highlight-heading);
       font-weight: inherit;
+    }
+
+    &::part(auto-scaling) {
+      max-height: 660px; // Slide height - padding * 2
+
+      --preserve-aspect-ratio: xMidYMid meet;
     }
   }
 
