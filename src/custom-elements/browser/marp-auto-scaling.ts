@@ -1,3 +1,7 @@
+const dataWrapper = 'data-marp-auto-scaling-wrapper'
+const dataSvg = 'data-marp-auto-scaling-svg'
+const dataContainer = 'data-marp-auto-scaling-container'
+
 export class MarpAutoScaling extends HTMLElement {
   shadowRoot!: ShadowRoot
 
@@ -36,13 +40,13 @@ export class MarpAutoScaling extends HTMLElement {
   connectedCallback() {
     this.shadowRoot.innerHTML = `
       <style>
-        svg[data-marp-auto-scaling-svg] {
+        svg[${dataSvg}] {
           display: block;
           width: 100%;
           height: auto;
           vertical-align: top;
         }
-        span[data-marp-auto-scaling-container] {
+        span[${dataContainer}] {
           display: table;
           white-space: nowrap;
           width: -webkit-max-content;
@@ -50,10 +54,10 @@ export class MarpAutoScaling extends HTMLElement {
           width: max-content;
         }
       </style>
-      <div data-marp-auto-scaling-wrapper>
-        <svg part="svg" data-marp-auto-scaling-svg>
+      <div ${dataWrapper}>
+        <svg part="svg" ${dataSvg}>
           <foreignObject>
-            <span data-marp-auto-scaling-container>
+            <span ${dataContainer}>
               <slot></slot>
             </span>
           </foreignObject>
@@ -64,16 +68,13 @@ export class MarpAutoScaling extends HTMLElement {
       .join('')
 
     this.wrapper =
-      this.shadowRoot.querySelector<HTMLDivElement>(
-        'div[data-marp-auto-scaling-wrapper]'
-      ) ?? undefined
+      this.shadowRoot.querySelector<HTMLDivElement>(`div[${dataWrapper}]`) ??
+      undefined
 
     const previousSvg = this.svg
 
     this.svg =
-      this.wrapper?.querySelector<SVGElement>(
-        'svg[data-marp-auto-scaling-svg]'
-      ) ?? undefined
+      this.wrapper?.querySelector<SVGElement>(`svg[${dataSvg}]`) ?? undefined
 
     if (this.svg !== previousSvg) {
       this.svgComputedStyle = this.svg
@@ -82,9 +83,8 @@ export class MarpAutoScaling extends HTMLElement {
     }
 
     this.container =
-      this.svg?.querySelector<HTMLSpanElement>(
-        'span[data-marp-auto-scaling-container]'
-      ) ?? undefined
+      this.svg?.querySelector<HTMLSpanElement>(`span[${dataContainer}]`) ??
+      undefined
 
     this.observe()
   }
@@ -108,7 +108,6 @@ export class MarpAutoScaling extends HTMLElement {
 
     if (this.wrapper) this.wrapperObserver.observe(this.wrapper)
     if (this.container) this.containerObserver.observe(this.container)
-
     if (this.svgComputedStyle) this.observeSVGStyle(this.svgComputedStyle)
   }
 
@@ -159,5 +158,13 @@ export class MarpAutoScaling extends HTMLElement {
     const foreignObject = this.svg?.querySelector(':scope > foreignObject')
     foreignObject?.setAttribute('width', `${width}`)
     foreignObject?.setAttribute('height', `${height}`)
+
+    if (this.container) {
+      const svgPar = this.svgPreserveAspectRatio.toLowerCase()
+
+      this.container.style.marginLeft =
+        svgPar.startsWith('xmid') || svgPar.startsWith('xmax') ? 'auto' : ''
+      this.container.style.marginRight = svgPar.startsWith('xmi') ? 'auto' : ''
+    }
   }
 }
