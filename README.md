@@ -195,8 +195,6 @@ Several themes also can scale-down the viewing size of the code block to fit a s
 These features means that the contents on a slide are not cropped, and not shown unnecessary scrollbars in code.
 
 > :information_source: `@auto-scaling code` is a keyword of the `@auto-scaling` meta to enable code block scaling.
->
-> `uncover` theme has disabled code block scaling because we use elastic style that has not compatible with it.
 
 ## Constructor options
 
