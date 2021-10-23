@@ -39,30 +39,15 @@ export class MarpAutoScaling extends HTMLElement {
 
   connectedCallback() {
     this.shadowRoot.innerHTML = `
-      <style>
-        svg[${dataSvg}] {
-          display: block;
-          width: 100%;
-          height: auto;
-          vertical-align: top;
-        }
-        span[${dataContainer}] {
-          display: table;
-          white-space: nowrap;
-          width: -webkit-max-content;
-          width: -moz-max-content;
-          width: max-content;
-        }
-      </style>
-      <div ${dataWrapper}>
-        <svg part="svg" ${dataSvg}>
-          <foreignObject>
-            <span ${dataContainer}>
-              <slot></slot>
-            </span>
-          </foreignObject>
-        </svg>
-      </div>
+<style>
+  svg[${dataSvg}] { display: block; width: 100%; height: auto; vertical-align: top; }
+  span[${dataContainer}] { display: table; white-space: nowrap; width: max-content; }
+</style>
+<div ${dataWrapper}>
+  <svg part="svg" ${dataSvg}>
+    <foreignObject><span ${dataContainer}><slot></slot></span></foreignObject>
+  </svg>
+</div>
     `
       .split(/\n\s*/)
       .join('')
@@ -108,6 +93,7 @@ export class MarpAutoScaling extends HTMLElement {
 
     if (this.wrapper) this.wrapperObserver.observe(this.wrapper)
     if (this.container) this.containerObserver.observe(this.container)
+
     if (this.svgComputedStyle) this.observeSVGStyle(this.svgComputedStyle)
   }
 
@@ -117,19 +103,20 @@ export class MarpAutoScaling extends HTMLElement {
         const custom = style.getPropertyValue('--preserve-aspect-ratio')
         if (custom) return custom.trim()
 
-        switch (style.textAlign) {
-          case 'left':
-          case '-webkit-left':
-            return 'xMinYMid meet'
-          case 'right':
-          case '-webkit-right':
-            return 'xMaxYMid meet'
-          case 'start':
-            return `x${style.direction === 'rtl' ? 'Max' : 'Min'}YMid meet`
-          case 'end':
-            return `x${style.direction === 'rtl' ? 'Min' : 'Max'}YMid meet`
-        }
-        return 'xMidYMid meet'
+        const xAlign = (({ textAlign, direction }) => {
+          if (textAlign.endsWith('left')) return 'Min'
+          if (textAlign.endsWith('right')) return 'Max'
+
+          if (textAlign === 'start' || textAlign === 'end') {
+            let rAlign = direction === 'rtl'
+            if (textAlign === 'end') rAlign = !rAlign
+
+            return rAlign ? 'Max' : 'Min'
+          }
+          return 'Mid'
+        })(style)
+
+        return `x${xAlign}YMid meet`
       })()
 
       if (newPreserveAspectRatio !== this.svgPreserveAspectRatio) {
@@ -152,12 +139,12 @@ export class MarpAutoScaling extends HTMLElement {
       width = Math.max(width, this.wrapperSize?.width ?? 1)
     }
 
-    this.svg?.setAttribute('viewBox', `0 0 ${width} ${height}`)
-    this.svg?.setAttribute('preserveAspectRatio', this.svgPreserveAspectRatio)
-
     const foreignObject = this.svg?.querySelector(':scope > foreignObject')
     foreignObject?.setAttribute('width', `${width}`)
     foreignObject?.setAttribute('height', `${height}`)
+
+    this.svg?.setAttribute('viewBox', `0 0 ${width} ${height}`)
+    this.svg?.setAttribute('preserveAspectRatio', this.svgPreserveAspectRatio)
 
     if (this.container) {
       const svgPar = this.svgPreserveAspectRatio.toLowerCase()
