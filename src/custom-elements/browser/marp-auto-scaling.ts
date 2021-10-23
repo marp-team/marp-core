@@ -41,7 +41,7 @@ export class MarpAutoScaling extends HTMLElement {
     this.shadowRoot.innerHTML = `
 <style>
   svg[${dataSvg}] { display: block; width: 100%; height: auto; vertical-align: top; }
-  span[${dataContainer}] { display: table; white-space: nowrap; width: max-content; }
+  span[${dataContainer}] { display: table; white-space: var(--marp-auto-scaling-white-space, nowrap); width: max-content; }
 </style>
 <div ${dataWrapper}>
   <svg part="svg" ${dataSvg}>

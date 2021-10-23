@@ -34,12 +34,17 @@ export const block = (marpit: any) => (tokens, idx) => {
   } = getMathContext(marpit)
 
   try {
-    return `<p>${katex.renderToString(content, {
-      throwOnError: false,
-      ...(katexOption || {}),
-      macros: katexMacroContext,
-      displayMode: true,
-    })}</p>`
+    return `<p>${katex
+      .renderToString(content, {
+        throwOnError: false,
+        ...(katexOption || {}),
+        macros: katexMacroContext,
+        displayMode: true,
+      })
+      .replace(
+        /^<span/i,
+        '<span is="marp-span" data-auto-scaling="downscale-only"'
+      )}</p>`
   } catch (e) {
     console.warn(e)
     return `<p>${content}</p>`

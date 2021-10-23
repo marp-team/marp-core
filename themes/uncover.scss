@@ -101,8 +101,6 @@ section {
 
     &::part(auto-scaling) {
       max-height: 660px; // Slide height - padding * 2
-
-      --preserve-aspect-ratio: xMidYMid meet;
     }
   }
 

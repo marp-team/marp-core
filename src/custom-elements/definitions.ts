@@ -35,11 +35,14 @@ export const elements = {
     style:
       'display: block; font-size: 0.67em; margin-block-start: 2.33em; margin-block-end: 2.33em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;',
   },
+  span: {
+    proto: () => HTMLSpanElement,
+  },
 
   // HTMLPreElement cannot attach shadow DOM by security reason
   pre: {
     proto: () => HTMLElement,
     style:
-      'display: block; font-family: monospace; white-space: pre; margin: 1em 0;',
+      'display: block; font-family: monospace; white-space: pre; margin: 1em 0; --marp-auto-scaling-white-space: pre;',
   },
 } as const

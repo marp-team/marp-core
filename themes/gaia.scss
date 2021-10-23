@@ -291,10 +291,6 @@ section {
     h5,
     h6 {
       text-align: center;
-
-      svg[data-marp-fitting='svg'] {
-        --preserve-aspect-ratio: xMidYMid meet;
-      }
     }
 
     p {
@@ -310,10 +306,6 @@ section {
       > h6,
       > p {
         text-align: left;
-      }
-
-      svg[data-marp-fitting='svg']:not([data-marp-fitting-math]) {
-        --preserve-aspect-ratio: xMinYMin meet;
       }
     }
 
