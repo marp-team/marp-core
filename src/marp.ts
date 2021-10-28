@@ -23,7 +23,7 @@ export interface MarpOptions extends Options {
           | string[]
           | { [attr: string]: boolean | ((value: string) => string) }
       }
-  markdown?: object // eslint-disable-line @typescript-eslint/ban-types
+  markdown?: object
   math?: mathPlugin.MathOptions
   minifyCSS?: boolean
   script?: boolean | scriptPlugin.ScriptOptions

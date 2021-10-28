@@ -1,9 +1,6 @@
 extends:
-  - stylelint-config-standard
+  - stylelint-config-standard-scss
   - stylelint-config-prettier
-
-plugins:
-  - stylelint-scss
 
 rules:
   at-rule-no-unknown:
