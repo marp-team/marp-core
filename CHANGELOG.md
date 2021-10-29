@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Marpit to [v2.1.2](https://github.com/marp-team/marpit/releases/v2.1.2) ([#262](https://github.com/marp-team/marp-core/pull/262))
+- Upgrade dependent packages to the latest version ([#262](https://github.com/marp-team/marp-core/pull/262))
+- Update `default` theme to match styles into the latest GitHub's light color scheme ([#262](https://github.com/marp-team/marp-core/pull/262))
+
 ## v2.1.1 - 2021-08-14
 
 ### Fixed
