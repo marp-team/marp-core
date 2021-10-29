@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 /*!
  * Marp / Marpit Gaia theme.
  *
@@ -21,7 +23,7 @@ $color-secondary: #81d4fa;
   --color-background: #{$bg};
   --color-background-stripe: #{rgba($text, 0.1)};
   --color-foreground: #{$text};
-  --color-dimmed: #{mix($text, $bg, 80%)};
+  --color-dimmed: #{color.mix($text, $bg, 80%)};
   --color-highlight: #{$highlight};
 }
 
@@ -35,7 +37,7 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0.5em 0 0 0;
+  margin: 0.5em 0 0;
 
   strong {
     font-weight: inherit;
@@ -68,16 +70,16 @@ h6 {
 
 p,
 blockquote {
-  margin: 1em 0 0 0;
+  margin: 1em 0 0;
 }
 
 ul,
 ol {
   > li {
-    margin: 0.3em 0 0 0;
+    margin: 0.3em 0 0;
 
     > p {
-      margin: 0.6em 0 0 0;
+      margin: 0.6em 0 0;
     }
   }
 }
@@ -94,7 +96,7 @@ code {
 
 pre {
   display: block;
-  margin: 1em 0 0 0;
+  margin: 1em 0 0;
   min-height: 1em;
   overflow: visible;
 
@@ -112,7 +114,7 @@ pre {
 }
 
 blockquote {
-  margin: 1em 0 0 0;
+  margin: 1em 0 0;
   padding: 0 1em;
   position: relative;
 
@@ -148,7 +150,7 @@ mark {
 table {
   border-spacing: 0;
   border-collapse: collapse;
-  margin: 1em 0 0 0;
+  margin: 1em 0 0;
 
   th,
   td {
@@ -193,7 +195,7 @@ section {
   );
   color: var(--color-foreground);
   font-size: 35px;
-  font-family: 'Lato', 'Avenir Next', 'Avenir', 'Trebuchet MS', 'Segoe UI',
+  font-family: Lato, 'Avenir Next', Avenir, 'Trebuchet MS', 'Segoe UI',
     sans-serif;
   height: 720px;
   line-height: 1.35;
@@ -277,8 +279,7 @@ section {
 
   &.lead {
     display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+    flex-flow: column nowrap;
     justify-content: center;
 
     h1,

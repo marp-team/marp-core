@@ -5,6 +5,8 @@ extends:
 rules:
   at-rule-no-unknown:
     - null
+  color-function-notation:
+    - null
   scss/at-rule-no-unknown:
     - true
   value-keyword-case:
