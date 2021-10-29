@@ -637,14 +637,7 @@ describe('Marp', () => {
     })
   })
 
-  describe('Element fitting', () => {
-    it('prepends CSS about fitting', () => {
-      const { css } = marp().render('')
-
-      expect(css).toContain('svg[data-marp-fitting=svg]')
-      expect(css).toContain('[data-marp-fitting-svg-content]')
-    })
-
+  describe('Auto scaling', () => {
     describe('when fit comment keyword contains in heading (Fitting header)', () => {
       const baseMd = '# <!--fit--> fitting'
 
@@ -653,29 +646,24 @@ describe('Marp', () => {
         `text\n\n${baseMd}`, // Fitting header with content
         `${baseMd}\n\n## <!--fit--> fitting2`, // Multiple headers
       ]) {
-        it('wraps by <svg data-marp-fitting="svg">', () => {
+        it('adds attributes for heading custom element', () => {
           const { html, comments } = marp().render(markdown)
-          const $ = loadCheerio(html, { xmlMode: true })
-          const svgContent = $(
-            [
-              'h1',
-              'svg[data-marp-fitting="svg"]',
-              'foreignObject',
-              'span[data-marp-fitting-svg-content]',
-            ].join('>')
-          )
+          const h1 = loadCheerio(html)('h1')
 
-          expect(svgContent).toHaveLength(1)
-          expect($('h1').text()).toContain('fitting')
+          expect(h1).toHaveLength(1)
+          expect(h1.attr('is')).toBe('marp-h1')
+          expect(h1.is('[data-auto-scaling]')).toBe(true)
+          expect(h1.text()).toContain('fitting')
+
           expect(comments[0]).toHaveLength(0)
         })
 
-        it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
+        it('does not add attributes for heading custom element if disabled inlineSVG mode', () => {
           const $ = loadCheerio(
             marp({ inlineSVG: false }).render(markdown).html
           )
 
-          expect($('h1 > span[data-marp-fitting="plain"]')).toHaveLength(1)
+          expect($('h1').attr('is')).not.toBe('marp-h1')
           expect($('h1').text()).toContain('fitting')
         })
       }
@@ -684,111 +672,73 @@ describe('Marp', () => {
     describe('with code block (Auto scaling for code block)', () => {
       const markdown = '\tCODE BLOCK'
 
-      it('wraps code block by <svg data-marp-fitting="svg">', () => {
-        const $ = loadCheerio(marp().render(markdown).html, { xmlMode: true })
-        const svgContent = $(
-          [
-            'pre',
-            'code',
-            'svg[data-marp-fitting="svg"][data-marp-fitting-code]',
-            'foreignObject',
-            'span[data-marp-fitting-svg-content]',
-            'span[data-marp-fitting-svg-content-wrap]',
-          ].join('>')
-        )
+      it('adds attributes for pre custom element', () => {
+        const $ = loadCheerio(marp().render(markdown).html)
+        const pre = $('pre')
 
-        expect(svgContent).toHaveLength(1)
-        expect($('pre').text()).toContain('CODE BLOCK')
+        expect(pre).toHaveLength(1)
+        expect(pre.attr('is')).toBe('marp-pre')
+        expect(pre.is('[data-auto-scaling="downscale-only"]')).toBe(true)
+        expect(pre.text()).toContain('CODE BLOCK')
       })
 
-      it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
+      it('does not add attributes for pre custom element if disabled disabled inlineSVG mode', () => {
         const $ = loadCheerio(marp({ inlineSVG: false }).render(markdown).html)
+        const pre = $('pre')
 
-        expect($('pre > code > span[data-marp-fitting="plain"]')).toHaveLength(
-          1
-        )
-        expect($('pre').text()).toContain('CODE BLOCK')
-      })
-
-      it('does not wrap by svg when specified uncover theme', () => {
-        // Disable object freeze
-        jest.spyOn<any, any>(Object, 'freeze').mockImplementation((obj) => obj)
-
-        const instance = marp()
-        const theme = instance.themeSet.get('uncover')! // eslint-disable-line @typescript-eslint/no-non-null-assertion
-        theme.meta = { ...theme.meta, fittingCode: 'false' }
-
-        const uncover = `---\ntheme: uncover\n---\n\n${markdown}`
-        const $ = loadCheerio(instance.render(uncover).html)
-
-        expect($('section svg')).toHaveLength(0)
+        expect(pre.attr('is')).not.toBe('marp-pre')
+        expect(pre.text()).toContain('CODE BLOCK')
       })
     })
 
     describe('with fence (Auto scaling for fence)', () => {
       const markdown = '```typescript\nconst a = 1\n```'
 
-      it('wraps code block by <svg data-marp-fitting="svg">', () => {
-        const $ = loadCheerio(marp().render(markdown).html, { xmlMode: true })
-        const svgContent = $(
-          [
-            'pre',
-            'code.language-typescript',
-            'svg[data-marp-fitting="svg"][data-marp-fitting-code]',
-            'foreignObject',
-            'span[data-marp-fitting-svg-content]',
-            'span[data-marp-fitting-svg-content-wrap]',
-          ].join('>')
-        )
+      it('adds attributes for pre custom element', () => {
+        const $ = loadCheerio(marp().render(markdown).html)
+        const pre = $('pre')
 
-        expect(svgContent).toHaveLength(1)
-        expect($('pre').text()).toContain('const a = 1')
+        expect(pre).toHaveLength(1)
+        expect(pre.attr('is')).toBe('marp-pre')
+        expect(pre.is('[data-auto-scaling="downscale-only"]')).toBe(true)
+        expect(pre.text()).toContain('const a = 1')
       })
 
-      it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
+      it('does not add attributes for pre custom element if disabled disabled inlineSVG mode', () => {
         const $ = loadCheerio(marp({ inlineSVG: false }).render(markdown).html)
-        const plainContent = $(
-          [
-            'pre',
-            'code.language-typescript',
-            'span[data-marp-fitting="plain"]',
-          ].join('>')
-        )
+        const pre = $('pre')
 
-        expect(plainContent).toHaveLength(1)
-        expect($('pre').text()).toContain('const a = 1')
+        expect(pre.attr('is')).not.toBe('marp-pre')
+        expect(pre.text()).toContain('const a = 1')
       })
     })
 
-    describe('with math block', () => {
+    describe('with KaTeX math block', () => {
       const markdown = '$$ y=ax^2 $$'
 
-      it('wraps code block by <svg data-marp-fitting="svg">', () => {
-        const $ = loadCheerio(marp().render(markdown).html)
-        const svgContent = `${$(
-          [
-            'p',
-            'svg[data-marp-fitting="svg"][data-marp-fitting-math]',
-            'foreignObject',
-            'span[data-marp-fitting-svg-content]',
-            'span[data-marp-fitting-svg-content-wrap]',
-          ].join('>')
-        )} .katex`
+      it('adds attributes for span custom element', () => {
+        const $ = loadCheerio(marp({ math: 'katex' }).render(markdown).html)
+        const katex = $('span.katex-display')
 
-        expect(svgContent.length).toBeTruthy()
+        expect(katex).toHaveLength(1)
+        expect(katex.attr('is')).toBe('marp-span')
+        expect(katex.is('[data-auto-scaling="downscale-only"]')).toBe(true)
       })
 
-      it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
-        const $ = loadCheerio(marp({ inlineSVG: false }).render(markdown).html)
-        const plainContent = $('p > span[data-marp-fitting="plain"] .katex')
+      it('does not add attributes for span custom element if disabled disabled inlineSVG mode', () => {
+        const $ = loadCheerio(
+          marp({ math: 'katex', inlineSVG: false }).render(markdown).html
+        )
+        const katex = $('span.katex-display')
 
-        expect(plainContent.length).toBeTruthy()
+        expect(katex.attr('is')).not.toBe('marp-span')
+        expect(katex.is('[data-auto-scaling]')).toBe(false)
       })
 
       describe('with MathJax', () => {
-        it('does not wrap math block because it has already supported auto-scaling', () => {
+        it('does not use custom element because it has already supported auto-scaling', () => {
           const $ = loadCheerio(marp({ math: 'mathjax' }).render(markdown).html)
-          expect($('[data-marp-fitting]')).toHaveLength(0)
+          expect($('[is="marp-span"]')).toHaveLength(0)
         })
       })
     })
@@ -804,16 +754,16 @@ describe('Marp', () => {
       )
 
       // Custom theme
-      const customTheme = '/* @theme a */ h1 { color: #f00; }'
+      const customTheme = '/* @theme a */ div { color: #f00; }'
 
       enabled.themeSet.add(customTheme)
       disabled.themeSet.add(customTheme)
 
       expect(disabled.render('<!-- theme: a -->').css).toContain(
-        'h1 { color: #f00; }'
+        'div { color: #f00; }'
       )
       expect(enabled.render('<!-- theme: a -->').css).toContain(
-        'h1{color:#f00}'
+        'div{color:#f00}'
       )
     })
 

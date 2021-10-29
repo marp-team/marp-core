@@ -10,17 +10,19 @@ export const codeBlockPlugin = marpitPlugin((md) => {
     (func: (...args: any[]) => string) =>
     (...args: any[]) => {
       const rendered = func(...args)
+      const shouldScale =
+        md.marpit.options.inlineSVG && isEnabledAutoScaling(md.marpit, 'code')
 
-      return isEnabledAutoScaling(md.marpit, 'code')
-        ? rendered.replace(
-            codeMatcher,
-            (_, start, content, end) =>
-              '<pre is="marp-pre" data-auto-scaling="downscale-only"' +
-              start.slice(4) +
-              content +
-              end
-          )
-        : rendered
+      if (!shouldScale) return rendered
+
+      return rendered.replace(
+        codeMatcher,
+        (_, start, content, end) =>
+          '<pre is="marp-pre" data-auto-scaling="downscale-only"' +
+          start.slice(4) +
+          content +
+          end
+      )
     }
 
   md.renderer.rules.code_block = replacedRenderer(code_block)
