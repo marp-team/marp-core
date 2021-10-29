@@ -1,6 +1,7 @@
 import { Marpit } from '@marp-team/marpit'
 import cheerio, { CheerioOptions } from 'cheerio'
-import postcss from 'postcss'
+import postcss, { Rule } from 'postcss'
+import { elements } from '../src/custom-elements/definitions'
 import { EmojiOptions } from '../src/emoji/emoji'
 import { Marp, MarpOptions } from '../src/marp'
 import browserScript from '../src/script/browser-script'
@@ -740,6 +741,83 @@ describe('Marp', () => {
           const $ = loadCheerio(marp({ math: 'mathjax' }).render(markdown).html)
           expect($('[is="marp-span"]')).toHaveLength(0)
         })
+      })
+    })
+
+    describe('Postprocess for rendered css', () => {
+      for (const el of Object.keys(elements)) {
+        it(`replaces the selector for <${el}> to :is(${el}, marp-${el})`, () => {
+          const decl = `${el} { color: #f00; }`
+
+          // Custom theme
+          const instance = marp({ minifyCSS: false })
+          instance.themeSet.add(`/* @theme a */ ${decl}`)
+
+          expect(instance.render('<!--theme: a-->').css).toContain(
+            `:is(${el}, marp-${el})`
+          )
+
+          // Inline style
+          expect(instance.render(`<style>${decl}</style>`).css).toContain(
+            `:is(${el}, marp-${el})`
+          )
+        })
+      }
+
+      it('covers possible cases in complex selectors', () => {
+        const transformedDecl = (decl: string) => {
+          const instance = marp({ minifyCSS: false, container: false })
+          const css = instance.render(`<style>${decl} {test: test}</style>`).css
+
+          let ret: string | undefined
+
+          postcss({
+            postcssPlugin: 'transformed-decl',
+            Declaration: {
+              test: (decl) => {
+                if (decl.parent?.type === 'rule') {
+                  const { selectors } = decl.parent as Rule
+
+                  ret = selectors
+                    .map((sel) =>
+                      sel.replace('svg > foreignObject > section ', '')
+                    )
+                    .join(', ')
+                }
+              },
+            },
+          }).process(css, { from: undefined }).css
+
+          return ret
+        }
+
+        // Matched cases
+        expect(transformedDecl('h1')).toBe(':is(h1, marp-h1)')
+        expect(transformedDecl('h1, h2')).toBe(
+          ':is(h1, marp-h1), :is(h2, marp-h2)'
+        )
+        expect(transformedDecl('h1 > h1')).toBe(
+          ':is(h1, marp-h1) > :is(h1, marp-h1)'
+        )
+        expect(transformedDecl('div:not(h1)')).toBe('div:not(:is(h1, marp-h1))')
+        expect(transformedDecl(':is(h1, h2)')).toBe(
+          ':is(:is(h1, marp-h1), :is(h2, marp-h2))'
+        )
+        expect(transformedDecl(':where(h1, h2)')).toBe(
+          ':where(:is(h1, marp-h1), :is(h2, marp-h2))'
+        )
+        expect(transformedDecl('test::slotted(h1)')).toBe(
+          'test::slotted(:is(h1, marp-h1))'
+        )
+
+        // Unmatched cases
+        expect(transformedDecl('.h1')).toBe('.h1')
+        expect(transformedDecl('#h1')).toBe('#h1')
+        expect(transformedDecl('[is=h1]')).toBe('[is=h1]')
+        expect(transformedDecl('h1-like')).toBe('h1-like')
+        expect(transformedDecl('test:h1')).toBe('test:h1')
+        expect(transformedDecl('test::h1')).toBe('test::h1')
+        expect(transformedDecl('test::part(h1)')).toBe('test::part(h1)')
       })
     })
   })
