@@ -1,5 +1,6 @@
 /** @jest-environment jsdom */
-import ResizeObserver from 'resize-observer-polyfill'
+// Avoid to conflict polyfill with types for built-in ResizeObserver
+import ResizeObserver from 'resize-observer-polyfill/dist/ResizeObserver'
 import * as browser from '../../src/custom-elements/browser/index'
 import { elements } from '../../src/custom-elements/definitions'
 
