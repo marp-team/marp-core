@@ -1,11 +1,40 @@
 /** @jest-environment jsdom */
-// Avoid to conflict polyfill with types for built-in ResizeObserver
-import ResizeObserver from 'resize-observer-polyfill/dist/ResizeObserver'
 import * as browser from '../../src/custom-elements/browser/index'
+import { MarpAutoScaling } from '../../src/custom-elements/browser/marp-auto-scaling'
 import { elements } from '../../src/custom-elements/definitions'
 
 beforeAll(() => {
-  window.ResizeObserver = ResizeObserver
+  window.ResizeObserver = jest.fn(function (
+    this: ResizeObserver,
+    cb: ResizeObserverCallback
+  ) {
+    this.observe = jest.fn((target) => {
+      cb(
+        [
+          {
+            target,
+            contentRect: {
+              x: 0,
+              y: 0,
+              width: 100,
+              height: 50,
+              left: 0,
+              top: 0,
+              right: 100,
+              bottom: 50,
+              toJSON: () => ({}),
+            },
+            // Sizes are not used because Safari doesn't support them
+            borderBoxSize: [],
+            contentBoxSize: [],
+          },
+        ],
+        this
+      )
+    })
+    this.unobserve = jest.fn()
+    this.disconnect = jest.fn()
+  }) as any
 })
 
 afterEach(() => {
@@ -110,6 +139,128 @@ describe('The hydration script for custom elements', () => {
   })
 
   describe('<marp-auto-scaling>', () => {
-    // TODO: Test behavior of <marp-auto-scaling>
+    it("applies the size of contents to SVG's viewbox", () => {
+      browser.applyCustomElements()
+
+      document.body.innerHTML = '<marp-auto-scaling>test</marp-auto-scaling>'
+
+      const autoScaling = document.querySelector(
+        'marp-auto-scaling'
+      ) as MarpAutoScaling
+      const svg = autoScaling.shadowRoot.querySelector('svg') as SVGElement
+
+      expect(svg.getAttribute('viewBox')).toBe('0 0 100 50')
+    })
+
+    it('sets the correct alignment by text-align style inherited from the parent', () => {
+      const getComputedStyle = jest.spyOn<any, any>(window, 'getComputedStyle')
+      browser.applyCustomElements()
+
+      const getElementsWithStyle = (
+        style:
+          | Record<string, string>
+          | { getPropertyValue?: (prop: string) => string | undefined }
+      ) => {
+        getComputedStyle.mockImplementationOnce(() => ({
+          getPropertyValue: () => undefined,
+          ...style,
+        }))
+
+        document.body.innerHTML = '<marp-auto-scaling>test</marp-auto-scaling>'
+
+        const el = document.querySelector(
+          'marp-auto-scaling'
+        ) as MarpAutoScaling
+        const svg = el.shadowRoot?.querySelector('svg') as SVGElement
+        const container = svg.querySelector(
+          '[data-marp-auto-scaling-container]'
+        ) as HTMLElement
+
+        return { el, svg, container }
+      }
+
+      // Left-aligned
+      const leftAligned = getElementsWithStyle({ textAlign: 'left' })
+
+      expect(leftAligned.svg.getAttribute('preserveAspectRatio')).toBe(
+        'xMinYMid meet'
+      )
+      expect(leftAligned.container.style.marginRight).toBe('auto')
+      expect(leftAligned.container.style.marginLeft).toBe('0px')
+
+      // Center-aligned
+      const centerAligned = getElementsWithStyle({ textAlign: 'center' })
+
+      expect(centerAligned.svg.getAttribute('preserveAspectRatio')).toBe(
+        'xMidYMid meet'
+      )
+      expect(centerAligned.container.style.marginRight).toBe('auto')
+      expect(centerAligned.container.style.marginLeft).toBe('auto')
+
+      // Right-aligned
+      const rightAligned = getElementsWithStyle({ textAlign: 'right' })
+
+      expect(rightAligned.svg.getAttribute('preserveAspectRatio')).toBe(
+        'xMaxYMid meet'
+      )
+      expect(rightAligned.container.style.marginRight).toBe('0px')
+      expect(rightAligned.container.style.marginLeft).toBe('auto')
+
+      // Logical alignment
+      const startAligned = getElementsWithStyle({ textAlign: 'start' })
+
+      expect(startAligned.svg.getAttribute('preserveAspectRatio')).toBe(
+        'xMinYMid meet'
+      )
+      expect(startAligned.container.style.marginRight).toBe('auto')
+      expect(startAligned.container.style.marginLeft).toBe('0px')
+
+      const startAlignedRtl = getElementsWithStyle({
+        textAlign: 'start',
+        direction: 'rtl',
+      })
+
+      expect(startAlignedRtl.svg.getAttribute('preserveAspectRatio')).toBe(
+        'xMaxYMid meet'
+      )
+      expect(startAlignedRtl.container.style.marginRight).toBe('0px')
+      expect(startAlignedRtl.container.style.marginLeft).toBe('auto')
+
+      const endAligned = getElementsWithStyle({
+        textAlign: 'end',
+      })
+
+      expect(endAligned.svg.getAttribute('preserveAspectRatio')).toBe(
+        'xMaxYMid meet'
+      )
+      expect(endAligned.container.style.marginRight).toBe('0px')
+      expect(endAligned.container.style.marginLeft).toBe('auto')
+
+      const endAlignedRtl = getElementsWithStyle({
+        textAlign: 'end',
+        direction: 'rtl',
+      })
+
+      expect(endAlignedRtl.svg.getAttribute('preserveAspectRatio')).toBe(
+        'xMinYMid meet'
+      )
+      expect(endAlignedRtl.container.style.marginRight).toBe('auto')
+      expect(endAlignedRtl.container.style.marginLeft).toBe('0px')
+
+      // Overloading preserveAspectRatio by CSS custom property
+      const overloaded = getElementsWithStyle({
+        textAlign: 'left',
+        getPropertyValue: (prop: string) => {
+          if (prop === '--preserve-aspect-ratio') return 'xMaxYMid meet'
+          return undefined
+        },
+      })
+
+      expect(overloaded.svg.getAttribute('preserveAspectRatio')).toBe(
+        'xMaxYMid meet'
+      )
+      expect(overloaded.container.style.marginRight).toBe('0px')
+      expect(overloaded.container.style.marginLeft).toBe('auto')
+    })
   })
 })

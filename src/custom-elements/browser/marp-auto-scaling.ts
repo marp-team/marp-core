@@ -150,8 +150,8 @@ export class MarpAutoScaling extends HTMLElement {
       const svgPar = this.svgPreserveAspectRatio.toLowerCase()
 
       this.container.style.marginLeft =
-        svgPar.startsWith('xmid') || svgPar.startsWith('xmax') ? 'auto' : ''
-      this.container.style.marginRight = svgPar.startsWith('xmi') ? 'auto' : ''
+        svgPar.startsWith('xmid') || svgPar.startsWith('xmax') ? 'auto' : '0'
+      this.container.style.marginRight = svgPar.startsWith('xmi') ? 'auto' : '0'
     }
   }
 }
