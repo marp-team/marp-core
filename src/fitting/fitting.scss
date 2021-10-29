@@ -8,6 +8,7 @@ svg[data-marp-fitting='svg'] {
   }
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 svg[data-marp-fitting='svg'].__reflow__ {
   // Trigger reflow for Firefox
   content: '';
