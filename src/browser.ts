@@ -1,3 +1,4 @@
+import { applyCustomElements } from './custom-elements/browser'
 import { observer } from './observer'
 export { observer }
 
@@ -11,6 +12,10 @@ export const browser = (target: ParentNode = document): (() => void) => {
   }
 
   if (target[marpCoreBrowserScript]) return target[marpCoreBrowserScript]
+
+  // ---
+
+  applyCustomElements(target)
 
   const cleanupObserver = observer({ target })
   const cleanup = () => {

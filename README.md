@@ -138,27 +138,25 @@ We may change the default in the future and would break existing slides, so reco
 
 ### Auto-scaling features
 
-Auto-scaling is available only if enabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and defined [`@auto-scaling` metadata][metadata] in an using theme CSS.
+Marp Core has some auto-scaling features:
+
+- [**Fitting header**](#fitting-header): Get bigger heading that fit onto the slide by `# <!--fit-->`.
+- [**Auto-shrink code and math block**](#auto-shrink-block): Prevent sticking out the block from the right of the slide.
+
+Auto-scaling is available if defined [`@auto-scaling` metadata][metadata] in an using theme CSS.
 
 ```css
 /*
- * @theme enable-all-auto-scaling
+ * @theme foobar
  * @auto-scaling true
  */
 ```
 
-Marp Core's scaling features will be realized by manipulating the original DOM to use inline SVG. So the theme author must take care of updated DOM in styling. Refer to [the source code of offical themes][themes].
+All of Marp Core's built-in themes are ready to use full-featured auto scalings. If you're the theme author, you can control target elements which enable auto-scaling [by using metadata keyword(s).][metadata]
 
-`@auto-scaling` meta can also pick the favorite features to enable by using keyword(s).
+This feature depends to inline SVG, so note that it will not working if disabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) by setting `inlineSVG: false` in constructor option.
 
-```css
-/*
- * @theme enable-auto-scaling-for-fitting-header-and-math
- * @auto-scaling fittingHeader,math
- */
-```
-
-> :warning: In the math block and the code block, Marp Core won't detect whether they actually protrude from the slide. It might not work scaling correctly when there are many elements in a slide.
+> :warning: Marp Core won't detect whether the elements actually protrude from the slide. It might still stick out from the slide edge if there are a lot of elements.
 
 #### Fitting header
 
@@ -170,33 +168,14 @@ When the headings contains `<!-- fit -->` comment, the size of headings will res
 
 This syntax is similar to [Deckset's `[fit]` keyword](https://docs.decksetapp.com/English.lproj/Formatting/01-headings.html), but we use HTML comment to hide a fit keyword on Markdown rendered as document.
 
-> :information_source: `@auto-scaling fittingHeader` is a keyword of the `@auto-scaling` meta to enable fitting header.
+#### Auto-shrink block
 
-#### KaTeX Math block
+Some of blocks will be shrunk to fit onto the slide. It is useful preventing stuck out the block from the right of the slide.
 
-We can scale-down the viewing size of KaTeX math block (surrounded by `$$`) to fit a slide automatically.
-
-|              Traditional rendering               |              Auto-scaling               |
-| :----------------------------------------------: | :-------------------------------------: |
-| ![Traditional rendering](https://bit.ly/2NXoHuW) | ![Auto-scaling](https://bit.ly/2M6LyCk) |
-
-> :information_source: `@auto-scaling math` is a keyword of the `@auto-scaling` meta to enable math block scaling.
->
-> _Please notice that the math block rendered by MathJax would always be scaled-down and cannot control whether scale via metadata._
-
-#### Code block
-
-Several themes also can scale-down the viewing size of the code block to fit a slide.
-
-|              Traditional rendering               |              Auto-scaling               |
-| :----------------------------------------------: | :-------------------------------------: |
-| ![Traditional rendering](https://bit.ly/2LyEnmi) | ![Auto-scaling](https://bit.ly/2N4yWQZ) |
-
-These features means that the contents on a slide are not cropped, and not shown unnecessary scrollbars in code.
-
-> :information_source: `@auto-scaling code` is a keyword of the `@auto-scaling` meta to enable code block scaling.
->
-> `uncover` theme has disabled code block scaling because we use elastic style that has not compatible with it.
+|                      |              Traditional rendering               |              Auto-scaling               |
+| :------------------: | :----------------------------------------------: | :-------------------------------------: |
+|    **Code block**    | ![Traditional rendering](https://bit.ly/2LyEnmi) | ![Auto-scaling](https://bit.ly/2N4yWQZ) |
+| **KaTeX math block** | ![Traditional rendering](https://bit.ly/2NXoHuW) | ![Auto-scaling](https://bit.ly/2M6LyCk) |
 
 ## Constructor options
 

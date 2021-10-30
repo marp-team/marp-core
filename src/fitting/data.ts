@@ -1,5 +1,0 @@
-export const attr = 'data-marp-fitting'
-export const code = 'data-marp-fitting-code'
-export const math = 'data-marp-fitting-math'
-export const svgContentAttr = 'data-marp-fitting-svg-content'
-export const svgContentWrapAttr = 'data-marp-fitting-svg-content-wrap'

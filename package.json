@@ -119,6 +119,7 @@
     "postcss-minify-params": "^5.0.1",
     "postcss-minify-selectors": "^5.1.0",
     "postcss-normalize-whitespace": "^5.0.1",
+    "postcss-selector-parser": "^6.0.6",
     "twemoji": "^13.1.0",
     "xss": "^1.0.10"
   },

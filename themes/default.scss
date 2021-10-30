@@ -12,10 +12,6 @@
 @import '~github-markdown-css/github-markdown-light';
 @import '~highlight.js/styles/github-gist';
 
-svg[data-marp-fitting='svg'] {
-  max-height: 563px; // Slide height - padding * 2
-}
-
 h1 {
   border-bottom: none;
   color: #246;
@@ -53,6 +49,10 @@ h6 {
     font-weight: inherit;
     color: #48c;
   }
+
+  &::part(auto-scaling) {
+    max-height: 563px; // Slide height - padding * 2
+  }
 }
 
 hr {
@@ -65,7 +65,7 @@ pre {
   line-height: 1.15;
   overflow: visible;
 
-  code svg[data-marp-fitting='svg'] {
+  &::part(auto-scaling) {
     // Slide height - padding * 2 - code's padding * 3 - code's border * 2
     max-height: 529px;
   }
