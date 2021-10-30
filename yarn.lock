@@ -1532,7 +1532,7 @@ combined-stream@^1.0.8:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@>=7.0.0:
+commander@>=7.0.0, commander@^8.0.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-8.3.0.tgz#4837ea1b2da67b9c616a67afbb0fafee567bca66"
   integrity sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==
@@ -2753,6 +2753,11 @@ highlight.js@^10.7.3:
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.7.3.tgz#697272e3991356e40c3cac566a74eef681756531"
   integrity sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==
 
+highlight.js@^11.3.1:
+  version "11.3.1"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.3.1.tgz#813078ef3aa519c61700f84fe9047231c5dc3291"
+  integrity sha512-PUhCRnPjLtiLHZAQ5A/Dt5F8cWZeMyj9KRsACsWT+OD6OP0x6dp5OmT5jdx0JgEyPxPZZIPQpRN2TciUT7occw==
+
 homedir-polyfill@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/homedir-polyfill/-/homedir-polyfill-1.0.3.tgz#743298cef4e5af3e194161fbadcc2151d3a058e8"
@@ -3816,12 +3821,19 @@ jsonfile@^5.0.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-katex@^0.13.13, katex@^0.13.20:
+katex@^0.13.13:
   version "0.13.20"
   resolved "https://registry.yarnpkg.com/katex/-/katex-0.13.20.tgz#8bb5d3a1b3383c428b36274385444c747b1fba1f"
   integrity sha512-nGuuanV0idsPpWy3LKtTYSbqHwPOr9qxXuoJ/1l5fTLA2RYXVknpqElxgudXeaMz55OnxW2KhY7BV1greb08zg==
   dependencies:
     commander "^6.0.0"
+
+katex@^0.13.23:
+  version "0.13.23"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.13.23.tgz#39376f02274f0ca0f59fff77d39270bfa138dc5f"
+  integrity sha512-Lxki3QN7I/jGSFPcApMYnBVsfqAsG92E/cCB8l8csUOCCEK7i4xo9bxbm0ENW2JdxgZdeA0yYl+A8+m3mdK6JQ==
+  dependencies:
+    commander "^8.0.0"
 
 keyv@^3.0.0:
   version "3.1.0"

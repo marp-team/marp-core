@@ -9,12 +9,11 @@
  * @size 4:3 960px 720px
  */
 
-@import '~github-markdown-css/github-markdown-light';
-@import '~highlight.js/styles/github-gist';
+@import '~github-markdown-css';
 
 h1 {
   border-bottom: none;
-  color: #246;
+  color: var(--h1-color);
   font-size: 1.6em;
 }
 
@@ -47,7 +46,7 @@ h5,
 h6 {
   strong {
     font-weight: inherit;
-    color: #48c;
+    color: var(--heading-strong-color);
   }
 
   &::part(auto-scaling) {
@@ -61,7 +60,7 @@ hr {
 }
 
 pre {
-  border: 1px solid #999;
+  border: 1px solid var(--color-border-default);
   line-height: 1.15;
   overflow: visible;
 
@@ -69,6 +68,100 @@ pre {
     // Slide height - padding * 2 - code's padding * 3 - code's border * 2
     max-height: 529px;
   }
+
+  // GitHub's prettylights -> Highlight.js
+  /* stylelint-disable selector-class-pattern */
+  .hljs {
+    color: var(--color-prettylights-syntax-storage-modifier-import);
+  }
+
+  .hljs-doctag,
+  .hljs-keyword,
+  .hljs-meta .hljs-keyword,
+  .hljs-template-tag,
+  .hljs-template-variable,
+  .hljs-type,
+  .hljs-variable.language_ {
+    color: var(--color-prettylights-syntax-keyword);
+  }
+
+  .hljs-title,
+  .hljs-title.class_,
+  .hljs-title.class_.inherited__,
+  .hljs-title.function_ {
+    color: var(--color-prettylights-syntax-entity);
+  }
+
+  .hljs-attr,
+  .hljs-attribute,
+  .hljs-literal,
+  .hljs-meta,
+  .hljs-number,
+  .hljs-operator,
+  .hljs-selector-attr,
+  .hljs-selector-class,
+  .hljs-selector-id,
+  .hljs-variable {
+    color: var(--color-prettylights-syntax-constant);
+  }
+
+  .hljs-string,
+  .hljs-meta .hljs-string,
+  .hljs-regexp {
+    color: var(--color-prettylights-syntax-string);
+  }
+
+  .hljs-built_in,
+  .hljs-symbol {
+    color: var(--color-prettylights-syntax-variable);
+  }
+
+  .hljs-code,
+  .hljs-comment,
+  .hljs-formula {
+    color: var(--color-prettylights-syntax-comment);
+  }
+
+  .hljs-name,
+  .hljs-quote,
+  .hljs-selector-pseudo,
+  .hljs-selector-tag {
+    color: var(--color-prettylights-syntax-entity-tag);
+  }
+
+  .hljs-subst {
+    color: var(--color-prettylights-syntax-storage-modifier-import);
+  }
+
+  .hljs-section {
+    font-weight: bold;
+    color: var(--color-prettylights-syntax-markup-heading);
+  }
+
+  .hljs-bullet {
+    color: var(--color-prettylights-syntax-markup-list);
+  }
+
+  .hljs-emphasis {
+    font-style: italic;
+    color: var(--color-prettylights-syntax-markup-italic);
+  }
+
+  .hljs-strong {
+    font-weight: bold;
+    color: var(--color-prettylights-syntax-markup-bold);
+  }
+
+  .hljs-addition {
+    color: var(--color-prettylights-syntax-markup-inserted-text);
+    background-color: var(--color-prettylights-syntax-markup-inserted-bg);
+  }
+
+  .hljs-deletion {
+    color: var(--color-prettylights-syntax-markup-deleted-text);
+    background-color: var(--color-prettylights-syntax-markup-deleted-bg);
+  }
+  /* stylelint-enable selector-class-pattern */
 }
 
 header,
@@ -76,7 +169,7 @@ footer {
   margin: 0;
   position: absolute;
   left: 30px;
-  color: rgba(#666, 0.75);
+  color: var(--header-footer-color);
   font-size: 18px;
 }
 
@@ -92,8 +185,12 @@ section {
   /* stylelint-disable-next-line scss/at-extend-no-missing-placeholder */
   @extend .markdown-body;
 
+  --h1-color: #246;
+  --header-footer-color: #{rgba(#666, 0.75)};
+  --heading-strong-color: #48c;
+  --paginate-color: #777;
+
   align-items: stretch;
-  background: #fff;
   display: flex;
   flex-flow: column nowrap;
   font-size: 29px;
@@ -118,97 +215,14 @@ section {
     right: 30px;
     bottom: 21px;
     font-size: 24px;
-    color: #777;
+    color: var(--paginate-color);
   }
 
   &.invert {
-    background-color: #222;
-    color: #e6eaf0;
-
-    &::after {
-      color: #999;
-    }
-
-    img {
-      background-color: transparent;
-    }
-
-    a {
-      color: #50b3ff;
-    }
-
-    h1 {
-      color: #a3c5e7;
-    }
-
-    h2,
-    h3,
-    h4,
-    h5 {
-      color: #ebeff5;
-    }
-
-    h6,
-    blockquote {
-      border-color: #3d3f43;
-      color: #939699;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      strong {
-        color: #7bf;
-      }
-    }
-
-    hr {
-      background-color: #3d3f43;
-    }
-
-    header,
-    footer {
-      color: rgba(#999, 0.75);
-    }
-
-    code {
-      background-color: #111;
-    }
-
-    kbd {
-      background-color: #111;
-      border-color: #666;
-      box-shadow: inset 0 -1px 0 #555;
-      color: #e6eaf0;
-    }
-
-    table {
-      tr {
-        background-color: #12181d;
-        border-color: #60657b;
-
-        &:nth-child(2n) {
-          background-color: #1b2024;
-        }
-      }
-
-      th,
-      td {
-        border-color: #5b5e61;
-      }
-    }
-
-    pre {
-      background-color: #0a0e12;
-      border-color: #777;
-
-      code {
-        background-color: transparent;
-      }
-    }
+    --h1-color: #cee7ff;
+    --header-footer-color: #{rgba(#999, 0.75)};
+    --heading-strong-color: #7bf;
+    --paginate-color: #999;
   }
 
   &[data-color] {
