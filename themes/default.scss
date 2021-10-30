@@ -70,9 +70,11 @@ pre {
   }
 
   // GitHub's prettylights -> Highlight.js
+  /* stylelint-disable selector-class-pattern */
   .hljs {
     color: var(--color-prettylights-syntax-storage-modifier-import);
   }
+
   .hljs-doctag,
   .hljs-keyword,
   .hljs-meta .hljs-keyword,
@@ -82,12 +84,14 @@ pre {
   .hljs-variable.language_ {
     color: var(--color-prettylights-syntax-keyword);
   }
+
   .hljs-title,
   .hljs-title.class_,
   .hljs-title.class_.inherited__,
   .hljs-title.function_ {
     color: var(--color-prettylights-syntax-entity);
   }
+
   .hljs-attr,
   .hljs-attribute,
   .hljs-literal,
@@ -100,52 +104,64 @@ pre {
   .hljs-variable {
     color: var(--color-prettylights-syntax-constant);
   }
+
+  .hljs-string,
   .hljs-meta .hljs-string,
-  .hljs-regexp,
-  .hljs-string {
+  .hljs-regexp {
     color: var(--color-prettylights-syntax-string);
   }
+
   .hljs-built_in,
   .hljs-symbol {
     color: var(--color-prettylights-syntax-variable);
   }
+
   .hljs-code,
   .hljs-comment,
   .hljs-formula {
     color: var(--color-prettylights-syntax-comment);
   }
+
   .hljs-name,
   .hljs-quote,
   .hljs-selector-pseudo,
   .hljs-selector-tag {
     color: var(--color-prettylights-syntax-entity-tag);
   }
+
   .hljs-subst {
     color: var(--color-prettylights-syntax-storage-modifier-import);
   }
+
   .hljs-section {
     font-weight: bold;
     color: var(--color-prettylights-syntax-markup-heading);
   }
+
   .hljs-bullet {
     color: var(--color-prettylights-syntax-markup-list);
   }
+
   .hljs-emphasis {
     font-style: italic;
     color: var(--color-prettylights-syntax-markup-italic);
   }
+
   .hljs-strong {
     font-weight: bold;
     color: var(--color-prettylights-syntax-markup-bold);
   }
+
   .hljs-addition {
     color: var(--color-prettylights-syntax-markup-inserted-text);
     background-color: var(--color-prettylights-syntax-markup-inserted-bg);
   }
+
   .hljs-deletion {
     color: var(--color-prettylights-syntax-markup-deleted-text);
     background-color: var(--color-prettylights-syntax-markup-deleted-bg);
   }
+  /* stylelint-enable selector-class-pattern */
 }
 
 header,
