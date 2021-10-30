@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  codecov: codecov/codecov@3.2.0
+
 executors:
   node:
     parameters:
@@ -18,7 +21,7 @@ commands:
         default: []
       yarn:
         type: string
-        default: 1.22.4
+        default: '^1.22.15'
     steps:
       - run:
           name: Upgrade yarn for current user
@@ -74,7 +77,7 @@ commands:
           environment:
             JEST_JUNIT_OUTPUT_DIR: tmp/test-results
 
-      - run: yarn codecov
+      - codecov/upload
 
       - store_test_results:
           path: tmp/test-results
@@ -99,14 +102,14 @@ jobs:
   test-node14:
     executor:
       name: node
-      version: '14.17.5' # Specify LTS version for development
+      version: '14.18'
     steps:
       - test
 
   test-node16:
     executor:
       name: node
-      version: '16.4'
+      version: '16.13.0' # Specify LTS version for development
     steps:
       - test
 
