@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade development Node to v16 LTS ([#265](https://github.com/marp-team/marp-core/pull/265))
+
 ## v2.2.0 - 2021-10-29
 
 ### Changed
