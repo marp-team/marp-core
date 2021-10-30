@@ -76,7 +76,6 @@
     "@typescript-eslint/parser": "^5.2.0",
     "autoprefixer": "^10.4.0",
     "cheerio": "^1.0.0-rc.10",
-    "codecov": "^3.8.3",
     "cssnano": "^5.0.8",
     "eslint": "^8.1.0",
     "eslint-config-prettier": "^8.3.0",
