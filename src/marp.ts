@@ -60,9 +60,11 @@ export class Marp extends Marpit {
     } as MarpOptions)
 
     this.markdown.enable(['table', 'linkify', 'strikethrough'])
+    this.markdown.linkify.set({ fuzzyLink: false })
 
-    if (mdOpts.typographer)
+    if (mdOpts.typographer) {
       this.markdown.enable(['replacements', 'smartquotes'])
+    }
 
     // Theme support
     this.themeSet.metaType = Object.freeze({
