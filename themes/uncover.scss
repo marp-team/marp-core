@@ -63,11 +63,11 @@ section {
 
   @include color-scheme;
 
-  &:not(.invert) {
+  &:where(:not(.invert)) {
     @import '~highlight.js/styles/color-brewer';
   }
 
-  &.invert {
+  &:where(.invert) {
     @include color-scheme(#202228, #fff, #60d0f0);
     @import '~highlight.js/styles/codepen-embed';
   }
@@ -196,6 +196,10 @@ section {
     line-height: 1.15;
     margin: 15px 0 30px;
     text-align: left;
+
+    &::part(auto-scaling) {
+      max-height: 570px;
+    }
   }
 
   pre > code {

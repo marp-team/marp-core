@@ -199,6 +199,13 @@ section {
   padding: 78.5px;
   width: 1280px;
 
+  &:where(.invert) {
+    --h1-color: #cee7ff;
+    --header-footer-color: #{rgba(#999, 0.75)};
+    --heading-strong-color: #7bf;
+    --paginate-color: #999;
+  }
+
   > *:last-child,
   &[data-footer] > :nth-last-child(2) {
     margin-bottom: 0;
@@ -216,13 +223,6 @@ section {
     bottom: 21px;
     font-size: 24px;
     color: var(--paginate-color);
-  }
-
-  &.invert {
-    --h1-color: #cee7ff;
-    --header-footer-color: #{rgba(#999, 0.75)};
-    --heading-strong-color: #7bf;
-    --paginate-color: #999;
   }
 
   &[data-color] {

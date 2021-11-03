@@ -18,8 +18,6 @@ const plugin = () => {
         const matched = rule.params.match(colorThemeMatcher)
 
         if (matched) {
-          rule.params = 'all'
-
           if (matched[1] === 'dark') {
             rule.walkRules((rule) => {
               postcssSelectorParser((selectorRoot) => {
@@ -29,13 +27,17 @@ const plugin = () => {
                   if (normalizedTagName === 'section') {
                     tag.parent.insertAfter(
                       tag,
-                      postcssSelectorParser.className({ value: 'invert' })
+                      postcssSelectorParser.pseudo({ value: ':where(.invert)' })
                     )
                   }
                 })
               }).processSync(rule, { updateSelector: true })
             })
+
+            // Append a rule of dark theme after the light theme
+            rule.next().after(rule.nodes)
           }
+          rule.replaceWith(rule.nodes)
         }
       },
     },
