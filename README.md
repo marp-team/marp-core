@@ -14,7 +14,7 @@ In order to use on Marp tools, we have extended from the slide deck framework **
 We provide `Marp` class, that is inherited from [Marpit](https://github.com/marp-team/marpit).
 
 ```javascript
-import Marp from '@marp-team/marp-core'
+import { Marp } from '@marp-team/marp-core'
 
 // Convert Markdown slide deck into HTML and CSS
 const marp = new Marp()
