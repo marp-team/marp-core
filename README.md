@@ -23,20 +23,24 @@ const { html, css } = marp.render('# Hello, marp-core!')
 
 ## Features
 
-_We will only explain features extended in marp-core._ Please refer to [@marp-team/marpit](https://github.com/marp-team/marpit) repository if you want to know the basic feature of Marpit framework.
+_We will only explain features extended in marp-core._ Please refer to [Marpit framework](https://marpit.marp.app) if you want to know the basic features.
+
+---
 
 ### Marp Markdown
 
-Marp Markdown is based on [Marpit](https://github.com/marp-team/marpit) and [CommonMark](https://commonmark.org/), and there are these additional features:
+**Marp Markdown** is a custom Markdown flavor based on [Marpit](https://marpit.marp.app) and [CommonMark](https://commonmark.org/). Following are principle differences from the original:
 
 - **Marpit**
-  - Enable [inline SVG mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) and loose YAML parsing by default.
+  - Enabled [inline SVG slide](https://marpit.marp.app/inline-svg) and [loose YAML parsing](https://marpit-api.marp.app/marpit#Marpit) by default.
 
 * **CommonMark**
-  - For security reason, HTML tag only allows `<br />` by default.
+  - For making secure, we will deny most of HTML tags used in Markdown (`<br>` is only allowed by default).
   - Support [table](https://github.github.com/gfm/#tables-extension-) and [strikethrough](https://github.github.com/gfm/#strikethrough-extension-) syntax, based on [GitHub Flavored Markdown](https://github.github.com/gfm/).
   - Line breaks in paragraph will convert to `<br>` tag.
-  - Auto convert URL like text into hyperlink.
+  - Convert URL-like text into hyperlink automatically.
+
+---
 
 ### [Built-in official themes][themes]
 
@@ -49,9 +53,11 @@ We provide bulit-in official themes for Marp. See more details in [themes].
 
 [themes]: ./themes/
 
+---
+
 ### `size` global directive
 
-Do you want a traditional 4:3 slide size? We've added the support of `size` global directive only for Marp Core. Our extended theming system can use `960`x`720` slide in built-in themes easier: `size: 4:3`.
+Do you want a traditional 4:3 slide size? Marp Core adds the support of `size` global directive. The extended theming system can switch the slide size easier.
 
 ```markdown
 ---
@@ -62,15 +68,23 @@ size: 4:3
 # A traditional 4:3 slide
 ```
 
-If you want to use more size presets in your theme, you have to define `@size` metadata(s) in theme CSS. [Learn in the document of theme metadata for Marp Core][metadata].
+[Bulit-in themes for Marp][themes] have provided `16:9` (1280x720) and `4:3` (960x720) preset sizes.
+
+#### Define size presets in custom theme CSS
+
+If you want to use more size presets in your own theme, you have to define `@size` metadata(s) in theme CSS. [Learn in the document of theme metadata for Marp Core][metadata].
 
 Theme author does not have to worry an unintended design being used with unexpected slide size because user only can use pre-defined presets by author.
 
 [metadata]: ./themes#metadata-for-additional-features
 
+---
+
 ### Emoji support
 
 Emoji shortcode (like `:smile:`) and Unicode emoji 😄 will convert into the SVG vector image provided by [twemoji](https://github.com/twitter/twemoji) <img src="https://twemoji.maxcdn.com/2/svg/1f604.svg" alt="😄" width="16" height="16" />. It could render emoji with high resolution.
+
+---
 
 ### Math typesetting
 
@@ -102,24 +116,24 @@ $$
 </td>
 <td>
 
-![Math typesetting support](https://user-images.githubusercontent.com/3993388/44745975-26177f00-ab44-11e8-9951-ebf8031ab009.png)
+![Math typesetting support](https://user-images.githubusercontent.com/3993388/142782335-15bce585-68f1-4c89-8747-8d11533f3ca6.png)
 
 </td>
 </tbody>
 </table>
 
-You can choose using library for math from [KaTeX](https://khan.github.io/KaTeX/) and [MathJax](https://www.mathjax.org/) in [`math` global directive](#math-global-directive) (or [JS constructor option](#math-constructor-option)). By default, we prefer KaTeX for compatibility and performance, but MathJax has better rendering and syntax support than KaTeX.
+You can choose using library for math from [MathJax](https://www.mathjax.org/) and [KaTeX](https://khan.github.io/KaTeX/) in [`math` global directive](#math-global-directive) (or [JS constructor option](#math-constructor-option)). By default, we prefer MathJax for better rendering and syntax support, but KaTeX is faster rendering if you had a lot of formulas.
 
 #### `math` global directive
 
 Through `math` global directive, Marp Core is supporting to declare math library that will be used within current Markdown.
 
-Set **`katex`** or **`mathjax`** in the `math` global directive like this:
+Set **`mathjax`** or **`katex`** in the `math` global directive like this:
 
 ```markdown
 ---
-# Declare to use MathJax in this Markdown
-math: mathjax
+# Declare to use KaTeX in this Markdown
+math: katex
 ---
 
 $$
@@ -130,18 +144,20 @@ x &= 1+1 \tag{1} \\
 $$
 ```
 
-If not declared, Marp Core will use the default library to render math (KaTeX in v2).
+If not declared, Marp Core will use the default library to render math. (MathJax in v3)
 
-We may change the default in the future and would break existing slides, so recommend to declare the library whenever to use math typesetting.
+To prevent breaking the slide in upcoming updates, recommend to declare the library whenever to use math typesetting.
 
 > :warning: The declaration of math library is given priority over [`math` JS constructor option](#math-constructor-option), but you cannot turn on again via `math` global directive if disabled math typesetting by the constructor.
+
+---
 
 ### Auto-scaling features
 
 Marp Core has some auto-scaling features:
 
 - [**Fitting header**](#fitting-header): Get bigger heading that fit onto the slide by `# <!--fit-->`.
-- [**Auto-shrink code and math block**](#auto-shrink-block): Prevent sticking out the block from the right of the slide.
+- [**Auto-shrink the code block and KaTeX block**](#auto-shrink-block): Prevent sticking out the block from the right of the slide.
 
 Auto-scaling is available if defined [`@auto-scaling` metadata][metadata] in an using theme CSS.
 
@@ -152,11 +168,11 @@ Auto-scaling is available if defined [`@auto-scaling` metadata][metadata] in an 
  */
 ```
 
-All of Marp Core's built-in themes are ready to use full-featured auto scalings. If you're the theme author, you can control target elements which enable auto-scaling [by using metadata keyword(s).][metadata]
+All of [Marp Core's built-in themes][themes] are ready to use full-featured auto scalings. If you're the theme author, you can control target elements which enable auto-scaling [by using metadata keyword(s).][metadata]
 
 This feature depends to inline SVG, so note that it will not working if disabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) by setting `inlineSVG: false` in constructor option.
 
-> :warning: Marp Core won't detect whether the elements actually protrude from the slide. It might still stick out from the slide edge if there are a lot of elements.
+> :warning: Auto-scaling is designed for horizontal scaling. In vertical, the scaled element still may stick out from top and bottom of slide if there are a lot of contents around it.
 
 #### Fitting header
 
@@ -168,7 +184,7 @@ When the headings contains `<!-- fit -->` comment, the size of headings will res
 
 This syntax is similar to [Deckset's `[fit]` keyword](https://docs.decksetapp.com/English.lproj/Formatting/01-headings.html), but we use HTML comment to hide a fit keyword on Markdown rendered as document.
 
-#### Auto-shrink block
+#### Auto-shrink the block
 
 Some of blocks will be shrunk to fit onto the slide. It is useful preventing stuck out the block from the right of the slide.
 
@@ -176,6 +192,10 @@ Some of blocks will be shrunk to fit onto the slide. It is useful preventing stu
 | :------------------: | :----------------------------------------------: | :-------------------------------------: |
 |    **Code block**    | ![Traditional rendering](https://bit.ly/2LyEnmi) | ![Auto-scaling](https://bit.ly/2N4yWQZ) |
 | **KaTeX math block** | ![Traditional rendering](https://bit.ly/2NXoHuW) | ![Auto-scaling](https://bit.ly/2M6LyCk) |
+
+> :information_source: MathJax math block will always be scaled without even setting `@auto-scaling` metadata.
+
+---
 
 ## Constructor options
 
@@ -194,7 +214,7 @@ const marp = new Marp({
       base: '/resources/twemoji/',
     },
   },
-  math: 'mathjax',
+  math: 'katex',
   minifyCSS: true,
   script: {
     source: 'cdn',
@@ -237,7 +257,7 @@ By passing `object`, you can set the allowlist to specify allowed tags and attri
 
 Marp core allows only `<br>` tag by default, that is defined in [`Marp.html`](https://github.com/marp-team/marp-core/blob/5c3593320f1c1234f3b2556ecd1ff1f91d69c77a/src/marp.ts#L45).
 
-Whatever any option is selected, `<!-- HTML comment -->` and `<style>` tag are always parsed for directives / tweaking style.
+> Whatever any option is selected, `<!-- HTML comment -->` and `<style>` tags are always parsed by Marpit for directives / tweaking style.
 
 ### `emoji`: _`object`_
 
@@ -258,14 +278,14 @@ Setting about emoji conversions.
 
 > **For developers:** When you setting `unicode` option as `true`, Markdown parser will convert Unicode emoji into tokens internally. The rendering result is same as in `false`.
 
-### `math`: _`boolean` | `"katex"` | `"mathjax"` | `object`_ <a name="math-constructor-option" id="math-constructor-option"></a>
+### `math`: _`boolean` | `"mathjax"` | `"katex"` | `object`_ <a name="math-constructor-option" id="math-constructor-option"></a>
 
 Enable or disable [math typesetting](#math-typesetting) syntax and [`math` global directive](#math-global-directive).
 
-You can choose the default library for math by passing **`"katex"`** (default) or **`"mathjax"`**, and modify more settings by passing an object of sub-options.
+You can choose the default library for math by passing **`"mathjax"`** (default) or **`"katex"`**, and modify more settings by passing an object of sub-options.
 
-- **`lib`**: _`"katex"` | `"mathjax"`_
-  - Choose the default library for math typesetting. _(`katex` by default)_
+- **`lib`**: _`"mathjax"` | `"katex"`_
+  - Choose the default library for math typesetting. _(`mathjax` by default)_
 
 * **`katexOption`**: _`object`_
   - Options that will be passed to KaTeX. Please refer to [KaTeX document](https://khan.github.io/KaTeX/docs/options.html).
