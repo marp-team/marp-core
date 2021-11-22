@@ -22,14 +22,14 @@ export const createMarpCustomElement = <T extends Constructor<HTMLElement>>(
     }
 
     connectedCallback() {
-      this.update()
+      this._update()
     }
 
     attributeChangedCallback() {
-      this.update()
+      this._update()
     }
 
-    private update() {
+    _update() {
       const styleTag = style ? `<style>:host { ${style} }</style>` : ''
       let slotTag = '<slot></slot>'
 
