@@ -39,6 +39,22 @@ The default theme of Marp. It is based on [GitHub markdown style](https://github
 <!-- theme: default -->
 ```
 
+### Custom color (CSS variables)
+
+The default theme has followed GitHub style provided by [`github-markdown-css` package](https://github.com/sindresorhus/github-markdown-css), and the most of CSS variables are defined in the upstream. [Please refer to the source code of that to inspect appliable variables.](https://github.com/sindresorhus/github-markdown-css/blob/main/github-markdown.css)
+
+```html
+<style>
+  :root {
+    --color-fg-default: #eff;
+    --color-canvas-default: #246;
+    /* ... */
+  }
+</style>
+```
+
+[We also have a little of additional variables to set colors for Marp specifics.](./default.scss)
+
 ## Gaia
 
 [![](https://user-images.githubusercontent.com/3993388/48039493-5456b200-e1b8-11e8-9c49-dd5d66d76c0d.png)][example]
@@ -67,7 +83,7 @@ class: lead
 -->
 ```
 
-> :information_source: Marpit's [Spot directive](https://marpit.marp.app/directives?id=apply-to-a-single-page-spot-directives) would be useful to apply `lead` class only into a current page.
+> :information_source: Marpit's [scoped local directive](https://marpit.marp.app/directives?id=apply-to-a-single-page-spot-directives) would be useful to apply `lead` class only into a current page.
 >
 > ```markdown
 > <!-- _class: lead -->
@@ -83,7 +99,7 @@ Gaia theme supports an additional color scheme by `gaia` class.
 <!-- class: gaia -->
 ```
 
-> :information_source: Of course you may use multiple classes, by array or separated string by space.
+> :information_source: You may use multiple classes, by YAML array or separated string by space.
 >
 > ```markdown
 > ---
@@ -109,15 +125,13 @@ Color scheme for Gaia theme has defined by CSS variables. You also can use the c
 ```html
 <style>
   :root {
-    --color-background: #fff !important;
-    --color-foreground: #333 !important;
-    --color-highlight: #f96 !important;
-    --color-dimmed: #888 !important;
+    --color-background: #fff;
+    --color-foreground: #333;
+    --color-highlight: #f96;
+    --color-dimmed: #888;
   }
 </style>
 ```
-
-`!important` is required to make custom colors force against specific color defined by HTML classes like `invert` and `gaia`. See also: [marp-team/marp-core#221](https://github.com/marp-team/marp-core/pull/221)
 
 ## Uncover
 
@@ -130,10 +144,6 @@ Uncover theme has three design concepts: simple, minimal, and modern. It's inspi
 <!-- theme: uncover -->
 ```
 
-### :warning: Restrictions
-
-_[Auto-scaling for code block](https://github.com/marp-team/marp-core#auto-scaling-features) is disabled_ because uncover theme uses the elastic style that has not compatible with it.
-
 ### Custom color (CSS variables)
 
 Color scheme for Uncover theme has defined by CSS variables. You also can use the custom color scheme by inline style.
@@ -141,20 +151,18 @@ Color scheme for Uncover theme has defined by CSS variables. You also can use th
 ```html
 <style>
   :root {
-    --color-background: #ddd !important;
-    --color-background-code: #ccc !important;
-    --color-background-paginate: rgba(128, 128, 128, 0.05) !important;
-    --color-foreground: #345 !important;
-    --color-highlight: #99c !important;
-    --color-highlight-hover: #aaf !important;
-    --color-highlight-heading: #99c !important;
-    --color-header: #bbb !important;
-    --color-header-shadow: transparent !important;
+    --color-background: #ddd;
+    --color-background-code: #ccc;
+    --color-background-paginate: rgba(128, 128, 128, 0.05);
+    --color-foreground: #345;
+    --color-highlight: #99c;
+    --color-highlight-hover: #aaf;
+    --color-highlight-heading: #99c;
+    --color-header: #bbb;
+    --color-header-shadow: transparent;
   }
 </style>
 ```
-
-`!important` is required to make custom colors force against specific color defined by HTML classes like `invert`. See also: [marp-team/marp-core#221](https://github.com/marp-team/marp-core/pull/221)
 
 # Metadata for additional features
 
