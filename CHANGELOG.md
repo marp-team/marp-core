@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+> **This version is still release candidate.** You have to use `next` tag to install: `npm i --save @marp-team/marp-core@next`.
+
 ### ⚡️ Breaking
 
 - Dropped Node 10 support and now requires the latest version of Node.js v12 and later ([#260](https://github.com/marp-team/marp-core/issues/260), [#266](https://github.com/marp-team/marp-core/pull/266))
