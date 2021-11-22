@@ -1,6 +1,7 @@
 import { Marpit } from '@marp-team/marpit'
 import cheerio, { CheerioOptions } from 'cheerio'
-import postcss from 'postcss'
+import postcss, { Rule } from 'postcss'
+import { elements } from '../src/custom-elements/definitions'
 import { EmojiOptions } from '../src/emoji/emoji'
 import { Marp, MarpOptions } from '../src/marp'
 import browserScript from '../src/script/browser-script'
@@ -315,155 +316,13 @@ describe('Marp', () => {
     const inline = "Euler's equation is defined as $e^{i\\pi}+1=0$."
     const block = '$$\nc=\\sqrt{a^2+b^2}\n$$'
 
-    describe('with KaTeX (default)', () => {
-      const pickKaTeXWebFont = (css: string) => {
-        const walkedUrls: string[] = []
-        const walkerPlugin = {
-          postcssPlugin: 'postcss-katex-walker',
-          AtRule: (rule) => {
-            if (rule.name === 'font-face') {
-              rule.walkDecls('src', (e) => {
-                if (e.value.includes('KaTeX')) walkedUrls.push(e.value)
-              })
-            }
-          },
-        }
-
-        postcss([walkerPlugin]).process(css, { from: undefined }).css
-        return walkedUrls
-      }
-
-      it('renders math typesetting by KaTeX', () => {
+    describe('with MathJax (default)', () => {
+      it('renders math typesetting by MathJax', () => {
         for (const instance of [
           marp(),
           marp({ math: true }),
-          marp({ math: 'katex' }),
-          marp({ math: {} }),
-          marp({ math: { lib: 'katex' } }),
-        ]) {
-          const { html } = instance.render(`${inline}\n\n${block}`)
-          const $ = cheerio.load(html)
-
-          expect($('.katex')).toHaveLength(2)
-        }
-      })
-
-      it('injects KaTeX css with replacing web font URL to CDN', () => {
-        const { css } = marp().render(block)
-        expect(css).toContain('.katex')
-
-        const katexFonts = pickKaTeXWebFont(css)
-        for (const url of katexFonts) {
-          expect(url).toContain('https://cdn.jsdelivr.net/npm/katex')
-        }
-
-        expect(katexFonts).toMatchSnapshot('katex-css-cdn')
-      })
-
-      it('has a unique context for macro by Markdown rendering', () => {
-        const instance = marp()
-
-        const plain = cheerio
-          .load(instance.render('$x^2$').html)('.katex-html')
-          .html()
-
-        // KaTeX can modify macros through \gdef
-        const globallyDefined = cheerio
-          .load(instance.render('$\\gdef\\foo{x^2}$ $\\foo$').html)(
-            '.katex-html'
-          )
-          .eq(1)
-          .html()
-
-        expect(globallyDefined).toBe(plain)
-
-        // Defined command through \gdef in another rendering cannot use
-        const notDefined = cheerio
-          .load(instance.render('$\\foo$').html)('.katex-html')
-          .html()
-
-        expect(notDefined).not.toBe(plain)
-      })
-
-      describe('when math typesetting syntax is not using', () => {
-        it('does not inject KaTeX css', () =>
-          expect(marp().render('plain text').css).not.toContain('.katex'))
-      })
-
-      describe('with katexOption', () => {
-        it('renders KaTeX with specified option', () => {
-          const instance = marp({
-            math: { katexOption: { macros: { '\\RR': '\\mathbb{R}' } } },
-          })
-          const { html } = instance.render(`# $\\RR$\n\n## $\\mathbb{R}$`)
-          const $ = cheerio.load(html)
-
-          const h1 = $('h1')
-          h1.find('annotation').remove()
-
-          const h2 = $('h2')
-          h2.find('annotation').remove()
-
-          expect(h1.html()).toBe(h2.html())
-        })
-
-        describe('when throwOnError is true', () => {
-          const instance = marp({
-            math: { katexOption: { throwOnError: true } },
-          })
-
-          it('fallbacks to plain text on raising error', () => {
-            const warnSpy = jest
-              .spyOn(console, 'warn')
-              .mockImplementation(() => {}) // eslint-disable-line @typescript-eslint/no-empty-function
-
-            const inlineHTML = instance.render('# Fallback to text $}$!').html
-            const $inline = cheerio.load(inlineHTML)
-
-            expect(warnSpy.mock.calls).toHaveLength(1)
-            expect($inline('h1').text()).toBe('Fallback to text }!')
-
-            const blockHTML = instance.render('$$\n}\n$$').html
-            const $block = cheerio.load(blockHTML)
-            const blockText = $block('p').text()
-
-            expect(warnSpy.mock.calls).toHaveLength(2)
-            expect(blockText.trim()).toBe('}')
-          })
-        })
-      })
-
-      describe('with katexFontPath', () => {
-        const katexFontPath = '/resources/fonts/'
-
-        it('replaces KaTeX web font URL with specified path', () => {
-          const instance = marp({ math: { katexFontPath } })
-          const { css } = instance.render(block)
-
-          const katexFonts = pickKaTeXWebFont(css)
-          for (const url of katexFonts) expect(url).toContain(katexFontPath)
-
-          expect(katexFonts).toMatchSnapshot('katex-css-replace')
-        })
-
-        describe('as false', () => {
-          it('does not replace KaTeX web font URL', () => {
-            const instance = marp({ math: { katexFontPath: false } })
-            const { css } = instance.render(block)
-
-            const katexFonts = pickKaTeXWebFont(css)
-            for (const url of katexFonts) expect(url).toContain('fonts/')
-
-            expect(katexFonts).toMatchSnapshot('katex-css-noops')
-          })
-        })
-      })
-    })
-
-    describe('with MathJax', () => {
-      it('renders math typesetting by MathJax', () => {
-        for (const instance of [
           marp({ math: 'mathjax' }),
+          marp({ math: {} }),
           marp({ math: { lib: 'mathjax' } }),
         ]) {
           const { html } = instance.render(`${inline}\n\n${block}`)
@@ -557,6 +416,155 @@ describe('Marp', () => {
       })
     })
 
+    describe('with KaTeX', () => {
+      const pickKaTeXWebFont = (css: string) => {
+        const walkedUrls: string[] = []
+        const walkerPlugin = {
+          postcssPlugin: 'postcss-katex-walker',
+          AtRule: (rule) => {
+            if (rule.name === 'font-face') {
+              rule.walkDecls('src', (e) => {
+                if (e.value.includes('KaTeX')) walkedUrls.push(e.value)
+              })
+            }
+          },
+        }
+
+        postcss([walkerPlugin]).process(css, { from: undefined }).css
+        return walkedUrls
+      }
+
+      it('renders math typesetting by KaTeX', () => {
+        for (const instance of [
+          marp({ math: 'katex' }),
+          marp({ math: { lib: 'katex' } }),
+        ]) {
+          const { html } = instance.render(`${inline}\n\n${block}`)
+          const $ = cheerio.load(html)
+
+          expect($('.katex')).toHaveLength(2)
+        }
+      })
+
+      it('injects KaTeX css with replacing web font URL to CDN', () => {
+        const { css } = marp({ math: 'katex' }).render(block)
+        expect(css).toContain('.katex')
+
+        const katexFonts = pickKaTeXWebFont(css)
+        for (const url of katexFonts) {
+          expect(url).toContain('https://cdn.jsdelivr.net/npm/katex')
+        }
+
+        expect(katexFonts).toMatchSnapshot('katex-css-cdn')
+      })
+
+      it('has a unique context for macro by Markdown rendering', () => {
+        const instance = marp({ math: 'katex' })
+
+        const plain = cheerio
+          .load(instance.render('$x^2$').html)('.katex-html')
+          .html()
+
+        // KaTeX can modify macros through \gdef
+        const globallyDefined = cheerio
+          .load(instance.render('$\\gdef\\foo{x^2}$ $\\foo$').html)(
+            '.katex-html'
+          )
+          .eq(1)
+          .html()
+
+        expect(globallyDefined).toBe(plain)
+
+        // Defined command through \gdef in another rendering cannot use
+        const notDefined = cheerio
+          .load(instance.render('$\\foo$').html)('.katex-html')
+          .html()
+
+        expect(notDefined).not.toBe(plain)
+      })
+
+      describe('when math typesetting syntax is not using', () => {
+        it('does not inject KaTeX css', () =>
+          expect(
+            marp({ math: 'katex' }).render('plain text').css
+          ).not.toContain('.katex'))
+      })
+
+      describe('with katexOption', () => {
+        it('renders KaTeX with specified option', () => {
+          const instance = marp({
+            math: {
+              lib: 'katex',
+              katexOption: { macros: { '\\RR': '\\mathbb{R}' } },
+            },
+          })
+          const { html } = instance.render(`# $\\RR$\n\n## $\\mathbb{R}$`)
+          const $ = cheerio.load(html)
+
+          const h1 = $('h1')
+          h1.find('annotation').remove()
+
+          const h2 = $('h2')
+          h2.find('annotation').remove()
+
+          expect(h1.html()).toBe(h2.html())
+        })
+
+        describe('when throwOnError is true', () => {
+          const instance = marp({
+            math: { lib: 'katex', katexOption: { throwOnError: true } },
+          })
+
+          it('fallbacks to plain text on raising error', () => {
+            const warnSpy = jest
+              .spyOn(console, 'warn')
+              .mockImplementation(() => {}) // eslint-disable-line @typescript-eslint/no-empty-function
+
+            const inlineHTML = instance.render('# Fallback to text $}$!').html
+            const $inline = cheerio.load(inlineHTML)
+
+            expect(warnSpy.mock.calls).toHaveLength(1)
+            expect($inline('h1').text()).toBe('Fallback to text }!')
+
+            const blockHTML = instance.render('$$\n}\n$$').html
+            const $block = cheerio.load(blockHTML)
+            const blockText = $block('p').text()
+
+            expect(warnSpy.mock.calls).toHaveLength(2)
+            expect(blockText.trim()).toBe('}')
+          })
+        })
+      })
+
+      describe('with katexFontPath', () => {
+        const katexFontPath = '/resources/fonts/'
+
+        it('replaces KaTeX web font URL with specified path', () => {
+          const instance = marp({ math: { lib: 'katex', katexFontPath } })
+          const { css } = instance.render(block)
+
+          const katexFonts = pickKaTeXWebFont(css)
+          for (const url of katexFonts) expect(url).toContain(katexFontPath)
+
+          expect(katexFonts).toMatchSnapshot('katex-css-replace')
+        })
+
+        describe('as false', () => {
+          it('does not replace KaTeX web font URL', () => {
+            const instance = marp({
+              math: { lib: 'katex', katexFontPath: false },
+            })
+            const { css } = instance.render(block)
+
+            const katexFonts = pickKaTeXWebFont(css)
+            for (const url of katexFonts) expect(url).toContain('fonts/')
+
+            expect(katexFonts).toMatchSnapshot('katex-css-noops')
+          })
+        })
+      })
+    })
+
     describe('with false', () => {
       const instance = marp({ math: false })
 
@@ -637,14 +645,7 @@ describe('Marp', () => {
     })
   })
 
-  describe('Element fitting', () => {
-    it('prepends CSS about fitting', () => {
-      const { css } = marp().render('')
-
-      expect(css).toContain('svg[data-marp-fitting=svg]')
-      expect(css).toContain('[data-marp-fitting-svg-content]')
-    })
-
+  describe('Auto scaling', () => {
     describe('when fit comment keyword contains in heading (Fitting header)', () => {
       const baseMd = '# <!--fit--> fitting'
 
@@ -653,29 +654,24 @@ describe('Marp', () => {
         `text\n\n${baseMd}`, // Fitting header with content
         `${baseMd}\n\n## <!--fit--> fitting2`, // Multiple headers
       ]) {
-        it('wraps by <svg data-marp-fitting="svg">', () => {
+        it('adds attributes for heading custom element', () => {
           const { html, comments } = marp().render(markdown)
-          const $ = loadCheerio(html, { xmlMode: true })
-          const svgContent = $(
-            [
-              'h1',
-              'svg[data-marp-fitting="svg"]',
-              'foreignObject',
-              'span[data-marp-fitting-svg-content]',
-            ].join('>')
-          )
+          const h1 = loadCheerio(html)('h1')
 
-          expect(svgContent).toHaveLength(1)
-          expect($('h1').text()).toContain('fitting')
+          expect(h1).toHaveLength(1)
+          expect(h1.attr('is')).toBe('marp-h1')
+          expect(h1.is('[data-auto-scaling]')).toBe(true)
+          expect(h1.text()).toContain('fitting')
+
           expect(comments[0]).toHaveLength(0)
         })
 
-        it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
+        it('does not add attributes for heading custom element if disabled inlineSVG mode', () => {
           const $ = loadCheerio(
             marp({ inlineSVG: false }).render(markdown).html
           )
 
-          expect($('h1 > span[data-marp-fitting="plain"]')).toHaveLength(1)
+          expect($('h1').attr('is')).not.toBe('marp-h1')
           expect($('h1').text()).toContain('fitting')
         })
       }
@@ -684,112 +680,151 @@ describe('Marp', () => {
     describe('with code block (Auto scaling for code block)', () => {
       const markdown = '\tCODE BLOCK'
 
-      it('wraps code block by <svg data-marp-fitting="svg">', () => {
-        const $ = loadCheerio(marp().render(markdown).html, { xmlMode: true })
-        const svgContent = $(
-          [
-            'pre',
-            'code',
-            'svg[data-marp-fitting="svg"][data-marp-fitting-code]',
-            'foreignObject',
-            'span[data-marp-fitting-svg-content]',
-            'span[data-marp-fitting-svg-content-wrap]',
-          ].join('>')
-        )
+      it('adds attributes for pre custom element', () => {
+        const $ = loadCheerio(marp().render(markdown).html)
+        const pre = $('pre')
 
-        expect(svgContent).toHaveLength(1)
-        expect($('pre').text()).toContain('CODE BLOCK')
+        expect(pre).toHaveLength(1)
+        expect(pre.attr('is')).toBe('marp-pre')
+        expect(pre.is('[data-auto-scaling="downscale-only"]')).toBe(true)
+        expect(pre.text()).toContain('CODE BLOCK')
       })
 
-      it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
+      it('does not add attributes for pre custom element if disabled disabled inlineSVG mode', () => {
         const $ = loadCheerio(marp({ inlineSVG: false }).render(markdown).html)
+        const pre = $('pre')
 
-        expect($('pre > code > span[data-marp-fitting="plain"]')).toHaveLength(
-          1
-        )
-        expect($('pre').text()).toContain('CODE BLOCK')
-      })
-
-      it('does not wrap by svg when specified uncover theme', () => {
-        // Disable object freeze
-        jest.spyOn<any, any>(Object, 'freeze').mockImplementation((obj) => obj)
-
-        const instance = marp()
-        const theme = instance.themeSet.get('uncover')! // eslint-disable-line @typescript-eslint/no-non-null-assertion
-        theme.meta = { ...theme.meta, fittingCode: 'false' }
-
-        const uncover = `---\ntheme: uncover\n---\n\n${markdown}`
-        const $ = loadCheerio(instance.render(uncover).html)
-
-        expect($('section svg')).toHaveLength(0)
+        expect(pre.attr('is')).not.toBe('marp-pre')
+        expect(pre.text()).toContain('CODE BLOCK')
       })
     })
 
     describe('with fence (Auto scaling for fence)', () => {
       const markdown = '```typescript\nconst a = 1\n```'
 
-      it('wraps code block by <svg data-marp-fitting="svg">', () => {
-        const $ = loadCheerio(marp().render(markdown).html, { xmlMode: true })
-        const svgContent = $(
-          [
-            'pre',
-            'code.language-typescript',
-            'svg[data-marp-fitting="svg"][data-marp-fitting-code]',
-            'foreignObject',
-            'span[data-marp-fitting-svg-content]',
-            'span[data-marp-fitting-svg-content-wrap]',
-          ].join('>')
-        )
+      it('adds attributes for pre custom element', () => {
+        const $ = loadCheerio(marp().render(markdown).html)
+        const pre = $('pre')
 
-        expect(svgContent).toHaveLength(1)
-        expect($('pre').text()).toContain('const a = 1')
+        expect(pre).toHaveLength(1)
+        expect(pre.attr('is')).toBe('marp-pre')
+        expect(pre.is('[data-auto-scaling="downscale-only"]')).toBe(true)
+        expect(pre.text()).toContain('const a = 1')
       })
 
-      it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
+      it('does not add attributes for pre custom element if disabled disabled inlineSVG mode', () => {
         const $ = loadCheerio(marp({ inlineSVG: false }).render(markdown).html)
-        const plainContent = $(
-          [
-            'pre',
-            'code.language-typescript',
-            'span[data-marp-fitting="plain"]',
-          ].join('>')
-        )
+        const pre = $('pre')
 
-        expect(plainContent).toHaveLength(1)
-        expect($('pre').text()).toContain('const a = 1')
+        expect(pre.attr('is')).not.toBe('marp-pre')
+        expect(pre.text()).toContain('const a = 1')
       })
     })
 
-    describe('with math block', () => {
+    describe('with KaTeX math block', () => {
       const markdown = '$$ y=ax^2 $$'
 
-      it('wraps code block by <svg data-marp-fitting="svg">', () => {
-        const $ = loadCheerio(marp().render(markdown).html)
-        const svgContent = `${$(
-          [
-            'p',
-            'svg[data-marp-fitting="svg"][data-marp-fitting-math]',
-            'foreignObject',
-            'span[data-marp-fitting-svg-content]',
-            'span[data-marp-fitting-svg-content-wrap]',
-          ].join('>')
-        )} .katex`
+      it('adds attributes for span custom element', () => {
+        const $ = loadCheerio(marp({ math: 'katex' }).render(markdown).html)
+        const katex = $('span.katex-display')
 
-        expect(svgContent.length).toBeTruthy()
+        expect(katex).toHaveLength(1)
+        expect(katex.attr('is')).toBe('marp-span')
+        expect(katex.is('[data-auto-scaling="downscale-only"]')).toBe(true)
       })
 
-      it('wraps by <span data-marp-fitting="plain"> with disabled inlineSVG mode', () => {
-        const $ = loadCheerio(marp({ inlineSVG: false }).render(markdown).html)
-        const plainContent = $('p > span[data-marp-fitting="plain"] .katex')
+      it('does not add attributes for span custom element if disabled disabled inlineSVG mode', () => {
+        const $ = loadCheerio(
+          marp({ math: 'katex', inlineSVG: false }).render(markdown).html
+        )
+        const katex = $('span.katex-display')
 
-        expect(plainContent.length).toBeTruthy()
+        expect(katex.attr('is')).not.toBe('marp-span')
+        expect(katex.is('[data-auto-scaling]')).toBe(false)
       })
 
       describe('with MathJax', () => {
-        it('does not wrap math block because it has already supported auto-scaling', () => {
+        it('does not use custom element because it has already supported auto-scaling', () => {
           const $ = loadCheerio(marp({ math: 'mathjax' }).render(markdown).html)
-          expect($('[data-marp-fitting]')).toHaveLength(0)
+          expect($('[is="marp-span"]')).toHaveLength(0)
         })
+      })
+    })
+
+    describe('Postprocess for rendered css', () => {
+      for (const el of Object.keys(elements)) {
+        it(`replaces the selector for <${el}> to :is(${el}, marp-${el})`, () => {
+          const decl = `${el} { color: #f00; }`
+
+          // Custom theme
+          const instance = marp({ minifyCSS: false })
+          instance.themeSet.add(`/* @theme a */ ${decl}`)
+
+          expect(instance.render('<!--theme: a-->').css).toContain(
+            `:is(${el}, marp-${el})`
+          )
+
+          // Inline style
+          expect(instance.render(`<style>${decl}</style>`).css).toContain(
+            `:is(${el}, marp-${el})`
+          )
+        })
+      }
+
+      it('covers possible cases in complex selectors', () => {
+        const transformedDecl = (decl: string) => {
+          const instance = marp({ minifyCSS: false, container: false })
+          const css = instance.render(`<style>${decl} {test: test}</style>`).css
+
+          let ret: string | undefined
+
+          postcss({
+            postcssPlugin: 'transformed-decl',
+            Declaration: {
+              test: (decl) => {
+                if (decl.parent?.type === 'rule') {
+                  const { selectors } = decl.parent as Rule
+
+                  ret = selectors
+                    .map((sel) =>
+                      sel.replace('svg > foreignObject > section ', '')
+                    )
+                    .join(', ')
+                }
+              },
+            },
+          }).process(css, { from: undefined }).css
+
+          return ret
+        }
+
+        // Matched cases
+        expect(transformedDecl('h1')).toBe(':is(h1, marp-h1)')
+        expect(transformedDecl('h1, h2')).toBe(
+          ':is(h1, marp-h1), :is(h2, marp-h2)'
+        )
+        expect(transformedDecl('h1 > h1')).toBe(
+          ':is(h1, marp-h1) > :is(h1, marp-h1)'
+        )
+        expect(transformedDecl('div:not(h1)')).toBe('div:not(:is(h1, marp-h1))')
+        expect(transformedDecl(':is(h1, h2)')).toBe(
+          ':is(:is(h1, marp-h1), :is(h2, marp-h2))'
+        )
+        expect(transformedDecl(':where(h1, h2)')).toBe(
+          ':where(:is(h1, marp-h1), :is(h2, marp-h2))'
+        )
+        expect(transformedDecl('test::slotted(h1)')).toBe(
+          'test::slotted(:is(h1, marp-h1))'
+        )
+
+        // Unmatched cases
+        expect(transformedDecl('.h1')).toBe('.h1')
+        expect(transformedDecl('#h1')).toBe('#h1')
+        expect(transformedDecl('[is=h1]')).toBe('[is=h1]')
+        expect(transformedDecl('h1-like')).toBe('h1-like')
+        expect(transformedDecl('test:h1')).toBe('test:h1')
+        expect(transformedDecl('test::h1')).toBe('test::h1')
+        expect(transformedDecl('test::part(h1)')).toBe('test::part(h1)')
       })
     })
   })
@@ -804,16 +839,16 @@ describe('Marp', () => {
       )
 
       // Custom theme
-      const customTheme = '/* @theme a */ h1 { color: #f00; }'
+      const customTheme = '/* @theme a */ div { color: #f00; }'
 
       enabled.themeSet.add(customTheme)
       disabled.themeSet.add(customTheme)
 
       expect(disabled.render('<!-- theme: a -->').css).toContain(
-        'h1 { color: #f00; }'
+        'div { color: #f00; }'
       )
       expect(enabled.render('<!-- theme: a -->').css).toContain(
-        'h1{color:#f00}'
+        'div{color:#f00}'
       )
     })
 

@@ -4,7 +4,7 @@ import { getMathContext, setMathContext } from './context'
 import * as katex from './katex'
 import * as mathjax from './mathjax'
 
-export type MathPreferredLibrary = 'katex' | 'mathjax'
+export type MathPreferredLibrary = 'mathjax' | 'katex'
 
 export interface MathOptionsInterface {
   lib?: MathPreferredLibrary
@@ -13,6 +13,9 @@ export interface MathOptionsInterface {
 }
 
 export type MathOptions = boolean | MathPreferredLibrary | MathOptionsInterface
+
+const defaultLibrary = 'mathjax' as const
+const getLibrary = (opts: MathOptionsInterface) => opts.lib ?? defaultLibrary
 
 export const markdown = marpitPlugin((md) => {
   const marp: Marp = md.marpit
@@ -110,9 +113,7 @@ export const markdown = marpitPlugin((md) => {
         ...ctx,
         options: {
           ...ctx.options,
-
-          // TODO: Change the default math library from `katex` to `mathjax` in the next major version
-          lib: preffered ?? parsedOpts.lib ?? 'katex',
+          lib: preffered ?? parsedOpts.lib ?? defaultLibrary,
         },
       }))
     }
@@ -120,7 +121,7 @@ export const markdown = marpitPlugin((md) => {
 
   const getPreferredLibrary = () => {
     const { options } = getMathContext(marp)
-    return options.lib === 'mathjax' ? mathjax : katex
+    return getLibrary(options) === 'mathjax' ? mathjax : katex
   }
 
   const getRenderer = (type: 'inline' | 'block') => (tokens: any, idx: any) =>
@@ -134,9 +135,12 @@ export const css = (marpit: any): string | null => {
   const { enabled, options } = getMathContext(marpit)
   if (!enabled) return null
 
-  if (options.lib === 'mathjax') return mathjax.css(marpit)
-
-  return katex.css(options.katexFontPath)
+  switch (getLibrary(options)) {
+    case 'mathjax':
+      return mathjax.css(marpit)
+    case 'katex':
+      return katex.css(options.katexFontPath)
+  }
 }
 
 // ---

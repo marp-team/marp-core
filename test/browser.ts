@@ -1,6 +1,6 @@
 /** @jest-environment jsdom */
 import { browser, observer } from '../src/browser'
-import fittingObserver from '../src/fitting/observer'
+import { applyCustomElements } from '../src/custom-elements/browser'
 
 const polyfill = jest.fn()
 
@@ -8,7 +8,7 @@ jest.mock('@marp-team/marpit-svg-polyfill', () => ({
   polyfills: () => [polyfill],
 }))
 
-jest.mock('../src/fitting/observer')
+jest.mock('../src/custom-elements/browser')
 
 beforeEach(() => jest.clearAllMocks())
 afterEach(() => jest.restoreAllMocks())
@@ -20,7 +20,7 @@ describe('Browser script', () => {
     const cleanup = browser()
     expect(spy).toHaveBeenCalledTimes(1)
     expect(polyfill).toHaveBeenCalledTimes(1)
-    expect(fittingObserver).toHaveBeenCalledTimes(1)
+    expect(applyCustomElements).toHaveBeenCalledTimes(1)
     expect(browser()).toStrictEqual(cleanup)
 
     const rafFunc = spy.mock.calls[0][0]
@@ -28,7 +28,6 @@ describe('Browser script', () => {
 
     expect(spy).toHaveBeenCalledTimes(2)
     expect(polyfill).toHaveBeenCalledTimes(2)
-    expect(fittingObserver).toHaveBeenCalledTimes(2)
 
     cleanup()
     rafFunc(performance.now())
@@ -41,7 +40,7 @@ describe('Browser script', () => {
       const cleanup = browser(root)
 
       expect(polyfill).toHaveBeenCalledWith({ target: root })
-      expect(fittingObserver).toHaveBeenCalledWith(root)
+      expect(applyCustomElements).toHaveBeenCalledWith(root)
       cleanup()
     })
   })

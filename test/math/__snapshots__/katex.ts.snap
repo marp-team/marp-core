@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`markdown-it math plugin allows to place text immediately after inline math 1`] = `
+exports[`markdown-it math plugin for KaTeX allows to place text immediately after inline math 1`] = `
 "<p><span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\"><semantics><mrow><mi>n</mi></mrow><annotation encoding=\\"application/x-tex\\">n</annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.4306em;\\"></span><span class=\\"mord mathnormal\\">n</span></span></span></span>-th order</p>
 "
 `;
 
-exports[`markdown-it math plugin can appear both maths in lists 1`] = `
+exports[`markdown-it math plugin for KaTeX can appear both maths in lists 1`] = `
 "<ul>
 <li><span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding=\\"application/x-tex\\">1+1 = 2</annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.7278em;vertical-align:-0.0833em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">+</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span><span class=\\"mrel\\">=</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">2</span></span></span></span></li>
 <li>
@@ -15,23 +15,23 @@ exports[`markdown-it math plugin can appear both maths in lists 1`] = `
 "
 `;
 
-exports[`markdown-it math plugin does not allow paragraph break in inline math 1`] = `
+exports[`markdown-it math plugin for KaTeX does not allow paragraph break in inline math 1`] = `
 "<p>foo $1+1</p>
 <p>= 2$ bar</p>
 "
 `;
 
-exports[`markdown-it math plugin does not process apparent markup in inline math 1`] = `
+exports[`markdown-it math plugin for KaTeX does not process apparent markup in inline math 1`] = `
 "<p>foo <span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\"><semantics><mrow><mn>1</mn><mo>∗</mo><mi>i</mi><mo>∗</mo><mn>1</mn></mrow><annotation encoding=\\"application/x-tex\\">1 *i* 1</annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">∗</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6595em;\\"></span><span class=\\"mord mathnormal\\">i</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">∗</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">1</span></span></span></span> bar</p>
 "
 `;
 
-exports[`markdown-it math plugin does not recognize inline block math 1`] = `
+exports[`markdown-it math plugin for KaTeX does not recognize inline block math 1`] = `
 "<p>It's well know that $$1 + 1 = 3$$ for sufficiently large 1.</p>
 "
 `;
 
-exports[`markdown-it math plugin does not render block math with indented up to 4 spaces (code block) 1`] = `
+exports[`markdown-it math plugin for KaTeX does not render block math with indented up to 4 spaces (code block) 1`] = `
 "<pre><code>$$
 1+1 = 2
 $$
@@ -39,7 +39,7 @@ $$
 "
 `;
 
-exports[`markdown-it math plugin does not render math when delimiters are escaped 1`] = `
+exports[`markdown-it math plugin for KaTeX does not render math when delimiters are escaped 1`] = `
 "<p>Foo $1$ bar
 $$
 1
@@ -47,56 +47,56 @@ $$</p>
 "
 `;
 
-exports[`markdown-it math plugin does not render math when numbers are followed closing inline math 1`] = `
+exports[`markdown-it math plugin for KaTeX does not render math when numbers are followed closing inline math 1`] = `
 "<p>Thus, $20,000 and USD$30,000 won't parse as math.</p>
 "
 `;
 
-exports[`markdown-it math plugin does not render with empty content 1`] = `
+exports[`markdown-it math plugin for KaTeX does not render with empty content 1`] = `
 "<p>aaa $$ bbb</p>
 "
 `;
 
-exports[`markdown-it math plugin recognizes escaped delimiters in math mode 1`] = `
+exports[`markdown-it math plugin for KaTeX recognizes escaped delimiters in math mode 1`] = `
 "<p>Money adds: <span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\"><semantics><mrow><mi mathvariant=\\"normal\\">$</mi><mi>X</mi><mo>+</mo><mi mathvariant=\\"normal\\">$</mi><mi>Y</mi><mo>=</mo><mi mathvariant=\\"normal\\">$</mi><mi>Z</mi></mrow><annotation encoding=\\"application/x-tex\\">\\\\$X + \\\\$Y = \\\\$Z</annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.8333em;vertical-align:-0.0833em;\\"></span><span class=\\"mord\\">$</span><span class=\\"mord mathnormal\\" style=\\"margin-right:0.07847em;\\">X</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">+</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.8056em;vertical-align:-0.0556em;\\"></span><span class=\\"mord\\">$</span><span class=\\"mord mathnormal\\" style=\\"margin-right:0.22222em;\\">Y</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span><span class=\\"mrel\\">=</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.8056em;vertical-align:-0.0556em;\\"></span><span class=\\"mord\\">$</span><span class=\\"mord mathnormal\\" style=\\"margin-right:0.07153em;\\">Z</span></span></span></span>.</p>
 "
 `;
 
-exports[`markdown-it math plugin recognizes multiline escaped delimiters in math module 1`] = `
+exports[`markdown-it math plugin for KaTeX recognizes multiline escaped delimiters in math module 1`] = `
 "<p>Weird-o: <span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\"><semantics><mrow><mstyle scriptlevel=\\"0\\" displaystyle=\\"true\\"><mrow><mo fence=\\"true\\">(</mo><mtable rowspacing=\\"0.16em\\" columnalign=\\"center center\\" columnspacing=\\"1em\\"><mtr><mtd><mstyle scriptlevel=\\"0\\" displaystyle=\\"false\\"><mi mathvariant=\\"normal\\">$</mi></mstyle></mtd><mtd><mstyle scriptlevel=\\"0\\" displaystyle=\\"false\\"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel=\\"0\\" displaystyle=\\"false\\"><mi mathvariant=\\"normal\\">$</mi></mstyle></mtd></mtr></mtable><mo fence=\\"true\\">)</mo></mrow></mstyle></mrow><annotation encoding=\\"application/x-tex\\">\\\\displaystyle{\\\\begin{pmatrix} \\\\$ &amp; 1\\\\\\\\\\\\$ \\\\end{pmatrix}}</annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:2.4em;vertical-align:-0.95em;\\"></span><span class=\\"mord\\"><span class=\\"minner\\"><span class=\\"mopen delimcenter\\" style=\\"top:0em;\\"><span class=\\"delimsizing size3\\">(</span></span><span class=\\"mord\\"><span class=\\"mtable\\"><span class=\\"col-align-c\\"><span class=\\"vlist-t vlist-t2\\"><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:1.45em;\\"><span style=\\"top:-3.61em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"mord\\"><span class=\\"mord\\">$</span></span></span><span style=\\"top:-2.41em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"mord\\"><span class=\\"mord\\">$</span></span></span></span><span class=\\"vlist-s\\">​</span></span><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.95em;\\"><span></span></span></span></span></span><span class=\\"arraycolsep\\" style=\\"width:0.5em;\\"></span><span class=\\"arraycolsep\\" style=\\"width:0.5em;\\"></span><span class=\\"col-align-c\\"><span class=\\"vlist-t\\"><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:1.45em;\\"><span style=\\"top:-3.61em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"mord\\"><span class=\\"mord\\">1</span></span></span></span></span></span></span></span></span><span class=\\"mclose delimcenter\\" style=\\"top:0em;\\"><span class=\\"delimsizing size3\\">)</span></span></span></span></span></span></span>.</p>
 "
 `;
 
-exports[`markdown-it math plugin renders block math composed multiple lines with starting/ending expression on delimited lines 1`] = `
+exports[`markdown-it math plugin for KaTeX renders block math composed multiple lines with starting/ending expression on delimited lines 1`] = `
 "<p><span class=\\"katex-display\\"><span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\" display=\\"block\\"><semantics><mrow><mo stretchy=\\"false\\">[</mo><mo stretchy=\\"false\\">[</mo><mn>1</mn><mo separator=\\"true\\">,</mo><mn>2</mn><mo stretchy=\\"false\\">]</mo><mo stretchy=\\"false\\">[</mo><mn>3</mn><mo separator=\\"true\\">,</mo><mn>4</mn><mo stretchy=\\"false\\">]</mo><mo stretchy=\\"false\\">]</mo></mrow><annotation encoding=\\"application/x-tex\\">[
 [1, 2]
 [3, 4]
 ]</annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:1em;vertical-align:-0.25em;\\"></span><span class=\\"mopen\\">[[</span><span class=\\"mord\\">1</span><span class=\\"mpunct\\">,</span><span class=\\"mspace\\" style=\\"margin-right:0.1667em;\\"></span><span class=\\"mord\\">2</span><span class=\\"mclose\\">]</span><span class=\\"mopen\\">[</span><span class=\\"mord\\">3</span><span class=\\"mpunct\\">,</span><span class=\\"mspace\\" style=\\"margin-right:0.1667em;\\"></span><span class=\\"mord\\">4</span><span class=\\"mclose\\">]]</span></span></span></span></span></p>"
 `;
 
-exports[`markdown-it math plugin renders block math with indented up to 3 spaces 1`] = `
+exports[`markdown-it math plugin for KaTeX renders block math with indented up to 3 spaces 1`] = `
 "<p><span class=\\"katex-display\\"><span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\" display=\\"block\\"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding=\\"application/x-tex\\">1+1 = 2
 </annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.7278em;vertical-align:-0.0833em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">+</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span><span class=\\"mrel\\">=</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">2</span></span></span></span></span></p>"
 `;
 
-exports[`markdown-it math plugin renders block math with self-closing at the end of document 1`] = `"<p><span class=\\"katex-display\\"><span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\" display=\\"block\\"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding=\\"application/x-tex\\">1+1 = 2</annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.7278em;vertical-align:-0.0833em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">+</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span><span class=\\"mrel\\">=</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">2</span></span></span></span></span></p>"`;
+exports[`markdown-it math plugin for KaTeX renders block math with self-closing at the end of document 1`] = `"<p><span class=\\"katex-display\\"><span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\" display=\\"block\\"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding=\\"application/x-tex\\">1+1 = 2</annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.7278em;vertical-align:-0.0833em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">+</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span><span class=\\"mrel\\">=</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">2</span></span></span></span></span></p>"`;
 
-exports[`markdown-it math plugin renders block math written in one line 1`] = `
+exports[`markdown-it math plugin for KaTeX renders block math written in one line 1`] = `
 "<p><span class=\\"katex-display\\"><span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\" display=\\"block\\"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding=\\"application/x-tex\\">1+1 = 2
 </annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.7278em;vertical-align:-0.0833em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">+</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span><span class=\\"mrel\\">=</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">2</span></span></span></span></span></p>"
 `;
 
-exports[`markdown-it math plugin renders math even when it starts with a negative sign 1`] = `
+exports[`markdown-it math plugin for KaTeX renders math even when it starts with a negative sign 1`] = `
 "<p>foo<span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\"><semantics><mrow><mo>−</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>0</mn></mrow><annotation encoding=\\"application/x-tex\\">-1+1 = 0</annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.7278em;vertical-align:-0.0833em;\\"></span><span class=\\"mord\\">−</span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">+</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span><span class=\\"mrel\\">=</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">0</span></span></span></span>bar</p>
 "
 `;
 
-exports[`markdown-it math plugin renders math without whitespace before and after delimiter 1`] = `
+exports[`markdown-it math plugin for KaTeX renders math without whitespace before and after delimiter 1`] = `
 "<p>foo<span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding=\\"application/x-tex\\">1+1 = 2</annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.7278em;vertical-align:-0.0833em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">+</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span><span class=\\"mrel\\">=</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">2</span></span></span></span>bar</p>
 "
 `;
 
-exports[`markdown-it math plugin renders multiline display math 1`] = `
+exports[`markdown-it math plugin for KaTeX renders multiline display math 1`] = `
 "<p><span class=\\"katex-display\\"><span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\" display=\\"block\\"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding=\\"application/x-tex\\">
   1
 + 1
@@ -106,33 +106,33 @@ exports[`markdown-it math plugin renders multiline display math 1`] = `
 </annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.7278em;vertical-align:-0.0833em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">+</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span><span class=\\"mrel\\">=</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">2</span></span></span></span></span></p>"
 `;
 
-exports[`markdown-it math plugin renders multiline inline math 1`] = `
+exports[`markdown-it math plugin for KaTeX renders multiline inline math 1`] = `
 "<p>foo <span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding=\\"application/x-tex\\">1 + 1
 = 2</annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.7278em;vertical-align:-0.0833em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">+</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span><span class=\\"mrel\\">=</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">2</span></span></span></span> bar</p>
 "
 `;
 
-exports[`markdown-it math plugin renders simple block math 1`] = `
+exports[`markdown-it math plugin for KaTeX renders simple block math 1`] = `
 "<p><span class=\\"katex-display\\"><span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\" display=\\"block\\"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding=\\"application/x-tex\\">1+1 = 2
 </annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.7278em;vertical-align:-0.0833em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">+</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span><span class=\\"mrel\\">=</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">2</span></span></span></span></span></p>"
 `;
 
-exports[`markdown-it math plugin renders simple inline math 1`] = `
+exports[`markdown-it math plugin for KaTeX renders simple inline math 1`] = `
 "<p><span class=\\"katex\\"><span class=\\"katex-mathml\\"><math xmlns=\\"http://www.w3.org/1998/Math/MathML\\"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding=\\"application/x-tex\\">1+1 = 2</annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.7278em;vertical-align:-0.0833em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span><span class=\\"mbin\\">+</span><span class=\\"mspace\\" style=\\"margin-right:0.2222em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">1</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span><span class=\\"mrel\\">=</span><span class=\\"mspace\\" style=\\"margin-right:0.2778em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:0.6444em;\\"></span><span class=\\"mord\\">2</span></span></span></span></p>
 "
 `;
 
-exports[`markdown-it math plugin requires a closing delimiter to render math 1`] = `
+exports[`markdown-it math plugin for KaTeX requires a closing delimiter to render math 1`] = `
 "<p>aaa $5.99 bbb</p>
 "
 `;
 
-exports[`markdown-it math plugin requires non whitespace to left of closing inline math 1`] = `
+exports[`markdown-it math plugin for KaTeX requires non whitespace to left of closing inline math 1`] = `
 "<p>I will give you $20 today, if you give me more $ tomorrow.</p>
 "
 `;
 
-exports[`markdown-it math plugin requires non whitespace to right of opening inline math 1`] = `
+exports[`markdown-it math plugin for KaTeX requires non whitespace to right of opening inline math 1`] = `
 "<p>For some Europeans, it is 2$ for a can of soda, not 1$.</p>
 "
 `;

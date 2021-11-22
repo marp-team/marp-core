@@ -2,6 +2,23 @@
 
 ## [Unreleased]
 
+### ⚡️ Breaking
+
+- Dropped Node 10 support and now requires the latest version of Node.js v12 and later ([#260](https://github.com/marp-team/marp-core/issues/260), [#266](https://github.com/marp-team/marp-core/pull/266))
+- Changed the default library for math typesetting from KaTeX to MathJax ([#159](https://github.com/marp-team/marp-core/issues/159), [#236](https://github.com/marp-team/marp-core/issues/236), [#271](https://github.com/marp-team/marp-core/pull/271))
+
+### Added
+
+- Auto-scaling for code block in `uncover` theme ([#263](https://github.com/marp-team/marp-core/pull/263))
+- Allow color customization through CSS variables in `default` theme ([#209](https://github.com/marp-team/marp-core/issues/209), [#266](https://github.com/marp-team/marp-core/issues/266))
+
+### Changed
+
+- Web Components based new auto scaling ([#96](https://github.com/marp-team/marp-core/issues/96), [#248](https://github.com/marp-team/marp-core/issues/248), [#263](https://github.com/marp-team/marp-core/pull/263))
+- Match color schemes for `default` theme to the latest GitHub ([#266](https://github.com/marp-team/marp-core/issues/266))
+- Adopt `::where()` selector to class variants for making styles overridable ([#244](https://github.com/marp-team/marp-core/issues/244), [#267](https://github.com/marp-team/marp-core/pull/267))
+- Disable autolink for URL text that has no `http(s)://` protocol ([#268](https://github.com/marp-team/marp-core/pull/268))
+
 ## v2.3.0 - 2021-11-22
 
 ### Changed

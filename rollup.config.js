@@ -13,11 +13,8 @@ import { terser } from 'rollup-plugin-terser'
 import pkg from './package.json'
 import postcssOptimizeDefaultTheme from './scripts/postcss-optimize-default-theme'
 
-const plugins = [
+const plugins = ({ browser = false } = {}) => [
   json({ preferConst: true }),
-  nodeResolve({ mainFields: ['module', 'jsnext:main', 'main'] }),
-  commonjs(),
-  string({ include: ['lib/*.js'] }),
   alias({
     entries: [
       {
@@ -26,6 +23,9 @@ const plugins = [
       },
     ],
   }),
+  string({ include: ['lib/*.js'] }),
+  nodeResolve({ browser }),
+  commonjs(),
   typescript(),
   postcss({
     inject: false,
@@ -60,17 +60,17 @@ export default [
   {
     input: 'scripts/browser.js',
     output: { file: 'lib/browser.js', format: 'iife' },
-    plugins,
+    plugins: plugins({ browser: true }),
   },
   {
     input: 'src/browser.ts',
     output: { exports: 'named', file: 'lib/browser.cjs.js', format: 'cjs' },
-    plugins,
+    plugins: plugins({ browser: true }),
   },
   {
     external: external(Object.keys(pkg.dependencies)),
     input: `src/${path.basename(pkg.main, '.js')}.ts`,
     output: { exports: 'named', file: pkg.main, format: 'cjs' },
-    plugins,
+    plugins: plugins(),
   },
 ]

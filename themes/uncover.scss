@@ -6,7 +6,7 @@
  * @theme uncover
  * @author Yuki Hattori
  *
- * @auto-scaling fittingHeader,math
+ * @auto-scaling true
  * @size 16:9 1280px 720px
  * @size 4:3 960px 720px
  */
@@ -63,11 +63,11 @@ section {
 
   @include color-scheme;
 
-  &:not(.invert) {
+  &:where(:not(.invert)) {
     @import '~highlight.js/styles/color-brewer';
   }
 
-  &.invert {
+  &:where(.invert) {
     @include color-scheme(#202228, #fff, #60d0f0);
     @import '~highlight.js/styles/codepen-embed';
   }
@@ -80,12 +80,6 @@ section {
   > *:last-child,
   &[data-footer] > :nth-last-child(2) {
     margin-bottom: 0;
-  }
-
-  svg[data-marp-fitting='svg'] {
-    max-height: 660px; // Slide height - padding * 2
-
-    --preserve-aspect-ratio: xMidYMid meet;
   }
 
   p,
@@ -104,6 +98,10 @@ section {
     strong {
       color: var(--color-highlight-heading);
       font-weight: inherit;
+    }
+
+    &::part(auto-scaling) {
+      max-height: 660px; // Slide height - padding * 2
     }
   }
 
@@ -176,30 +174,46 @@ section {
     margin-bottom: 15px;
   }
 
-  pre,
   code {
-    background: var(--color-background-code);
-    color: var(--color-foreground);
     font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier,
       monospace;
     letter-spacing: 0;
+  }
+
+  & > code,
+  *:not(pre) > code {
+    background: var(--color-background-code);
+    color: var(--color-foreground);
     margin: -0.2em 0.2em 0.2em;
     padding: 0.2em;
   }
 
   pre {
-    box-shadow: 0 4px 8px rgba(#000, 0.2);
+    --preserve-aspect-ratio: xMidYMid meet;
+
+    filter: drop-shadow(0 4px 4px rgba(#000, 0.2));
     font-size: 70%;
     line-height: 1.15;
-    margin: 15px auto 30px;
-    min-width: 40%;
-    padding: 0.4em 0.6em;
+    margin: 15px 0 30px;
     text-align: left;
+
+    &::part(auto-scaling) {
+      max-height: 570px;
+    }
   }
 
   pre > code {
-    margin: 0;
-    padding: 0;
+    background: var(--color-background-code);
+    box-sizing: content-box;
+    color: var(--color-foreground);
+    display: block;
+    margin: 0 auto;
+    min-width: 456px; // (Slide width - padding * 2) * 40%
+    padding: 0.4em 0.6em;
+  }
+
+  &[data-size='4:3'] pre > code {
+    min-width: 328px;
   }
 
   table {

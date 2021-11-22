@@ -535,19 +535,19 @@
     yargs "^17.2.1"
 
 "@marp-team/marp-core@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-2.2.0.tgz#a5eccc9df203556c80d61be8c353e371f42f2042"
-  integrity sha512-E0EpWqZBVU7mmyKNMPX1uEh8PuylodEp1t24SHOkuVYQlndE8pw0qZuisEXJbeQTvEqCRiIWbo3K9o++TecSsw==
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-2.3.0.tgz#f88f8ca4374ad25f59039939a6be2a11e49ad31d"
+  integrity sha512-cLrKTw0LpJXhxLXREaUW0XWOGEcP69MjARN3u385TRVe+juANvwyzK1x/k4jJd1Lg/+dGVD1m/WYxT3adfi4GA==
   dependencies:
-    "@marp-team/marpit" "^2.1.2"
+    "@marp-team/marpit" "^2.2.0"
     "@marp-team/marpit-svg-polyfill" "^1.7.1"
     emoji-regex "^9.2.2"
     highlight.js "^10.7.3"
-    katex "^0.13.20"
+    katex "^0.15.1"
     markdown-it-emoji "^2.0.0"
     mathjax-full "^3.2.0"
     postcss "^8.3.11"
-    postcss-minify-params "^5.0.1"
+    postcss-minify-params "^5.0.2"
     postcss-minify-selectors "^5.1.0"
     postcss-normalize-whitespace "^5.0.1"
     twemoji "^13.1.0"
@@ -2736,6 +2736,11 @@ highlight.js@^10.7.3:
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.7.3.tgz#697272e3991356e40c3cac566a74eef681756531"
   integrity sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==
 
+highlight.js@^11.3.1:
+  version "11.3.1"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.3.1.tgz#813078ef3aa519c61700f84fe9047231c5dc3291"
+  integrity sha512-PUhCRnPjLtiLHZAQ5A/Dt5F8cWZeMyj9KRsACsWT+OD6OP0x6dp5OmT5jdx0JgEyPxPZZIPQpRN2TciUT7occw==
+
 homedir-polyfill@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/homedir-polyfill/-/homedir-polyfill-1.0.3.tgz#743298cef4e5af3e194161fbadcc2151d3a058e8"
@@ -3799,13 +3804,6 @@ jsonfile@^5.0.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-katex@^0.13.20:
-  version "0.13.24"
-  resolved "https://registry.yarnpkg.com/katex/-/katex-0.13.24.tgz#fe55455eb455698cb24b911a353d16a3c855d905"
-  integrity sha512-jZxYuKCma3VS5UuxOx/rFV1QyGSl3Uy/i0kTJF3HgQ5xMinCQVF8Zd4bMY/9aI9b9A2pjIBOsjSSm68ykTAr8w==
-  dependencies:
-    commander "^8.0.0"
-
 katex@^0.15.1:
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/katex/-/katex-0.15.1.tgz#cf4ce2fa1257c3279cc7a7fe0c8d1fab40800893"
@@ -4765,7 +4763,7 @@ postcss-minify-gradients@^5.0.3:
     cssnano-utils "^2.0.1"
     postcss-value-parser "^4.1.0"
 
-postcss-minify-params@^5.0.1, postcss-minify-params@^5.0.2:
+postcss-minify-params@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/postcss-minify-params/-/postcss-minify-params-5.0.2.tgz#1b644da903473fbbb18fbe07b8e239883684b85c"
   integrity sha512-qJAPuBzxO1yhLad7h2Dzk/F7n1vPyfHfCCh5grjGfjhi1ttCnq4ZXGIW77GSrEbh9Hus9Lc/e/+tB4vh3/GpDg==

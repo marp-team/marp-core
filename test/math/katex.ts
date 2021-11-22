@@ -10,10 +10,10 @@ import { markdown as mathPlugin } from '../../src/math/math'
 const countMath = (stt) => stt.split('class="katex"').length - 1
 const countBlockMath = (stt) => stt.split('class="katex-display"').length - 1
 
-describe('markdown-it math plugin', () => {
+describe('markdown-it math plugin for KaTeX', () => {
   const md = new MarkdownIt()
 
-  md.marpit = { options: { math: true } }
+  md.marpit = { options: { math: 'katex' } }
 
   // Mock Marpit instance
   md.use(() => {

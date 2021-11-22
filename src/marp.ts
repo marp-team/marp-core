@@ -7,8 +7,9 @@ import postcssNormalizeWhitespace from 'postcss-normalize-whitespace'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
+import * as autoScalingPlugin from './auto-scaling'
+import * as customElements from './custom-elements'
 import * as emojiPlugin from './emoji/emoji'
-import * as fittingPlugin from './fitting/fitting'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
 import * as scriptPlugin from './script/script'
@@ -28,12 +29,6 @@ export interface MarpOptions extends Options {
   minifyCSS?: boolean
   script?: boolean | scriptPlugin.ScriptOptions
 }
-
-const styleMinifier = postcss([
-  postcssNormalizeWhitespace,
-  postcssMinifyParams,
-  postcssMinifySelectors,
-])
 
 export class Marp extends Marpit {
   readonly options!: Required<MarpOptions>
@@ -65,9 +60,11 @@ export class Marp extends Marpit {
     } as MarpOptions)
 
     this.markdown.enable(['table', 'linkify', 'strikethrough'])
+    this.markdown.linkify.set({ fuzzyLink: false })
 
-    if (mdOpts.typographer)
+    if (mdOpts.typographer) {
       this.markdown.enable(['replacements', 'smartquotes'])
+    }
 
     // Theme support
     this.themeSet.metaType = Object.freeze({
@@ -86,7 +83,7 @@ export class Marp extends Marpit {
     md.use(htmlPlugin.markdown)
       .use(emojiPlugin.markdown)
       .use(mathPlugin.markdown)
-      .use(fittingPlugin.markdown)
+      .use(autoScalingPlugin.markdown)
       .use(sizePlugin.markdown)
       .use(scriptPlugin.markdown)
   }
@@ -104,9 +101,17 @@ export class Marp extends Marpit {
 
   protected renderStyle(theme?: string): string {
     const original = super.renderStyle(theme)
-    if (!this.options.minifyCSS) return original
 
-    return styleMinifier.process(original).css
+    const postprocessor = postcss(
+      [
+        customElements.css,
+        this.options.minifyCSS && postcssNormalizeWhitespace,
+        this.options.minifyCSS && postcssMinifyParams,
+        this.options.minifyCSS && postcssMinifySelectors,
+      ].filter(Boolean)
+    )
+
+    return postprocessor.process(original).css
   }
 
   protected themeSetPackOptions(): ThemeSetPackOptions {
@@ -116,7 +121,6 @@ export class Marp extends Marpit {
     const { emoji } = this.options
 
     prepend(emojiPlugin.css(emoji))
-    prepend(fittingPlugin.css)
 
     const mathCss = mathPlugin.css(this)
     if (mathCss) prepend(mathCss)
