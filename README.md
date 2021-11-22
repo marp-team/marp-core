@@ -9,17 +9,25 @@
 
 In order to use on Marp tools, we have extended from the slide deck framework **[Marpit](https://github.com/marp-team/marpit)**. You can use the practical Markdown syntax, advanced features, and official themes.
 
+### Document version
+
+**This document is targeted for Marp Core v3.x.** You can see the document of stable v2 release in [`v2-stable`](https://github.com/marp-team/marp-core/tree/v2-stable) branch.
+
+> **⚡️ Release Candidate:** Marp Core v3 is the state of release candidate now. Some of downstream Marp tools still may be based on [the stable v2 release](https://github.com/marp-team/marp-core/tree/v2-stable).
+
 ## Install
 
 ```bash
 # npm
-npm install --save @marp-team/marp-core
+npm install --save @marp-team/marp-core@next
 ```
 
 ```bash
 # yarn
-yarn add @marp-team/marp-core
+yarn add @marp-team/marp-core@next
 ```
+
+During the latest version is release candidate, it is available in `next` dist tag.
 
 ## Usage
 
