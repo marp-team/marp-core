@@ -316,155 +316,13 @@ describe('Marp', () => {
     const inline = "Euler's equation is defined as $e^{i\\pi}+1=0$."
     const block = '$$\nc=\\sqrt{a^2+b^2}\n$$'
 
-    describe('with KaTeX (default)', () => {
-      const pickKaTeXWebFont = (css: string) => {
-        const walkedUrls: string[] = []
-        const walkerPlugin = {
-          postcssPlugin: 'postcss-katex-walker',
-          AtRule: (rule) => {
-            if (rule.name === 'font-face') {
-              rule.walkDecls('src', (e) => {
-                if (e.value.includes('KaTeX')) walkedUrls.push(e.value)
-              })
-            }
-          },
-        }
-
-        postcss([walkerPlugin]).process(css, { from: undefined }).css
-        return walkedUrls
-      }
-
-      it('renders math typesetting by KaTeX', () => {
+    describe('with MathJax (default)', () => {
+      it('renders math typesetting by MathJax', () => {
         for (const instance of [
           marp(),
           marp({ math: true }),
-          marp({ math: 'katex' }),
-          marp({ math: {} }),
-          marp({ math: { lib: 'katex' } }),
-        ]) {
-          const { html } = instance.render(`${inline}\n\n${block}`)
-          const $ = cheerio.load(html)
-
-          expect($('.katex')).toHaveLength(2)
-        }
-      })
-
-      it('injects KaTeX css with replacing web font URL to CDN', () => {
-        const { css } = marp().render(block)
-        expect(css).toContain('.katex')
-
-        const katexFonts = pickKaTeXWebFont(css)
-        for (const url of katexFonts) {
-          expect(url).toContain('https://cdn.jsdelivr.net/npm/katex')
-        }
-
-        expect(katexFonts).toMatchSnapshot('katex-css-cdn')
-      })
-
-      it('has a unique context for macro by Markdown rendering', () => {
-        const instance = marp()
-
-        const plain = cheerio
-          .load(instance.render('$x^2$').html)('.katex-html')
-          .html()
-
-        // KaTeX can modify macros through \gdef
-        const globallyDefined = cheerio
-          .load(instance.render('$\\gdef\\foo{x^2}$ $\\foo$').html)(
-            '.katex-html'
-          )
-          .eq(1)
-          .html()
-
-        expect(globallyDefined).toBe(plain)
-
-        // Defined command through \gdef in another rendering cannot use
-        const notDefined = cheerio
-          .load(instance.render('$\\foo$').html)('.katex-html')
-          .html()
-
-        expect(notDefined).not.toBe(plain)
-      })
-
-      describe('when math typesetting syntax is not using', () => {
-        it('does not inject KaTeX css', () =>
-          expect(marp().render('plain text').css).not.toContain('.katex'))
-      })
-
-      describe('with katexOption', () => {
-        it('renders KaTeX with specified option', () => {
-          const instance = marp({
-            math: { katexOption: { macros: { '\\RR': '\\mathbb{R}' } } },
-          })
-          const { html } = instance.render(`# $\\RR$\n\n## $\\mathbb{R}$`)
-          const $ = cheerio.load(html)
-
-          const h1 = $('h1')
-          h1.find('annotation').remove()
-
-          const h2 = $('h2')
-          h2.find('annotation').remove()
-
-          expect(h1.html()).toBe(h2.html())
-        })
-
-        describe('when throwOnError is true', () => {
-          const instance = marp({
-            math: { katexOption: { throwOnError: true } },
-          })
-
-          it('fallbacks to plain text on raising error', () => {
-            const warnSpy = jest
-              .spyOn(console, 'warn')
-              .mockImplementation(() => {}) // eslint-disable-line @typescript-eslint/no-empty-function
-
-            const inlineHTML = instance.render('# Fallback to text $}$!').html
-            const $inline = cheerio.load(inlineHTML)
-
-            expect(warnSpy.mock.calls).toHaveLength(1)
-            expect($inline('h1').text()).toBe('Fallback to text }!')
-
-            const blockHTML = instance.render('$$\n}\n$$').html
-            const $block = cheerio.load(blockHTML)
-            const blockText = $block('p').text()
-
-            expect(warnSpy.mock.calls).toHaveLength(2)
-            expect(blockText.trim()).toBe('}')
-          })
-        })
-      })
-
-      describe('with katexFontPath', () => {
-        const katexFontPath = '/resources/fonts/'
-
-        it('replaces KaTeX web font URL with specified path', () => {
-          const instance = marp({ math: { katexFontPath } })
-          const { css } = instance.render(block)
-
-          const katexFonts = pickKaTeXWebFont(css)
-          for (const url of katexFonts) expect(url).toContain(katexFontPath)
-
-          expect(katexFonts).toMatchSnapshot('katex-css-replace')
-        })
-
-        describe('as false', () => {
-          it('does not replace KaTeX web font URL', () => {
-            const instance = marp({ math: { katexFontPath: false } })
-            const { css } = instance.render(block)
-
-            const katexFonts = pickKaTeXWebFont(css)
-            for (const url of katexFonts) expect(url).toContain('fonts/')
-
-            expect(katexFonts).toMatchSnapshot('katex-css-noops')
-          })
-        })
-      })
-    })
-
-    describe('with MathJax', () => {
-      it('renders math typesetting by MathJax', () => {
-        for (const instance of [
           marp({ math: 'mathjax' }),
+          marp({ math: {} }),
           marp({ math: { lib: 'mathjax' } }),
         ]) {
           const { html } = instance.render(`${inline}\n\n${block}`)
@@ -555,6 +413,155 @@ describe('Marp', () => {
           expect(
             marp({ math: 'mathjax' }).render('plain text').css
           ).not.toContain('mjx-container'))
+      })
+    })
+
+    describe('with KaTeX', () => {
+      const pickKaTeXWebFont = (css: string) => {
+        const walkedUrls: string[] = []
+        const walkerPlugin = {
+          postcssPlugin: 'postcss-katex-walker',
+          AtRule: (rule) => {
+            if (rule.name === 'font-face') {
+              rule.walkDecls('src', (e) => {
+                if (e.value.includes('KaTeX')) walkedUrls.push(e.value)
+              })
+            }
+          },
+        }
+
+        postcss([walkerPlugin]).process(css, { from: undefined }).css
+        return walkedUrls
+      }
+
+      it('renders math typesetting by KaTeX', () => {
+        for (const instance of [
+          marp({ math: 'katex' }),
+          marp({ math: { lib: 'katex' } }),
+        ]) {
+          const { html } = instance.render(`${inline}\n\n${block}`)
+          const $ = cheerio.load(html)
+
+          expect($('.katex')).toHaveLength(2)
+        }
+      })
+
+      it('injects KaTeX css with replacing web font URL to CDN', () => {
+        const { css } = marp({ math: 'katex' }).render(block)
+        expect(css).toContain('.katex')
+
+        const katexFonts = pickKaTeXWebFont(css)
+        for (const url of katexFonts) {
+          expect(url).toContain('https://cdn.jsdelivr.net/npm/katex')
+        }
+
+        expect(katexFonts).toMatchSnapshot('katex-css-cdn')
+      })
+
+      it('has a unique context for macro by Markdown rendering', () => {
+        const instance = marp({ math: 'katex' })
+
+        const plain = cheerio
+          .load(instance.render('$x^2$').html)('.katex-html')
+          .html()
+
+        // KaTeX can modify macros through \gdef
+        const globallyDefined = cheerio
+          .load(instance.render('$\\gdef\\foo{x^2}$ $\\foo$').html)(
+            '.katex-html'
+          )
+          .eq(1)
+          .html()
+
+        expect(globallyDefined).toBe(plain)
+
+        // Defined command through \gdef in another rendering cannot use
+        const notDefined = cheerio
+          .load(instance.render('$\\foo$').html)('.katex-html')
+          .html()
+
+        expect(notDefined).not.toBe(plain)
+      })
+
+      describe('when math typesetting syntax is not using', () => {
+        it('does not inject KaTeX css', () =>
+          expect(
+            marp({ math: 'katex' }).render('plain text').css
+          ).not.toContain('.katex'))
+      })
+
+      describe('with katexOption', () => {
+        it('renders KaTeX with specified option', () => {
+          const instance = marp({
+            math: {
+              lib: 'katex',
+              katexOption: { macros: { '\\RR': '\\mathbb{R}' } },
+            },
+          })
+          const { html } = instance.render(`# $\\RR$\n\n## $\\mathbb{R}$`)
+          const $ = cheerio.load(html)
+
+          const h1 = $('h1')
+          h1.find('annotation').remove()
+
+          const h2 = $('h2')
+          h2.find('annotation').remove()
+
+          expect(h1.html()).toBe(h2.html())
+        })
+
+        describe('when throwOnError is true', () => {
+          const instance = marp({
+            math: { lib: 'katex', katexOption: { throwOnError: true } },
+          })
+
+          it('fallbacks to plain text on raising error', () => {
+            const warnSpy = jest
+              .spyOn(console, 'warn')
+              .mockImplementation(() => {}) // eslint-disable-line @typescript-eslint/no-empty-function
+
+            const inlineHTML = instance.render('# Fallback to text $}$!').html
+            const $inline = cheerio.load(inlineHTML)
+
+            expect(warnSpy.mock.calls).toHaveLength(1)
+            expect($inline('h1').text()).toBe('Fallback to text }!')
+
+            const blockHTML = instance.render('$$\n}\n$$').html
+            const $block = cheerio.load(blockHTML)
+            const blockText = $block('p').text()
+
+            expect(warnSpy.mock.calls).toHaveLength(2)
+            expect(blockText.trim()).toBe('}')
+          })
+        })
+      })
+
+      describe('with katexFontPath', () => {
+        const katexFontPath = '/resources/fonts/'
+
+        it('replaces KaTeX web font URL with specified path', () => {
+          const instance = marp({ math: { lib: 'katex', katexFontPath } })
+          const { css } = instance.render(block)
+
+          const katexFonts = pickKaTeXWebFont(css)
+          for (const url of katexFonts) expect(url).toContain(katexFontPath)
+
+          expect(katexFonts).toMatchSnapshot('katex-css-replace')
+        })
+
+        describe('as false', () => {
+          it('does not replace KaTeX web font URL', () => {
+            const instance = marp({
+              math: { lib: 'katex', katexFontPath: false },
+            })
+            const { css } = instance.render(block)
+
+            const katexFonts = pickKaTeXWebFont(css)
+            for (const url of katexFonts) expect(url).toContain('fonts/')
+
+            expect(katexFonts).toMatchSnapshot('katex-css-noops')
+          })
+        })
       })
     })
 
