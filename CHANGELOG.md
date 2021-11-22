@@ -2,9 +2,14 @@
 
 ## [Unreleased]
 
+## v2.3.0 - 2021-11-22
+
 ### Changed
 
+- Upgrade Marpit to [v2.2.0](https://github.com/marp-team/marpit/releases/v2.2.0) ([#273](https://github.com/marp-team/marp-core/pull/273))
+  - [`::backdrop` pseudo-element](https://marpit.marp.app/inline-svg?id=backdrop-css-selector) matches to the container SVG
 - Upgrade development Node to v16 LTS ([#265](https://github.com/marp-team/marp-core/pull/265))
+- Upgrade dependent packages to the latest version ([#273](https://github.com/marp-team/marp-core/pull/273))
 
 ## v2.2.0 - 2021-10-29
 
