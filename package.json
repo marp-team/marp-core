@@ -65,7 +65,7 @@
     "exec": "./node_modules/.bin/marp"
   },
   "devDependencies": {
-    "@marp-team/marp-cli": "^1.4.2",
+    "@marp-team/marp-cli": "^1.5.0",
     "@rollup/plugin-alias": "^3.1.8",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-json": "^4.1.0",
