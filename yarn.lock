@@ -516,13 +516,13 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@marp-team/marp-cli@^1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-1.4.2.tgz#2416daca42759e9e44a57ab0156a63f8a1030592"
-  integrity sha512-QUIS0fwnJp05dR13AowD9NAVMxKpGGEBwbSKwXulC5AEXQ0YQdWSghEWgGbOc8WsLPRORL9BfSkUD7pi7z44PA==
+"@marp-team/marp-cli@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-1.5.0.tgz#2eb14af01b16dbfd83ba6bb6d3cfa62f2ee0e756"
+  integrity sha512-IeuPS+gi042nY/oOr+Dmoz+mJ5+XZ3NN3S4ZffrrD3H8PNFzdI/76tcYsOlVIECHJI5W+KUPpVztSt3/gssLLQ==
   dependencies:
-    "@marp-team/marp-core" "^2.2.0"
-    "@marp-team/marpit" "^2.1.2"
+    "@marp-team/marp-core" "^2.3.0"
+    "@marp-team/marpit" "^2.2.0"
     chokidar "^3.5.2"
     cosmiconfig "^7.0.1"
     import-from "^4.0.0"
@@ -531,10 +531,10 @@
     serve-index "^1.9.1"
     tmp "^0.2.1"
     v8-compile-cache "^2.3.0"
-    ws "^8.2.3"
+    ws "^8.3.0"
     yargs "^17.2.1"
 
-"@marp-team/marp-core@^2.2.0":
+"@marp-team/marp-core@^2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-2.3.0.tgz#f88f8ca4374ad25f59039939a6be2a11e49ad31d"
   integrity sha512-cLrKTw0LpJXhxLXREaUW0XWOGEcP69MjARN3u385TRVe+juANvwyzK1x/k4jJd1Lg/+dGVD1m/WYxT3adfi4GA==
@@ -558,7 +558,7 @@
   resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-1.7.1.tgz#be98fcd3758c2be60980dc31f17116a90262cf03"
   integrity sha512-dSZLyPNzBY+lrcIPF1dC9dcYcU3MPFigtjQDxLZP48uWq5oaMSnPLGtDsiDjlqVHk6MAmMuw7qy1i4+tt9HhpA==
 
-"@marp-team/marpit@^2.1.2", "@marp-team/marpit@^2.2.0":
+"@marp-team/marpit@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-2.2.0.tgz#4b6a90ee81df12ea5d510c32b542fa956414edaf"
   integrity sha512-t79NGq8+CDKsE8HAvcFkxbxiheNtxHdLmMx6btCck4Tk4GMBaoZQLYuBmV0m6HyNQz4YjyejwS4dRnfBIoRsTA==
@@ -6365,7 +6365,7 @@ write-file-atomic@^3.0.0, write-file-atomic@^3.0.3:
     signal-exit "^3.0.2"
     typedarray-to-buffer "^3.1.5"
 
-ws@8.2.3, ws@^8.2.3:
+ws@8.2.3:
   version "8.2.3"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.2.3.tgz#63a56456db1b04367d0b721a0b80cae6d8becbba"
   integrity sha512-wBuoj1BDpC6ZQ1B7DWQBYVLphPWkm8i9Y0/3YdHjHKHiohOJ1ws+3OccDWtH+PoC9DZD5WOTrJvNbWvjS6JWaA==
@@ -6374,6 +6374,11 @@ ws@^7.4.6:
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.5.tgz#8b4bc4af518cfabd0473ae4f99144287b33eb881"
   integrity sha512-BAkMFcAzl8as1G/hArkxOxq3G7pjUqQ3gzYbLL0/5zNkph70e+lCoxBGnm6AW1+/aiNeV4fnKqZ8m4GZewmH2w==
+
+ws@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.3.0.tgz#7185e252c8973a60d57170175ff55fdbd116070d"
+  integrity sha512-Gs5EZtpqZzLvmIM59w4igITU57lrtYVFneaa434VROv4thzJyV6UjIL3D42lslWlI+D4KzLYnxSwtfuiO79sNw==
 
 xdg-basedir@^4.0.0:
   version "4.0.0"
