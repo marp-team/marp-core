@@ -2,9 +2,16 @@
 
 ## [Unreleased]
 
-## v3.0.0 - 2021-11-22
+## v3.0.1 - 2022-01-08
 
-> **This version is still release candidate.** You have to use `next` tag to install: `npm i --save @marp-team/marp-core@next`.
+> **v3 is still release candidate.** You have to use `next` tag to install: `npm i --save @marp-team/marp-core@next`.
+
+### Changed
+
+- Upgrade Marpit to [v2.2.1](https://github.com/marp-team/marpit/releases/v2.2.1) ([#275](https://github.com/marp-team/marp-core/pull/275))
+- Upgrade dependent packages to the latest version ([#275](https://github.com/marp-team/marp-core/pull/275))
+
+## v3.0.0 - 2021-11-22
 
 ### ⚡️ Breaking
 
@@ -22,6 +29,13 @@
 - Match color schemes for `default` theme to the latest GitHub ([#266](https://github.com/marp-team/marp-core/issues/266))
 - Adopt `::where()` selector to class variants for making styles overridable ([#244](https://github.com/marp-team/marp-core/issues/244), [#267](https://github.com/marp-team/marp-core/pull/267))
 - Disable autolink for URL text that has no `http(s)://` protocol ([#268](https://github.com/marp-team/marp-core/pull/268))
+
+## v2.3.1 - 2022-01-08
+
+### Changed
+
+- Upgrade Marpit to [v2.2.1](https://github.com/marp-team/marpit/releases/v2.2.1) ([#275](https://github.com/marp-team/marp-core/pull/275))
+- Upgrade dependent packages to the latest version ([#275](https://github.com/marp-team/marp-core/pull/275))
 
 ## v2.3.0 - 2021-11-22
 
