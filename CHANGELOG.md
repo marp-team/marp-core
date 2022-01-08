@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Marpit to [v2.2.1](https://github.com/marp-team/marpit/releases/v2.2.1) ([#275](https://github.com/marp-team/marp-core/pull/275))
+- Upgrade dependent packages to the latest version ([#275](https://github.com/marp-team/marp-core/pull/275))
+
 ## v2.3.0 - 2021-11-22
 
 ### Changed
