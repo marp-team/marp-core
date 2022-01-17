@@ -500,30 +500,30 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@marp-team/marp-cli@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-1.5.0.tgz#2eb14af01b16dbfd83ba6bb6d3cfa62f2ee0e756"
-  integrity sha512-IeuPS+gi042nY/oOr+Dmoz+mJ5+XZ3NN3S4ZffrrD3H8PNFzdI/76tcYsOlVIECHJI5W+KUPpVztSt3/gssLLQ==
+"@marp-team/marp-cli@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-1.5.1.tgz#621ec4acbd2f1fe1602bdd931a1e900a4a63111b"
+  integrity sha512-+pvH0mSlAvQjD97YtNK5R9VS6ddpvsbdniGR74oXAhO+3p1S4l8rFb8qU6M7zZpUifyn7Yf/cQr3mJTIMwax5w==
   dependencies:
-    "@marp-team/marp-core" "^2.3.0"
-    "@marp-team/marpit" "^2.2.0"
+    "@marp-team/marp-core" "^2.3.1"
+    "@marp-team/marpit" "^2.2.1"
     chokidar "^3.5.2"
     cosmiconfig "^7.0.1"
     import-from "^4.0.0"
     is-wsl "^2.2.0"
-    puppeteer-core "11.0.0"
+    puppeteer-core "13.0.1"
     serve-index "^1.9.1"
     tmp "^0.2.1"
     v8-compile-cache "^2.3.0"
-    ws "^8.3.0"
-    yargs "^17.2.1"
+    ws "^8.4.0"
+    yargs "^17.3.1"
 
-"@marp-team/marp-core@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-2.3.0.tgz#f88f8ca4374ad25f59039939a6be2a11e49ad31d"
-  integrity sha512-cLrKTw0LpJXhxLXREaUW0XWOGEcP69MjARN3u385TRVe+juANvwyzK1x/k4jJd1Lg/+dGVD1m/WYxT3adfi4GA==
+"@marp-team/marp-core@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-2.3.1.tgz#b5a2796dd5f09685c0c2783ab9f49d75f1d28903"
+  integrity sha512-QGwwAP1YfZONmTcN0/lN0Ghww+iNXb08ro7kxuE3+0O4dOmAdysVuPyihQ4dyHaHXusn1ZJBUUussiU5V9ukyg==
   dependencies:
-    "@marp-team/marpit" "^2.2.0"
+    "@marp-team/marpit" "^2.2.1"
     "@marp-team/marpit-svg-polyfill" "^1.7.1"
     emoji-regex "^9.2.2"
     highlight.js "^10.7.3"
@@ -542,7 +542,7 @@
   resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-1.7.1.tgz#be98fcd3758c2be60980dc31f17116a90262cf03"
   integrity sha512-dSZLyPNzBY+lrcIPF1dC9dcYcU3MPFigtjQDxLZP48uWq5oaMSnPLGtDsiDjlqVHk6MAmMuw7qy1i4+tt9HhpA==
 
-"@marp-team/marpit@^2.2.0", "@marp-team/marpit@^2.2.1":
+"@marp-team/marpit@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-2.2.1.tgz#1c26d0210a49d33de84a59eb48c11d7df9dc6135"
   integrity sha512-ssL2sYG48qVDhj6IQllW3HrPt+OCsp4Ru0Qg3BIQTt9JO8ZzZcsS35RqpgS8q54vyoZN7Xr00fAb1+jIdtOOkA==
@@ -1826,10 +1826,10 @@ detect-newline@^3.0.0:
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-3.1.0.tgz#576f5dfc63ae1a192ff192d8ad3af6308991b651"
   integrity sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==
 
-devtools-protocol@0.0.901419:
-  version "0.0.901419"
-  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.901419.tgz#79b5459c48fe7e1c5563c02bd72f8fec3e0cebcd"
-  integrity sha512-4INMPwNm9XRpBukhNbF7OB6fNTTCaI8pzy/fXg0xQzAy5h3zL1P8xT3QazgKqBrb/hAYwIBizqDBZ7GtJE74QQ==
+devtools-protocol@0.0.937139:
+  version "0.0.937139"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.937139.tgz#bdee3751fdfdb81cb701fd3afa94b1065dafafcf"
+  integrity sha512-daj+rzR3QSxsPRy5vjjthn58axO8c11j58uY0lG5vvlJk/EiOdCWOptGdkXDjtuRHr78emKq0udHCXM4trhoDQ==
 
 diff-sequences@^27.4.0:
   version "27.4.0"
@@ -4809,13 +4809,13 @@ pupa@^2.1.1:
   dependencies:
     escape-goat "^2.0.0"
 
-puppeteer-core@11.0.0:
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-11.0.0.tgz#d7aa19634948671fa35d14027fa45be807c340cb"
-  integrity sha512-hfQ39KNP0qKplQ86iaCNXHH9zpWlV01UFdggt2qffgWeCBF9KMavwP/k/iK/JidPPWfOnKZhDLSHZVSUr73DtA==
+puppeteer-core@13.0.1:
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-13.0.1.tgz#4e3ff98ece963b4cf5587158892bf0226a388215"
+  integrity sha512-aKTN7Rtu7zJuhadihaxXnbC4fRPe/Q6VR8u6krJk3dnmTL7am01hl3XG1x9nNCkxi5fA4+e4ba9QmTvFiqGxSA==
   dependencies:
     debug "4.3.2"
-    devtools-protocol "0.0.901419"
+    devtools-protocol "0.0.937139"
     extract-zip "2.0.1"
     https-proxy-agent "5.0.0"
     node-fetch "2.6.5"
@@ -6069,10 +6069,10 @@ ws@^7.4.6:
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.6.tgz#e59fc509fb15ddfb65487ee9765c5a51dec5fe7b"
   integrity sha512-6GLgCqo2cy2A2rjCNFlxQS6ZljG/coZfZXclldI8FB/1G3CCI36Zd8xy2HrFVACi8tfk5XrgLQEk+P0Tnz9UcA==
 
-ws@^8.3.0:
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.4.0.tgz#f05e982a0a88c604080e8581576e2a063802bed6"
-  integrity sha512-IHVsKe2pjajSUIl4KYMQOdlyliovpEPquKkqbwswulszzI7r0SfQrxnXdWAEqOlDCLrVSJzo+O1hAwdog2sKSQ==
+ws@^8.4.0:
+  version "8.4.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.4.2.tgz#18e749868d8439f2268368829042894b6907aa0b"
+  integrity sha512-Kbk4Nxyq7/ZWqr/tarI9yIt/+iNNFOjBXEWgTb4ydaNHBNGgvf2QHbS9fdfsndfjFlFwEd4Al+mw83YkaD10ZA==
 
 xdg-basedir@^4.0.0:
   version "4.0.0"
@@ -6152,7 +6152,7 @@ yargs@^16.2.0:
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
 
-yargs@^17.2.1:
+yargs@^17.3.1:
   version "17.3.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.3.1.tgz#da56b28f32e2fd45aefb402ed9c26f42be4c07b9"
   integrity sha512-WUANQeVgjLbNsEmGk20f+nlHgOqzRFpiGWVaBrYGYIGANIIu3lWjoyi0fNlFmJkvfhCZ6BXINe7/W2O2bV4iaA==
