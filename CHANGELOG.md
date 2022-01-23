@@ -7,6 +7,7 @@
 ### Fixed
 
 - Refactor auto scaling component ([#276](https://github.com/marp-team/marp-core/pull/276))
+- Preserve HTML comments within html block ([#282](https://github.com/marp-team/marp-core/pull/282))
 
 ### Changed
 
