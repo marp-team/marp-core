@@ -22,6 +22,26 @@ export function markdown(md): void {
     (original: (...args: any[]) => string) =>
     (...args) => {
       const ret = original(...args)
+
+      // Pick comments
+      const splitted: string[] = []
+      let pos = 0
+
+      while (pos < ret.length) {
+        const startIdx = ret.indexOf('<!--', pos)
+        let endIdx = startIdx !== -1 ? ret.indexOf('-->', startIdx + 4) : -1
+
+        if (endIdx === -1) {
+          splitted.push(ret.slice(pos))
+          break
+        }
+
+        endIdx += 3
+        splitted.push(ret.slice(pos, startIdx), ret.slice(startIdx, endIdx))
+        pos = endIdx
+      }
+
+      // Apply filter to each contents by XSS
       const allowList = {}
       const html: MarpOptions['html'] = md.options.html
 
@@ -58,8 +78,17 @@ export function markdown(md): void {
         },
       })
 
-      const sanitized = filter.process(ret)
-      return md.options.xhtmlOut ? xhtmlOutFilter.process(sanitized) : sanitized
+      return splitted
+        .map((part, idx) => {
+          if (idx % 2 === 1) return part
+
+          const sanitized = filter.process(part)
+
+          return md.options.xhtmlOut
+            ? xhtmlOutFilter.process(sanitized)
+            : sanitized
+        })
+        .join('')
     }
 
   md.renderer.rules.html_inline = sanitizedRenderer(html_inline)
