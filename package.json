@@ -122,6 +122,9 @@
     "twemoji": "^13.1.0",
     "xss": "^1.0.10"
   },
+  "resolutions": {
+    "@marp-team/marp-cli/puppeteer-core/node-fetch": "^2.6.7"
+  },
   "publishConfig": {
     "access": "public"
   }
