@@ -18,19 +18,22 @@ export class MarpAutoScaling extends HTMLElement {
   constructor() {
     super()
 
+    const generateObserverCallback =
+      (field: 'containerSize' | 'wrapperSize'): ResizeObserverCallback =>
+      ([entry]) => {
+        const { width, height } = entry.contentRect
+
+        this[field] = { width, height }
+        this.updateSVGRect()
+      }
+
     this.attachShadow({ mode: 'open' })
-    this.containerObserver = new ResizeObserver(([entry]) => {
-      const { width, height } = entry.contentRect
-
-      this.containerSize = { width, height }
-      this.updateSVGRect()
-    })
-    this.wrapperObserver = new ResizeObserver(([entry]) => {
-      const { width, height } = entry.contentRect
-
-      this.wrapperSize = { width, height }
-      this.updateSVGRect()
-    })
+    this.containerObserver = new ResizeObserver(
+      generateObserverCallback('containerSize')
+    )
+    this.wrapperObserver = new ResizeObserver(
+      generateObserverCallback('wrapperSize')
+    )
   }
 
   static get observedAttributes() {

@@ -4,6 +4,10 @@
 
 > **v3 is still release candidate.** You have to use `next` tag to install: `npm i --save @marp-team/marp-core@next`.
 
+### Fixed
+
+- Refactor auto scaling component ([#276](https://github.com/marp-team/marp-core/pull/276))
+
 ### Changed
 
 - Upgrade Marpit to [v2.2.2](https://github.com/marp-team/marpit/releases/v2.2.2) ([#281](https://github.com/marp-team/marp-core/pull/281))
