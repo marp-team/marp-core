@@ -214,6 +214,56 @@ describe('Marp', () => {
         expect($('header > strong')).toHaveLength(1)
         expect($('footer > em')).toHaveLength(1)
       })
+
+      it('keeps raw HTML comments within valid HTML block', () => {
+        const { html: $script, comments: comments$script } = marp().render(
+          "<script><!--\nconst script = '<b>test</b>'\n--></script>"
+        )
+        expect($script).toContain("const script = '<b>test</b>'")
+        expect(comments$script[0]).toHaveLength(0)
+
+        // Complex comment
+        const complexComment = `
+<!--
+function matchwo(a,b)
+{
+
+  if (a < b && a < 0) then {
+    return 1;
+
+  } else {
+
+    return 0;
+  }
+}
+
+// ex
+-->
+`.trim()
+        const { html: $complex } = marp().render(
+          `<script>${complexComment}</script>`
+        )
+        expect($complex).toContain(complexComment)
+
+        // NOTE: Marpit framework will collect the comment block if the whole of HTML block was comment
+        const { html: $comment, comments: comments$comment } = marp().render(
+          "<!--\nconst script = '<b>test</b>'\n-->"
+        )
+        expect($comment).not.toContain("const script = '<b>test</b>'")
+        expect(comments$comment[0]).toHaveLength(1)
+      })
+
+      it('sanitizes CDATA section', () => {
+        // HTML Living Standard denys using CDATA in HTML context so must be sanitized
+        const cdata = `
+<![CDATA[
+  <p>XSS</p>
+  <script>alert('XSS')</script>
+]]>
+`.trim()
+        const { html } = marp().render(cdata)
+        expect(html).not.toContain(cdata)
+      })
     })
 
     describe('with true', () => {

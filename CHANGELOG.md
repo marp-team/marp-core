@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Preserve HTML comments within html block ([#282](https://github.com/marp-team/marp-core/pull/282))
+
 ### Changed
 
 - Upgrade Marpit to [v2.2.2](https://github.com/marp-team/marpit/releases/v2.2.2) ([#281](https://github.com/marp-team/marp-core/pull/281))
