@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v2.3.2 - 2022-01-23
+
 ### Fixed
 
 - Preserve HTML comments within html block ([#282](https://github.com/marp-team/marp-core/pull/282))
