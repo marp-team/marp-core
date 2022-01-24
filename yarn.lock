@@ -500,40 +500,41 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@marp-team/marp-cli@^1.5.1":
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-1.5.1.tgz#621ec4acbd2f1fe1602bdd931a1e900a4a63111b"
-  integrity sha512-+pvH0mSlAvQjD97YtNK5R9VS6ddpvsbdniGR74oXAhO+3p1S4l8rFb8qU6M7zZpUifyn7Yf/cQr3mJTIMwax5w==
+"@marp-team/marp-cli@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-1.5.2.tgz#dc4f71ee554331a06383c6bb7bf4a5f50bbc70c8"
+  integrity sha512-HnDKXYbt7MS04kr1UgHEvGOMUULF6jBQhDp7NKxj81E7uT69dKsiSjvQlaXtRoNo03gZOw9nl4l2BvsmNdDcrA==
   dependencies:
-    "@marp-team/marp-core" "^2.3.1"
-    "@marp-team/marpit" "^2.2.1"
-    chokidar "^3.5.2"
+    "@marp-team/marp-core" "^2.3.2"
+    "@marp-team/marpit" "^2.2.2"
+    chokidar "^3.5.3"
     cosmiconfig "^7.0.1"
     import-from "^4.0.0"
     is-wsl "^2.2.0"
-    puppeteer-core "13.0.1"
+    puppeteer-core "13.1.1"
     serve-index "^1.9.1"
     tmp "^0.2.1"
     v8-compile-cache "^2.3.0"
-    ws "^8.4.0"
+    ws "^8.4.2"
     yargs "^17.3.1"
 
-"@marp-team/marp-core@^2.3.1":
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-2.3.1.tgz#b5a2796dd5f09685c0c2783ab9f49d75f1d28903"
-  integrity sha512-QGwwAP1YfZONmTcN0/lN0Ghww+iNXb08ro7kxuE3+0O4dOmAdysVuPyihQ4dyHaHXusn1ZJBUUussiU5V9ukyg==
+"@marp-team/marp-core@^2.3.2":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-2.3.2.tgz#6acc5436331674a2450caa7dcbb3dc0d91fa4cb1"
+  integrity sha512-Mhnx6HseEO+Dui9R4M5vZ0W+rNOtCYAWoaYq1mWrWUs8xhCYsqTOyXqSwvhkxHNUpc6rAEfSgaifeq51fMj65Q==
   dependencies:
-    "@marp-team/marpit" "^2.2.1"
+    "@marp-team/marpit" "^2.2.2"
     "@marp-team/marpit-svg-polyfill" "^1.7.1"
     emoji-regex "^9.2.2"
     highlight.js "^10.7.3"
-    katex "^0.15.1"
+    katex "^0.15.2"
     markdown-it-emoji "^2.0.0"
     mathjax-full "^3.2.0"
-    postcss "^8.3.11"
-    postcss-minify-params "^5.0.2"
-    postcss-minify-selectors "^5.1.0"
-    postcss-normalize-whitespace "^5.0.1"
+    postcss "^8.4.5"
+    postcss-minify-params "^5.0.3"
+    postcss-minify-selectors "^5.1.1"
+    postcss-normalize-whitespace "^5.0.2"
+    postcss-selector-parser "^6.0.9"
     twemoji "^13.1.0"
     xss "^1.0.10"
 
@@ -542,7 +543,7 @@
   resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-1.7.1.tgz#be98fcd3758c2be60980dc31f17116a90262cf03"
   integrity sha512-dSZLyPNzBY+lrcIPF1dC9dcYcU3MPFigtjQDxLZP48uWq5oaMSnPLGtDsiDjlqVHk6MAmMuw7qy1i4+tt9HhpA==
 
-"@marp-team/marpit@^2.2.1", "@marp-team/marpit@^2.2.2":
+"@marp-team/marpit@^2.2.2":
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-2.2.2.tgz#b5152e51c2e1ee4e14346e41192f182bd68739c3"
   integrity sha512-jrEl8YtK2Fz06BSqtwtAsX/fEqDMQ2UwepFzMwRrmbyVd3lP4O+3BoI7VmX7mIOXaXcYcv33yw66MdaCN+M4cg==
@@ -1389,7 +1390,7 @@ cheerio@^1.0.0-rc.10:
     parse5-htmlparser2-tree-adapter "^6.0.1"
     tslib "^2.2.0"
 
-"chokidar@>=3.0.0 <4.0.0", chokidar@^3.5.2:
+"chokidar@>=3.0.0 <4.0.0", chokidar@^3.5.2, chokidar@^3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.3.tgz#1cf37c8707b932bd1af1ae22c0432e2acd1903bd"
   integrity sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==
@@ -1828,10 +1829,10 @@ detect-newline@^3.0.0:
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-3.1.0.tgz#576f5dfc63ae1a192ff192d8ad3af6308991b651"
   integrity sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==
 
-devtools-protocol@0.0.937139:
-  version "0.0.937139"
-  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.937139.tgz#bdee3751fdfdb81cb701fd3afa94b1065dafafcf"
-  integrity sha512-daj+rzR3QSxsPRy5vjjthn58axO8c11j58uY0lG5vvlJk/EiOdCWOptGdkXDjtuRHr78emKq0udHCXM4trhoDQ==
+devtools-protocol@0.0.948846:
+  version "0.0.948846"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.948846.tgz#bff47e2d1dba060130fa40ed2e5f78b916ba285f"
+  integrity sha512-5fGyt9xmMqUl2VI7+rnUkKCiAQIpLns8sfQtTENy5L70ktbNw0Z3TFJ1JoFNYdx/jffz4YXU45VF75wKZD7sZQ==
 
 diff-sequences@^27.4.0:
   version "27.4.0"
@@ -3646,7 +3647,7 @@ jsonfile@^5.0.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-katex@^0.15.1, katex@^0.15.2:
+katex@^0.15.2:
   version "0.15.2"
   resolved "https://registry.yarnpkg.com/katex/-/katex-0.15.2.tgz#c05ece41ab497597b17abca2cecde3e4c0127f9d"
   integrity sha512-FfZ/f6f8bQdLmJ3McXDNTkKenQkoXkItpW0I9bsG2wgb+8JAY5bwpXFtI8ZVrg5hc1wo1X/UIhdkVMpok46tEQ==
@@ -4510,7 +4511,7 @@ postcss-minify-gradients@^5.0.4:
     cssnano-utils "^3.0.0"
     postcss-value-parser "^4.2.0"
 
-postcss-minify-params@^5.0.2, postcss-minify-params@^5.0.3:
+postcss-minify-params@^5.0.3:
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/postcss-minify-params/-/postcss-minify-params-5.0.3.tgz#9f933d37098ef1dcf007e159a47bb2c1cf06989d"
   integrity sha512-NY92FUikE+wralaiVexFd5gwb7oJTIDhgTNeIw89i1Ymsgt4RWiPXfz3bg7hDy4NL6gepcThJwOYNtZO/eNi7Q==
@@ -4520,7 +4521,7 @@ postcss-minify-params@^5.0.2, postcss-minify-params@^5.0.3:
     cssnano-utils "^3.0.0"
     postcss-value-parser "^4.2.0"
 
-postcss-minify-selectors@^5.1.0, postcss-minify-selectors@^5.1.1:
+postcss-minify-selectors@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/postcss-minify-selectors/-/postcss-minify-selectors-5.1.1.tgz#20ae03b411f7fb397451e3d7d85b989f944b871c"
   integrity sha512-TOzqOPXt91O2luJInaVPiivh90a2SIK5Nf1Ea7yEIM/5w+XA5BGrZGUSW8aEx9pJ/oNj7ZJBhjvigSiBV+bC1Q==
@@ -4626,7 +4627,7 @@ postcss-normalize-url@^5.0.4:
     normalize-url "^6.0.1"
     postcss-value-parser "^4.2.0"
 
-postcss-normalize-whitespace@^5.0.1, postcss-normalize-whitespace@^5.0.2:
+postcss-normalize-whitespace@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/postcss-normalize-whitespace/-/postcss-normalize-whitespace-5.0.2.tgz#92c5eaffe5255b5c43fca0baf19227e607c534db"
   integrity sha512-CXBx+9fVlzSgbk0IXA/dcZn9lXixnQRndnsPC5ht3HxlQ1bVh77KQDL1GffJx1LTzzfae8ftMulsjYmO2yegxA==
@@ -4801,13 +4802,13 @@ pupa@^2.1.1:
   dependencies:
     escape-goat "^2.0.0"
 
-puppeteer-core@13.0.1:
-  version "13.0.1"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-13.0.1.tgz#4e3ff98ece963b4cf5587158892bf0226a388215"
-  integrity sha512-aKTN7Rtu7zJuhadihaxXnbC4fRPe/Q6VR8u6krJk3dnmTL7am01hl3XG1x9nNCkxi5fA4+e4ba9QmTvFiqGxSA==
+puppeteer-core@13.1.1:
+  version "13.1.1"
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-13.1.1.tgz#bd07b225732210c570fb8af1ff959bb91806dbdc"
+  integrity sha512-pXVcEFv5wgayHtwl5WBB8dyFHkdA7eLcAUuF9cprsoJQVU1sgA32OCfmXqNfvcej85Y5ceAcin09c8qLopdkfQ==
   dependencies:
     debug "4.3.2"
-    devtools-protocol "0.0.937139"
+    devtools-protocol "0.0.948846"
     extract-zip "2.0.1"
     https-proxy-agent "5.0.0"
     node-fetch "2.6.5"
@@ -6061,7 +6062,7 @@ ws@^7.4.6:
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.6.tgz#e59fc509fb15ddfb65487ee9765c5a51dec5fe7b"
   integrity sha512-6GLgCqo2cy2A2rjCNFlxQS6ZljG/coZfZXclldI8FB/1G3CCI36Zd8xy2HrFVACi8tfk5XrgLQEk+P0Tnz9UcA==
 
-ws@^8.4.0:
+ws@^8.4.2:
   version "8.4.2"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.4.2.tgz#18e749868d8439f2268368829042894b6907aa0b"
   integrity sha512-Kbk4Nxyq7/ZWqr/tarI9yIt/+iNNFOjBXEWgTb4ydaNHBNGgvf2QHbS9fdfsndfjFlFwEd4Al+mw83YkaD10ZA==
