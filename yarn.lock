@@ -500,10 +500,10 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@marp-team/marp-cli@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-1.6.0.tgz#480010aaf39bdd90a3fba21b70ecad1f6fa59b4d"
-  integrity sha512-8M3uZ1M+iPyQot2eFZYwaoFUA4bVkx8DhCdCTRd3rGXOLU9Is9/jkRGC/8hzJ4mb0OnHBtt+VEvTvPgt+FiGQw==
+"@marp-team/marp-cli@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-cli/-/marp-cli-1.7.0.tgz#e7e7f2203272695c5ae0e9547c8b3e480bc03fbb"
+  integrity sha512-AdTQhOwR2YA+dYECBnw5V3sc2RKpNKKtQgxrGvl/a91eY6KcRYX2XHG7MwciKDqYdOVGkaErLcttRHj2AHV8RQ==
   dependencies:
     "@marp-team/marp-core" "^2.3.2"
     "@marp-team/marpit" "^2.2.2"
@@ -511,7 +511,7 @@
     cosmiconfig "^7.0.1"
     import-from "^4.0.0"
     is-wsl "^2.2.0"
-    puppeteer-core "13.3.1"
+    puppeteer-core "13.4.0"
     serve-index "^1.9.1"
     tmp "^0.2.1"
     v8-compile-cache "^2.3.0"
@@ -4802,10 +4802,10 @@ pupa@^2.1.1:
   dependencies:
     escape-goat "^2.0.0"
 
-puppeteer-core@13.3.1:
-  version "13.3.1"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-13.3.1.tgz#2337320e0f19774a83460a732adf4a7198857c31"
-  integrity sha512-II9uo5MFh+otoJSoYp/kfY3jf1iWt0ySKyK8vFVfdbn3rl+k3SLh9nQRdINyoO1Kt6Tk4dPp6GZipD9jgU9wmw==
+puppeteer-core@13.4.0:
+  version "13.4.0"
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-13.4.0.tgz#e44945f3da6f267fb165bf42df25d2e3313d3250"
+  integrity sha512-TcGT5Qgq9tgI0msFrIhq70N1+WrnGowjn0hc4vtzEIizJETXOZVrQZVWy051lO/nxEVGyqRXHwtpWjv4/fRbUw==
   dependencies:
     cross-fetch "3.1.5"
     debug "4.3.3"
