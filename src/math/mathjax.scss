@@ -1,0 +1,14 @@
+/**
+ * Disable thickening strokes in print media (e.g. PDF).
+ *
+ * https://github.com/mathjax/MathJax-src/blob/2dd53ce6c8af3c9cceba0baf014ea9b065130774/ts/output/svg/Wrappers/TextNode.ts#L49-L53
+ * https://github.com/marp-team/marp-core/issues/287
+ */
+@media print {
+  mjx-container[jax='SVG'] {
+    use[data-c],
+    path[data-c] {
+      stroke-width: 0;
+    }
+  }
+}

@@ -8,8 +8,13 @@
 
 - Transform Unicode 14.0 emojis into images ([#289](https://github.com/marp-team/marp-core/pull/289))
 
+### Fixed
+
+- Disable thickening MathJax strokes in print media ([#287](https://github.com/marp-team/marp-core/issues/287), [#290](https://github.com/marp-team/marp-core/pull/290))
+
 ### Changed
 
+- Upgrade Marpit to [v2.2.3](https://github.com/marp-team/marpit/releases/v2.2.3) ([#289](https://github.com/marp-team/marp-core/pull/289))
 - Upgrade Node and dependent packages to the latest version ([#289](https://github.com/marp-team/marp-core/pull/289))
 
 ## v3.0.2 - 2022-01-23
