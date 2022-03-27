@@ -1,6 +1,6 @@
 import { Marpit, Options, ThemeSetPackOptions } from '@marp-team/marpit'
 import highlightjs from 'highlight.js'
-import postcss from 'postcss'
+import postcss, { AcceptedPlugin } from 'postcss'
 import postcssMinifyParams from 'postcss-minify-params'
 import postcssMinifySelectors from 'postcss-minify-selectors'
 import postcssNormalizeWhitespace from 'postcss-normalize-whitespace'
@@ -101,15 +101,18 @@ export class Marp extends Marpit {
 
   protected renderStyle(theme?: string): string {
     const original = super.renderStyle(theme)
+    const postprocessorPlugins: AcceptedPlugin[] = [
+      customElements.css,
+      ...(this.options.minifyCSS
+        ? [
+            postcssNormalizeWhitespace,
+            postcssMinifyParams,
+            postcssMinifySelectors,
+          ]
+        : []),
+    ]
 
-    const postprocessor = postcss(
-      [
-        customElements.css,
-        this.options.minifyCSS && postcssNormalizeWhitespace,
-        this.options.minifyCSS && postcssMinifyParams,
-        this.options.minifyCSS && postcssMinifySelectors,
-      ].filter(Boolean)
-    )
+    const postprocessor = postcss(postprocessorPlugins)
 
     return postprocessor.process(original).css
   }
