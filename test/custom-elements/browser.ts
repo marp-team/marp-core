@@ -27,6 +27,7 @@ beforeAll(() => {
             // Sizes are not used because Safari doesn't support them
             borderBoxSize: [],
             contentBoxSize: [],
+            devicePixelContentBoxSize: [],
           },
         ],
         this

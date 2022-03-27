@@ -1,5 +1,5 @@
 import marpitPlugin from '@marp-team/marpit/plugin'
-import emojiRegex from 'emoji-regex/RGI_Emoji'
+import emojiRegex from 'emoji-regex'
 import markdownItEmoji from 'markdown-it-emoji'
 import twemoji from 'twemoji'
 import twemojiCSS from './twemoji.scss'
@@ -15,7 +15,7 @@ interface TwemojiOptions {
   ext?: 'svg' | 'png'
 }
 
-const regexForSplit = new RegExp(`(${emojiRegex().source})`, 'g')
+const regexForSplit = new RegExp(`(${emojiRegex().source})(?!\uFE0E)`, 'g')
 
 export const css = (opts: EmojiOptions) =>
   opts.shortcode === 'twemoji' || opts.unicode === 'twemoji'
@@ -30,10 +30,10 @@ export const markdown = marpitPlugin((md) => {
   const twemojiParse = (content: string): string =>
     twemoji.parse(content, {
       attributes: () => ({ 'data-marp-twemoji': '' }),
-      base: twemojiOpts.base || 'https://twemoji.maxcdn.com/2/',
+      base: twemojiOpts.base || undefined,
       ext: `.${twemojiExt}`,
-      size: twemojiExt === 'svg' ? 'svg' : 72,
-    })
+      size: twemojiExt === 'svg' ? 'svg' : undefined,
+    }) as any // TODO: Remove any casting (https://github.com/twitter/twemoji/pull/535)
 
   const twemojiRenderer = (token: any[], idx: number): string =>
     twemojiParse(token[idx].content)
