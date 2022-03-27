@@ -2,9 +2,17 @@
 
 ## [Unreleased]
 
-## v3.0.2 - 2022-01-23
-
 > **v3 is still release candidate.** You have to use `next` tag to install: `npm i --save @marp-team/marp-core@next`.
+
+### Added
+
+- Transform Unicode 14.0 emojis into images ([#289](https://github.com/marp-team/marp-core/pull/289))
+
+### Changed
+
+- Upgrade Node and dependent packages to the latest version ([#289](https://github.com/marp-team/marp-core/pull/289))
+
+## v3.0.2 - 2022-01-23
 
 ### Fixed
 
