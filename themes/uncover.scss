@@ -219,14 +219,14 @@ section {
     > thead > tr {
       > td,
       > th {
-        border-bottom: 3px solid currentColor;
+        border-bottom: 3px solid currentcolor;
       }
     }
 
     > tbody > tr:not(:last-child) {
       > td,
       > th {
-        border-bottom: 1px solid currentColor;
+        border-bottom: 1px solid currentcolor;
       }
     }
   }

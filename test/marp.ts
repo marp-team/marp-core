@@ -1,5 +1,5 @@
 import { Marpit } from '@marp-team/marpit'
-import cheerio, { CheerioOptions } from 'cheerio'
+import { load, CheerioOptions } from 'cheerio'
 import postcss from 'postcss'
 import { EmojiOptions } from '../src/emoji/emoji'
 import { Marp, MarpOptions } from '../src/marp'
@@ -14,7 +14,7 @@ describe('Marp', () => {
   const marp = (opts?: MarpOptions): Marp => new Marp(opts)
 
   const loadCheerio = (html: string, opts?: CheerioOptions) =>
-    cheerio.load(html, {
+    load(html, {
       lowerCaseAttributeNames: false,
       lowerCaseTags: false,
       ...opts,
@@ -24,32 +24,32 @@ describe('Marp', () => {
 
   describe('markdown option', () => {
     it('renders breaks as <br> element', () => {
-      const $ = cheerio.load(marp().markdown.render('hard\nbreak'))
+      const $ = load(marp().markdown.render('hard\nbreak'))
       expect($('br')).toHaveLength(1)
     })
 
     it('has enabled table syntax', () => {
-      const $ = cheerio.load(marp().markdown.render('|a|b|\n|-|-|\n|c|d|'))
+      const $ = load(marp().markdown.render('|a|b|\n|-|-|\n|c|d|'))
       expect($('table > thead > tr > th')).toHaveLength(2)
       expect($('table > tbody > tr > td')).toHaveLength(2)
     })
 
     it('converts URL to hyperlink', () => {
       const address = 'https://www.google.com/'
-      const $ = cheerio.load(marp().markdown.render(address))
+      const $ = load(marp().markdown.render(address))
       expect($(`a[href="${address}"]`).text()).toBe(address)
     })
 
     it('has enabled strikethrough syntax', () => {
-      const $ = cheerio.load(marp().markdown.render('~~strikethrough~~'))
+      const $ = load(marp().markdown.render('~~strikethrough~~'))
       expect($('s')).toHaveLength(1)
     })
 
     it('can enable typographer option by markdown option', () => {
-      const $original = cheerio.load(marp().markdown.render('"(c)"'))
+      const $original = load(marp().markdown.render('"(c)"'))
       expect($original('p').text()).toBe('"(c)"')
 
-      const $ = cheerio.load(
+      const $ = load(
         marp({ markdown: { typographer: true } }).markdown.render('"(c)"')
       )
       expect($('p').text()).toBe('“©”')
@@ -60,7 +60,7 @@ describe('Marp', () => {
     describe('shortcode option', () => {
       it('converts emoji shorthand to twemoji image by default', () => {
         const { html, css } = marp().render('# :heart:')
-        const $ = cheerio.load(html)
+        const $ = load(html)
 
         expect($('h1 > img[data-marp-twemoji][alt="❤️"]')).toHaveLength(1)
         expect(css).toContain('img[data-marp-twemoji]')
@@ -72,10 +72,10 @@ describe('Marp', () => {
         it('converts emoji shorthand to unicode emoji', () => {
           const { render } = marp({ emoji })
 
-          const $heart = cheerio.load(render('# :heart:').html)
+          const $heart = load(render('# :heart:').html)
           expect($heart('h1').html()).toBe('\u2764\ufe0f')
 
-          const $smiling = cheerio.load(
+          const $smiling = load(
             render('# :smiling_face_with_three_hearts:').html
           )
           expect($smiling('h1').html()).toBe('\u{1f970}')
@@ -86,7 +86,7 @@ describe('Marp', () => {
         const emoji: EmojiOptions = { shortcode: false }
 
         it('does not convert emoji shorthand', () => {
-          const $ = cheerio.load(marp({ emoji }).render('# :heart:').html)
+          const $ = load(marp({ emoji }).render('# :heart:').html)
           expect($('h1').html()).toBe(':heart:')
         })
       })
@@ -98,21 +98,21 @@ describe('Marp', () => {
 
         it('converts unicode emoji to twemoji image', () => {
           const { html, css } = instance.render('# 👍')
-          const $ = cheerio.load(html)
+          const $ = load(html)
 
           expect($('h1 > img[data-marp-twemoji][alt="👍"]')).toHaveLength(1)
           expect(css).toContain('img[data-marp-twemoji]')
 
           // Inline code
-          const $inline = cheerio.load(instance.render('`👍`').html)
+          const $inline = load(instance.render('`👍`').html)
           expect($inline('code > img[data-marp-twemoji]')).toHaveLength(1)
 
           // Code block
-          const $block = cheerio.load(instance.render('```\n👍\n```').html)
+          const $block = load(instance.render('```\n👍\n```').html)
           expect($block('pre > code img[data-marp-twemoji]')).toHaveLength(1)
 
           // Fence
-          const $fence = cheerio.load(instance.render('\t👍👍👍').html)
+          const $fence = load(instance.render('\t👍👍👍').html)
           expect($fence('pre > code img[data-marp-twemoji]')).toHaveLength(3)
         })
 
@@ -122,10 +122,10 @@ describe('Marp', () => {
         })
 
         it('follows variation sequence', () => {
-          const $text = cheerio.load(instance.render('# ➡\u{fe0e}').html)
+          const $text = load(instance.render('# ➡\u{fe0e}').html)
           expect($text('h1 > img[data-marp-twemoji]')).toHaveLength(0)
 
-          const $emoji = cheerio.load(instance.render('# ➡\u{fe0f}').html)
+          const $emoji = load(instance.render('# ➡\u{fe0f}').html)
           expect($emoji('h1 > img[data-marp-twemoji]')).toHaveLength(1)
         })
       })
@@ -162,10 +162,12 @@ describe('Marp', () => {
         new Marp({ emoji: { twemoji } })
 
       it('uses SVG via twemoji CDN by default', () => {
-        const $ = cheerio.load(instance().render('# :ok_hand:').html)
+        const $ = load(instance().render('# :ok_hand:').html)
         const src = $('h1 > img[data-marp-twemoji]').attr('src')
 
-        expect(src).toBe('https://twemoji.maxcdn.com/2/svg/1f44c.svg')
+        expect(src).toMatchInlineSnapshot(
+          `"https://twemoji.maxcdn.com/v/14.0.1/svg/1f44c.svg"`
+        )
       })
 
       describe('base option', () => {
@@ -177,8 +179,8 @@ describe('Marp', () => {
 
       describe('ext option', () => {
         it('uses PNG emoji by setting png', () =>
-          expect(instance({ ext: 'png' }).render(':+1:').html).toContain(
-            'https://twemoji.maxcdn.com/2/72x72/1f44d.png'
+          expect(instance({ ext: 'png' }).render(':+1:').html).toMatch(
+            /https:\/\/twemoji\.maxcdn\.com\/[\w/.]+\/1f44d\.png/
           ))
       })
     })
@@ -188,12 +190,12 @@ describe('Marp', () => {
     describe('with default option', () => {
       it('sanitizes HTML tag by default', () => {
         const { html } = marp().render('<b>abc</b>')
-        expect(cheerio.load(html)('b')).toHaveLength(0)
+        expect(load(html)('b')).toHaveLength(0)
       })
 
       it('allows <br> tag', () => {
         const { html } = marp().render('allow<br>break')
-        expect(cheerio.load(html)('br')).toHaveLength(1)
+        expect(load(html)('br')).toHaveLength(1)
       })
 
       it('renders void element with normalized', () => {
@@ -209,7 +211,7 @@ describe('Marp', () => {
       // https://github.com/yhatt/marp/issues/243
       it('does not sanitize header and footer', () => {
         const markdown = '<!--\nheader: "**header**"\nfooter: "*footer*"\n-->'
-        const $ = cheerio.load(marp().render(markdown).html)
+        const $ = load(marp().render(markdown).html)
 
         expect($('header > strong')).toHaveLength(1)
         expect($('footer > em')).toHaveLength(1)
@@ -271,7 +273,7 @@ function matchwo(a,b)
 
       it('allows HTML tag', () => {
         const { html } = m.render('<b data-custom="test">abc</b>')
-        expect(cheerio.load(html)('b[data-custom="test"]')).toHaveLength(1)
+        expect(load(html)('b[data-custom="test"]')).toHaveLength(1)
       })
 
       it('renders void element with normalized', () => {
@@ -290,7 +292,7 @@ function matchwo(a,b)
     describe('with false', () => {
       it('sanitizes <br> tag', () => {
         const { html } = marp({ html: false }).render('sanitize<br>break')
-        expect(cheerio.load(html)('br')).toHaveLength(0)
+        expect(load(html)('br')).toHaveLength(0)
       })
     })
 
@@ -299,7 +301,7 @@ function matchwo(a,b)
       const html = { img: ['src'], p: ['class'] }
 
       it('allows tags and attributes in allowlist', () => {
-        const $ = cheerio.load(marp({ html }).render(md).html)
+        const $ = load(marp({ html }).render(md).html)
 
         expect($('p')).toHaveLength(2)
         expect($('p.class')).toHaveLength(1)
@@ -307,7 +309,7 @@ function matchwo(a,b)
       })
 
       it('allows using html option passed to markdown-it option', () => {
-        const $ = cheerio.load(marp({ markdown: { html } }).render(md).html)
+        const $ = load(marp({ markdown: { html } }).render(md).html)
 
         expect($('p')).toHaveLength(2)
         expect($('p.class')).toHaveLength(1)
@@ -357,7 +359,7 @@ function matchwo(a,b)
       instance.markdown.set({ html: { b: [] } })
 
       const { html } = instance.render('<b>abc</b>')
-      expect(cheerio.load(html)('b')).toHaveLength(1)
+      expect(load(html)('b')).toHaveLength(1)
     })
   })
 
@@ -392,7 +394,7 @@ function matchwo(a,b)
           marp({ math: { lib: 'katex' } }),
         ]) {
           const { html } = instance.render(`${inline}\n\n${block}`)
-          const $ = cheerio.load(html)
+          const $ = load(html)
 
           expect($('.katex')).toHaveLength(2)
         }
@@ -413,24 +415,21 @@ function matchwo(a,b)
       it('has a unique context for macro by Markdown rendering', () => {
         const instance = marp()
 
-        const plain = cheerio
-          .load(instance.render('$x^2$').html)('.katex-html')
-          .html()
+        const plain = load(instance.render('$x^2$').html)('.katex-html').html()
 
         // KaTeX can modify macros through \gdef
-        const globallyDefined = cheerio
-          .load(instance.render('$\\gdef\\foo{x^2}$ $\\foo$').html)(
-            '.katex-html'
-          )
+        const globallyDefined = load(
+          instance.render('$\\gdef\\foo{x^2}$ $\\foo$').html
+        )('.katex-html')
           .eq(1)
           .html()
 
         expect(globallyDefined).toBe(plain)
 
         // Defined command through \gdef in another rendering cannot use
-        const notDefined = cheerio
-          .load(instance.render('$\\foo$').html)('.katex-html')
-          .html()
+        const notDefined = load(instance.render('$\\foo$').html)(
+          '.katex-html'
+        ).html()
 
         expect(notDefined).not.toBe(plain)
       })
@@ -446,7 +445,7 @@ function matchwo(a,b)
             math: { katexOption: { macros: { '\\RR': '\\mathbb{R}' } } },
           })
           const { html } = instance.render(`# $\\RR$\n\n## $\\mathbb{R}$`)
-          const $ = cheerio.load(html)
+          const $ = load(html)
 
           const h1 = $('h1')
           h1.find('annotation').remove()
@@ -468,13 +467,13 @@ function matchwo(a,b)
               .mockImplementation(() => {}) // eslint-disable-line @typescript-eslint/no-empty-function
 
             const inlineHTML = instance.render('# Fallback to text $}$!').html
-            const $inline = cheerio.load(inlineHTML)
+            const $inline = load(inlineHTML)
 
             expect(warnSpy.mock.calls).toHaveLength(1)
             expect($inline('h1').text()).toBe('Fallback to text }!')
 
             const blockHTML = instance.render('$$\n}\n$$').html
-            const $block = cheerio.load(blockHTML)
+            const $block = load(blockHTML)
             const blockText = $block('p').text()
 
             expect(warnSpy.mock.calls).toHaveLength(2)
@@ -517,7 +516,7 @@ function matchwo(a,b)
           marp({ math: { lib: 'mathjax' } }),
         ]) {
           const { html } = instance.render(`${inline}\n\n${block}`)
-          const $ = cheerio.load(html)
+          const $ = load(html)
 
           expect($('.MathJax')).toHaveLength(2)
         }
@@ -531,23 +530,22 @@ function matchwo(a,b)
       it('has a unique context for macro by Markdown rendering', () => {
         const instance = marp({ math: 'mathjax' })
 
-        const plain = cheerio
-          .load(instance.render('$x^2$').html)('mjx-container')
-          .html()
+        const plain = load(instance.render('$x^2$').html)(
+          'mjx-container'
+        ).html()
 
-        const defined = cheerio
-          .load(instance.render('$\\def\\foo{x^2}$ $\\foo$').html)(
-            'mjx-container'
-          )
+        const defined = load(instance.render('$\\def\\foo{x^2}$ $\\foo$').html)(
+          'mjx-container'
+        )
           .eq(1)
           .html()
 
         expect(defined).toBe(plain)
 
         // Defined command through \def in another rendering cannot use
-        const notDefined = cheerio
-          .load(instance.render('$\\foo$').html)('mjx-container')
-          .html()
+        const notDefined = load(instance.render('$\\foo$').html)(
+          'mjx-container'
+        ).html()
 
         expect(notDefined).not.toBe(plain)
       })
@@ -558,7 +556,7 @@ function matchwo(a,b)
           const { html, css } = instance.render(
             `<!-- math: mathjax -->\n\n${inline}\n\n${block}`
           )
-          const $ = cheerio.load(html)
+          const $ = load(html)
 
           expect($('.MathJax')).toHaveLength(2)
           expect($('.katex')).not.toHaveLength(2)
@@ -572,7 +570,7 @@ function matchwo(a,b)
           const { html, css } = instance.render(
             `<!-- math: katex -->\n\n${inline}\n\n${block}`
           )
-          const $ = cheerio.load(html)
+          const $ = load(html)
 
           expect($('.MathJax')).not.toHaveLength(2)
           expect($('.katex')).toHaveLength(2)
@@ -588,7 +586,7 @@ function matchwo(a,b)
             const katexRendered = katex.render(
               `<!-- math: ${keyword} -->\n\n${inline}`
             )
-            const $katex = cheerio.load(katexRendered.html)
+            const $katex = load(katexRendered.html)
 
             expect($katex('.MathJax')).not.toHaveLength(1)
             expect($katex('.katex')).toHaveLength(1)
@@ -612,13 +610,13 @@ function matchwo(a,b)
 
       it('does not render KaTeX', () => {
         const inlineHTML = instance.render(`# ${inline}`).html
-        const $inline = cheerio.load(inlineHTML)
+        const $inline = load(inlineHTML)
 
         expect($inline('.katex')).toHaveLength(0)
         expect($inline('h1').text()).toContain(inline)
 
         const blockHTML = instance.render(block).html
-        const $block = cheerio.load(blockHTML)
+        const $block = load(blockHTML)
 
         expect($inline('.katex')).toHaveLength(0)
         expect($block('section').text()).toContain(block)
@@ -640,7 +638,7 @@ function matchwo(a,b)
         marp({ inlineSVG: false }).render('\n---', { htmlAsArray: true })
           .html[1],
       ]) {
-        const $ = cheerio.load(rendered)
+        const $ = load(rendered)
         const script = $('script')
 
         expect(script).toHaveLength(1)
@@ -652,7 +650,7 @@ function matchwo(a,b)
 
     describe('when passed false', () => {
       it('does not inject <script> tag', () => {
-        const $ = cheerio.load(marp({ script: false }).render('').html)
+        const $ = load(marp({ script: false }).render('').html)
         expect($('script')).toHaveLength(0)
       })
     })
@@ -661,7 +659,7 @@ function matchwo(a,b)
       describe('with source option', () => {
         it('injects <script> tag for jsDelivr CDN', () => {
           const instance = marp({ script: { source: 'cdn' } })
-          const $ = cheerio.load(instance.render('').html)
+          const $ = load(instance.render('').html)
           const script = $('script')
 
           expect(script).toHaveLength(1)
@@ -679,7 +677,7 @@ function matchwo(a,b)
             marp({ script: { nonce: 'test' } }).render('').html,
             marp({ script: { nonce: 'test', source: 'cdn' } }).render('').html,
           ]) {
-            const $ = cheerio.load(rendered)
+            const $ = load(rendered)
             expect($('script').attr('nonce')).toBe('test')
           }
         })
@@ -912,14 +910,14 @@ function matchwo(a,b)
 
   describe('#highlighter', () => {
     describe('when fence is rendered without lang', () => {
-      const $ = cheerio.load(marp().markdown.render('```\n# test\n```'))
+      const $ = load(marp().markdown.render('```\n# test\n```'))
 
       it('does not highlight code', () =>
         expect($('code [class^="hljs-"]')).toHaveLength(0))
     })
 
     describe('when fence is rendered with specified lang', () => {
-      const $ = cheerio.load(marp().markdown.render('```markdown\n# test\n```'))
+      const $ = load(marp().markdown.render('```markdown\n# test\n```'))
 
       it('highlights code with specified lang', () => {
         expect($('code.language-markdown')).toHaveLength(1)
@@ -930,9 +928,7 @@ function matchwo(a,b)
     // Plain text rendering
     for (const lang of ['text', 'plain', 'noHighlight', 'no-highlight']) {
       describe(`when fence is rendered with ${lang} lang`, () => {
-        const $ = cheerio.load(
-          marp().markdown.render(`\`\`\`${lang}\n# test\n\`\`\``)
-        )
+        const $ = load(marp().markdown.render(`\`\`\`${lang}\n# test\n\`\`\``))
 
         it('disables highlight', () =>
           expect($('code [class^="hljs-"]')).toHaveLength(0))
@@ -957,9 +953,7 @@ function matchwo(a,b)
         return '<b class="customized">customized</b>'
       }
 
-      const $ = cheerio.load(
-        instance.markdown.render('```markdown {attrs}\ntest\n```')
-      )
+      const $ = load(instance.markdown.render('```markdown {attrs}\ntest\n```'))
 
       it('highlights with custom highlighter', () =>
         expect($('code .customized')).toHaveLength(1))
