@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v3.1.0 - 2022-03-29
+
 > **v3 is still release candidate.** You have to use `next` tag to install: `npm i --save @marp-team/marp-core@next`.
 
 ### Added
