@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v2.4.0 - 2022-03-29
+
 ### Added
 
 - Transform Unicode 14.0 emojis into images ([#289](https://github.com/marp-team/marp-core/pull/289))
