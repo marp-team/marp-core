@@ -5,6 +5,7 @@ import { AllPackages } from 'mathjax-full/js/input/tex/AllPackages'
 import { mathjax } from 'mathjax-full/js/mathjax'
 import { SVG } from 'mathjax-full/js/output/svg'
 import { getMathContext, setMathContext } from './context'
+import mathjaxScss from './mathjax.scss'
 
 interface MathJaxContext {
   adaptor: LiteAdaptor
@@ -69,4 +70,4 @@ export const block = (marpit: any) =>
     { scaled: true }
   )
 
-export const css = (marpit: any) => context(marpit).css
+export const css = (marpit: any) => context(marpit).css + '\n' + mathjaxScss
