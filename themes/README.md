@@ -178,7 +178,7 @@ Enable [auto-scaling features](https://github.com/marp-team/marp-core#auto-scali
 
 - `true`: Enable all features.
 - `fittingHeader`: Enable fitting header.
-- `math`: Enable scaling for math block.
+- `math`: Enable scaling for KaTeX math block. _Please note that MathJax math block always will apply auto scaling down._
 - `code`: Enable scaling for code block.
 
 Through separating by comma, it can select multiple keywords for individual features.
