@@ -167,7 +167,7 @@ describe('Marp', () => {
         const src = $('h1 > img[data-marp-twemoji]').attr('src')
 
         expect(src).toMatchInlineSnapshot(
-          `"https://twemoji.maxcdn.com/v/14.0.1/svg/1f44c.svg"`
+          `"https://twemoji.maxcdn.com/v/14.0.2/svg/1f44c.svg"`
         )
       })
 
