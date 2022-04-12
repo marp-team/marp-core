@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Marpit to [v2.2.4](https://github.com/marp-team/marpit/releases/v2.2.4) ([#291](https://github.com/marp-team/marp-core/pull/291))
+  - Fixed: Scoped style does not style pseudo elements `section::before` and `section::after` in advanced background
+- Upgrade marpit-svg-polyfill to [v2.0.0](https://github.com/marp-team/marpit-svg-polyfill/releases/tag/v2.0.0) ([#291](https://github.com/marp-team/marp-core/pull/291))
+- Upgrade dependent packages to the latest version ([#291](https://github.com/marp-team/marp-core/pull/291))
+
 ## v2.4.0 - 2022-03-29
 
 ### Added
