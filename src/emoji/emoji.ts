@@ -43,8 +43,8 @@ export const markdown = marpitPlugin((md) => {
     const picker = {
       core: {
         ruler: {
-          push: (_, rule) => (picker.rule = rule),
-          after: (_, __, rule) => (picker.rule = rule),
+          push: (_, rule) => (picker.rule = rule), // for markdown-it-emoji <= v2.0.0
+          after: (_, __, rule) => (picker.rule = rule), // for markdown-it-emoji >= v2.0.1
         },
       },
       renderer: { rules: { emoji: () => {} } }, // eslint-disable-line @typescript-eslint/no-empty-function
