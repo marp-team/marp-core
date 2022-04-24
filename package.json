@@ -112,7 +112,7 @@
     "emoji-regex": "^10.1.0",
     "highlight.js": "^10.7.3",
     "katex": "^0.15.3",
-    "markdown-it-emoji": "^2.0.0",
+    "markdown-it-emoji": "^2.0.2",
     "mathjax-full": "^3.2.0",
     "postcss": "^8.4.12",
     "postcss-minify-params": "^5.1.2",

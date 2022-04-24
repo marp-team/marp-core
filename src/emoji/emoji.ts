@@ -41,7 +41,12 @@ export const markdown = marpitPlugin((md) => {
   if (opts.shortcode) {
     // Pick rules to avoid collision with other markdown-it plugin
     const picker = {
-      core: { ruler: { push: (_, rule) => (picker.rule = rule) } },
+      core: {
+        ruler: {
+          push: (_, rule) => (picker.rule = rule), // for markdown-it-emoji <= v2.0.0
+          after: (_, __, rule) => (picker.rule = rule), // for markdown-it-emoji >= v2.0.1
+        },
+      },
       renderer: { rules: { emoji: () => {} } }, // eslint-disable-line @typescript-eslint/no-empty-function
       rule: (() => {}) as (...args: any[]) => void, // eslint-disable-line @typescript-eslint/no-empty-function
       utils: md.utils,
@@ -49,6 +54,7 @@ export const markdown = marpitPlugin((md) => {
 
     markdownItEmoji(picker, { shortcuts: {} })
 
+    // TODO: use md.core.ruler.after in markdown-it v13
     md.core.ruler.push('marp_emoji', (state) => {
       const { Token } = state
 
