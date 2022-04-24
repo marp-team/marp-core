@@ -2,13 +2,13 @@
 
 ## [Unreleased]
 
+> **v3 is still release candidate.** You have to use `next` tag to install: `npm i --save @marp-team/marp-core@next`.
+
 ### Fixed
 
 - Make compatible with a patched markdown-it-emoji ([#294](https://github.com/marp-team/marp-core/pull/294))
 
 ## v3.1.1 - 2022-04-12
-
-> **v3 is still release candidate.** You have to use `next` tag to install: `npm i --save @marp-team/marp-core@next`.
 
 ### Changed
 
