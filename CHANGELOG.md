@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v2.4.2 - 2022-04-24
+
 ### Fixed
 
 - Make compatible with a patched markdown-it-emoji ([#294](https://github.com/marp-team/marp-core/pull/294))
