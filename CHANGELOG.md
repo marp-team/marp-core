@@ -72,6 +72,12 @@
 - Adopt `::where()` selector to class variants for making styles overridable ([#244](https://github.com/marp-team/marp-core/issues/244), [#267](https://github.com/marp-team/marp-core/pull/267))
 - Disable autolink for URL text that has no `http(s)://` protocol ([#268](https://github.com/marp-team/marp-core/pull/268))
 
+## v2.4.2 - 2022-04-24
+
+### Fixed
+
+- Make compatible with a patched markdown-it-emoji ([#294](https://github.com/marp-team/marp-core/pull/294))
+
 ## v2.4.1 - 2022-04-12
 
 ### Changed
