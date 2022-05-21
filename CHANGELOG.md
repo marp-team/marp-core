@@ -2,9 +2,12 @@
 
 ## [Unreleased]
 
-## v3.1.2 - 2022-04-24
+### Changed
 
-> **v3 is still release candidate.** You have to use `next` tag to install: `npm i --save @marp-team/marp-core@next`.
+- Upgrade Marpit to [v2.3.0](https://github.com/marp-team/marpit/releases/v2.3.0) ([#298](https://github.com/marp-team/marp-core/pull/298))
+- Upgrade dependent packages to the latest version ([#298](https://github.com/marp-team/marp-core/pull/298))
+
+## v3.1.2 - 2022-04-24
 
 ### Fixed
 
