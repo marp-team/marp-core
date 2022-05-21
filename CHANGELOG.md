@@ -78,6 +78,10 @@
 - Adopt `::where()` selector to class variants for making styles overridable ([#244](https://github.com/marp-team/marp-core/issues/244), [#267](https://github.com/marp-team/marp-core/pull/267))
 - Disable autolink for URL text that has no `http(s)://` protocol ([#268](https://github.com/marp-team/marp-core/pull/268))
 
+---
+
+<details><summary>History of versions older than v3</summary>
+
 ## v2.4.2 - 2022-04-24
 
 ### Fixed
@@ -673,10 +677,6 @@
 
 - Support Node 10.x and use its LTS for development ([#44](https://github.com/marp-team/marp-core/pull/44))
 - Upgrade dependent packages to latest version ([#45](https://github.com/marp-team/marp-core/pull/45))
-
----
-
-<details><summary>History of pre-release versions</summary>
 
 ## v0.0.12 - 2018-10-13
 
