@@ -715,10 +715,10 @@
     markdown-it-front-matter "^0.2.3"
     postcss "^8.4.12"
 
-"@marp-team/marpit@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-2.3.0.tgz#e5ebcb75ad7f7ea1d5805cd6b44ebb881e1189b4"
-  integrity sha512-HOubpkhF75Ky6+sTMlnZdq4M54V/p99qwziB0PjQCF8SPt6syuGN0Pvxxlb2NolosJXbcSYLXmLxIgyEIJ1EVQ==
+"@marp-team/marpit@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-2.3.1.tgz#4b9658048748feb75ec6c54985d09ca63ca5132c"
+  integrity sha512-Z6alU4kUC6UM5n/a/Rz7sartu49exC7ca7ZkzXNOaYu46FDAuiuBh1KfvRdCD2ulcyySysEpSAodi2zPRaVZiQ==
   dependencies:
     color-string "^1.9.1"
     cssesc "^3.0.0"

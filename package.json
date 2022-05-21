@@ -108,7 +108,7 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@marp-team/marpit": "^2.3.0",
+    "@marp-team/marpit": "^2.3.1",
     "@marp-team/marpit-svg-polyfill": "^2.0.0",
     "emoji-regex": "^10.1.0",
     "highlight.js": "^11.5.1",
