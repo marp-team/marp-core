@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Marp Core v3 is available as stable release ([See v3.0.0 release note about major changes](https://github.com/marp-team/marp-core/releases/tag/v3.0.0)) ([#302](https://github.com/marp-team/marp-core/pull/302))
 - Upgrade Marpit to [v2.3.1](https://github.com/marp-team/marpit/releases/v2.3.1) ([#298](https://github.com/marp-team/marp-core/pull/298), [#300](https://github.com/marp-team/marp-core/pull/300))
 - Upgrade dependent packages to the latest version ([#298](https://github.com/marp-team/marp-core/pull/298))
 
