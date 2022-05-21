@@ -9,25 +9,17 @@
 
 In order to use on Marp tools, we have extended from the slide deck framework **[Marpit](https://github.com/marp-team/marpit)**. You can use the practical Markdown syntax, advanced features, and official themes.
 
-### Document version
-
-**This document is targeted for Marp Core v3.x.** You can see the document of stable v2 release in [`v2-stable`](https://github.com/marp-team/marp-core/tree/v2-stable) branch.
-
-> **⚡️ Release Candidate:** Marp Core v3 is the state of release candidate now. Some of downstream Marp tools still may be based on [the stable v2 release](https://github.com/marp-team/marp-core/tree/v2-stable).
-
 ## Install
 
 ```bash
 # npm
-npm install --save @marp-team/marp-core@next
+npm install --save @marp-team/marp-core
 ```
 
 ```bash
 # yarn
-yarn add @marp-team/marp-core@next
+yarn add @marp-team/marp-core
 ```
-
-During the latest version is release candidate, it is available in `next` dist tag.
 
 ## Usage
 
@@ -58,7 +50,6 @@ _We will only explain features extended in marp-core._ Please refer to [Marpit f
   - For making secure, we will deny most of HTML tags used in Markdown (`<br>` is only allowed by default).
   - Support [table](https://github.github.com/gfm/#tables-extension-) and [strikethrough](https://github.github.com/gfm/#strikethrough-extension-) syntax, based on [GitHub Flavored Markdown](https://github.github.com/gfm/).
   - Line breaks in paragraph will convert to `<br>` tag.
-  - Convert URL-like text into hyperlink automatically.
 
 ---
 
@@ -164,9 +155,7 @@ x &= 1+1 \tag{1} \\
 $$
 ```
 
-If not declared, Marp Core will use the default library to render math. (MathJax in v3)
-
-To prevent breaking the slide in upcoming updates, recommend to declare the library whenever to use math typesetting.
+If not declared, Marp Core will use MathJax to render math. But we recommend to declare the library whenever to use math typesetting.
 
 > :warning: The declaration of math library is given priority over [`math` JS constructor option](#math-constructor-option), but you cannot turn on again via `math` global directive if disabled math typesetting by the constructor.
 
