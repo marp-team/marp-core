@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v3.2.0 - 2022-05-21
+
 ### Changed
 
 - Marp Core v3 is available as stable release ([See v3.0.0 release note about major changes](https://github.com/marp-team/marp-core/releases/tag/v3.0.0)) ([#302](https://github.com/marp-team/marp-core/pull/302))
