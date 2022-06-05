@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Apply hydration for custom elements whenever calling browser script ([#305](https://github.com/marp-team/marp-core/pull/305))
+
 ## v3.2.0 - 2022-05-21
 
 ### Changed
