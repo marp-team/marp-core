@@ -133,21 +133,22 @@ export class MarpAutoScaling extends HTMLElement {
   }
 
   private updateSVGRect() {
-    if (!this.containerSize) return
-
-    let width = Math.ceil(this.containerSize.width)
-    const height = Math.ceil(this.containerSize.height)
+    let width = Math.ceil(this.containerSize?.width ?? 0)
+    const height = Math.ceil(this.containerSize?.height ?? 0)
 
     if (this.dataset.downscaleOnly !== undefined) {
-      width = Math.max(width, this.wrapperSize?.width ?? 1)
+      width = Math.max(width, this.wrapperSize?.width ?? 0)
     }
 
     const foreignObject = this.svg?.querySelector(':scope > foreignObject')
     foreignObject?.setAttribute('width', `${width}`)
     foreignObject?.setAttribute('height', `${height}`)
 
-    this.svg?.setAttribute('viewBox', `0 0 ${width} ${height}`)
-    this.svg?.setAttribute('preserveAspectRatio', this.svgPreserveAspectRatio)
+    if (this.svg) {
+      this.svg.setAttribute('viewBox', `0 0 ${width} ${height}`)
+      this.svg.setAttribute('preserveAspectRatio', this.svgPreserveAspectRatio)
+      this.svg.style.height = width <= 0 || height <= 0 ? '0' : ''
+    }
 
     if (this.container) {
       const svgPar = this.svgPreserveAspectRatio.toLowerCase()
