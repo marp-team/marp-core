@@ -4,8 +4,9 @@
 
 ### Fixed
 
+- Decrease specificity of highlight.js classes for `default` theme ([#304](https://github.com/marp-team/marp-core/pull/304), [#307](https://github.com/marp-team/marp-core/pull/307))
 - Apply hydration for custom elements whenever calling browser script ([#305](https://github.com/marp-team/marp-core/pull/305))
-- An empty auto-scaling component becomes unnecessary big ([#306](https://github.com/marp-team/marp-core/pull/306))
+- An empty auto-scaling component becomes unnecessary bigger ([#306](https://github.com/marp-team/marp-core/pull/306))
 
 ## v3.2.0 - 2022-05-21
 
