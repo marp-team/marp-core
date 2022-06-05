@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v3.2.1 - 2022-06-05
+
 ### Fixed
 
 - Decrease specificity of highlight.js classes for `default` theme ([#304](https://github.com/marp-team/marp-core/pull/304), [#307](https://github.com/marp-team/marp-core/pull/307))
