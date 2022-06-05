@@ -71,93 +71,93 @@ pre {
 
   // GitHub's prettylights -> Highlight.js
   /* stylelint-disable selector-class-pattern */
-  .hljs {
+  :where(.hljs) {
     color: var(--color-prettylights-syntax-storage-modifier-import);
   }
 
-  .hljs-doctag,
-  .hljs-keyword,
-  .hljs-meta .hljs-keyword,
-  .hljs-template-tag,
-  .hljs-template-variable,
-  .hljs-type,
-  .hljs-variable.language_ {
+  :where(.hljs-doctag),
+  :where(.hljs-keyword),
+  :where(.hljs-meta .hljs-keyword),
+  :where(.hljs-template-tag),
+  :where(.hljs-template-variable),
+  :where(.hljs-type),
+  :where(.hljs-variable.language_) {
     color: var(--color-prettylights-syntax-keyword);
   }
 
-  .hljs-title,
-  .hljs-title.class_,
-  .hljs-title.class_.inherited__,
-  .hljs-title.function_ {
+  :where(.hljs-title),
+  :where(.hljs-title.class_),
+  :where(.hljs-title.class_.inherited__),
+  :where(.hljs-title.function_) {
     color: var(--color-prettylights-syntax-entity);
   }
 
-  .hljs-attr,
-  .hljs-attribute,
-  .hljs-literal,
-  .hljs-meta,
-  .hljs-number,
-  .hljs-operator,
-  .hljs-selector-attr,
-  .hljs-selector-class,
-  .hljs-selector-id,
-  .hljs-variable {
+  :where(.hljs-attr),
+  :where(.hljs-attribute),
+  :where(.hljs-literal),
+  :where(.hljs-meta),
+  :where(.hljs-number),
+  :where(.hljs-operator),
+  :where(.hljs-selector-attr),
+  :where(.hljs-selector-class),
+  :where(.hljs-selector-id),
+  :where(.hljs-variable) {
     color: var(--color-prettylights-syntax-constant);
   }
 
-  .hljs-string,
-  .hljs-meta .hljs-string,
-  .hljs-regexp {
+  :where(.hljs-string),
+  :where(.hljs-meta .hljs-string),
+  :where(.hljs-regexp) {
     color: var(--color-prettylights-syntax-string);
   }
 
-  .hljs-built_in,
-  .hljs-symbol {
+  :where(.hljs-built_in),
+  :where(.hljs-symbol) {
     color: var(--color-prettylights-syntax-variable);
   }
 
-  .hljs-code,
-  .hljs-comment,
-  .hljs-formula {
+  :where(.hljs-code),
+  :where(.hljs-comment),
+  :where(.hljs-formula) {
     color: var(--color-prettylights-syntax-comment);
   }
 
-  .hljs-name,
-  .hljs-quote,
-  .hljs-selector-pseudo,
-  .hljs-selector-tag {
+  :where(.hljs-name),
+  :where(.hljs-quote),
+  :where(.hljs-selector-pseudo),
+  :where(.hljs-selector-tag) {
     color: var(--color-prettylights-syntax-entity-tag);
   }
 
-  .hljs-subst {
+  :where(.hljs-subst) {
     color: var(--color-prettylights-syntax-storage-modifier-import);
   }
 
-  .hljs-section {
+  :where(.hljs-section) {
     font-weight: bold;
     color: var(--color-prettylights-syntax-markup-heading);
   }
 
-  .hljs-bullet {
+  :where(.hljs-bullet) {
     color: var(--color-prettylights-syntax-markup-list);
   }
 
-  .hljs-emphasis {
+  :where(.hljs-emphasis) {
     font-style: italic;
     color: var(--color-prettylights-syntax-markup-italic);
   }
 
-  .hljs-strong {
+  :where(.hljs-strong) {
     font-weight: bold;
     color: var(--color-prettylights-syntax-markup-bold);
   }
 
-  .hljs-addition {
+  :where(.hljs-addition) {
     color: var(--color-prettylights-syntax-markup-inserted-text);
     background-color: var(--color-prettylights-syntax-markup-inserted-bg);
   }
 
-  .hljs-deletion {
+  :where(.hljs-deletion) {
     color: var(--color-prettylights-syntax-markup-deleted-text);
     background-color: var(--color-prettylights-syntax-markup-deleted-bg);
   }
