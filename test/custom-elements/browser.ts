@@ -263,5 +263,33 @@ describe('The hydration script for custom elements', () => {
       expect(overloaded.container.style.marginRight).toBe('0px')
       expect(overloaded.container.style.marginLeft).toBe('auto')
     })
+
+    describe('Rendering workaround for Chromium 105+', () => {
+      const waitNextRendering = () =>
+        new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
+
+      it("flushes SVG's display style on mounted", async () => {
+        expect.hasAssertions()
+
+        browser.applyCustomElements()
+        document.body.innerHTML = '<marp-auto-scaling>test</marp-auto-scaling>'
+
+        const autoScaling = document.querySelector(
+          'marp-auto-scaling'
+        ) as MarpAutoScaling
+        const svg = autoScaling.shadowRoot.querySelector('svg') as SVGElement
+
+        // Initially SVG's display style is not set
+        expect(svg.style.display).toBe('')
+
+        // At the next rendering frame, display style is set as `inline`
+        await waitNextRendering()
+        expect(svg.style.display).toBe('inline')
+
+        // After that, display style is reverted to empty string
+        await waitNextRendering()
+        expect(svg.style.display).toBe('')
+      })
+    })
   })
 })
