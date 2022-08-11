@@ -279,11 +279,7 @@ describe('The hydration script for custom elements', () => {
         ) as MarpAutoScaling
         const svg = autoScaling.shadowRoot.querySelector('svg') as SVGElement
 
-        // Initially SVG's display style is not set
-        expect(svg.style.display).toBe('')
-
-        // At the next rendering frame, display style is set as `inline`
-        await waitNextRendering()
+        // display style sets as `inline`
         expect(svg.style.display).toBe('inline')
 
         // After that, display style is reverted to empty string
