@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Marpit to [v2.4.0](https://github.com/marp-team/marpit/releases/v2.4.0) ([#310](https://github.com/marp-team/marp-core/pull/310))
+  - `anchor` constructor option for slide anchor customization
+- Upgrade dependent packages to the latest version ([#310](https://github.com/marp-team/marp-core/pull/310))
+
 ## v3.2.1 - 2022-06-05
 
 ### Fixed
