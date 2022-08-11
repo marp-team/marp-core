@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Apply workaround for vanished `<marp-auto-scaling>` in Chrome 105+ ([#312](https://github.com/marp-team/marp-core/pull/312))
+
 ## v3.3.0 - 2022-08-11
 
 ### Changed
