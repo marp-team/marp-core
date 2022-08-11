@@ -70,6 +70,21 @@ export class MarpAutoScaling extends HTMLElement {
         : undefined
     }
 
+    // Workaround for the latest Chromium browser (>= 105?)
+    // TODO: Remove this workaround when the bug is fixed
+    if (this.svg) {
+      const { svg: connectedSvg } = this
+
+      // I don't know why but a nested SVG may require to flush the display style for rendering correctly
+      requestAnimationFrame(() => {
+        connectedSvg.style.display = 'inline'
+
+        requestAnimationFrame(() => {
+          connectedSvg.style.display = ''
+        })
+      })
+    }
+
     this.container =
       this.svg?.querySelector<HTMLSpanElement>(`span[${dataContainer}]`) ??
       undefined
