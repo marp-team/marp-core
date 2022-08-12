@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v3.3.2 - 2022-08-12
+
 ### Fixed
 
 - Flush display of `<marp-auto-scaling>` only when resized the scaling wrapper ([#313](https://github.com/marp-team/marp-core/pull/313))
