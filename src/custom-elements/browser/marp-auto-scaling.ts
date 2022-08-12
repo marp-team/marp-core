@@ -31,9 +31,10 @@ export class MarpAutoScaling extends HTMLElement {
     this.containerObserver = new ResizeObserver(
       generateObserverCallback('containerSize')
     )
-    this.wrapperObserver = new ResizeObserver(
-      generateObserverCallback('wrapperSize')
-    )
+    this.wrapperObserver = new ResizeObserver((...args) => {
+      generateObserverCallback('wrapperSize')(...args)
+      this.flushSvgDisplay()
+    })
   }
 
   static get observedAttributes() {
@@ -70,21 +71,6 @@ export class MarpAutoScaling extends HTMLElement {
         : undefined
     }
 
-    // Workaround for the latest Chromium browser (>= 105?)
-    // TODO: Remove this workaround when the bug is fixed
-    if (this.svg) {
-      const { svg: connectedSvg } = this
-
-      // I don't know why but a nested SVG may require to flush the display style for rendering correctly
-      requestAnimationFrame(() => {
-        connectedSvg.style.display = 'inline'
-
-        requestAnimationFrame(() => {
-          connectedSvg.style.display = ''
-        })
-      })
-    }
-
     this.container =
       this.svg?.querySelector<HTMLSpanElement>(`span[${dataContainer}]`) ??
       undefined
@@ -103,6 +89,19 @@ export class MarpAutoScaling extends HTMLElement {
 
   attributeChangedCallback() {
     this.observe()
+  }
+
+  // Workaround for Chromium 105+
+  private flushSvgDisplay() {
+    const { svg: connectedSvg } = this
+
+    if (connectedSvg) {
+      connectedSvg.style.display = 'inline'
+
+      requestAnimationFrame(() => {
+        connectedSvg.style.display = ''
+      })
+    }
   }
 
   private observe() {
