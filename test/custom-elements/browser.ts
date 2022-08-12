@@ -268,7 +268,7 @@ describe('The hydration script for custom elements', () => {
       const waitNextRendering = () =>
         new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
 
-      it("flushes SVG's display style on mounted", async () => {
+      it("flushes SVG's display style when resized", async () => {
         expect.hasAssertions()
 
         browser.applyCustomElements()
@@ -279,7 +279,8 @@ describe('The hydration script for custom elements', () => {
         ) as MarpAutoScaling
         const svg = autoScaling.shadowRoot.querySelector('svg') as SVGElement
 
-        // display style sets as `inline`
+        // display style sets as `inline` by an initial callback of ResizeObserver
+        // (If not yet rendered DOM, running callback would be delayed until the component was painted)
         expect(svg.style.display).toBe('inline')
 
         // After that, display style is reverted to empty string

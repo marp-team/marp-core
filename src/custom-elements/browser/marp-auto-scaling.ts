@@ -75,7 +75,6 @@ export class MarpAutoScaling extends HTMLElement {
       this.svg?.querySelector<HTMLSpanElement>(`span[${dataContainer}]`) ??
       undefined
 
-    this.flushSvgDisplay()
     this.observe()
   }
 
