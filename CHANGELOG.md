@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Prebundle PostCSS plugins for `minifyCSS` option, to fix incompatibility with ESM ([#314](https://github.com/marp-team/marp-core/issues/314), [#315](https://github.com/marp-team/marp-core/pull/315))
+
 ## v3.3.2 - 2022-08-12
 
 ### Fixed
