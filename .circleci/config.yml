@@ -92,6 +92,13 @@ jobs:
     steps:
       - audit
 
+  test-node12:
+    executor:
+      name: node
+      version: '12.22'
+    steps:
+      - test
+
   test-node14:
     executor:
       name: node
@@ -117,6 +124,9 @@ workflows:
   test:
     jobs:
       - audit
+      - test-node12:
+          requires:
+            - audit
       - test-node14:
           requires:
             - audit
