@@ -92,24 +92,24 @@ jobs:
     steps:
       - audit
 
-  test-node12:
-    executor:
-      name: node
-      version: '12.22'
-    steps:
-      - test
-
   test-node14:
     executor:
       name: node
-      version: '14.18'
+      version: '14.21'
     steps:
       - test
 
   test-node16:
     executor:
       name: node
-      version: '16.14.2' # Specify LTS version for development
+      version: '16.18' # Specify LTS version for development
+    steps:
+      - test
+
+  test-node18:
+    executor:
+      name: node
+      version: '18.12.1' # Specify LTS version for development
     steps:
       - test
 
@@ -117,12 +117,12 @@ workflows:
   test:
     jobs:
       - audit
-      - test-node12:
-          requires:
-            - audit
       - test-node14:
           requires:
             - audit
       - test-node16:
+          requires:
+            - audit
+      - test-node18:
           requires:
             - audit
