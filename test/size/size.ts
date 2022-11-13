@@ -1,5 +1,5 @@
 import { Marpit, Options, Theme } from '@marp-team/marpit'
-import cheerio from 'cheerio'
+import { load } from 'cheerio'
 import postcss, { AtRule, Rule } from 'postcss'
 import { markdown as sizePlugin } from '../../src/size/size'
 
@@ -91,7 +91,7 @@ describe('Size plugin', () => {
 
     it('exposes selected size into <section> element as data-size attribute', () => {
       const { html } = instance.render('<!--\ntheme: a\nsize: test\n-->\n\n---')
-      const $ = cheerio.load(html)
+      const $ = load(html)
       const attrs = $('section')
         .map((_, e) => $(e).data('size'))
         .get()
@@ -102,7 +102,7 @@ describe('Size plugin', () => {
       const { html: htmlAdv } = inlineSVGinstance.render(
         '<!--\ntheme: a\nsize: test\n-->\n\n![bg](dummy)'
       )
-      const $adv = cheerio.load(htmlAdv)
+      const $adv = load(htmlAdv)
       const attrsAdv = $adv('section')
         .map((_, e) => $adv(e).data('size'))
         .get()
@@ -117,7 +117,7 @@ describe('Size plugin', () => {
 
     it('does not expose undefined size as data-size attribute', () => {
       const { html } = instance.render('<!--\ntheme: a\nsize: dummy\n-->')
-      const $ = cheerio.load(html)
+      const $ = load(html)
 
       expect($('section').data('size')).toBeUndefined()
     })

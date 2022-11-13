@@ -4,6 +4,9 @@ module.exports = {
     browser: true,
     node: true,
   },
+  parserOptions: {
+    ecmaVersion: 'latest',
+  },
   extends: [
     'eslint:recommended',
     'plugin:import/recommended',
