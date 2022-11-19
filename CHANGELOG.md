@@ -2,9 +2,18 @@
 
 ## [Unreleased]
 
+### Added
+
+- Test against Node.js 18 LTS ([#318](https://github.com/marp-team/marp-core/pull/318))
+
 ### Changed
 
-- Upgrade Marpit to [v2.4.1](https://github.com/marp-team/marpit/releases/v2.4.1) ([#316](https://github.com/marp-team/marp-core/pull/316))
+- Upgrade Marpit to [v2.4.2](https://github.com/marp-team/marpit/releases/v2.4.2) ([#318](https://github.com/marp-team/marp-core/pull/318))
+- Upgrade development Node.js and dependent packages ([#318](https://github.com/marp-team/marp-core/pull/318))
+
+### Removed
+
+- Test against no longer supported Node.js 12 ([#318](https://github.com/marp-team/marp-core/pull/318))
 
 ## v3.3.3 - 2022-09-08
 

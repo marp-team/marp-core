@@ -16,6 +16,9 @@ executors:
 commands:
   install:
     parameters:
+      force:
+        type: boolean
+        default: false
       postinstall:
         type: steps
         default: []
@@ -33,7 +36,7 @@ commands:
             - v2.4-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "yarn.lock" }}-
             - v2.4-dependencies-{{ .Environment.CIRCLE_JOB }}-
 
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --frozen-lockfile <<# parameters.force >>--ignore-engines<</ parameters.force >>
       - steps: << parameters.postinstall >>
 
       - save_cache:
@@ -48,13 +51,20 @@ commands:
           postinstall:
             - run: yarn -s check:audit
 
-  test:
+  prepare:
+    parameters:
+      force:
+        type: boolean
+        default: false
     steps:
       - run: node --version
 
       - checkout
-      - install
+      - install:
+          force: << parameters.force >>
 
+  lint:
+    steps:
       - run:
           name: Prettier formatting
           command: yarn check:format
@@ -71,6 +81,8 @@ commands:
           name: stylelint
           command: yarn lint:css
 
+  test:
+    steps:
       - run:
           name: Jest
           command: yarn test:coverage --ci --maxWorkers=2 --reporters=default --reporters=jest-junit
@@ -92,37 +104,43 @@ jobs:
     steps:
       - audit
 
-  test-node12:
-    executor:
-      name: node
-      version: '12.22'
-    steps:
-      - test
-
   test-node14:
     executor:
       name: node
-      version: '14.18'
+      version: '14.21'
     steps:
+      - prepare
+      - lint
       - test
 
   test-node16:
     executor:
       name: node
-      version: '16.14.2' # Specify LTS version for development
+      version: '16.18' # Specify LTS version for development
     steps:
+      - prepare
+      - lint
+      - test
+
+  test-node18:
+    executor:
+      name: node
+      version: '18.12.1' # Specify LTS version for development
+    steps:
+      - prepare
+      - lint
       - test
 
 workflows:
   test:
     jobs:
       - audit
-      - test-node12:
-          requires:
-            - audit
       - test-node14:
           requires:
             - audit
       - test-node16:
+          requires:
+            - audit
+      - test-node18:
           requires:
             - audit

@@ -1,4 +1,4 @@
-const postcssSelectorParser = require('postcss-selector-parser')
+import postcssSelectorParser from 'postcss-selector-parser'
 
 const defaultThemeMatcher = /@theme +default/
 const colorThemeMatcher = /prefers-color-scheme:\s+(light|dark)/i

@@ -81,7 +81,7 @@ describe('The hydration script for custom elements', () => {
       browser.applyCustomElements()
 
       expect(document.body.innerHTML).toMatchInlineSnapshot(
-        `"<marp-pre is=\\"marp-pre\\">1</marp-pre><marp-pre class=\\"two\\" is=\\"marp-pre\\">2</marp-pre>"`
+        `"<marp-pre is="marp-pre">1</marp-pre><marp-pre class="two" is="marp-pre">2</marp-pre>"`
       )
     })
 
@@ -107,14 +107,14 @@ describe('The hydration script for custom elements', () => {
 
         browser.applyCustomElements()
         expect(document.body.innerHTML).toMatchInlineSnapshot(`
-          "<marp-h1 is=\\"marp-h1\\" role=\\"heading\\" aria-level=\\"1\\"></marp-h1>
-          <marp-h2 is=\\"marp-h2\\" role=\\"heading\\" aria-level=\\"2\\"></marp-h2>
-          <marp-h3 is=\\"marp-h3\\" role=\\"heading\\" aria-level=\\"3\\"></marp-h3>
-          <marp-h4 is=\\"marp-h4\\" role=\\"heading\\" aria-level=\\"4\\"></marp-h4>
-          <marp-h5 is=\\"marp-h5\\" role=\\"heading\\" aria-level=\\"5\\"></marp-h5>
-          <marp-h6 is=\\"marp-h6\\" role=\\"heading\\" aria-level=\\"6\\"></marp-h6>
-          <marp-span is=\\"marp-span\\"></marp-span>
-          <marp-pre is=\\"marp-pre\\"></marp-pre>"
+          "<marp-h1 is="marp-h1" role="heading" aria-level="1"></marp-h1>
+          <marp-h2 is="marp-h2" role="heading" aria-level="2"></marp-h2>
+          <marp-h3 is="marp-h3" role="heading" aria-level="3"></marp-h3>
+          <marp-h4 is="marp-h4" role="heading" aria-level="4"></marp-h4>
+          <marp-h5 is="marp-h5" role="heading" aria-level="5"></marp-h5>
+          <marp-h6 is="marp-h6" role="heading" aria-level="6"></marp-h6>
+          <marp-span is="marp-span"></marp-span>
+          <marp-pre is="marp-pre"></marp-pre>"
         `)
       })
     })
