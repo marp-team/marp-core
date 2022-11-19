@@ -162,26 +162,37 @@ describe('Marp', () => {
       const instance = (twemoji: EmojiOptions['twemoji'] = {}) =>
         new Marp({ emoji: { twemoji } })
 
-      it('uses SVG via twemoji CDN by default', () => {
-        const $ = load(instance().render('# :ok_hand:').html)
-        const src = $('h1 > img[data-marp-twemoji]').attr('src')
+      const emojiSrc = (emoji: string, marp = instance()) => {
+        const $ = load(marp.render(`# ${emoji}`).html)
+        return $('h1 > img').attr('src')
+      }
 
-        expect(src).toMatchInlineSnapshot(
-          `"https://twemoji.maxcdn.com/v/14.0.2/svg/1f44c.svg"`
+      it('uses SVG via jsDelivr CDN by default', () => {
+        expect(emojiSrc(':ok_hand:')).toMatchInlineSnapshot(
+          `"https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f44c.svg"`
         )
       })
 
       describe('base option', () => {
         it('uses specified base', () =>
           expect(
-            instance({ base: '/assets/twemoji/' }).render(':+1:').html
-          ).toContain('/assets/twemoji/svg/1f44d.svg'))
+            emojiSrc(':+1:', instance({ base: '/assets/twemoji/' }))
+          ).toMatchInlineSnapshot(`"/assets/twemoji/svg/1f44d.svg"`))
+
+        it("uses Twemoji's default CDN if the base option was undefined", () =>
+          expect(
+            emojiSrc(':+1:', instance({ base: undefined }))
+          ).toMatchInlineSnapshot(
+            `"https://twemoji.maxcdn.com/v/14.0.2/svg/1f44d.svg"`
+          ))
       })
 
       describe('ext option', () => {
         it('uses PNG emoji by setting png', () =>
-          expect(instance({ ext: 'png' }).render(':+1:').html).toMatch(
-            /https:\/\/twemoji\.maxcdn\.com\/[\w/.]+\/1f44d\.png/
+          expect(
+            emojiSrc(':+1:', instance({ ext: 'png' }))
+          ).toMatchInlineSnapshot(
+            `"https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f44d.png"`
           ))
       })
     })

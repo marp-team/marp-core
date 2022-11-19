@@ -2,6 +2,7 @@ import marpitPlugin from '@marp-team/marpit/plugin'
 import emojiRegex from 'emoji-regex'
 import markdownItEmoji from 'markdown-it-emoji'
 import twemoji from 'twemoji'
+import { version as twemojiVersion } from 'twemoji/package.json'
 import twemojiCSS from './twemoji.scss'
 
 export interface EmojiOptions {
@@ -30,10 +31,16 @@ export const markdown = marpitPlugin((md) => {
   const twemojiParse = (content: string): string =>
     twemoji.parse(content, {
       attributes: () => ({ 'data-marp-twemoji': '' }),
-      base: twemojiOpts.base || undefined,
+      // Twemoji's default CDN (MaxCDN) shuts down at December 31, 2022.
+      // Unfortunately, continuous updates of Twemoji (including the update of
+      // base path) can not be expected due to Elon's acquisition for now. So
+      // Marp uses the CDN of jsDelivr unless the user specifies the base path.
+      base: Object.hasOwnProperty.call(twemojiOpts, 'base')
+        ? twemojiOpts.base
+        : `https://cdn.jsdelivr.net/gh/twitter/twemoji@${twemojiVersion}/assets/`,
       ext: `.${twemojiExt}`,
       size: twemojiExt === 'svg' ? 'svg' : undefined,
-    }) as any // TODO: Remove any casting (https://github.com/twitter/twemoji/pull/535)
+    })
 
   const twemojiRenderer = (token: any[], idx: number): string =>
     twemojiParse(token[idx].content)
