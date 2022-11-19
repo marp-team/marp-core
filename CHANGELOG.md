@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v3.4.0 - 2022-11-19
+
 ### Added
 
 - Test against Node.js 18 LTS ([#318](https://github.com/marp-team/marp-core/pull/318))
