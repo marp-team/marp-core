@@ -93,7 +93,7 @@ Theme author does not have to worry an unintended design being used with unexpec
 
 ### Emoji support
 
-Emoji shortcode (like `:smile:`) and Unicode emoji 😄 will convert into the SVG vector image provided by [twemoji](https://github.com/twitter/twemoji) <img src="https://twemoji.maxcdn.com/2/svg/1f604.svg" alt="😄" width="16" height="16" />. It could render emoji with high resolution.
+Emoji shortcode (like `:smile:`) and Unicode emoji 😄 will convert into the SVG vector image provided by [twemoji](https://github.com/twitter/twemoji) <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f604.svg" alt="😄" width="16" height="16" />. It could render emoji with high resolution.
 
 ---
 
@@ -275,14 +275,14 @@ Setting about emoji conversions.
 - **`shortcode`**: _`boolean` | `"twemoji"`_
   - By setting `false`, it does not convert any emoji shortcodes.
   - By setting `true`, it converts emoji shortcodes into Unicode emoji. `:dog:` → 🐶
-  - By setting `"twemoji"` string, it converts into twemoji vector image. `:dog:` → <img src="https://twemoji.maxcdn.com/2/svg/1f436.svg" alt="🐶" width="16" height="16" valign="middle" /> _(default)_
+  - By setting `"twemoji"` string, it converts into twemoji vector image. `:dog:` → <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f436.svg" alt="🐶" width="16" height="16" valign="middle" /> _(default)_
 
 * **`unicode`**: _`boolean` | `"twemoji"`_
-  - It can convert Unicode emoji into twemoji when setting `"twemoji"`. 🐶 → <img src="https://twemoji.maxcdn.com/2/svg/1f436.svg" alt="🐶" width="16" height="16" valign="middle" /> _(default)_
+  - It can convert Unicode emoji into twemoji when setting `"twemoji"`. 🐶 → <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f436.svg" alt="🐶" width="16" height="16" valign="middle" /> _(default)_
   - If you not want this aggressive conversion, please set `false`.
 
 - **`twemoji`**: _`object`_
-  - **`base`**: _`string`_ - It is corresponded to [twemoji's `base` option](https://github.com/twitter/twemoji#object-as-parameter). By default, marp-core will use online emoji images [through MaxCDN (twemoji's default)](https://github.com/twitter/twemoji#cdn-support).
+  - **`base`**: _`string`_ - Corresponds to [twemoji's `base` option](https://github.com/twitter/twemoji#object-as-parameter). If not specified, Marp Core will use [online emoji images through jsDelivr CDN](https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/).
   - **`ext`**: _`"svg"` | `"png"`_ - Setting the file type of twemoji images. _(`svg` by default)_
 
 > **For developers:** When you setting `unicode` option as `true`, Markdown parser will convert Unicode emoji into tokens internally. The rendering result is same as in `false`.
