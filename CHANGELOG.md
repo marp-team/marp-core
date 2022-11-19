@@ -8,6 +8,7 @@
 
 ### Changed
 
+- Change CDN for Twemoji images from default to jsDelivr ([#320](https://github.com/marp-team/marp-core/issues/320), [#321](https://github.com/marp-team/marp-core/pull/321))
 - Upgrade Marpit to [v2.4.2](https://github.com/marp-team/marpit/releases/v2.4.2) ([#318](https://github.com/marp-team/marp-core/pull/318))
 - Upgrade development Node.js and dependent packages ([#318](https://github.com/marp-team/marp-core/pull/318))
 
