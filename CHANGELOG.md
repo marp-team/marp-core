@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v3.4.1 - 2022-12-24
+
 ### Changed
 
 - Bundle external modules used by emoji plugin ([#323](https://github.com/marp-team/marp-core/pull/323))
