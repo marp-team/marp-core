@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v3.4.2 - 2023-01-08
+
 ### Fixed
 
 - Patch KaTeX style to fix visibility of some math symbol in Chromium-flavored browsers ([#326](https://github.com/marp-team/marp-core/pull/326))
