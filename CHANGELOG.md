@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Patch KaTeX style to fix visibility of some math symbol in Chromium-flavored browsers ([#326](https://github.com/marp-team/marp-core/pull/326))
+
 ### Changed
 
 - Upgrade Node and dependent packages ([#327](https://github.com/marp-team/marp-core/pull/327))
