@@ -10,7 +10,7 @@ import mathjaxScss from './mathjax.scss'
 interface MathJaxContext {
   adaptor: LiteAdaptor
   css: string
-  document: ReturnType<typeof mathjax['document']>
+  document: ReturnType<(typeof mathjax)['document']>
 }
 
 const context = (marpit: any): MathJaxContext => {
