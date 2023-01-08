@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Node and dependent packages ([#327](https://github.com/marp-team/marp-core/pull/327))
+
 ## v3.4.1 - 2022-12-24
 
 ### Changed
