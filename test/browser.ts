@@ -1,11 +1,12 @@
 /** @jest-environment jsdom */
+import { observe } from '@marp-team/marpit-svg-polyfill'
 import { browser, observer } from '../src/browser'
 import { applyCustomElements } from '../src/custom-elements/browser'
 
-const polyfill = jest.fn()
+const polyfillCleanup = jest.fn()
 
 jest.mock('@marp-team/marpit-svg-polyfill', () => ({
-  polyfills: () => [polyfill],
+  observe: jest.fn(() => polyfillCleanup),
 }))
 
 jest.mock('../src/custom-elements/browser')
@@ -15,25 +16,18 @@ afterEach(() => jest.restoreAllMocks())
 
 describe('Browser script', () => {
   it('executes polyfill observer and set-up for custom elements', () => {
-    const spy = jest.spyOn(window, 'requestAnimationFrame')
-
     const browserInterface = browser()
-    expect(spy).toHaveBeenCalledTimes(1)
-    expect(polyfill).toHaveBeenCalledTimes(1)
+
+    expect(observe).toHaveBeenCalledTimes(1)
     expect(applyCustomElements).toHaveBeenCalledTimes(1)
+
     expect(browser()).toStrictEqual(browserInterface)
     expect(browserInterface).toStrictEqual(expect.any(Function))
     expect(browserInterface).toStrictEqual(browserInterface.cleanup)
 
-    const rafFunc = spy.mock.calls[0][0]
-    rafFunc(performance.now())
-
-    expect(spy).toHaveBeenCalledTimes(2)
-    expect(polyfill).toHaveBeenCalledTimes(2)
-
+    polyfillCleanup.mockClear()
     browserInterface.cleanup()
-    rafFunc(performance.now())
-    expect(spy).toHaveBeenCalledTimes(2) // No more calling function after cleanup
+    expect(polyfillCleanup).toHaveBeenCalled()
   })
 
   describe('with passed shadow root', () => {
@@ -41,7 +35,7 @@ describe('Browser script', () => {
       const root = document.createElement('div').attachShadow({ mode: 'open' })
       const browserInterface = browser(root)
 
-      expect(polyfill).toHaveBeenCalledWith({ target: root })
+      expect(observe).toHaveBeenCalledWith(root)
       expect(applyCustomElements).toHaveBeenCalledWith(root)
       browserInterface.cleanup()
     })
