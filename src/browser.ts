@@ -1,6 +1,12 @@
 import { applyCustomElements } from './custom-elements/browser'
 import { observer } from './observer'
-export { observer }
+
+/**
+ * @internal
+ * @deprecated
+ */
+const exportedObserver = observer
+export { exportedObserver as observer }
 
 const marpCoreBrowserScript = Symbol()
 

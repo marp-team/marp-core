@@ -1,4 +1,4 @@
-import { polyfills } from '@marp-team/marpit-svg-polyfill'
+import { observe } from '@marp-team/marpit-svg-polyfill'
 
 type ObserverOptions = {
   once?: boolean
@@ -9,19 +9,17 @@ export function observer({
   once = false,
   target = document,
 }: ObserverOptions = {}): () => void {
-  const polyfillFuncs = polyfills()
+  const cleanup = observe(target)
 
-  let enabled = !once
+  if (once) {
+    cleanup()
 
-  const observer = () => {
-    for (const polyfill of polyfillFuncs) polyfill({ target })
-    if (enabled) window.requestAnimationFrame(observer)
+    return () => {
+      /* no ops */
+    }
   }
-  observer()
 
-  return () => {
-    enabled = false
-  }
+  return cleanup
 }
 
 export default observer

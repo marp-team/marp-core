@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade marpit-svg-polyfill to [v2.1.0](https://github.com/marp-team/marpit-svg-polyfill/releases/tag/v2.1.0) ([#329](https://github.com/marp-team/marp-core/pull/329))
+
+### Deprecated
+
+- An `observer()` function exported by `@marp-team/marp-core/browser`, which was actually designed for internal ([#330](https://github.com/marp-team/marp-core/pull/330))
+
 ## v3.4.2 - 2023-01-08
 
 ### Fixed
