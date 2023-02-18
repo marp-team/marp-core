@@ -5,13 +5,13 @@ import { applyCustomElements } from '../src/custom-elements/browser'
 
 const polyfillCleanup = jest.fn()
 
-jest.mock('@marp-team/marpit-svg-polyfill', () => ({
-  observe: jest.fn(() => polyfillCleanup),
-}))
-
+jest.mock('@marp-team/marpit-svg-polyfill')
 jest.mock('../src/custom-elements/browser')
 
-beforeEach(() => jest.clearAllMocks())
+beforeEach(() => {
+  jest.clearAllMocks()
+  ;(observe as jest.Mock).mockReturnValue(polyfillCleanup)
+})
 afterEach(() => jest.restoreAllMocks())
 
 describe('Browser script', () => {

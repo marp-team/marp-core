@@ -39,7 +39,6 @@ beforeAll(() => {
 })
 
 afterEach(() => {
-  jest.restoreAllMocks()
   window[browser.marpCustomElementsRegisteredSymbol] = false
 
   // Reset custom elements defined in JSDOM
@@ -98,6 +97,12 @@ describe('The hydration script for custom elements', () => {
         jest
           .spyOn(browser, 'isSupportedCustomizedBuiltInElements')
           .mockReturnValue(false)
+      })
+
+      afterEach(() => {
+        ;(
+          browser.isSupportedCustomizedBuiltInElements as jest.Mock
+        ).mockRestore()
       })
 
       it('replaces all of elements that are using "is" attribute to the standalone custom element', () => {
