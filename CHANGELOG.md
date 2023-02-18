@@ -5,6 +5,7 @@
 ### Changed
 
 - Upgrade marpit-svg-polyfill to [v2.1.0](https://github.com/marp-team/marpit-svg-polyfill/releases/tag/v2.1.0) ([#329](https://github.com/marp-team/marp-core/pull/329))
+- Upgrade Node.js and dependencies ([#331](https://github.com/marp-team/marp-core/pull/331))
 
 ### Deprecated
 
