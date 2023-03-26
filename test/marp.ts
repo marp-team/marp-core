@@ -169,7 +169,7 @@ describe('Marp', () => {
 
       it('uses SVG via jsDelivr CDN by default', () => {
         expect(emojiSrc(':ok_hand:')).toMatchInlineSnapshot(
-          `"https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f44c.svg"`
+          `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f44c.svg"`
         )
       })
 
@@ -177,13 +177,15 @@ describe('Marp', () => {
         it('uses specified base', () =>
           expect(
             emojiSrc(':+1:', instance({ base: '/assets/twemoji/' }))
-          ).toMatchInlineSnapshot(`"/assets/twemoji/svg/1f44d.svg"`))
+          ).toMatchInlineSnapshot(
+            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f44d.svg"`
+          ))
 
         it("uses Twemoji's default CDN if the base option was undefined", () =>
           expect(
             emojiSrc(':+1:', instance({ base: undefined }))
           ).toMatchInlineSnapshot(
-            `"https://twemoji.maxcdn.com/v/14.0.2/svg/1f44d.svg"`
+            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f44d.svg"`
           ))
       })
 
@@ -192,7 +194,7 @@ describe('Marp', () => {
           expect(
             emojiSrc(':+1:', instance({ ext: 'png' }))
           ).toMatchInlineSnapshot(
-            `"https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f44d.png"`
+            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/72x72/1f44d.png"`
           ))
       })
     })

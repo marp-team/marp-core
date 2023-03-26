@@ -74,6 +74,7 @@
     "@rollup/plugin-terser": "^0.4.0",
     "@rollup/plugin-typescript": "^11.0.0",
     "@tsconfig/node12": "^1.0.11",
+    "@twemoji/api": "^14.1.2",
     "@types/jest": "^29.5.0",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
@@ -112,7 +113,6 @@
     "stylelint-config-standard-scss": "^7.0.1",
     "ts-jest": "29.0.5",
     "tslib": "^2.5.0",
-    "twemoji": "^14.0.2",
     "typescript": "^5.0.2"
   },
   "dependencies": {
