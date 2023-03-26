@@ -5,6 +5,7 @@
 ### Changed
 
 - Upgrade Node.js and dependent packages ([#336](https://github.com/marp-team/marp-core/pull/336))
+- Use `@twemoji/api` package instead of `twemoji` ([#337](https://github.com/marp-team/marp-core/pull/337))
 
 ## v3.5.0 - 2023-02-18
 
