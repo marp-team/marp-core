@@ -133,7 +133,7 @@ describe('Marp', () => {
 
       describe('with false', () => {
         const emoji: EmojiOptions = { unicode: false }
-        const instance = marp({ emoji })
+        const instance = marp({ emoji, slug: false })
 
         it("does not inject Marp's unicode emoji renderer", () =>
           expect(
@@ -146,7 +146,7 @@ describe('Marp', () => {
 
       describe('with true', () => {
         const emoji: EmojiOptions = { unicode: true }
-        const instance = marp({ emoji })
+        const instance = marp({ emoji, slug: false })
 
         it("injects Marp's unicode emoji renderer", () =>
           expect(
@@ -702,6 +702,58 @@ function matchwo(a,b)
             expect($('script').attr('nonce')).toBe('test')
           }
         })
+      })
+    })
+  })
+
+  describe('slug option', () => {
+    it('makes slugs for headings by default', () => {
+      const { html } = marp().render('# a\n\n---\n\n## b\n\n---\n\n### a')
+      const $ = load(html)
+
+      expect($('h1').attr('id')).toBe('a')
+      expect($('h2').attr('id')).toBe('b')
+      expect($('h3').attr('id')).toBe('a-1')
+    })
+
+    describe('with false', () => {
+      it('does not make slugs for headings', () => {
+        const { html } = marp({ slug: false }).render('# a\n\n---\n\n## b')
+        const $ = load(html)
+
+        expect($('h1').attr('id')).toBeUndefined()
+        expect($('h2').attr('id')).toBeUndefined()
+      })
+    })
+
+    describe('with custom slugifier', () => {
+      it('makes slugs for headings by custom slugifier', () => {
+        const slugifier = (s: string) => `custom:${s}`
+        const { html } = marp({ slug: slugifier }).render('# abc')
+        const $ = load(html)
+
+        expect($('h1').attr('id')).toBe('custom:abc')
+      })
+    })
+
+    describe('with option object', () => {
+      it('allows slugifier option', () => {
+        const slugifier = (s: string) => `custom:${s}`
+
+        expect(marp({ slug: { slugifier } }).render('# abc').html).toBe(
+          marp({ slug: slugifier }).render('# abc').html
+        )
+      })
+
+      it('allows postSlugify option, to deal with duplicate slugs', () => {
+        const postSlugify = (s: string, i: number) => `${'-'.repeat(i)}${s}`
+        const { html } = marp({ slug: { postSlugify } }).render(
+          '# abc\n\n---\n\n## abc'
+        )
+        const $ = load(html)
+
+        expect($('h1').attr('id')).toBe('abc')
+        expect($('h2').attr('id')).toBe('-abc')
       })
     })
   })
