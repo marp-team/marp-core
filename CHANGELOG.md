@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- Assign auto-generated slug to `id` attribute of each headings ([#299](https://github.com/marp-team/marp-core/issues/299), [#338](https://github.com/marp-team/marp-core/pull/338))
+- `slug` constructor option ([#338](https://github.com/marp-team/marp-core/pull/338))
+
 ### Changed
 
 - Upgrade Node.js and dependent packages ([#336](https://github.com/marp-team/marp-core/pull/336))
