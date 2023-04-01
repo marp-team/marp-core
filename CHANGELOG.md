@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v3.6.0 - 2023-04-01
+
 ### Added
 
 - Assign auto-generated slug to `id` attribute of each headings ([#299](https://github.com/marp-team/marp-core/issues/299), [#338](https://github.com/marp-team/marp-core/pull/338))
