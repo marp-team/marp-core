@@ -47,9 +47,10 @@ _We will only explain features extended in marp-core._ Please refer to [Marpit f
   - Enabled [inline SVG slide](https://marpit.marp.app/inline-svg) and [loose YAML parsing](https://marpit-api.marp.app/marpit#Marpit) by default.
 
 * **CommonMark**
-  - For making secure, we will deny most of HTML tags used in Markdown (`<br>` is only allowed by default).
+  - For making secure, we will deny most of HTML tags used in Markdown by default. Allowed HTML tags are `<br>` only for now.
   - Support [table](https://github.github.com/gfm/#tables-extension-) and [strikethrough](https://github.github.com/gfm/#strikethrough-extension-) syntax, based on [GitHub Flavored Markdown](https://github.github.com/gfm/).
   - Line breaks in paragraph will convert to `<br>` tag.
+  - Slugification for headings (assining auto-generated `id` attribute for `<h1>` - `<h6>`) is enabled by default.
 
 ---
 
@@ -229,6 +230,7 @@ const marp = new Marp({
     source: 'cdn',
     nonce: 'xxxxxxxxxxxxxxx',
   },
+  slug: false,
 
   // It can be included Marpit constructor options
   looseYAML: false,
@@ -264,7 +266,7 @@ By passing `object`, you can set the allowlist to specify allowed tags and attri
 }
 ```
 
-Marp core allows only `<br>` tag by default, that is defined in [`Marp.html`](https://github.com/marp-team/marp-core/blob/5c3593320f1c1234f3b2556ecd1ff1f91d69c77a/src/marp.ts#L45).
+Marp core allows only `<br>` tag by default. That is defined in [a readonly `html` member in `Marp` class](https://github.com/marp-team/marp-core/blob/38fb33680c5837f9c48d8a88ac94b9f0862ab6c7/src/marp.ts#L34).
 
 > Whatever any option is selected, `<!-- HTML comment -->` and `<style>` tags are always parsed by Marpit for directives / tweaking style.
 
@@ -310,8 +312,8 @@ Enable or disable minification for rendered CSS. `true` by default.
 
 Setting about an injected helper script for the browser context. This script is necessary for applying [WebKit polyfill](https://github.com/marp-team/marpit-svg-polyfill) and rendering [auto-scaled elements](#auto-scaling-features) correctly.
 
-- **`true`**: Inject the inline helper script into after the last of slides. (default)
-- **`false`**: Not inject helper script. Developer must execute a helper script manually, exported in [`@marp-team/marp-core/browser`](src/browser.ts). Requires bundler such as [webpack](https://webpack.js.org/). It's suitable to the fully-controlled tool such as [Marp Web](https://github.com/marp-team/marp-web).
+- **`true` (default)**: Inject the inline helper script into after the last of slides.
+- **`false`**: Don't inject helper script. Developer must execute a helper script manually, exported in [`@marp-team/marp-core/browser`](src/browser.ts). Requires bundler such as [webpack](https://webpack.js.org/). It's suitable to the fully-controlled tool such as [Marp Web](https://github.com/marp-team/marp-web).
 
 You can control details of behavior by passing `object`.
 
@@ -320,6 +322,27 @@ You can control details of behavior by passing `object`.
   - **`cdn`**: Inject script referred through [jsDelivr CDN](https://www.jsdelivr.com/). It's better choice on the restricted environment by [CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
 
 * **`nonce`**: _`string`_ - Set [`nonce` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#attr-nonce) of `<script>`.
+
+### `slug`: _`boolean` | `function` | `object`_
+
+Configure slugification for headings. By default, Marp Core tries to make the slug by the similar way to GitHub. It should be compatible with [Markdown Language Server](https://code.visualstudio.com/blogs/2022/08/16/markdown-language-server).
+
+- **`true` (default)**: Assign auto-generated `id` attribute from the contents of `<h1>`-`<h6>` headings.
+- **`false`**: Disable auto-assigning slug to headings.
+- _`function`_: Set the custom slugifier function, that takes one argument: the content of the heading. It must return a generated slug string.
+
+You can control details of behavior by passing `object`.
+
+- **`slugifier`**: _`function`_ - Set the custom slugifier function.
+- **`postSlugify`**: _`function`_ - Set the post-process function after generated a slug. The function takes 2 arguments, the string of generated slug and the index of the same slug, and must return a string for assigning to `id` attribute of the heading.
+
+  By default, Marp Core applies the post-process to avoid assigning duplicated `id`s in the document: `` (slug, index) => (index > 0 ? `${slug}-${index}` : slug) ``
+
+  Assigning the custom post-process function is also helpful to append the custom prefix and suffix to the generated slug: `` (slug, i) => `prefix:${slug}:${i}` ``
+
+> Take care not to confuse Marp Core's `slug` option and [Marpit's `anchor` option](https://marpit-api.marp.app/marpit#:~:text=Description-,anchor,-boolean%20%7C%20Marpit). `slug` is for the Markdown headings, and `anchor` is for the slide elements.
+>
+> `Marp` class is extended from `Marpit` class so you can customize both options in the constructor. To fully disable auto-generated `id` attribute, set both options as `false`. (This is important to avoid breaking your Web application by user's Markdown contents)
 
 ## Contributing
 
