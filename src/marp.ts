@@ -12,6 +12,7 @@ import * as mathPlugin from './math/math'
 import minifyPlugins from './prebundles/postcss-minify-plugins'
 import * as scriptPlugin from './script/script'
 import * as sizePlugin from './size/size'
+import * as slugPlugin from './slug/slug'
 
 export interface MarpOptions extends Options {
   emoji?: emojiPlugin.EmojiOptions
@@ -26,6 +27,7 @@ export interface MarpOptions extends Options {
   math?: mathPlugin.MathOptions
   minifyCSS?: boolean
   script?: boolean | scriptPlugin.ScriptOptions
+  slug?: slugPlugin.SlugOptions
 }
 
 export class Marp extends Marpit {
@@ -48,6 +50,7 @@ export class Marp extends Marpit {
       math: true,
       minifyCSS: true,
       script: true,
+      slug: true,
       ...opts,
       emoji: {
         shortcode: 'twemoji',
@@ -84,6 +87,7 @@ export class Marp extends Marpit {
       .use(autoScalingPlugin.markdown)
       .use(sizePlugin.markdown)
       .use(scriptPlugin.markdown)
+      .use(slugPlugin.markdown)
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
