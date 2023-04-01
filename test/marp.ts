@@ -716,6 +716,16 @@ function matchwo(a,b)
       expect($('h3').attr('id')).toBe('a-1')
     })
 
+    describe('with undefined (default)', () => {
+      it('makes slugs for headings', () => {
+        const { html } = marp({ slug: undefined }).render('# a\n\n---\n\n## b')
+        const $ = load(html)
+
+        expect($('h1').attr('id')).toBe('a')
+        expect($('h2').attr('id')).toBe('b')
+      })
+    })
+
     describe('with false', () => {
       it('does not make slugs for headings', () => {
         const { html } = marp({ slug: false }).render('# a\n\n---\n\n## b')
@@ -748,12 +758,61 @@ function matchwo(a,b)
       it('allows postSlugify option, to deal with duplicate slugs', () => {
         const postSlugify = (s: string, i: number) => `${'-'.repeat(i)}${s}`
         const { html } = marp({ slug: { postSlugify } }).render(
-          '# abc\n\n---\n\n## abc'
+          '# abc\n\n---\n\n## abc\n\n---\n\n### abc'
         )
         const $ = load(html)
 
         expect($('h1').attr('id')).toBe('abc')
         expect($('h2').attr('id')).toBe('-abc')
+        expect($('h3').attr('id')).toBe('--abc')
+      })
+    })
+
+    describe('with duplicated slug with slide anchor', () => {
+      it('adds index to duplicated slug', () => {
+        const { html } = marp().render('# 1')
+        const $ = load(html)
+
+        expect($('h1').attr('id')).toBe('1-1')
+      })
+
+      it('recongizes custom anchor generation', () => {
+        const { html } = marp({ anchor: (i) => `slide-${i + 1}` }).render(
+          '# Slide 1'
+        )
+        const $ = load(html)
+
+        expect($('h1').attr('id')).toBe('slide-1-1')
+      })
+    })
+
+    describe('with <!--fit--> annotation', () => {
+      it('ignores the annotation comment in the slug', () => {
+        const { html } = marp().render('# <!--fit--> a')
+        const $ = load(html)
+
+        expect($('h1').attr('id')).toBe('a')
+      })
+    })
+
+    describe('when the heading tokens has surrounded a non inline token', () => {
+      it('ignores non inline elements in the slug', () => {
+        const { html } = marp()
+          .use((md) => {
+            md.core.ruler.before('marp_slug', 'marp_test', (state) => {
+              for (let i = 0; i < state.tokens.length; i += 1) {
+                if (state.tokens[i].type === 'heading_open') {
+                  const token = new state.Token('test', '', 0)
+                  token.content = 'test'
+                  state.tokens.splice(i + 1, 0, token)
+                }
+              }
+            })
+          })
+          .render('# abc')
+
+        const $ = load(html)
+        expect($('h1').attr('id')).toBe('abc')
       })
     })
   })
