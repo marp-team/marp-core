@@ -177,9 +177,7 @@ describe('Marp', () => {
         it('uses specified base', () =>
           expect(
             emojiSrc(':+1:', instance({ base: '/assets/twemoji/' }))
-          ).toMatchInlineSnapshot(
-            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f44d.svg"`
-          ))
+          ).toMatchInlineSnapshot(`"/assets/twemoji/svg/1f44d.svg"`))
 
         it("uses Twemoji's default CDN if the base option was undefined", () =>
           expect(
