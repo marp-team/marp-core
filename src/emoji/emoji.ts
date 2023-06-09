@@ -31,6 +31,7 @@ export const markdown = marpitPlugin((md) => {
     // Casting to any is a workaround until merging the PR https://github.com/jdecked/twemoji/pull/1
     (twemoji as any).parse(content, {
       attributes: () => ({ 'data-marp-twemoji': '' }),
+      base: twemojiOpts.base || undefined,
       ext: `.${twemojiExt}`,
       size: twemojiExt === 'svg' ? 'svg' : undefined,
     })
