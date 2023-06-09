@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Marpit to [v2.5.0](https://github.com/marp-team/marpit/releases/v2.5.0) ([#342](https://github.com/marp-team/marp-core/pull/342))
+  - Added `paginate: skip` and `paginate: hold`
+
+### Fixed
+
+- Regression: Not working `emoji.twemoji.base` constructor option ([#343](https://github.com/marp-team/marp-core/issues/343), [#344](https://github.com/marp-team/marp-core/pull/344))
+
 ## v3.6.0 - 2023-04-01
 
 ### Added
