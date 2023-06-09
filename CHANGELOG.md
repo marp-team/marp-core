@@ -6,6 +6,7 @@
 
 - Upgrade Marpit to [v2.5.0](https://github.com/marp-team/marpit/releases/v2.5.0) ([#342](https://github.com/marp-team/marp-core/pull/342))
   - Added `paginate: skip` and `paginate: hold`
+- Upgrade Node.js and dependent packages to the latest version ([#345](https://github.com/marp-team/marp-core/pull/345))
 
 ### Fixed
 
