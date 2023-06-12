@@ -655,17 +655,17 @@
     yargs "^17.7.1"
 
 "@marp-team/marp-core@^3.6.0":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-3.6.0.tgz#858958b96208370fe51f4df98642e2bfe2d090c7"
-  integrity sha512-V2tA5nLR4HR+hTGrMTaSLB7bDKi+xz1FrhytOyHV/U2ztRRjAKtlQnul+xPZ7LpRxVsLNwbmO/Alw1AwUx7eXQ==
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/@marp-team/marp-core/-/marp-core-3.7.0.tgz#13346a3526c00021841ff19b354ec383f2a1cd08"
+  integrity sha512-Bz7r1djHZtBGep2fA8Wb9mgQgy8NtKRq43jQCtCUD1pHoorHs+vGB6icDvo8LCy8eWAlPVJBkdQkc7ywMzj2jw==
   dependencies:
-    "@marp-team/marpit" "^2.4.2"
+    "@marp-team/marpit" "^2.5.0"
     "@marp-team/marpit-svg-polyfill" "^2.1.0"
-    highlight.js "^11.7.0"
-    katex "^0.16.4"
+    highlight.js "^11.8.0"
+    katex "^0.16.7"
     mathjax-full "^3.2.2"
     postcss "^8.4.21"
-    postcss-selector-parser "^6.0.11"
+    postcss-selector-parser "^6.0.13"
     xss "^1.0.14"
 
 "@marp-team/marpit-svg-polyfill@^2.1.0":
@@ -2925,7 +2925,7 @@ has@^1.0.3:
   dependencies:
     traverse ">=0.2.4"
 
-highlight.js@^11.7.0, highlight.js@^11.8.0:
+highlight.js@^11.8.0:
   version "11.8.0"
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.8.0.tgz#966518ea83257bae2e7c9a48596231856555bb65"
   integrity sha512-MedQhoqVdr0U6SSnWPzfiadUcDHfN/Wzq25AkXiQv9oiOO/sG0S7XkvpFIqWBl9Yq1UYyYOOVORs5UW2XlPyzg==
@@ -3878,7 +3878,7 @@ jsonfile@^5.0.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-katex@^0.16.4, katex@^0.16.7:
+katex@^0.16.7:
   version "0.16.7"
   resolved "https://registry.yarnpkg.com/katex/-/katex-0.16.7.tgz#36be1d4ed96e8afdc5863407e70f8fb250aeafd5"
   integrity sha512-Xk9C6oGKRwJTfqfIbtr0Kes9OSv6IFsuhFGc7tW4urlpMJtuh+7YhzU6YEG9n8gmWKcMAFzkp7nr+r69kV0zrA==
