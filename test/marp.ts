@@ -1103,6 +1103,23 @@ function matchwo(a,b)
         expect(instance.markdown.render('```\ntest\n```')).toContain('CUSTOM'))
     })
 
+    describe('with customized highlightjs instance', () => {
+      const instance = marp()
+
+      instance.highlightjs.registerAliases('marp-test', {
+        languageName: 'javascript',
+      })
+
+      const $ = load(
+        instance.markdown.render('```marp-test\nconst a = 1;\n```')
+      )
+
+      it('highlights code with customized highlightjs', () => {
+        expect($('code.language-marp-test')).toHaveLength(1)
+        expect($('code .hljs-keyword')).toHaveLength(1)
+      })
+    })
+
     describe('with overriden #highlighter', () => {
       const instance = marp()
 
