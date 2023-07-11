@@ -7,6 +7,7 @@ import uncoverTheme from '../themes/uncover.scss'
 import * as autoScalingPlugin from './auto-scaling'
 import * as customElements from './custom-elements'
 import * as emojiPlugin from './emoji/emoji'
+import { generateHighlightJSInstance } from './highlightjs'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
 import minifyPlugins from './prebundles/postcss-minify-plugins'
@@ -92,11 +93,9 @@ export class Marp extends Marpit {
       .use(slugPlugin.markdown)
   }
 
-  get highlightjs(): HLJSApi {
+  get highlightjs() {
     if (!this._highlightjs) {
-      this._highlightjs =
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        (require('highlight.js') as typeof import('highlight.js')).default
+      this._highlightjs = generateHighlightJSInstance()
     }
     return this._highlightjs
   }
