@@ -140,7 +140,7 @@ describe('markdown-it math plugin for KaTeX', () => {
 
   it('does not render math when numbers are followed closing inline math', () => {
     const rendered = md.render(
-      "Thus, $20,000 and USD$30,000 won't parse as math."
+      "Thus, $20,000 and USD$30,000 won't parse as math.",
     )
     expect(countMath(rendered)).toBe(0)
     expect(rendered).toMatchSnapshot()
@@ -148,7 +148,7 @@ describe('markdown-it math plugin for KaTeX', () => {
 
   it('requires non whitespace to right of opening inline math', () => {
     const rendered = md.render(
-      'For some Europeans, it is 2$ for a can of soda, not 1$.'
+      'For some Europeans, it is 2$ for a can of soda, not 1$.',
     )
     expect(countMath(rendered)).toBe(0)
     expect(rendered).toMatchSnapshot()
@@ -156,7 +156,7 @@ describe('markdown-it math plugin for KaTeX', () => {
 
   it('requires non whitespace to left of closing inline math', () => {
     const rendered = md.render(
-      'I will give you $20 today, if you give me more $ tomorrow.'
+      'I will give you $20 today, if you give me more $ tomorrow.',
     )
     expect(countMath(rendered)).toBe(0)
     expect(rendered).toMatchSnapshot()
@@ -164,7 +164,7 @@ describe('markdown-it math plugin for KaTeX', () => {
 
   it('does not recognize inline block math', () => {
     const rendered = md.render(
-      "It's well know that $$1 + 1 = 3$$ for sufficiently large 1."
+      "It's well know that $$1 + 1 = 3$$ for sufficiently large 1.",
     )
     expect(countMath(rendered)).toBe(0)
     expect(rendered).toMatchSnapshot()
@@ -178,7 +178,7 @@ describe('markdown-it math plugin for KaTeX', () => {
 
   it('recognizes multiline escaped delimiters in math module', () => {
     const rendered = md.render(
-      'Weird-o: $\\displaystyle{\\begin{pmatrix} \\$ & 1\\\\\\$ \\end{pmatrix}}$.'
+      'Weird-o: $\\displaystyle{\\begin{pmatrix} \\$ & 1\\\\\\$ \\end{pmatrix}}$.',
     )
     expect(countMath(rendered)).toBe(1)
     expect(rendered).toMatchSnapshot()

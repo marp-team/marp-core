@@ -30,7 +30,7 @@ export interface MarpCoreBrowser {
 export const browser = (target: ParentNode = document): MarpCoreBrowser => {
   if (typeof window === 'undefined') {
     throw new Error(
-      "Marp Core's browser script is valid only in browser context."
+      "Marp Core's browser script is valid only in browser context.",
     )
   }
 

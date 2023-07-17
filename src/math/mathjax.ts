@@ -67,7 +67,7 @@ export const block = (marpit: any) =>
         return `<p>${content}</p>`
       }
     },
-    { scaled: true }
+    { scaled: true },
   )
 
 export const css = (marpit: any) => context(marpit).css + '\n' + mathjaxScss

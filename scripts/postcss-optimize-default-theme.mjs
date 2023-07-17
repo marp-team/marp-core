@@ -27,7 +27,9 @@ const plugin = () => {
                   if (normalizedTagName === 'section') {
                     tag.parent.insertAfter(
                       tag,
-                      postcssSelectorParser.pseudo({ value: ':where(.invert)' })
+                      postcssSelectorParser.pseudo({
+                        value: ':where(.invert)',
+                      }),
                     )
                   }
                 })

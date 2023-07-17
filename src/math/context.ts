@@ -19,7 +19,7 @@ const contextSymbol = Symbol('marp-math-context')
 
 export const setMathContext = (
   target: any,
-  setter: (current: MathContext) => MathContext
+  setter: (current: MathContext) => MathContext,
 ) => {
   if (!Object.prototype.hasOwnProperty.call(target, contextSymbol)) {
     Object.defineProperty(target, contextSymbol, { writable: true })

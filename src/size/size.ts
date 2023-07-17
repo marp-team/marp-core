@@ -94,7 +94,7 @@ export const markdown = marpitPlugin((md) => {
           marp.themeSet.addTheme(overrideTheme)
         }
       }
-    }
+    },
   )
 
   md.core.ruler.after('marpit_directives_apply', 'marp_size_apply', (state) => {
@@ -117,6 +117,6 @@ export const markdown = marpitPlugin((md) => {
           token.attrSet('data-size', state[sizePluginSymbol])
         }
       }
-    }
+    },
   )
 })

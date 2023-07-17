@@ -336,7 +336,7 @@ You can control details of behavior by passing `object`.
 - **`slugifier`**: _`function`_ - Set the custom slugifier function.
 - **`postSlugify`**: _`function`_ - Set the post-process function after generated a slug. The function takes 2 arguments, the string of generated slug and the index of the same slug, and must return a string for assigning to `id` attribute of the heading.
 
-  By default, Marp Core applies the post-process to avoid assigning duplicated `id`s in the document: `` (slug, index) => (index > 0 ? `${slug}-${index}` : slug) ``
+  By default, Marp Core applies the post-process to avoid assigning duplicated `id`s in the document: ``(slug, index) => (index > 0 ? `${slug}-${index}` : slug)``
 
   Assigning the custom post-process function is also helpful to append the custom prefix and suffix to the generated slug: `` (slug, i) => `prefix:${slug}:${i}` ``
 

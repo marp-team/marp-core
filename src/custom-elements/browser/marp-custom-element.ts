@@ -2,7 +2,7 @@ type Constructor<T = {}> = new (...args: any[]) => T // eslint-disable-line @typ
 
 export const createMarpCustomElement = <T extends Constructor<HTMLElement>>(
   Base: T,
-  { attrs = {}, style }: { attrs?: Record<string, string>; style?: string }
+  { attrs = {}, style }: { attrs?: Record<string, string>; style?: string },
 ) =>
   class MarpCustomElement extends Base {
     shadowRoot!: ShadowRoot
