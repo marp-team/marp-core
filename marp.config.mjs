@@ -1,13 +1,11 @@
 import path from 'node:path'
-import { Marp } from './lib/marp.js'
+
+const dirname = path.dirname(new URL(import.meta.url).pathname)
 
 export default {
-  engine: Marp,
+  engine: path.join(dirname, './lib/marp.js'),
   server: true,
-  inputDir: path.join(
-    path.dirname(new URL(import.meta.url).pathname),
-    './sandbox',
-  ),
+  inputDir: path.join(dirname, './sandbox'),
   html: true,
   options: {
     minifyCSS: false,
