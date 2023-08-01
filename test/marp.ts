@@ -1112,7 +1112,7 @@ function matchwo(a,b)
       })
 
       const $ = load(
-        instance.markdown.render('```marp-test\nconst a = 1;\n```')
+        instance.markdown.render('```marp-test\nconst a = 1;\n```'),
       )
 
       it('highlights code with customized highlightjs', () => {
@@ -1145,7 +1145,7 @@ function matchwo(a,b)
 
       expect(instance.highlightjs.highlight).toBeInstanceOf(Function)
       expect(instance.highlightjs.versionString).toMatchInlineSnapshot(
-        `"11.8.0"`
+        `"11.8.0"`,
       )
     })
 
@@ -1167,7 +1167,7 @@ function matchwo(a,b)
       })
 
       expect(instance.highlightjs.getLanguage('marp-test')?.name).toBe(
-        'JavaScript'
+        'JavaScript',
       )
       expect(highlightjs.getLanguage('marp-test')?.name).toBeUndefined()
     })

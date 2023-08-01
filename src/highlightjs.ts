@@ -10,40 +10,40 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('abnf', require('highlight.js/lib/languages/abnf'))
   hljs.registerLanguage(
     'accesslog',
-    require('highlight.js/lib/languages/accesslog')
+    require('highlight.js/lib/languages/accesslog'),
   )
   hljs.registerLanguage(
     'actionscript',
-    require('highlight.js/lib/languages/actionscript')
+    require('highlight.js/lib/languages/actionscript'),
   )
   hljs.registerLanguage('ada', require('highlight.js/lib/languages/ada'))
   hljs.registerLanguage(
     'angelscript',
-    require('highlight.js/lib/languages/angelscript')
+    require('highlight.js/lib/languages/angelscript'),
   )
   hljs.registerLanguage('apache', require('highlight.js/lib/languages/apache'))
   hljs.registerLanguage(
     'applescript',
-    require('highlight.js/lib/languages/applescript')
+    require('highlight.js/lib/languages/applescript'),
   )
   hljs.registerLanguage('arcade', require('highlight.js/lib/languages/arcade'))
   hljs.registerLanguage(
     'arduino',
-    require('highlight.js/lib/languages/arduino')
+    require('highlight.js/lib/languages/arduino'),
   )
   hljs.registerLanguage('armasm', require('highlight.js/lib/languages/armasm'))
   hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml'))
   hljs.registerLanguage(
     'asciidoc',
-    require('highlight.js/lib/languages/asciidoc')
+    require('highlight.js/lib/languages/asciidoc'),
   )
   hljs.registerLanguage(
     'aspectj',
-    require('highlight.js/lib/languages/aspectj')
+    require('highlight.js/lib/languages/aspectj'),
   )
   hljs.registerLanguage(
     'autohotkey',
-    require('highlight.js/lib/languages/autohotkey')
+    require('highlight.js/lib/languages/autohotkey'),
   )
   hljs.registerLanguage('autoit', require('highlight.js/lib/languages/autoit'))
   hljs.registerLanguage('avrasm', require('highlight.js/lib/languages/avrasm'))
@@ -54,28 +54,28 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('bnf', require('highlight.js/lib/languages/bnf'))
   hljs.registerLanguage(
     'brainfuck',
-    require('highlight.js/lib/languages/brainfuck')
+    require('highlight.js/lib/languages/brainfuck'),
   )
   hljs.registerLanguage('c', require('highlight.js/lib/languages/c'))
   hljs.registerLanguage('cal', require('highlight.js/lib/languages/cal'))
   hljs.registerLanguage(
     'capnproto',
-    require('highlight.js/lib/languages/capnproto')
+    require('highlight.js/lib/languages/capnproto'),
   )
   hljs.registerLanguage('ceylon', require('highlight.js/lib/languages/ceylon'))
   hljs.registerLanguage('clean', require('highlight.js/lib/languages/clean'))
   hljs.registerLanguage(
     'clojure',
-    require('highlight.js/lib/languages/clojure')
+    require('highlight.js/lib/languages/clojure'),
   )
   hljs.registerLanguage(
     'clojure-repl',
-    require('highlight.js/lib/languages/clojure-repl')
+    require('highlight.js/lib/languages/clojure-repl'),
   )
   hljs.registerLanguage('cmake', require('highlight.js/lib/languages/cmake'))
   hljs.registerLanguage(
     'coffeescript',
-    require('highlight.js/lib/languages/coffeescript')
+    require('highlight.js/lib/languages/coffeescript'),
   )
   hljs.registerLanguage('coq', require('highlight.js/lib/languages/coq'))
   hljs.registerLanguage('cos', require('highlight.js/lib/languages/cos'))
@@ -83,7 +83,7 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('crmsh', require('highlight.js/lib/languages/crmsh'))
   hljs.registerLanguage(
     'crystal',
-    require('highlight.js/lib/languages/crystal')
+    require('highlight.js/lib/languages/crystal'),
   )
   hljs.registerLanguage('csharp', require('highlight.js/lib/languages/csharp'))
   hljs.registerLanguage('csp', require('highlight.js/lib/languages/csp'))
@@ -91,7 +91,7 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('d', require('highlight.js/lib/languages/d'))
   hljs.registerLanguage(
     'markdown',
-    require('highlight.js/lib/languages/markdown')
+    require('highlight.js/lib/languages/markdown'),
   )
   hljs.registerLanguage('dart', require('highlight.js/lib/languages/dart'))
   hljs.registerLanguage('delphi', require('highlight.js/lib/languages/delphi'))
@@ -100,12 +100,12 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('dns', require('highlight.js/lib/languages/dns'))
   hljs.registerLanguage(
     'dockerfile',
-    require('highlight.js/lib/languages/dockerfile')
+    require('highlight.js/lib/languages/dockerfile'),
   )
   hljs.registerLanguage('dos', require('highlight.js/lib/languages/dos'))
   hljs.registerLanguage(
     'dsconfig',
-    require('highlight.js/lib/languages/dsconfig')
+    require('highlight.js/lib/languages/dsconfig'),
   )
   hljs.registerLanguage('dts', require('highlight.js/lib/languages/dts'))
   hljs.registerLanguage('dust', require('highlight.js/lib/languages/dust'))
@@ -116,7 +116,7 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('erb', require('highlight.js/lib/languages/erb'))
   hljs.registerLanguage(
     'erlang-repl',
-    require('highlight.js/lib/languages/erlang-repl')
+    require('highlight.js/lib/languages/erlang-repl'),
   )
   hljs.registerLanguage('erlang', require('highlight.js/lib/languages/erlang'))
   hljs.registerLanguage('excel', require('highlight.js/lib/languages/excel'))
@@ -124,7 +124,7 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('flix', require('highlight.js/lib/languages/flix'))
   hljs.registerLanguage(
     'fortran',
-    require('highlight.js/lib/languages/fortran')
+    require('highlight.js/lib/languages/fortran'),
   )
   hljs.registerLanguage('fsharp', require('highlight.js/lib/languages/fsharp'))
   hljs.registerLanguage('gams', require('highlight.js/lib/languages/gams'))
@@ -132,7 +132,7 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('gcode', require('highlight.js/lib/languages/gcode'))
   hljs.registerLanguage(
     'gherkin',
-    require('highlight.js/lib/languages/gherkin')
+    require('highlight.js/lib/languages/gherkin'),
   )
   hljs.registerLanguage('glsl', require('highlight.js/lib/languages/glsl'))
   hljs.registerLanguage('gml', require('highlight.js/lib/languages/gml'))
@@ -141,17 +141,17 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('gradle', require('highlight.js/lib/languages/gradle'))
   hljs.registerLanguage(
     'graphql',
-    require('highlight.js/lib/languages/graphql')
+    require('highlight.js/lib/languages/graphql'),
   )
   hljs.registerLanguage('groovy', require('highlight.js/lib/languages/groovy'))
   hljs.registerLanguage('haml', require('highlight.js/lib/languages/haml'))
   hljs.registerLanguage(
     'handlebars',
-    require('highlight.js/lib/languages/handlebars')
+    require('highlight.js/lib/languages/handlebars'),
   )
   hljs.registerLanguage(
     'haskell',
-    require('highlight.js/lib/languages/haskell')
+    require('highlight.js/lib/languages/haskell'),
   )
   hljs.registerLanguage('haxe', require('highlight.js/lib/languages/haxe'))
   hljs.registerLanguage('hsp', require('highlight.js/lib/languages/hsp'))
@@ -159,7 +159,7 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('hy', require('highlight.js/lib/languages/hy'))
   hljs.registerLanguage(
     'inform7',
-    require('highlight.js/lib/languages/inform7')
+    require('highlight.js/lib/languages/inform7'),
   )
   hljs.registerLanguage('ini', require('highlight.js/lib/languages/ini'))
   hljs.registerLanguage('irpf90', require('highlight.js/lib/languages/irpf90'))
@@ -167,17 +167,17 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('java', require('highlight.js/lib/languages/java'))
   hljs.registerLanguage(
     'javascript',
-    require('highlight.js/lib/languages/javascript')
+    require('highlight.js/lib/languages/javascript'),
   )
   hljs.registerLanguage(
     'jboss-cli',
-    require('highlight.js/lib/languages/jboss-cli')
+    require('highlight.js/lib/languages/jboss-cli'),
   )
   hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
   hljs.registerLanguage('julia', require('highlight.js/lib/languages/julia'))
   hljs.registerLanguage(
     'julia-repl',
-    require('highlight.js/lib/languages/julia-repl')
+    require('highlight.js/lib/languages/julia-repl'),
   )
   hljs.registerLanguage('kotlin', require('highlight.js/lib/languages/kotlin'))
   hljs.registerLanguage('lasso', require('highlight.js/lib/languages/lasso'))
@@ -188,138 +188,138 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('lisp', require('highlight.js/lib/languages/lisp'))
   hljs.registerLanguage(
     'livecodeserver',
-    require('highlight.js/lib/languages/livecodeserver')
+    require('highlight.js/lib/languages/livecodeserver'),
   )
   hljs.registerLanguage(
     'livescript',
-    require('highlight.js/lib/languages/livescript')
+    require('highlight.js/lib/languages/livescript'),
   )
   hljs.registerLanguage('llvm', require('highlight.js/lib/languages/llvm'))
   hljs.registerLanguage('lsl', require('highlight.js/lib/languages/lsl'))
   hljs.registerLanguage('lua', require('highlight.js/lib/languages/lua'))
   hljs.registerLanguage(
     'makefile',
-    require('highlight.js/lib/languages/makefile')
+    require('highlight.js/lib/languages/makefile'),
   )
   hljs.registerLanguage(
     'mathematica',
-    require('highlight.js/lib/languages/mathematica')
+    require('highlight.js/lib/languages/mathematica'),
   )
   hljs.registerLanguage('matlab', require('highlight.js/lib/languages/matlab'))
   hljs.registerLanguage('maxima', require('highlight.js/lib/languages/maxima'))
   hljs.registerLanguage('mel', require('highlight.js/lib/languages/mel'))
   hljs.registerLanguage(
     'mercury',
-    require('highlight.js/lib/languages/mercury')
+    require('highlight.js/lib/languages/mercury'),
   )
   hljs.registerLanguage(
     'mipsasm',
-    require('highlight.js/lib/languages/mipsasm')
+    require('highlight.js/lib/languages/mipsasm'),
   )
   hljs.registerLanguage('mizar', require('highlight.js/lib/languages/mizar'))
   hljs.registerLanguage('perl', require('highlight.js/lib/languages/perl'))
   hljs.registerLanguage(
     'mojolicious',
-    require('highlight.js/lib/languages/mojolicious')
+    require('highlight.js/lib/languages/mojolicious'),
   )
   hljs.registerLanguage('monkey', require('highlight.js/lib/languages/monkey'))
   hljs.registerLanguage(
     'moonscript',
-    require('highlight.js/lib/languages/moonscript')
+    require('highlight.js/lib/languages/moonscript'),
   )
   hljs.registerLanguage('n1ql', require('highlight.js/lib/languages/n1ql'))
   hljs.registerLanguage(
     'nestedtext',
-    require('highlight.js/lib/languages/nestedtext')
+    require('highlight.js/lib/languages/nestedtext'),
   )
   hljs.registerLanguage('nginx', require('highlight.js/lib/languages/nginx'))
   hljs.registerLanguage('nim', require('highlight.js/lib/languages/nim'))
   hljs.registerLanguage('nix', require('highlight.js/lib/languages/nix'))
   hljs.registerLanguage(
     'node-repl',
-    require('highlight.js/lib/languages/node-repl')
+    require('highlight.js/lib/languages/node-repl'),
   )
   hljs.registerLanguage('nsis', require('highlight.js/lib/languages/nsis'))
   hljs.registerLanguage(
     'objectivec',
-    require('highlight.js/lib/languages/objectivec')
+    require('highlight.js/lib/languages/objectivec'),
   )
   hljs.registerLanguage('ocaml', require('highlight.js/lib/languages/ocaml'))
   hljs.registerLanguage(
     'openscad',
-    require('highlight.js/lib/languages/openscad')
+    require('highlight.js/lib/languages/openscad'),
   )
   hljs.registerLanguage(
     'oxygene',
-    require('highlight.js/lib/languages/oxygene')
+    require('highlight.js/lib/languages/oxygene'),
   )
   hljs.registerLanguage(
     'parser3',
-    require('highlight.js/lib/languages/parser3')
+    require('highlight.js/lib/languages/parser3'),
   )
   hljs.registerLanguage('pf', require('highlight.js/lib/languages/pf'))
   hljs.registerLanguage('pgsql', require('highlight.js/lib/languages/pgsql'))
   hljs.registerLanguage('php', require('highlight.js/lib/languages/php'))
   hljs.registerLanguage(
     'php-template',
-    require('highlight.js/lib/languages/php-template')
+    require('highlight.js/lib/languages/php-template'),
   )
   hljs.registerLanguage(
     'plaintext',
-    require('highlight.js/lib/languages/plaintext')
+    require('highlight.js/lib/languages/plaintext'),
   )
   hljs.registerLanguage('pony', require('highlight.js/lib/languages/pony'))
   hljs.registerLanguage(
     'powershell',
-    require('highlight.js/lib/languages/powershell')
+    require('highlight.js/lib/languages/powershell'),
   )
   hljs.registerLanguage(
     'processing',
-    require('highlight.js/lib/languages/processing')
+    require('highlight.js/lib/languages/processing'),
   )
   hljs.registerLanguage(
     'profile',
-    require('highlight.js/lib/languages/profile')
+    require('highlight.js/lib/languages/profile'),
   )
   hljs.registerLanguage('prolog', require('highlight.js/lib/languages/prolog'))
   hljs.registerLanguage(
     'properties',
-    require('highlight.js/lib/languages/properties')
+    require('highlight.js/lib/languages/properties'),
   )
   hljs.registerLanguage(
     'protobuf',
-    require('highlight.js/lib/languages/protobuf')
+    require('highlight.js/lib/languages/protobuf'),
   )
   hljs.registerLanguage('puppet', require('highlight.js/lib/languages/puppet'))
   hljs.registerLanguage(
     'purebasic',
-    require('highlight.js/lib/languages/purebasic')
+    require('highlight.js/lib/languages/purebasic'),
   )
   hljs.registerLanguage('python', require('highlight.js/lib/languages/python'))
   hljs.registerLanguage(
     'python-repl',
-    require('highlight.js/lib/languages/python-repl')
+    require('highlight.js/lib/languages/python-repl'),
   )
   hljs.registerLanguage('q', require('highlight.js/lib/languages/q'))
   hljs.registerLanguage('qml', require('highlight.js/lib/languages/qml'))
   hljs.registerLanguage('r', require('highlight.js/lib/languages/r'))
   hljs.registerLanguage(
     'reasonml',
-    require('highlight.js/lib/languages/reasonml')
+    require('highlight.js/lib/languages/reasonml'),
   )
   hljs.registerLanguage('rib', require('highlight.js/lib/languages/rib'))
   hljs.registerLanguage(
     'roboconf',
-    require('highlight.js/lib/languages/roboconf')
+    require('highlight.js/lib/languages/roboconf'),
   )
   hljs.registerLanguage(
     'routeros',
-    require('highlight.js/lib/languages/routeros')
+    require('highlight.js/lib/languages/routeros'),
   )
   hljs.registerLanguage('rsl', require('highlight.js/lib/languages/rsl'))
   hljs.registerLanguage(
     'ruleslanguage',
-    require('highlight.js/lib/languages/ruleslanguage')
+    require('highlight.js/lib/languages/ruleslanguage'),
   )
   hljs.registerLanguage('rust', require('highlight.js/lib/languages/rust'))
   hljs.registerLanguage('sas', require('highlight.js/lib/languages/sas'))
@@ -331,7 +331,7 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('smali', require('highlight.js/lib/languages/smali'))
   hljs.registerLanguage(
     'smalltalk',
-    require('highlight.js/lib/languages/smalltalk')
+    require('highlight.js/lib/languages/smalltalk'),
   )
   hljs.registerLanguage('sml', require('highlight.js/lib/languages/sml'))
   hljs.registerLanguage('sqf', require('highlight.js/lib/languages/sqf'))
@@ -342,12 +342,12 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('stylus', require('highlight.js/lib/languages/stylus'))
   hljs.registerLanguage(
     'subunit',
-    require('highlight.js/lib/languages/subunit')
+    require('highlight.js/lib/languages/subunit'),
   )
   hljs.registerLanguage('swift', require('highlight.js/lib/languages/swift'))
   hljs.registerLanguage(
     'taggerscript',
-    require('highlight.js/lib/languages/taggerscript')
+    require('highlight.js/lib/languages/taggerscript'),
   )
   hljs.registerLanguage('yaml', require('highlight.js/lib/languages/yaml'))
   hljs.registerLanguage('tap', require('highlight.js/lib/languages/tap'))
@@ -357,21 +357,21 @@ export const generateHighlightJSInstance = () => {
   hljs.registerLanguage('twig', require('highlight.js/lib/languages/twig'))
   hljs.registerLanguage(
     'typescript',
-    require('highlight.js/lib/languages/typescript')
+    require('highlight.js/lib/languages/typescript'),
   )
   hljs.registerLanguage('vala', require('highlight.js/lib/languages/vala'))
   hljs.registerLanguage('vbnet', require('highlight.js/lib/languages/vbnet'))
   hljs.registerLanguage(
     'vbscript',
-    require('highlight.js/lib/languages/vbscript')
+    require('highlight.js/lib/languages/vbscript'),
   )
   hljs.registerLanguage(
     'vbscript-html',
-    require('highlight.js/lib/languages/vbscript-html')
+    require('highlight.js/lib/languages/vbscript-html'),
   )
   hljs.registerLanguage(
     'verilog',
-    require('highlight.js/lib/languages/verilog')
+    require('highlight.js/lib/languages/verilog'),
   )
   hljs.registerLanguage('vhdl', require('highlight.js/lib/languages/vhdl'))
   hljs.registerLanguage('vim', require('highlight.js/lib/languages/vim'))
