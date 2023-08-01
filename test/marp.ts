@@ -1,5 +1,6 @@
 import { Marpit } from '@marp-team/marpit'
 import { load, CheerioOptions } from 'cheerio'
+import highlightjs from 'highlight.js'
 import postcss, { Rule } from 'postcss'
 import { elements } from '../src/custom-elements/definitions'
 import { EmojiOptions } from '../src/emoji/emoji'
@@ -1103,6 +1104,23 @@ function matchwo(a,b)
         expect(instance.markdown.render('```\ntest\n```')).toContain('CUSTOM'))
     })
 
+    describe('with customized highlightjs instance', () => {
+      const instance = marp()
+
+      instance.highlightjs.registerAliases('marp-test', {
+        languageName: 'javascript',
+      })
+
+      const $ = load(
+        instance.markdown.render('```marp-test\nconst a = 1;\n```'),
+      )
+
+      it('highlights code with customized highlightjs', () => {
+        expect($('code.language-marp-test')).toHaveLength(1)
+        expect($('code .hljs-keyword')).toHaveLength(1)
+      })
+    })
+
     describe('with overriden #highlighter', () => {
       const instance = marp()
 
@@ -1118,6 +1136,40 @@ function matchwo(a,b)
 
       it('highlights with custom highlighter', () =>
         expect($('code .customized')).toHaveLength(1))
+    })
+  })
+
+  describe('get #highlightjs', () => {
+    it('returns highlight.js instance', () => {
+      const instance = marp()
+
+      expect(instance.highlightjs.highlight).toBeInstanceOf(Function)
+      expect(instance.highlightjs.versionString).toMatchInlineSnapshot(
+        `"11.8.0"`,
+      )
+    })
+
+    it('has registered all highlight languages as same as highlight.js module', () => {
+      const instance = marp()
+
+      const moduleLanguages = highlightjs.listLanguages()
+      const languages = instance.highlightjs.listLanguages()
+
+      expect(languages).toHaveLength(moduleLanguages.length)
+      moduleLanguages.forEach((lang) => expect(languages).toContain(lang))
+    })
+
+    it('does not pollute global highlight.js instance even if extended an instance of highlight.js resolved by #highlightjs', () => {
+      const instance = marp()
+
+      instance.highlightjs.registerAliases('marp-test', {
+        languageName: 'javascript',
+      })
+
+      expect(instance.highlightjs.getLanguage('marp-test')?.name).toBe(
+        'JavaScript',
+      )
+      expect(highlightjs.getLanguage('marp-test')?.name).toBeUndefined()
     })
   })
 })

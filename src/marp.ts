@@ -1,5 +1,5 @@
 import { Marpit, Options, ThemeSetPackOptions } from '@marp-team/marpit'
-import highlightjs from 'highlight.js'
+import type { HLJSApi } from 'highlight.js'
 import postcss, { AcceptedPlugin } from 'postcss'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
@@ -7,6 +7,7 @@ import uncoverTheme from '../themes/uncover.scss'
 import * as autoScalingPlugin from './auto-scaling'
 import * as customElements from './custom-elements'
 import * as emojiPlugin from './emoji/emoji'
+import { generateHighlightJSInstance } from './highlightjs'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
 import minifyPlugins from './prebundles/postcss-minify-plugins'
@@ -32,6 +33,8 @@ export interface MarpOptions extends Options {
 
 export class Marp extends Marpit {
   readonly options!: Required<MarpOptions>
+
+  private _highlightjs: HLJSApi | undefined
 
   static readonly html = { br: [] }
 
@@ -90,10 +93,17 @@ export class Marp extends Marpit {
       .use(slugPlugin.markdown)
   }
 
+  get highlightjs() {
+    if (!this._highlightjs) {
+      this._highlightjs = generateHighlightJSInstance()
+    }
+    return this._highlightjs
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   highlighter(code: string, lang: string, attrs: string): string {
-    if (lang && highlightjs.getLanguage(lang)) {
-      return highlightjs.highlight(code, {
+    if (lang && this.highlightjs.getLanguage(lang)) {
+      return this.highlightjs.highlight(code, {
         language: lang,
         ignoreIllegals: true,
       }).value
