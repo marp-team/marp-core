@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v3.8.0 - 2023-08-01
+
 ### Added
 
 - `highlightjs` getter, to access the generated highlight.js instance per Marp Core instances ([#350](https://github.com/marp-team/marp-core/pull/350))
