@@ -41,7 +41,7 @@ export const fittingHeaderPlugin = marpitPlugin((md) => {
     idx: any,
     options: any,
     env: any,
-    self: any
+    self: any,
   ) {
     const rendered = heading_open
       ? heading_open.call(this, tokens, idx, options, env, self)
@@ -55,7 +55,7 @@ export const fittingHeaderPlugin = marpitPlugin((md) => {
     ) {
       return rendered.replace(
         new RegExp(`<${tag}`, 'i'),
-        `<${tag} is="marp-${tag}" data-auto-scaling`
+        `<${tag} is="marp-${tag}" data-auto-scaling`,
       )
     }
 

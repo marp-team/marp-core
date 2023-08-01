@@ -24,7 +24,7 @@ const defaultPostSlugify: PostSlugify = (slug, index) =>
   index > 0 ? `${slug}-${index}` : slug
 
 const parseSlugOptions = (
-  options: SlugOptions
+  options: SlugOptions,
 ): false | Required<SlugOptionsObject> => {
   if (options === false) return false
 
@@ -86,11 +86,10 @@ export const markdown = marpitPlugin((md) => {
 
                   return ''
                 })
-                .join('')
+                .join(''),
             )
           }
 
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           const index = slugs.has(slug) ? slugs.get(slug)! + 1 : 0
           targetHeading.attrSet('id', opts.postSlugify(slug, index))
 
@@ -113,7 +112,7 @@ export const githubSlugify: Slugifier = (text: string): string =>
       .replace(/\s+/g, '-')
       .replace(
         /[\][!/'"#$%&()*+,./:;<=>?@\\^{|}~`。，、；：？！…—·ˉ¨‘’“”々～‖∶＂＇｀｜〃〔〕〈〉《》「」『』．〖〗【】（）［］｛｝]/g,
-        ''
+        '',
       )
-      .replace(/(?:^-+|-+$)/, '')
+      .replace(/(?:^-+|-+$)/, ''),
   )

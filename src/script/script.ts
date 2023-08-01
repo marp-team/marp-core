@@ -42,7 +42,7 @@ export function markdown(md): void {
     } else if (opts.source === 'cdn') {
       scriptToken.attrSet(
         'src',
-        `https://cdn.jsdelivr.net/npm/${name}@${version}/lib/browser.js`
+        `https://cdn.jsdelivr.net/npm/${name}@${version}/lib/browser.js`,
       )
 
       // defer attribute would have no effect in inline script

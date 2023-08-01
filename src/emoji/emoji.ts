@@ -48,8 +48,8 @@ export const markdown = marpitPlugin((md) => {
           after: (_, __, rule) => (picker.rule = rule), // for markdown-it-emoji >= v2.0.1
         },
       },
-      renderer: { rules: { emoji: () => {} } }, // eslint-disable-line @typescript-eslint/no-empty-function
-      rule: (() => {}) as (...args: any[]) => void, // eslint-disable-line @typescript-eslint/no-empty-function
+      renderer: { rules: { emoji: () => {} } },
+      rule: (() => {}) as (...args: any[]) => void,
       utils: md.utils,
     }
 
@@ -96,8 +96,8 @@ export const markdown = marpitPlugin((md) => {
                             type: idx % 2 ? 'marp_unicode_emoji' : 'text',
                           }),
                         ],
-                  []
-                )
+                  [],
+                ),
               )
             } else {
               newChildren.push(t)
@@ -111,7 +111,7 @@ export const markdown = marpitPlugin((md) => {
 
     md.renderer.rules.marp_unicode_emoji = (
       token: any[],
-      idx: number
+      idx: number,
     ): string => token[idx].content
 
     const { code_block, code_inline, fence } = md.renderer.rules
@@ -126,10 +126,10 @@ export const markdown = marpitPlugin((md) => {
                 idx % 2
                   ? part
                   : part.replace(regexForSplit, ([emoji]) =>
-                      twemojiParse(emoji)
+                      twemojiParse(emoji),
                     )
               }`,
-            ''
+            '',
           )
 
       md.renderer.rules.marp_unicode_emoji = twemojiRenderer

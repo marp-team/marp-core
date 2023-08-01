@@ -56,7 +56,7 @@ export const markdown = marpitPlugin((md) => {
   }
 
   const parseWithMath = <F extends (this: any, ...args: any[]) => any>(
-    func: F
+    func: F,
   ) => {
     return function (this: ThisType<F>, ...args: Parameters<F>) {
       const initialized = initializeMathContext()
@@ -95,7 +95,7 @@ export const markdown = marpitPlugin((md) => {
 
       return ret
     },
-    { alt: ['paragraph', 'reference', 'blockquote', 'list'] }
+    { alt: ['paragraph', 'reference', 'blockquote', 'list'] },
   )
 
   // Renderer
@@ -116,7 +116,7 @@ export const markdown = marpitPlugin((md) => {
           lib: preffered ?? parsedOpts.lib ?? defaultLibrary,
         },
       }))
-    }
+    },
   )
 
   const getPreferredLibrary = () => {
