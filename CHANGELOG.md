@@ -2,8 +2,13 @@
 
 ## [Unreleased]
 
+### Added
+
+- `highlightjs` getter, to access the generated highlight.js instance per Marp Core instances ([#350](https://github.com/marp-team/marp-core/pull/350))
+
 ### Changed
 
+- Marp Core instance is no longer using the shared highlight.js instance ([#350](https://github.com/marp-team/marp-core/pull/350))
 - Upgrade Node.js and dependent packages to the latest version ([#351](https://github.com/marp-team/marp-core/pull/351))
 
 ## v3.7.0 - 2023-06-09
