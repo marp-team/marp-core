@@ -1,8 +1,7 @@
 import path from 'node:path'
-import { Marp } from './lib/marp.js'
 
 export default {
-  engine: Marp,
+  engine: './lib/marp.js',
   server: true,
   inputDir: path.join(
     path.dirname(new URL(import.meta.url).pathname),
