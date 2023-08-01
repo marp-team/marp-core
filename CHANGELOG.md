@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Node.js and dependent packages to the latest version ([#351](https://github.com/marp-team/marp-core/pull/351))
+
 ## v3.7.0 - 2023-06-09
 
 ### Changed

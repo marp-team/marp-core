@@ -52,7 +52,7 @@ describe('Marp', () => {
       expect($original('p').text()).toBe('"(c)"')
 
       const $ = load(
-        marp({ markdown: { typographer: true } }).markdown.render('"(c)"')
+        marp({ markdown: { typographer: true } }).markdown.render('"(c)"'),
       )
       expect($('p').text()).toBe('“©”')
     })
@@ -78,7 +78,7 @@ describe('Marp', () => {
           expect($heart('h1').html()).toBe('\u2764\ufe0f')
 
           const $smiling = load(
-            render('# :smiling_face_with_three_hearts:').html
+            render('# :smiling_face_with_three_hearts:').html,
           )
           expect($smiling('h1').html()).toBe('\u{1f970}')
         })
@@ -138,7 +138,7 @@ describe('Marp', () => {
 
         it("does not inject Marp's unicode emoji renderer", () =>
           expect(
-            instance.markdown.renderer.rules.marp_unicode_emoji
+            instance.markdown.renderer.rules.marp_unicode_emoji,
           ).toBeFalsy())
 
         it('does not convert unicode emoji', () =>
@@ -151,7 +151,7 @@ describe('Marp', () => {
 
         it("injects Marp's unicode emoji renderer", () =>
           expect(
-            instance.markdown.renderer.rules.marp_unicode_emoji
+            instance.markdown.renderer.rules.marp_unicode_emoji,
           ).toBeTruthy())
 
         it('does not convert unicode emoji', () =>
@@ -170,30 +170,30 @@ describe('Marp', () => {
 
       it('uses SVG via jsDelivr CDN by default', () => {
         expect(emojiSrc(':ok_hand:')).toMatchInlineSnapshot(
-          `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f44c.svg"`
+          `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f44c.svg"`,
         )
       })
 
       describe('base option', () => {
         it('uses specified base', () =>
           expect(
-            emojiSrc(':+1:', instance({ base: '/assets/twemoji/' }))
+            emojiSrc(':+1:', instance({ base: '/assets/twemoji/' })),
           ).toMatchInlineSnapshot(`"/assets/twemoji/svg/1f44d.svg"`))
 
         it("uses Twemoji's default CDN if the base option was undefined", () =>
           expect(
-            emojiSrc(':+1:', instance({ base: undefined }))
+            emojiSrc(':+1:', instance({ base: undefined })),
           ).toMatchInlineSnapshot(
-            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f44d.svg"`
+            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f44d.svg"`,
           ))
       })
 
       describe('ext option', () => {
         it('uses PNG emoji by setting png', () =>
           expect(
-            emojiSrc(':+1:', instance({ ext: 'png' }))
+            emojiSrc(':+1:', instance({ ext: 'png' })),
           ).toMatchInlineSnapshot(
-            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/72x72/1f44d.png"`
+            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/72x72/1f44d.png"`,
           ))
       })
     })
@@ -232,7 +232,7 @@ describe('Marp', () => {
 
       it('keeps raw HTML comments within valid HTML block', () => {
         const { html: $script, comments: comments$script } = marp().render(
-          "<script><!--\nconst script = '<b>test</b>'\n--></script>"
+          "<script><!--\nconst script = '<b>test</b>'\n--></script>",
         )
         expect($script).toContain("const script = '<b>test</b>'")
         expect(comments$script[0]).toHaveLength(0)
@@ -256,13 +256,13 @@ function matchwo(a,b)
 -->
 `.trim()
         const { html: $complex } = marp().render(
-          `<script>${complexComment}</script>`
+          `<script>${complexComment}</script>`,
         )
         expect($complex).toContain(complexComment)
 
         // NOTE: Marpit framework will collect the comment block if the whole of HTML block was comment
         const { html: $comment, comments: comments$comment } = marp().render(
-          "<!--\nconst script = '<b>test</b>'\n-->"
+          "<!--\nconst script = '<b>test</b>'\n-->",
         )
         expect($comment).not.toContain("const script = '<b>test</b>'")
         expect(comments$comment[0]).toHaveLength(1)
@@ -297,7 +297,7 @@ function matchwo(a,b)
         expect(m.render('<br></br>').html).toContain('<br /><br />')
         expect(m.render('<BR >').html).toContain('<br />')
         expect(m.render('<br  class="normalize">').html).toContain(
-          '<br class="normalize" />'
+          '<br class="normalize" />',
         )
       })
     })
@@ -333,7 +333,7 @@ function matchwo(a,b)
         const m = marp({ html })
 
         expect(m.render('<img src="a.png">').html).toContain(
-          '<img src="a.png" />'
+          '<img src="a.png" />',
         )
         expect(m.render('<img class="test">').html).toContain('<img />')
         expect(m.render('<p>').html).toContain('<p>')
@@ -405,11 +405,11 @@ function matchwo(a,b)
         const instance = marp({ math: 'mathjax' })
 
         const plain = load(instance.render('$x^2$').html)(
-          'mjx-container'
+          'mjx-container',
         ).html()
 
         const defined = load(instance.render('$\\def\\foo{x^2}$ $\\foo$').html)(
-          'mjx-container'
+          'mjx-container',
         )
           .eq(1)
           .html()
@@ -418,7 +418,7 @@ function matchwo(a,b)
 
         // Defined command through \def in another rendering cannot use
         const notDefined = load(instance.render('$\\foo$').html)(
-          'mjx-container'
+          'mjx-container',
         ).html()
 
         expect(notDefined).not.toBe(plain)
@@ -428,7 +428,7 @@ function matchwo(a,b)
         it('allows to switch rendering library from katex to mathjax', () => {
           const instance = marp({ math: 'katex' })
           const { html, css } = instance.render(
-            `<!-- math: mathjax -->\n\n${inline}\n\n${block}`
+            `<!-- math: mathjax -->\n\n${inline}\n\n${block}`,
           )
           const $ = load(html)
 
@@ -442,7 +442,7 @@ function matchwo(a,b)
         it('allows to switch rendering library from mathjax to katex', () => {
           const instance = marp({ math: 'mathjax' })
           const { html, css } = instance.render(
-            `<!-- math: katex -->\n\n${inline}\n\n${block}`
+            `<!-- math: katex -->\n\n${inline}\n\n${block}`,
           )
           const $ = load(html)
 
@@ -458,7 +458,7 @@ function matchwo(a,b)
 
           for (const keyword of ['unknown', 'false', 'true']) {
             const katexRendered = katex.render(
-              `<!-- math: ${keyword} -->\n\n${inline}`
+              `<!-- math: ${keyword} -->\n\n${inline}`,
             )
             const $katex = load(katexRendered.html)
 
@@ -474,7 +474,7 @@ function matchwo(a,b)
       describe('when math typesetting syntax is not using', () => {
         it('does not inject MathJax css', () =>
           expect(
-            marp({ math: 'mathjax' }).render('plain text').css
+            marp({ math: 'mathjax' }).render('plain text').css,
           ).not.toContain('mjx-container'))
       })
     })
@@ -528,7 +528,7 @@ function matchwo(a,b)
 
         // KaTeX can modify macros through \gdef
         const globallyDefined = load(
-          instance.render('$\\gdef\\foo{x^2}$ $\\foo$').html
+          instance.render('$\\gdef\\foo{x^2}$ $\\foo$').html,
         )('.katex-html')
           .eq(1)
           .html()
@@ -537,7 +537,7 @@ function matchwo(a,b)
 
         // Defined command through \gdef in another rendering cannot use
         const notDefined = load(instance.render('$\\foo$').html)(
-          '.katex-html'
+          '.katex-html',
         ).html()
 
         expect(notDefined).not.toBe(plain)
@@ -546,7 +546,7 @@ function matchwo(a,b)
       describe('when math typesetting syntax is not using', () => {
         it('does not inject KaTeX css', () =>
           expect(
-            marp({ math: 'katex' }).render('plain text').css
+            marp({ math: 'katex' }).render('plain text').css,
           ).not.toContain('.katex'))
       })
 
@@ -578,7 +578,7 @@ function matchwo(a,b)
           it('fallbacks to plain text on raising error', () => {
             const warnSpy = jest
               .spyOn(console, 'warn')
-              .mockImplementation(() => {}) // eslint-disable-line @typescript-eslint/no-empty-function
+              .mockImplementation(() => {})
 
             const inlineHTML = instance.render('# Fallback to text $}$!').html
             const $inline = load(inlineHTML)
@@ -685,7 +685,7 @@ function matchwo(a,b)
           expect(script).toHaveLength(1)
           expect(script.html()).toBe('')
           expect(script.attr('src')).toMatch(
-            /^https:\/\/cdn\.jsdelivr\.net\/npm\/@marp-team\/marp-core@.+\/lib\/browser\.js$/
+            /^https:\/\/cdn\.jsdelivr\.net\/npm\/@marp-team\/marp-core@.+\/lib\/browser\.js$/,
           )
           expect(script.attr('defer')).toBeDefined()
         })
@@ -750,14 +750,14 @@ function matchwo(a,b)
         const slugifier = (s: string) => `custom:${s}`
 
         expect(marp({ slug: { slugifier } }).render('# abc').html).toBe(
-          marp({ slug: slugifier }).render('# abc').html
+          marp({ slug: slugifier }).render('# abc').html,
         )
       })
 
       it('allows postSlugify option, to deal with duplicate slugs', () => {
         const postSlugify = (s: string, i: number) => `${'-'.repeat(i)}${s}`
         const { html } = marp({ slug: { postSlugify } }).render(
-          '# abc\n\n---\n\n## abc\n\n---\n\n### abc'
+          '# abc\n\n---\n\n## abc\n\n---\n\n### abc',
         )
         const $ = load(html)
 
@@ -777,7 +777,7 @@ function matchwo(a,b)
 
       it('recongizes custom anchor generation', () => {
         const { html } = marp({ anchor: (i) => `slide-${i + 1}` }).render(
-          '# Slide 1'
+          '# Slide 1',
         )
         const $ = load(html)
 
@@ -839,7 +839,7 @@ function matchwo(a,b)
 
         it('does not add attributes for heading custom element if disabled inlineSVG mode', () => {
           const $ = loadCheerio(
-            marp({ inlineSVG: false }).render(markdown).html
+            marp({ inlineSVG: false }).render(markdown).html,
           )
 
           expect($('h1').attr('is')).not.toBe('marp-h1')
@@ -906,7 +906,7 @@ function matchwo(a,b)
 
       it('does not add attributes for span custom element if disabled disabled inlineSVG mode', () => {
         const $ = loadCheerio(
-          marp({ math: 'katex', inlineSVG: false }).render(markdown).html
+          marp({ math: 'katex', inlineSVG: false }).render(markdown).html,
         )
         const katex = $('span.katex-display')
 
@@ -932,12 +932,12 @@ function matchwo(a,b)
           instance.themeSet.add(`/* @theme a */ ${decl}`)
 
           expect(instance.render('<!--theme: a-->').css).toContain(
-            `:is(${el}, marp-${el})`
+            `:is(${el}, marp-${el})`,
           )
 
           // Inline style
           expect(instance.render(`<style>${decl}</style>`).css).toContain(
-            `:is(${el}, marp-${el})`
+            `:is(${el}, marp-${el})`,
           )
         })
       }
@@ -958,7 +958,7 @@ function matchwo(a,b)
 
                   ret = selectors
                     .map((sel) =>
-                      sel.replace('svg > foreignObject > section ', '')
+                      sel.replace('svg > foreignObject > section ', ''),
                     )
                     .join(', ')
                 }
@@ -972,20 +972,20 @@ function matchwo(a,b)
         // Matched cases
         expect(transformedDecl('h1')).toBe(':is(h1, marp-h1)')
         expect(transformedDecl('h1, h2')).toBe(
-          ':is(h1, marp-h1), :is(h2, marp-h2)'
+          ':is(h1, marp-h1), :is(h2, marp-h2)',
         )
         expect(transformedDecl('h1 > h1')).toBe(
-          ':is(h1, marp-h1) > :is(h1, marp-h1)'
+          ':is(h1, marp-h1) > :is(h1, marp-h1)',
         )
         expect(transformedDecl('div:not(h1)')).toBe('div:not(:is(h1, marp-h1))')
         expect(transformedDecl(':is(h1, h2)')).toBe(
-          ':is(:is(h1, marp-h1), :is(h2, marp-h2))'
+          ':is(:is(h1, marp-h1), :is(h2, marp-h2))',
         )
         expect(transformedDecl(':where(h1, h2)')).toBe(
-          ':where(:is(h1, marp-h1), :is(h2, marp-h2))'
+          ':where(:is(h1, marp-h1), :is(h2, marp-h2))',
         )
         expect(transformedDecl('test::slotted(h1)')).toBe(
-          'test::slotted(:is(h1, marp-h1))'
+          'test::slotted(:is(h1, marp-h1))',
         )
 
         // Unmatched cases
@@ -1006,7 +1006,7 @@ function matchwo(a,b)
       const disabled = marp({ minifyCSS: false })
 
       expect(enabled.render('').css.length).toBeLessThan(
-        disabled.render('').css.length
+        disabled.render('').css.length,
       )
 
       // Custom theme
@@ -1020,7 +1020,7 @@ function matchwo(a,b)
       const disabledCss = disabled.render('<!-- theme: a -->').css
 
       expect(disabledCss).toContain(
-        '@media screen \t and (  min-width : 768px )'
+        '@media screen \t and (  min-width : 768px )',
       )
       expect(disabledCss).toContain('div { color: #f00; }')
       expect(enabledCss).toContain('@media screen and (min-width:768px)')
@@ -1048,7 +1048,7 @@ function matchwo(a,b)
 
         const { html } = instance.render('<!-- size: 4:3 -->')
         expect(
-          loadCheerio(html, { xmlMode: true })('foreignObject').attr()
+          loadCheerio(html, { xmlMode: true })('foreignObject').attr(),
         ).toStrictEqual(size)
 
         for (const theme of instance.themeSet.themes()) {

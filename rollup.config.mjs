@@ -70,7 +70,7 @@ const prebundlePlugins = () => [
         find: 'browserslist',
         replacement: path.resolve(
           __dirname,
-          'src/prebundles/mocks/browserslist.ts'
+          'src/prebundles/mocks/browserslist.ts',
         ),
       },
     ],

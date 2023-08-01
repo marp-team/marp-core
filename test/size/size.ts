@@ -11,8 +11,8 @@ const metaType = { size: Array }
 
 describe('Size plugin', () => {
   const marpit = (
-    callback: (marpit: Marpit) => void = () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
-    opts?: Options
+    callback: (marpit: Marpit) => void = () => {},
+    opts?: Options,
   ) =>
     new Marpit(opts).use(sizePlugin).use(({ marpit }) => {
       marpit.themeSet.metaType = metaType
@@ -21,7 +21,7 @@ describe('Size plugin', () => {
 
   const collectDecls = async (
     css: string,
-    selector = 'div.marpit > section'
+    selector = 'div.marpit > section',
   ) => {
     const collectedDecls: CollectedDecls = {}
 
@@ -58,11 +58,11 @@ describe('Size plugin', () => {
     const initializeTheme = (m) => {
       m.themeSet.add('/* @theme a *//* @size test 640px 480px */')
       m.themeSet.add(
-        '/* @theme b *//* @size test2 800px 600px  */\n@import "a";'
+        '/* @theme b *//* @size test2 800px 600px  */\n@import "a";',
       )
       m.themeSet.add('/* @theme c *//* @size test 6px 4px */\n@import "a";')
       m.themeSet.add(
-        '/* @theme d *//* @size test false *//* @size test2 - invalid defintion */\n@import "b";'
+        '/* @theme d *//* @size test false *//* @size test2 - invalid defintion */\n@import "b";',
       )
     }
 
@@ -100,7 +100,7 @@ describe('Size plugin', () => {
 
       // Apply data attribute to each layers of advanced background in inline SVG mode
       const { html: htmlAdv } = inlineSVGinstance.render(
-        '<!--\ntheme: a\nsize: test\n-->\n\n![bg](dummy)'
+        '<!--\ntheme: a\nsize: test\n-->\n\n![bg](dummy)',
       )
       const $adv = load(htmlAdv)
       const attrsAdv = $adv('section')
@@ -124,7 +124,7 @@ describe('Size plugin', () => {
 
     it('ignores invalid size directive', () => {
       const { css } = instance.render(
-        '<!-- theme: a -->\n<!-- size: ["test"] -->'
+        '<!-- theme: a -->\n<!-- size: ["test"] -->',
       )
       expect(css).toBe(instance.render('<!-- theme: a -->').css)
     })
@@ -172,7 +172,6 @@ describe('Size plugin', () => {
     it('reverts manipulated theme after rendering', () => {
       instance.render('<!-- size: test -->')
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const defaultTheme = instance.themeSet.default!
 
       expect(defaultTheme.css).toBe(defaultCSS)

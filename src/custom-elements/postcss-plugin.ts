@@ -4,7 +4,7 @@ import { elements } from './definitions'
 
 const findClosest = (
   container: Container | undefined,
-  finder: (container: Container) => boolean
+  finder: (container: Container) => boolean,
 ) => {
   let current: Container | undefined = container
 
@@ -28,7 +28,7 @@ export const customElementsPostCSSPlugin = (root: Root) => {
           // Check if there is inside of a valid pseudo element
           const closestPseudo = findClosest(
             tag.parent,
-            ({ type }) => type === 'pseudo'
+            ({ type }) => type === 'pseudo',
           )
           if (closestPseudo?.value === '::part') return
 

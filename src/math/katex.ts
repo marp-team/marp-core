@@ -44,7 +44,7 @@ export const block = (marpit: any) => (tokens, idx) => {
     if (marpit.options.inlineSVG) {
       rendered = rendered.replace(
         /^<span/i,
-        '<span is="marp-span" data-auto-scaling="downscale-only"'
+        '<span is="marp-span" data-auto-scaling="downscale-only"',
       )
     }
 
@@ -65,6 +65,6 @@ export const css = (path?: string | false): string => {
     convertedCSS[fontPath] ||
     katexScss.replace(
       katexMatcher,
-      (_, matched) => `url('${fontPath}${matched}')`
+      (_, matched) => `url('${fontPath}${matched}')`,
     ))
 }

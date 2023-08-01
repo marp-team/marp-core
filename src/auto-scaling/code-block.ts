@@ -21,7 +21,7 @@ export const codeBlockPlugin = marpitPlugin((md) => {
           '<pre is="marp-pre" data-auto-scaling="downscale-only"' +
           start.slice(4) +
           content +
-          end
+          end,
       )
     }
 

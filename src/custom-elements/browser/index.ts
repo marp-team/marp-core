@@ -28,7 +28,7 @@ export const applyCustomElements = (target: ParentNode = document) => {
       if (!defined) {
         customElements.define(
           marpCustomElement,
-          createMarpCustomElement(HTMLElement, elements[tag])
+          createMarpCustomElement(HTMLElement, elements[tag]),
         )
       }
 
@@ -43,7 +43,7 @@ export const applyCustomElements = (target: ParentNode = document) => {
       customElements.define(
         marpCustomElement,
         createMarpCustomElement(proto, { style: elements[tag].style }),
-        { extends: tag }
+        { extends: tag },
       )
     }
   }

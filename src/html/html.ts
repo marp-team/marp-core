@@ -53,7 +53,7 @@ export function markdown(md): void {
             allowList[tag] = attrs
           } else if (typeof attrs === 'object') {
             allowList[tag] = Object.keys(attrs).filter(
-              (attr) => attrs[attr] !== false
+              (attr) => attrs[attr] !== false,
             )
           }
         }

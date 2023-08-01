@@ -109,14 +109,14 @@ jobs:
       name: node
       version: '14.21'
     steps:
-      - prepare
-      - lint
+      - prepare:
+          force: true
       - test
 
   test-node16:
     executor:
       name: node
-      version: '16.19'
+      version: '16.20'
     steps:
       - prepare
       - lint
@@ -125,7 +125,7 @@ jobs:
   test-node18:
     executor:
       name: node
-      version: '18.16.0' # Specify LTS version for development
+      version: '18.17.0' # Specify LTS version for development
     steps:
       - prepare
       - lint

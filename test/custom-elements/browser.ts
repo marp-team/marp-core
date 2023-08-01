@@ -6,7 +6,7 @@ import { elements } from '../../src/custom-elements/definitions'
 beforeAll(() => {
   window.ResizeObserver = jest.fn(function (
     this: ResizeObserver,
-    cb: ResizeObserverCallback
+    cb: ResizeObserverCallback,
   ) {
     this.observe = jest.fn((target) => {
       cb(
@@ -30,7 +30,7 @@ beforeAll(() => {
             devicePixelContentBoxSize: [],
           },
         ],
-        this
+        this,
       )
     })
     this.unobserve = jest.fn()
@@ -80,7 +80,7 @@ describe('The hydration script for custom elements', () => {
       browser.applyCustomElements()
 
       expect(document.body.innerHTML).toMatchInlineSnapshot(
-        `"<marp-pre is="marp-pre">1</marp-pre><marp-pre class="two" is="marp-pre">2</marp-pre>"`
+        `"<marp-pre is="marp-pre">1</marp-pre><marp-pre class="two" is="marp-pre">2</marp-pre>"`,
       )
     })
 
@@ -139,7 +139,7 @@ describe('The hydration script for custom elements', () => {
 
       h1.setAttribute('data-auto-scaling', 'downscale-only')
       expect(
-        h1.shadowRoot?.querySelector('marp-auto-scaling[data-downscale-only]')
+        h1.shadowRoot?.querySelector('marp-auto-scaling[data-downscale-only]'),
       ).toBeTruthy()
     })
   })
@@ -151,7 +151,7 @@ describe('The hydration script for custom elements', () => {
       document.body.innerHTML = '<marp-auto-scaling>test</marp-auto-scaling>'
 
       const autoScaling = document.querySelector(
-        'marp-auto-scaling'
+        'marp-auto-scaling',
       ) as MarpAutoScaling
       const svg = autoScaling.shadowRoot.querySelector('svg') as SVGElement
 
@@ -165,7 +165,7 @@ describe('The hydration script for custom elements', () => {
       const getElementsWithStyle = (
         style:
           | Record<string, string>
-          | { getPropertyValue?: (prop: string) => string | undefined }
+          | { getPropertyValue?: (prop: string) => string | undefined },
       ) => {
         getComputedStyle.mockImplementationOnce(() => ({
           getPropertyValue: () => undefined,
@@ -175,11 +175,11 @@ describe('The hydration script for custom elements', () => {
         document.body.innerHTML = '<marp-auto-scaling>test</marp-auto-scaling>'
 
         const el = document.querySelector(
-          'marp-auto-scaling'
+          'marp-auto-scaling',
         ) as MarpAutoScaling
         const svg = el.shadowRoot?.querySelector('svg') as SVGElement
         const container = svg.querySelector(
-          '[data-marp-auto-scaling-container]'
+          '[data-marp-auto-scaling-container]',
         ) as HTMLElement
 
         return { el, svg, container }
@@ -189,7 +189,7 @@ describe('The hydration script for custom elements', () => {
       const leftAligned = getElementsWithStyle({ textAlign: 'left' })
 
       expect(leftAligned.svg.getAttribute('preserveAspectRatio')).toBe(
-        'xMinYMid meet'
+        'xMinYMid meet',
       )
       expect(leftAligned.container.style.marginRight).toBe('auto')
       expect(leftAligned.container.style.marginLeft).toBe('0px')
@@ -198,7 +198,7 @@ describe('The hydration script for custom elements', () => {
       const centerAligned = getElementsWithStyle({ textAlign: 'center' })
 
       expect(centerAligned.svg.getAttribute('preserveAspectRatio')).toBe(
-        'xMidYMid meet'
+        'xMidYMid meet',
       )
       expect(centerAligned.container.style.marginRight).toBe('auto')
       expect(centerAligned.container.style.marginLeft).toBe('auto')
@@ -207,7 +207,7 @@ describe('The hydration script for custom elements', () => {
       const rightAligned = getElementsWithStyle({ textAlign: 'right' })
 
       expect(rightAligned.svg.getAttribute('preserveAspectRatio')).toBe(
-        'xMaxYMid meet'
+        'xMaxYMid meet',
       )
       expect(rightAligned.container.style.marginRight).toBe('0px')
       expect(rightAligned.container.style.marginLeft).toBe('auto')
@@ -216,7 +216,7 @@ describe('The hydration script for custom elements', () => {
       const startAligned = getElementsWithStyle({ textAlign: 'start' })
 
       expect(startAligned.svg.getAttribute('preserveAspectRatio')).toBe(
-        'xMinYMid meet'
+        'xMinYMid meet',
       )
       expect(startAligned.container.style.marginRight).toBe('auto')
       expect(startAligned.container.style.marginLeft).toBe('0px')
@@ -227,7 +227,7 @@ describe('The hydration script for custom elements', () => {
       })
 
       expect(startAlignedRtl.svg.getAttribute('preserveAspectRatio')).toBe(
-        'xMaxYMid meet'
+        'xMaxYMid meet',
       )
       expect(startAlignedRtl.container.style.marginRight).toBe('0px')
       expect(startAlignedRtl.container.style.marginLeft).toBe('auto')
@@ -237,7 +237,7 @@ describe('The hydration script for custom elements', () => {
       })
 
       expect(endAligned.svg.getAttribute('preserveAspectRatio')).toBe(
-        'xMaxYMid meet'
+        'xMaxYMid meet',
       )
       expect(endAligned.container.style.marginRight).toBe('0px')
       expect(endAligned.container.style.marginLeft).toBe('auto')
@@ -248,7 +248,7 @@ describe('The hydration script for custom elements', () => {
       })
 
       expect(endAlignedRtl.svg.getAttribute('preserveAspectRatio')).toBe(
-        'xMinYMid meet'
+        'xMinYMid meet',
       )
       expect(endAlignedRtl.container.style.marginRight).toBe('auto')
       expect(endAlignedRtl.container.style.marginLeft).toBe('0px')
@@ -263,7 +263,7 @@ describe('The hydration script for custom elements', () => {
       })
 
       expect(overloaded.svg.getAttribute('preserveAspectRatio')).toBe(
-        'xMaxYMid meet'
+        'xMaxYMid meet',
       )
       expect(overloaded.container.style.marginRight).toBe('0px')
       expect(overloaded.container.style.marginLeft).toBe('auto')
@@ -280,7 +280,7 @@ describe('The hydration script for custom elements', () => {
         document.body.innerHTML = '<marp-auto-scaling>test</marp-auto-scaling>'
 
         const autoScaling = document.querySelector(
-          'marp-auto-scaling'
+          'marp-auto-scaling',
         ) as MarpAutoScaling
         const svg = autoScaling.shadowRoot.querySelector('svg') as SVGElement
 

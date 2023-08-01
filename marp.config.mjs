@@ -6,7 +6,7 @@ export default {
   server: true,
   inputDir: path.join(
     path.dirname(new URL(import.meta.url).pathname),
-    './sandbox'
+    './sandbox',
   ),
   html: true,
   options: {

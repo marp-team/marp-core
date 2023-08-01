@@ -29,7 +29,7 @@ export class MarpAutoScaling extends HTMLElement {
 
     this.attachShadow({ mode: 'open' })
     this.containerObserver = new ResizeObserver(
-      generateObserverCallback('containerSize')
+      generateObserverCallback('containerSize'),
     )
     this.wrapperObserver = new ResizeObserver((...args) => {
       generateObserverCallback('wrapperSize')(...args)
