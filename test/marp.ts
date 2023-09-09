@@ -861,11 +861,26 @@ function matchwo(a,b)
         expect(pre.text()).toContain('CODE BLOCK')
       })
 
-      it('does not add attributes for pre custom element if disabled disabled inlineSVG mode', () => {
+      it('does not add attributes for pre custom element if disabled inlineSVG mode', () => {
         const $ = loadCheerio(marp({ inlineSVG: false }).render(markdown).html)
         const pre = $('pre')
 
         expect(pre.attr('is')).not.toBe('marp-pre')
+        expect(pre.is('[data-auto-scaling]')).toBe(false)
+        expect(pre.text()).toContain('CODE BLOCK')
+      })
+
+      it('does not add attributes for pre custom element if not enabled auto scaling by theme metadata', () => {
+        const instance = marp()
+        instance.themeSet.add('/* @theme test */')
+
+        const $ = loadCheerio(
+          instance.render(`<!-- theme: test -->\n\n${markdown}`).html,
+        )
+        const pre = $('pre')
+
+        expect(pre.attr('is')).not.toBe('marp-pre')
+        expect(pre.is('[data-auto-scaling]')).toBe(false)
         expect(pre.text()).toContain('CODE BLOCK')
       })
     })
@@ -883,11 +898,26 @@ function matchwo(a,b)
         expect(pre.text()).toContain('const a = 1')
       })
 
-      it('does not add attributes for pre custom element if disabled disabled inlineSVG mode', () => {
+      it('does not add attributes for pre custom element if disabled inlineSVG mode', () => {
         const $ = loadCheerio(marp({ inlineSVG: false }).render(markdown).html)
         const pre = $('pre')
 
         expect(pre.attr('is')).not.toBe('marp-pre')
+        expect(pre.is('[data-auto-scaling]')).toBe(false)
+        expect(pre.text()).toContain('const a = 1')
+      })
+
+      it('does not add attributes for pre custom element if not enabled auto scaling by theme metadata', () => {
+        const instance = marp()
+        instance.themeSet.add('/* @theme test */')
+
+        const $ = loadCheerio(
+          instance.render(`<!-- theme: test -->\n\n${markdown}`).html,
+        )
+        const pre = $('pre')
+
+        expect(pre.attr('is')).not.toBe('marp-pre')
+        expect(pre.is('[data-auto-scaling]')).toBe(false)
         expect(pre.text()).toContain('const a = 1')
       })
     })
@@ -904,9 +934,22 @@ function matchwo(a,b)
         expect(katex.is('[data-auto-scaling="downscale-only"]')).toBe(true)
       })
 
-      it('does not add attributes for span custom element if disabled disabled inlineSVG mode', () => {
+      it('does not add attributes for span custom element if disabled inlineSVG mode', () => {
         const $ = loadCheerio(
           marp({ math: 'katex', inlineSVG: false }).render(markdown).html,
+        )
+        const katex = $('span.katex-display')
+
+        expect(katex.attr('is')).not.toBe('marp-span')
+        expect(katex.is('[data-auto-scaling]')).toBe(false)
+      })
+
+      it('does not add attributes for span custom element if not enabled auto scaling by theme metadata', () => {
+        const instance = marp({ math: 'katex' })
+        instance.themeSet.add('/* @theme test */')
+
+        const $ = loadCheerio(
+          instance.render(`<!-- theme: test -->\n\n${markdown}`).html,
         )
         const katex = $('span.katex-display')
 
@@ -918,6 +961,7 @@ function matchwo(a,b)
         it('does not use custom element because it has already supported auto-scaling', () => {
           const $ = loadCheerio(marp({ math: 'mathjax' }).render(markdown).html)
           expect($('[is="marp-span"]')).toHaveLength(0)
+          expect($('[data-auto-scaling]')).toHaveLength(0)
         })
       })
     })
