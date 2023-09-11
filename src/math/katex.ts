@@ -1,5 +1,6 @@
 import katex from 'katex'
 import { version } from 'katex/package.json'
+import { isEnabledAutoScaling } from '../auto-scaling/utils'
 import { getMathContext } from './context'
 import katexScss from './katex.scss'
 
@@ -41,7 +42,7 @@ export const block = (marpit: any) => (tokens, idx) => {
       displayMode: true,
     })
 
-    if (marpit.options.inlineSVG) {
+    if (marpit.options.inlineSVG && isEnabledAutoScaling(marpit, 'math')) {
       rendered = rendered.replace(
         /^<span/i,
         '<span is="marp-span" data-auto-scaling="downscale-only"',

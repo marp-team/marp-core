@@ -6,6 +6,10 @@
 
 - Upgrade Marpit to [v2.5.2](https://github.com/marp-team/marpit/releases/v2.5.2) ([#356](https://github.com/marp-team/marp-core/pull/356))
 
+### Fixed
+
+- Regression: Auto-scaling for KaTeX block is always enabled regardless of `@auto-scaling` theme metadata ([#353](https://github.com/marp-team/marp-core/issues/353), [#354](https://github.com/marp-team/marp-core/pull/354))
+
 ## v3.8.0 - 2023-08-01
 
 ### Added
