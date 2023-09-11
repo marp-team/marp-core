@@ -642,10 +642,10 @@
   resolved "https://registry.yarnpkg.com/@marp-team/marpit-svg-polyfill/-/marpit-svg-polyfill-2.1.0.tgz#40e7ce3a2aa7496748541cc7053e6779d2f866ac"
   integrity sha512-VqCoAKwv1HJdzZp36dDPxznz2JZgRjkVSSPHpCzk72G2N753F0HPKXjevdjxmzN6gir9bUGBgMD1SguWJIi11A==
 
-"@marp-team/marpit@^2.5.1":
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-2.5.1.tgz#83419816520dc42938dd969f497bb3463be40293"
-  integrity sha512-xh+P2zT93rVwwIFWEnOGatO2qOJeGae6s3EkPXl5kO3d14W7NJQV9OALZmyeZnFFl/DFQs1V/QnZkz+0nYz80A==
+"@marp-team/marpit@^2.5.2":
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/@marp-team/marpit/-/marpit-2.5.2.tgz#422fd1dae3d50f00ee80398cb5b3217234977974"
+  integrity sha512-B+z4QT3T1BA5c+BSehC9Avi6mr/7/IhkhdWgXGxoRTJDSi/dg+rR6UfejN9gkkJXSdoAb7aco6aqaBsL6n8elg==
   dependencies:
     color-string "^1.9.1"
     cssesc "^3.0.0"
