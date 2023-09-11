@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Upgrade Marpit to [v2.5.2](https://github.com/marp-team/marpit/releases/v2.5.2) ([#356](https://github.com/marp-team/marp-core/pull/356))
+- Upgrade Marpit to [v2.5.3](https://github.com/marp-team/marpit/releases/v2.5.3) ([#357](https://github.com/marp-team/marp-core/pull/357))
 
 ### Fixed
 
