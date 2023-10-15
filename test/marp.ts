@@ -58,6 +58,30 @@ describe('Marp', () => {
     })
   })
 
+  describe('Marpit options', () => {
+    describe('cssContainerQuery option', () => {
+      it('is enabled by default', () => {
+        const { css } = marp().render('')
+        expect(css).toContain('container-type:size')
+      })
+
+      it('can disable by setting cssContainerQuery constructor option as false', () => {
+        const { css } = marp({ cssContainerQuery: false }).render('')
+        expect(css).not.toContain('container-type')
+      })
+
+      it('can assign container name by setting cssContainerQuery constructor option as string or the array of strings', () => {
+        const single = marp({ cssContainerQuery: 'name' }).render('')
+        expect(single.css).toContain('container-type:size')
+        expect(single.css).toContain('container-name:name')
+
+        const multi = marp({ cssContainerQuery: ['name1', 'name2'] }).render('')
+        expect(multi.css).toContain('container-type:size')
+        expect(multi.css).toContain('container-name:name1 name2')
+      })
+    })
+  })
+
   describe('emoji option', () => {
     describe('shortcode option', () => {
       it('converts emoji shorthand to twemoji image by default', () => {
