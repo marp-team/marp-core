@@ -1189,7 +1189,7 @@ function matchwo(a,b)
 
       expect(instance.highlightjs.highlight).toBeInstanceOf(Function)
       expect(instance.highlightjs.versionString).toMatchInlineSnapshot(
-        `"11.8.0"`,
+        `"11.9.0"`,
       )
     })
 
