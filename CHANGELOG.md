@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Marpit to [v2.6.1](https://github.com/marp-team/marpit/releases/v2.6.1) ([#358](https://github.com/marp-team/marp-core/pull/358))
+  - Added `cssContainerQuery` constructor option
+  - Added `lang` global directive and constructor option
+- Slightly changed the color scheme of `default` theme to match as the current GitHub style ([#358](https://github.com/marp-team/marp-core/pull/358))
+- Upgrade Node.js and dependent packages to the latest version ([#358](https://github.com/marp-team/marp-core/pull/358))
+
 ## v3.8.1 - 2023-09-11
 
 ### Changed
