@@ -10,4 +10,5 @@ module.exports = {
     ...tsjPreset.transform,
     '^.*\\.s[ac]ss$': '<rootDir>/test/_transformers/sass.js',
   },
+  prettierPath: null,
 }
