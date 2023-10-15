@@ -124,9 +124,6 @@
     "postcss-selector-parser": "^6.0.13",
     "xss": "^1.0.14"
   },
-  "resolutions": {
-    "sass-extended-importer/**/minimatch": "^3.1.2"
-  },
   "publishConfig": {
     "access": "public"
   }
