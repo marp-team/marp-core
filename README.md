@@ -44,7 +44,7 @@ _We will only explain features extended in marp-core._ Please refer to [Marpit f
 **Marp Markdown** is a custom Markdown flavor based on [Marpit](https://marpit.marp.app) and [CommonMark](https://commonmark.org/). Following are principle differences from the original:
 
 - **Marpit**
-  - Enabled [inline SVG slide](https://marpit.marp.app/inline-svg) and [loose YAML parsing](https://marpit-api.marp.app/marpit#Marpit) by default.
+  - Enabled [inline SVG slide](https://marpit.marp.app/inline-svg), [CSS container query support and loose YAML parsing](https://marpit-api.marp.app/marpit#Marpit) by default.
 
 * **CommonMark**
   - For making secure, we will deny most of HTML tags used in Markdown by default. Allowed HTML tags are `<br>` only for now.

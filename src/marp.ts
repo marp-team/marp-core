@@ -48,6 +48,7 @@ export class Marp extends Marpit {
     }
 
     super({
+      cssContainerQuery: true,
       inlineSVG: true,
       looseYAML: true,
       math: true,
