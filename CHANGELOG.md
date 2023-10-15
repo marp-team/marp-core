@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v3.9.0 - 2023-10-15
+
 ### Added
 
 - Enabled [`cssContainerQuery` constructor option from Marpit framework](https://marpit-api.marp.app/marpit#Marpit) by default ([#360](https://github.com/marp-team/marp-core/pull/360))
