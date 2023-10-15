@@ -1,7 +1,6 @@
 {
   "extends": "@tsconfig/node12/tsconfig.json",
   "compilerOptions": {
-    "module": "esnext",
     "noImplicitAny": false,
     "resolveJsonModule": true,
     "rootDir": ".",
