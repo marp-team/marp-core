@@ -113,10 +113,22 @@ jobs:
       - lint
       - test
 
+  test-node20:
+    executor:
+      name: node
+      version: '20.8'
+    steps:
+      - prepare
+      - lint
+      - test
+
 workflows:
   test:
     jobs:
       - audit
       - test-node18:
+          requires:
+            - audit
+      - test-node20:
           requires:
             - audit
