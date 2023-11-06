@@ -50,7 +50,7 @@ _We will only explain features extended in marp-core._ Please refer to [Marpit f
   - For making secure, we will deny most of HTML tags used in Markdown by default. Allowed HTML tags are `<br>` only for now.
   - Support [table](https://github.github.com/gfm/#tables-extension-) and [strikethrough](https://github.github.com/gfm/#strikethrough-extension-) syntax, based on [GitHub Flavored Markdown](https://github.github.com/gfm/).
   - Line breaks in paragraph will convert to `<br>` tag.
-  - Slugification for headings (assining auto-generated `id` attribute for `<h1>` - `<h6>`) is enabled by default.
+  - Slugification for headings (assigning auto-generated `id` attribute for `<h1>` - `<h6>`) is enabled by default.
 
 ---
 
