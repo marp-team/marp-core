@@ -14,7 +14,7 @@ export const createMarpCustomElement = <T extends Constructor<HTMLElement>>(
         if (!this.hasAttribute(key)) this.setAttribute(key, value)
       }
 
-      this.attachShadow({ mode: 'open' })
+      this._shadow()
     }
 
     static get observedAttributes() {
@@ -29,19 +29,34 @@ export const createMarpCustomElement = <T extends Constructor<HTMLElement>>(
       this._update()
     }
 
-    _update() {
-      const styleTag = style ? `<style>:host { ${style} }</style>` : ''
-      let slotTag = '<slot></slot>'
-
-      const { autoScaling } = this.dataset
-
-      if (autoScaling !== undefined) {
-        const downscale =
-          autoScaling === 'downscale-only' ? 'data-downscale-only' : ''
-
-        slotTag = `<marp-auto-scaling exportparts="svg:auto-scaling" ${downscale}>${slotTag}</marp-auto-scaling>`
+    _shadow() {
+      if (!this.shadowRoot) {
+        try {
+          this.attachShadow({ mode: 'open' })
+        } catch (e) {
+          if (!(e instanceof Error && e.name === 'NotSupportedError')) throw e
+        }
       }
+      return this.shadowRoot
+    }
 
-      this.shadowRoot.innerHTML = styleTag + slotTag
+    _update() {
+      const shadowRoot = this._shadow()
+
+      if (shadowRoot) {
+        const styleTag = style ? `<style>:host { ${style} }</style>` : ''
+        let slotTag = '<slot></slot>'
+
+        const { autoScaling } = this.dataset
+
+        if (autoScaling !== undefined) {
+          const downscale =
+            autoScaling === 'downscale-only' ? 'data-downscale-only' : ''
+
+          slotTag = `<marp-auto-scaling exportparts="svg:auto-scaling" ${downscale}>${slotTag}</marp-auto-scaling>`
+        }
+
+        shadowRoot.innerHTML = styleTag + slotTag
+      }
     }
   }
