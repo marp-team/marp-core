@@ -8,16 +8,16 @@ But this document hardly has contents! We are following [**the contributing guid
 
 ```bash
 # Build
-yarn build
+npm run build
 
 # Watch
-yarn watch
+npm run watch
 
 # Watch with sandbox
-yarn sandbox
+npm run sandbox
 
 # Output type definitions
-yarn types
+npm run types
 ```
 
 ### Official theme

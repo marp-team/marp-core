@@ -17,9 +17,12 @@ describe('Marp', () => {
 
   const loadCheerio = (html: string, opts?: CheerioOptions) =>
     load(html, {
-      lowerCaseAttributeNames: false,
-      lowerCaseTags: false,
       ...opts,
+      xml: {
+        lowerCaseAttributeNames: false,
+        lowerCaseTags: false,
+        ...(typeof opts?.xml === 'object' ? opts.xml : {}),
+      },
     })
 
   it('extends Marpit', () => expect(marp()).toBeInstanceOf(Marpit))
@@ -1213,7 +1216,7 @@ function matchwo(a,b)
 
       expect(instance.highlightjs.highlight).toBeInstanceOf(Function)
       expect(instance.highlightjs.versionString).toMatchInlineSnapshot(
-        `"11.9.0"`,
+        `"11.10.0"`,
       )
     })
 

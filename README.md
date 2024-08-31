@@ -12,13 +12,7 @@ In order to use on Marp tools, we have extended from the slide deck framework **
 ## Install
 
 ```bash
-# npm
 npm install --save @marp-team/marp-core
-```
-
-```bash
-# yarn
-yarn add @marp-team/marp-core
 ```
 
 ## Usage
