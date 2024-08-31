@@ -520,7 +520,9 @@ function matchwo(a,b)
           },
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         postcss([walkerPlugin]).process(css, { from: undefined }).css
+
         return walkedUrls
       }
 
@@ -1020,6 +1022,7 @@ function matchwo(a,b)
 
           let ret: string | undefined
 
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           postcss({
             postcssPlugin: 'transformed-decl',
             Declaration: {

@@ -1,4 +1,4 @@
-type Constructor<T = {}> = new (...args: any[]) => T // eslint-disable-line @typescript-eslint/ban-types
+type Constructor<T = object> = new (...args: any[]) => T
 
 export const createMarpCustomElement = <T extends Constructor<HTMLElement>>(
   Base: T,
