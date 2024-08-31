@@ -65,11 +65,11 @@
     "exec": "npx @marp-team/marp-cli@latest -y"
   },
   "devDependencies": {
+    "@csstools/postcss-minify": "^2.0.1",
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-replace": "^5.0.7",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@tsconfig/node20": "^20.1.4",
@@ -98,9 +98,6 @@
     "nodemon": "^3.1.4",
     "npm-check-updates": "^17.1.0",
     "npm-run-all2": "^6.2.2",
-    "postcss-minify-params": "^7.0.2",
-    "postcss-minify-selectors": "^7.0.3",
-    "postcss-normalize-whitespace": "^7.0.0",
     "postcss-url": "^10.1.3",
     "prettier": "^3.3.3",
     "rimraf": "^6.0.1",
