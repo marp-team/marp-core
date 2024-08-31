@@ -194,8 +194,7 @@ section {
   --paginate-color: #777;
 
   display: block;
-  align-content: center;
-  align-content: safe center;
+  place-content: safe center center;
   font-size: 29px;
   height: 720px;
   padding: 78.5px;
@@ -204,7 +203,6 @@ section {
   /* Definitions for classic bhavior: Users can adopt flex centering by tweaking style `section { display: flex }` */
   flex-flow: column nowrap;
   align-items: stretch;
-  justify-content: center;
 
   &:where(.invert) {
     --h1-color: #cee7ff;
