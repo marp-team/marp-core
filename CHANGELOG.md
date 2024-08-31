@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Breaking
+
+- Drop support against end-of-lifed Node.js versions (v16 and earlier) ([#359](https://github.com/marp-team/marp-core/pull/359))
+
+### Changed
+
+- Upgrade development Node.js to v18 LTS ([#359](https://github.com/marp-team/marp-core/pull/359))
+
 ## v3.9.0 - 2023-10-15
 
 ### Added
