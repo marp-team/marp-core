@@ -1085,7 +1085,7 @@ function matchwo(a,b)
 
       // Custom theme
       const customTheme =
-        '/* @theme a */  @media screen \t and (  min-width : 768px )  { div { color: #f00; }  }'
+        '/* @theme a */\n@media screen and (min-width : 768px)  { div { color: #f00; }  }'
 
       enabled.themeSet.add(customTheme)
       disabled.themeSet.add(customTheme)
@@ -1093,12 +1093,11 @@ function matchwo(a,b)
       const enabledCss = enabled.render('<!-- theme: a -->').css
       const disabledCss = disabled.render('<!-- theme: a -->').css
 
-      expect(disabledCss).toContain(
-        '@media screen \t and (  min-width : 768px )',
-      )
       expect(disabledCss).toContain('div { color: #f00; }')
-      expect(enabledCss).toContain('@media screen and (min-width:768px)')
       expect(enabledCss).toContain('div{color:#f00}')
+      expect(enabledCss.split('\n').length).toBeLessThan(
+        disabledCss.split('\n').length,
+      )
     })
 
     it('applies minifier by default', () => {

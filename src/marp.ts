@@ -1,3 +1,4 @@
+import postcssMinify from '@csstools/postcss-minify'
 import { Marpit, Options, ThemeSetPackOptions } from '@marp-team/marpit'
 import type { HLJSApi } from 'highlight.js'
 import postcss, { AcceptedPlugin } from 'postcss'
@@ -10,7 +11,6 @@ import * as emojiPlugin from './emoji/emoji'
 import { generateHighlightJSInstance } from './highlightjs'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
-import minifyPlugins from './prebundles/postcss-minify-plugins'
 import * as scriptPlugin from './script/script'
 import * as sizePlugin from './size/size'
 import * as slugPlugin from './slug/slug'
@@ -116,7 +116,7 @@ export class Marp extends Marpit {
     const original = super.renderStyle(theme)
     const postprocessorPlugins: AcceptedPlugin[] = [
       customElements.css,
-      ...(this.options.minifyCSS ? minifyPlugins : []),
+      ...(this.options.minifyCSS ? [postcssMinify()] : []),
     ]
 
     const postprocessor = postcss(postprocessorPlugins)
