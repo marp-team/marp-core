@@ -5,7 +5,7 @@ export const createMarpCustomElement = <T extends Constructor<HTMLElement>>(
   { attrs = {}, style }: { attrs?: Record<string, string>; style?: string },
 ) =>
   class MarpCustomElement extends Base {
-    shadowRoot!: ShadowRoot
+    declare shadowRoot: ShadowRoot
 
     constructor(...args: any[]) {
       super(...args)
