@@ -62,7 +62,8 @@ hr {
 }
 
 pre {
-  border: 1px solid var(--color-border-default);
+  /* stylelint-disable-next-line custom-property-pattern */
+  border: 1px solid var(--borderColor-default);
   line-height: 1.15;
   overflow: visible;
 
