@@ -197,7 +197,7 @@ describe('Marp', () => {
 
       it('uses SVG via jsDelivr CDN by default', () => {
         expect(emojiSrc(':ok_hand:')).toMatchInlineSnapshot(
-          `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f44c.svg"`,
+          `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f44c.svg"`,
         )
       })
 
@@ -211,7 +211,7 @@ describe('Marp', () => {
           expect(
             emojiSrc(':+1:', instance({ base: undefined })),
           ).toMatchInlineSnapshot(
-            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f44d.svg"`,
+            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f44d.svg"`,
           ))
       })
 
@@ -220,7 +220,7 @@ describe('Marp', () => {
           expect(
             emojiSrc(':+1:', instance({ ext: 'png' })),
           ).toMatchInlineSnapshot(
-            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/72x72/1f44d.png"`,
+            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/72x72/1f44d.png"`,
           ))
       })
     })
@@ -520,7 +520,9 @@ function matchwo(a,b)
           },
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         postcss([walkerPlugin]).process(css, { from: undefined }).css
+
         return walkedUrls
       }
 
@@ -1020,6 +1022,7 @@ function matchwo(a,b)
 
           let ret: string | undefined
 
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           postcss({
             postcssPlugin: 'transformed-decl',
             Declaration: {

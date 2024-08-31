@@ -3,7 +3,7 @@ const dataSvg = 'data-marp-auto-scaling-svg'
 const dataContainer = 'data-marp-auto-scaling-container'
 
 export class MarpAutoScaling extends HTMLElement {
-  shadowRoot!: ShadowRoot
+  declare shadowRoot: ShadowRoot
 
   private container?: HTMLSpanElement
   private containerSize?: { width: number; height: number }

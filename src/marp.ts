@@ -32,7 +32,7 @@ export interface MarpOptions extends Options {
 }
 
 export class Marp extends Marpit {
-  readonly options!: Required<MarpOptions>
+  declare readonly options: Required<MarpOptions>
 
   private _highlightjs: HLJSApi | undefined
 

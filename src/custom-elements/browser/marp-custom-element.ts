@@ -1,11 +1,11 @@
-type Constructor<T = {}> = new (...args: any[]) => T // eslint-disable-line @typescript-eslint/ban-types
+type Constructor<T = object> = new (...args: any[]) => T
 
 export const createMarpCustomElement = <T extends Constructor<HTMLElement>>(
   Base: T,
   { attrs = {}, style }: { attrs?: Record<string, string>; style?: string },
 ) =>
   class MarpCustomElement extends Base {
-    shadowRoot!: ShadowRoot
+    declare shadowRoot: ShadowRoot
 
     constructor(...args: any[]) {
       super(...args)

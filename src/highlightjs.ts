@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-require-imports */
 import hljsCore from 'highlight.js/lib/core'
 
 export const generateHighlightJSInstance = () => {

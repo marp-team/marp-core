@@ -24,6 +24,8 @@
 }
 
 section {
+  @include color-scheme;
+
   background: var(--color-background);
   color: var(--color-foreground);
   display: flex;
@@ -60,8 +62,6 @@ section {
     text-shadow: 0 0 5px var(--color-background);
     width: 80px;
   }
-
-  @include color-scheme;
 
   &:where(:not(.invert)) {
     @import '~highlight.js/styles/color-brewer';

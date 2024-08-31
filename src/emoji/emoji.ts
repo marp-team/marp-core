@@ -1,7 +1,7 @@
 import marpitPlugin from '@marp-team/marpit/plugin'
 import twemoji from '@twemoji/api'
 import emojiRegex from 'emoji-regex'
-import markdownItEmoji from 'markdown-it-emoji'
+import { full as markdownItEmoji } from 'markdown-it-emoji'
 import twemojiCSS from './twemoji.scss'
 
 export interface EmojiOptions {
@@ -28,8 +28,7 @@ export const markdown = marpitPlugin((md) => {
   const twemojiExt = twemojiOpts.ext || 'svg'
 
   const twemojiParse = (content: string): string =>
-    // Casting to any is a workaround until merging the PR https://github.com/jdecked/twemoji/pull/1
-    (twemoji as any).parse(content, {
+    twemoji.parse(content, {
       attributes: () => ({ 'data-marp-twemoji': '' }),
       base: twemojiOpts.base || undefined,
       ext: `.${twemojiExt}`,
@@ -55,7 +54,7 @@ export const markdown = marpitPlugin((md) => {
 
     markdownItEmoji(picker, { shortcuts: {} })
 
-    // TODO: use md.core.ruler.after in markdown-it v13
+    // TODO: use md.core.ruler.after
     md.core.ruler.push('marp_emoji', (state) => {
       const { Token } = state
 
