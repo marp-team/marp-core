@@ -9,15 +9,18 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:import/recommended',
-    'plugin:import/typescript',
+    'plugin:import-x/recommended',
+    'plugin:import-x/typescript',
     'prettier',
   ],
   rules: {
-    'import/order': ['error', { alphabetize: { order: 'asc' } }],
+    'import-x/order': ['error', { alphabetize: { order: 'asc' } }],
   },
   settings: {
-    'import/ignore': ['@rollup/plugin-node-resolve'],
+    'import-x/resolver': {
+      typescript: true,
+      node: true,
+    },
   },
   overrides: [
     {
