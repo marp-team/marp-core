@@ -28,13 +28,13 @@ section {
 
   background: var(--color-background);
   color: var(--color-foreground);
-  display: flex;
-  flex-flow: column nowrap;
+  display: block;
+  align-content: center;
+  align-content: safe center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 40px;
   height: 720px;
-  justify-content: center;
   letter-spacing: 3px;
   line-height: 1.4;
   padding: 30px 70px;
@@ -43,6 +43,11 @@ section {
   width: 1280px;
   word-wrap: break-word;
   z-index: 0;
+
+  /* Definitions for classic bhavior: Users can adopt flex centering by tweaking style `section { display: flex }` */
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: center;
 
   &::after {
     align-items: flex-end;

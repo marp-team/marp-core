@@ -281,8 +281,12 @@ section {
   }
 
   &:where(.lead) {
-    display: flex;
+    align-content: center;
+    align-content: safe center;
+
+    /* Definitions for classic bhavior: Users can adopt flex centering by tweaking style `section.lead { display: flex }` */
     flex-flow: column nowrap;
+    align-items: stretch;
     justify-content: center;
 
     h1,

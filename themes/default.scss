@@ -193,14 +193,18 @@ section {
   --heading-strong-color: #48c;
   --paginate-color: #777;
 
-  align-items: stretch;
-  display: flex;
-  flex-flow: column nowrap;
+  display: block;
+  align-content: center;
+  align-content: safe center;
   font-size: 29px;
   height: 720px;
-  justify-content: center;
   padding: 78.5px;
   width: 1280px;
+
+  /* Definitions for classic bhavior: Users can adopt flex centering by tweaking style `section { display: flex }` */
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: center;
 
   &:where(.invert) {
     --h1-color: #cee7ff;
