@@ -12,6 +12,7 @@
 - Upgrade Marpit to [v3.1.1](https://github.com/marp-team/marpit/releases/v3.1.1) ([#378](https://github.com/marp-team/marp-core/pull/378))
   - Bump markdown-it to [v14.1.0](https://github.com/markdown-it/markdown-it/blob/master/CHANGELOG.md#1410---2024-03-19), and follow the latest spec of [CommonMark 0.31.2](https://spec.commonmark.org/0.31.2/)
   - Support for CSS nesting (`cssNesting` constructor option)
+- Switch package manager from yarn to npm ([#379](https://github.com/marp-team/marp-core/pull/379))
 
 ## v3.9.0 - 2023-10-15
 
