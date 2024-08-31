@@ -34,7 +34,7 @@
     "browser.d.ts"
   ],
   "engines": {
-    "node": "^12.20 || ^14.13.1 || >=16"
+    "node": ">=18"
   },
   "scripts": {
     "build": "yarn -s clean && rollup -c",
@@ -117,8 +117,8 @@
   "dependencies": {
     "@marp-team/marpit": "^2.6.1",
     "@marp-team/marpit-svg-polyfill": "^2.1.0",
-    "highlight.js": "11.8.0",
-    "katex": "^0.16.9",
+    "highlight.js": "^11.9.0",
+    "katex": "^0.16.11",
     "mathjax-full": "^3.2.2",
     "postcss": "^8.4.31",
     "postcss-selector-parser": "^6.0.13",

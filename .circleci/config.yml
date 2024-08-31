@@ -104,29 +104,28 @@ jobs:
     steps:
       - audit
 
-  test-node14:
-    executor:
-      name: node
-      version: '14.21'
-    steps:
-      - prepare:
-          force: true
-      - test
-
-  test-node16:
-    executor:
-      name: node
-      version: '16.20'
-    steps:
-      - prepare:
-          force: true
-      - lint
-      - test
-
   test-node18:
     executor:
       name: node
-      version: '18.18.1' # Specify LTS version for development
+      version: '18.20'
+    steps:
+      - prepare
+      - lint
+      - test
+
+  test-node20:
+    executor:
+      name: node
+      version: '20.17.0' # Specify LTS version for development
+    steps:
+      - prepare
+      - lint
+      - test
+
+  test-node22:
+    executor:
+      name: node
+      version: '22.7'
     steps:
       - prepare
       - lint
@@ -136,12 +135,12 @@ workflows:
   test:
     jobs:
       - audit
-      - test-node14:
-          requires:
-            - audit
-      - test-node16:
-          requires:
-            - audit
       - test-node18:
+          requires:
+            - audit
+      - test-node20:
+          requires:
+            - audit
+      - test-node22:
           requires:
             - audit
