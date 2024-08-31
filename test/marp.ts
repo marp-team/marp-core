@@ -1215,7 +1215,9 @@ function matchwo(a,b)
       const instance = marp()
 
       expect(instance.highlightjs.highlight).toBeInstanceOf(Function)
-      expect(instance.highlightjs.versionString).toMatchInlineSnapshot(`"11.10.0"`)
+      expect(instance.highlightjs.versionString).toMatchInlineSnapshot(
+        `"11.10.0"`,
+      )
     })
 
     it('has registered all highlight languages as same as highlight.js module', () => {
