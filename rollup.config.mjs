@@ -5,7 +5,6 @@ import alias from '@rollup/plugin-alias'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
-import replace from '@rollup/plugin-replace'
 import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
 import autoprefixer from 'autoprefixer'
@@ -27,10 +26,6 @@ const plugins = ({ browser = false } = {}) => [
         find: /^.+browser-script$/,
         replacement: path.resolve(__dirname, 'lib/browser.js'),
       },
-      {
-        find: /^.*prebundles[\\/]postcss-minify-plugins$/,
-        replacement: path.resolve(__dirname, 'tmp/postcss-minify-plugins.mjs'),
-      },
     ],
   }),
   string({ include: ['lib/*.js'] }),
@@ -51,9 +46,7 @@ const plugins = ({ browser = false } = {}) => [
         preset: [
           'default',
           {
-            // Some minifers will apply on runtime to make debug easily.
-            minifyParams: false,
-            minifySelectors: false,
+            // Whitespace normalizer will apply on runtime  to make debug easily (minifyCSS option)
             normalizeWhitespace: false,
           },
         ],
@@ -61,22 +54,6 @@ const plugins = ({ browser = false } = {}) => [
     ],
   }),
   !process.env.ROLLUP_WATCH && terser(),
-]
-
-const prebundlePlugins = () => [
-  alias({
-    entries: [
-      {
-        find: 'browserslist',
-        replacement: path.resolve(
-          __dirname,
-          'src/prebundles/mocks/browserslist.ts',
-        ),
-      },
-    ],
-  }),
-  ...plugins(),
-  replace({ preventAssignment: true, __dirname: '""' }),
 ]
 
 const external = (deps) => (id) =>
@@ -93,17 +70,6 @@ export default [
     input: 'src/browser.ts',
     output: { exports: 'named', file: 'lib/browser.cjs.js', format: 'cjs' },
     plugins: plugins({ browser: true }),
-  },
-
-  // Prebundles
-  {
-    input: `src/prebundles/postcss-minify-plugins.ts`,
-    output: {
-      exports: 'named',
-      file: 'tmp/postcss-minify-plugins.mjs',
-      format: 'es',
-    },
-    plugins: prebundlePlugins(),
   },
 
   // Main bundle
