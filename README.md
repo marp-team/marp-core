@@ -88,7 +88,7 @@ Theme author does not have to worry an unintended design being used with unexpec
 
 ### Emoji support
 
-Emoji shortcode (like `:smile:`) and Unicode emoji 😄 will convert into the SVG vector image provided by [twemoji](https://github.com/twitter/twemoji) <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f604.svg" alt="😄" width="16" height="16" />. It could render emoji with high resolution.
+Emoji shortcode (like `:smile:`) and Unicode emoji 😄 will convert into the SVG vector image provided by [twemoji](https://github.com/jdecked/twemoji) <img src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f604.svg" alt="😄" width="16" height="16" />. It could render emoji with high resolution.
 
 ---
 
@@ -152,7 +152,8 @@ $$
 
 If not declared, Marp Core will use MathJax to render math. But we recommend to declare the library whenever to use math typesetting.
 
-> :warning: The declaration of math library is given priority over [`math` JS constructor option](#math-constructor-option), but you cannot turn on again via `math` global directive if disabled math typesetting by the constructor.
+> [!WARNING]
+> The declaration of math library is given priority over [`math` JS constructor option](#math-constructor-option), but you cannot turn on again via `math` global directive if disabled math typesetting by the constructor.
 
 ---
 
@@ -176,7 +177,8 @@ All of [Marp Core's built-in themes][themes] are ready to use full-featured auto
 
 This feature depends to inline SVG, so note that it will not working if disabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) by setting `inlineSVG: false` in constructor option.
 
-> :warning: Auto-scaling is designed for horizontal scaling. In vertical, the scaled element still may stick out from top and bottom of slide if there are a lot of contents around it.
+> [!WARNING]
+> Auto-scaling is designed for horizontal scaling. In vertical, the scaled element still may stick out from bottom of slide if there are a lot of contents around it.
 
 #### Fitting header
 
@@ -197,7 +199,8 @@ Some of blocks will be shrunk to fit onto the slide. It is useful preventing stu
 |    **Code block**    | ![Traditional rendering](https://bit.ly/2LyEnmi) | ![Auto-scaling](https://bit.ly/2N4yWQZ) |
 | **KaTeX math block** | ![Traditional rendering](https://bit.ly/2NXoHuW) | ![Auto-scaling](https://bit.ly/2M6LyCk) |
 
-> :information_source: MathJax math block will always be scaled without even setting `@auto-scaling` metadata.
+> [!NOTE]
+> MathJax math block will always be scaled without even setting `@auto-scaling` metadata.
 
 ---
 
@@ -205,7 +208,9 @@ Some of blocks will be shrunk to fit onto the slide. It is useful preventing stu
 
 You can customize a behavior of Marp parser by passing an options object to the constructor. You can also pass together with [Marpit constructor options](https://marpit-api.marp.app/marpit#Marpit).
 
-> :information_source: [Marpit's `markdown` option](https://marpit-api.marp.app/marpit#Marpit) is accepted only object options because of always using CommonMark.
+> [!NOTE]
+>
+> [Marpit's `markdown` option](https://marpit-api.marp.app/marpit#Marpit) is accepted only object options because of always using CommonMark.
 
 ```javascript
 const marp = new Marp({
@@ -262,6 +267,7 @@ By passing `object`, you can set the allowlist to specify allowed tags and attri
 
 Marp core allows only `<br>` tag by default. That is defined in [a readonly `html` member in `Marp` class](https://github.com/marp-team/marp-core/blob/38fb33680c5837f9c48d8a88ac94b9f0862ab6c7/src/marp.ts#L34).
 
+> [!NOTE]
 > Whatever any option is selected, `<!-- HTML comment -->` and `<style>` tags are always parsed by Marpit for directives / tweaking style.
 
 ### `emoji`: _`object`_
@@ -334,6 +340,7 @@ You can control details of behavior by passing `object`.
 
   Assigning the custom post-process function is also helpful to append the custom prefix and suffix to the generated slug: `` (slug, i) => `prefix:${slug}:${i}` ``
 
+> [!NOTE]
 > Take care not to confuse Marp Core's `slug` option and [Marpit's `anchor` option](https://marpit-api.marp.app/marpit#:~:text=Description-,anchor,-boolean%20%7C%20Marpit). `slug` is for the Markdown headings, and `anchor` is for the slide elements.
 >
 > `Marp` class is extended from `Marpit` class so you can customize both options in the constructor. To fully disable auto-generated `id` attribute, set both options as `false`. (This is important to avoid breaking your Web application by user's Markdown contents)
