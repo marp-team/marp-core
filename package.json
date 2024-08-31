@@ -94,6 +94,7 @@
     "markdown-it-emoji": "^2.0.2",
     "mkdirp": "^3.0.1",
     "nodemon": "^3.0.1",
+    "npm-check-updates": "^17.1.0",
     "npm-run-all": "^4.1.5",
     "postcss-minify-params": "^6.0.0",
     "postcss-minify-selectors": "^6.0.0",
