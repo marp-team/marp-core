@@ -47,6 +47,7 @@
 * Upgrade development Node.js to v20 LTS ([#359](https://github.com/marp-team/marp-core/pull/359))
 * Upgrade dependent packages to the latest version ([#380](https://github.com/marp-team/marp-core/pull/380))
 * Switch package manager from yarn to npm ([#379](https://github.com/marp-team/marp-core/pull/379))
+* Migrate ESLint config to Flat config ([#385](https://github.com/marp-team/marp-core/pull/385))
 
 ### Fixed
 
