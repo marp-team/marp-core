@@ -1,4 +1,4 @@
-import { browser } from '../src/browser'  
+import { browser } from '../src/browser'
 
 const script = document.currentScript
 
