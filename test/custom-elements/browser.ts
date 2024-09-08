@@ -84,6 +84,34 @@ describe('The hydration script for custom elements', () => {
       )
     })
 
+    it('does not throw known DOMException error while upgrading <pre is="marp-pre"> to <marp-pre> (for Firefox)', () => {
+      document.body.innerHTML = '<pre is="marp-pre">1</pre>'
+
+      jest
+        .spyOn(HTMLElement.prototype, 'attachShadow')
+        .mockImplementationOnce(() => {
+          throw new DOMException(
+            'Element.attachShadow: Unable to attach ShadowDOM',
+            'NotSupportedError',
+          )
+        })
+
+      expect(() => browser.applyCustomElements()).not.toThrow()
+    })
+
+    it.skip('throws error if unknown error occured while upgrading <pre is="marp-pre"> to <marp-pre>', () => {
+      document.body.innerHTML = '<pre is="marp-pre">1</pre>'
+
+      jest.spyOn(console, 'error').mockImplementation(() => {})
+      jest
+        .spyOn(HTMLElement.prototype, 'attachShadow')
+        .mockImplementationOnce(() => {
+          throw new Error('Unknown error while attaching shadow')
+        })
+
+      expect(() => browser.applyCustomElements()).toThrow()
+    })
+
     it('does not replace <h1 is="marp-h1"> to <marp-h1>', () => {
       const html = '<h1 is="marp-h1">test</h1>'
       document.body.innerHTML = html

@@ -1,6 +1,9 @@
-const { defaults: tsjPreset } = require('ts-jest/presets')
+import { createDefaultPreset } from 'ts-jest'
 
-module.exports = {
+const tsjPreset = createDefaultPreset()
+
+/** @type {import('jest').Config} */
+const config = {
   collectCoverageFrom: ['src/**/*.{j,t}s'],
   coveragePathIgnorePatterns: ['/node_modules/', '.*\\.d\\.ts'],
   coverageThreshold: { global: { lines: 95 } },
@@ -12,3 +15,5 @@ module.exports = {
   },
   prettierPath: null,
 }
+
+export default config
