@@ -61,6 +61,10 @@ hr {
   padding-top: 0.25em;
 }
 
+img {
+  background-color: transparent;
+}
+
 pre {
   /* stylelint-disable-next-line custom-property-pattern */
   border: 1px solid var(--borderColor-default);

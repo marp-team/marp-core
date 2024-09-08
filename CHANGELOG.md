@@ -43,6 +43,7 @@
   - Support for CSS nesting (`cssNesting` constructor option)
 - Use simpler CSS minification when `minifyCSS` option is enabled ([#381](https://github.com/marp-team/marp-core/pull/381))
 - Relax HTML allowlist: Allowed a lot of HTML elements and attributes by default ([#301](https://github.com/marp-team/marp-core/issues/301), [#383](https://github.com/marp-team/marp-core/pull/383))
+- Make the image background transparent in `default` theme ([#196](https://github.com/marp-team/marp-core/issues/196), [#371](https://github.com/marp-team/marp-core/issues/371), [#386](https://github.com/marp-team/marp-core/pull/386))
 
 * Upgrade development Node.js to v20 LTS ([#359](https://github.com/marp-team/marp-core/pull/359))
 * Upgrade dependent packages to the latest version ([#380](https://github.com/marp-team/marp-core/pull/380))
