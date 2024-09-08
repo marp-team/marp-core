@@ -228,14 +228,39 @@ describe('Marp', () => {
 
   describe('html option', () => {
     describe('with default option', () => {
-      it('sanitizes HTML tag by default', () => {
-        const { html } = marp().render('<b>abc</b>')
-        expect(load(html)('b')).toHaveLength(0)
+      it('allows known HTML tags by default', () => {
+        expect(load(marp().render('<b>abc</b>').html)('b')).toHaveLength(1)
+        expect(
+          load(marp().render('<span>abc</span>').html)('span'),
+        ).toHaveLength(1)
+        expect(
+          load(marp().render('<div class="test">abc</div>').html)('div.test'),
+        ).toHaveLength(1)
+        expect(load(marp().render('allow<br>break').html)('br')).toHaveLength(1)
       })
 
-      it('allows <br> tag', () => {
-        const { html } = marp().render('allow<br>break')
-        expect(load(html)('br')).toHaveLength(1)
+      it('does not allow some insecure elements and attributes', () => {
+        // Insecure elements
+        expect(
+          load(
+            marp({ script: false }).render('<script>alert(1)</script>').html,
+          )('script'),
+        ).toHaveLength(0)
+        expect(load(marp().render('<input />').html)('input')).toHaveLength(0)
+        expect(load(marp().render('<button />').html)('button')).toHaveLength(0)
+
+        // Insecure attributes
+        const $onclick = load(
+          marp().render('<a href="#" onclick="alert(1)">test</a>').html,
+        )
+        expect($onclick('a')).toHaveLength(1)
+        expect($onclick('a[onclick]')).toHaveLength(0)
+
+        const $javascriptSchema = load(
+          marp().render('<a href="javascript:alert(1)">test</a>').html,
+        )
+        expect($javascriptSchema('a[href]')).toHaveLength(1)
+        expect($javascriptSchema('a[href^="javascript:"]')).toHaveLength(0)
       })
 
       it('renders void element with normalized', () => {
@@ -243,13 +268,21 @@ describe('Marp', () => {
         expect(marp().render('<br  >').html).toContain('<br />')
         expect(marp().render('<br/>').html).toContain('<br />')
         expect(marp().render('<br />').html).toContain('<br />')
-        expect(marp().render('<br class="sanitize">').html).toContain('<br />')
+        expect(marp().render('<br class="sanitize">').html).toContain(
+          '<br class="sanitize" />',
+        )
+        expect(marp().render("<br class='sanitize'>").html).toContain(
+          '<br class="sanitize" />',
+        )
+        expect(marp().render(`<br class='"sanitize"'>`).html).toContain(
+          '<br class="&quot;sanitize&quot;" />',
+        )
         expect(marp().render('<br></br>').html).toContain('<br /><br />')
         expect(marp().render('<BR >').html).toContain('<br />')
       })
 
-      // https://github.com/yhatt/marp/issues/243
       it('does not sanitize header and footer', () => {
+        // https://github.com/yhatt/marp/issues/243
         const markdown = '<!--\nheader: "**header**"\nfooter: "*footer*"\n-->'
         const $ = load(marp().render(markdown).html)
 
@@ -311,7 +344,7 @@ function matchwo(a,b)
     describe('with true', () => {
       const m = marp({ html: true })
 
-      it('allows HTML tag', () => {
+      it('allows any HTML tag', () => {
         const { html } = m.render('<b data-custom="test">abc</b>')
         expect(load(html)('b[data-custom="test"]')).toHaveLength(1)
       })
@@ -323,14 +356,16 @@ function matchwo(a,b)
         expect(m.render('<br />').html).toContain('<br />')
         expect(m.render('<br></br>').html).toContain('<br /><br />')
         expect(m.render('<BR >').html).toContain('<br />')
-        expect(m.render('<br  class="normalize">').html).toContain(
-          '<br class="normalize" />',
+
+        // Pass through quotes for attributes
+        expect(m.render("<br  class='normalize'>").html).toContain(
+          "<br class='normalize' />",
         )
       })
     })
 
     describe('with false', () => {
-      it('sanitizes <br> tag', () => {
+      it('sanitizes tags', () => {
         const { html } = marp({ html: false }).render('sanitize<br>break')
         expect(load(html)('br')).toHaveLength(0)
       })
@@ -389,7 +424,12 @@ function matchwo(a,b)
       it('does not normalize void element', () => {
         expect(m.render('<br>').html).toContain('<br>')
         expect(m.render('<br />').html).toContain('<br />')
-        expect(m.render('<br class="sanitize">').html).toContain('<br>')
+        expect(m.render('<br class="sanitize">').html).toContain(
+          '<br class="sanitize">',
+        )
+        expect(m.render("<br class='sanitize'>").html).toContain(
+          '<br class="sanitize">',
+        )
         expect(m.render('<br></br>').html).toContain('<br></br>')
       })
     })

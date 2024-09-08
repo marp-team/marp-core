@@ -14,16 +14,11 @@ import * as mathPlugin from './math/math'
 import * as scriptPlugin from './script/script'
 import * as sizePlugin from './size/size'
 import * as slugPlugin from './slug/slug'
+import { defaultHTMLAllowList, type HTMLAllowList } from './html/allowlist'
 
 export interface MarpOptions extends Options {
   emoji?: emojiPlugin.EmojiOptions
-  html?:
-    | boolean
-    | {
-        [tag: string]:
-          | string[]
-          | { [attr: string]: boolean | ((value: string) => string) }
-      }
+  html?: boolean | HTMLAllowList
   markdown?: object
   math?: mathPlugin.MathOptions
   minifyCSS?: boolean
@@ -36,7 +31,7 @@ export class Marp extends Marpit {
 
   private _highlightjs: HLJSApi | undefined
 
-  static readonly html = { br: [] }
+  static readonly html = defaultHTMLAllowList
 
   constructor(opts: MarpOptions = {}) {
     const mdOpts: Record<string, any> = {
