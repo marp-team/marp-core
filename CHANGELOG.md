@@ -48,6 +48,10 @@
 * Upgrade dependent packages to the latest version ([#380](https://github.com/marp-team/marp-core/pull/380))
 * Switch package manager from yarn to npm ([#379](https://github.com/marp-team/marp-core/pull/379))
 
+### Fixed
+
+- Suppress uncaught `DOMException` error while upgrading `<marp-pre>` Web Component elements in Firefox ([#370](https://github.com/marp-team/marp-core/issues/370), [#384](https://github.com/marp-team/marp-core/pull/384))
+
 ## v3.9.0 - 2023-10-15
 
 ### Added
