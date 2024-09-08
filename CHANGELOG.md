@@ -2,9 +2,35 @@
 
 ## [Unreleased]
 
+> [!IMPORTANT]
+> The new slide container styles, `block` container and safe centering, produce breaking changes to existing slide layouts. ([#382](https://github.com/marp-team/marp-core/pull/382))
+>
+> If you are using the built-in theme that contents are vertically centered (or the custom theme that depends on such themes), you can tweak the style in Markdown or the custom theme to get back the previous `flex` container.
+>
+> - For `default` and `uncover` theme:
+>
+>   ```html
+>   <style>
+>     section {
+>       display: flex;
+>     }
+>   </style>
+>   ```
+>
+> - For `gaia` theme's `lead` class:
+>
+>   ```html
+>   <style>
+>     section.lead {
+>       display: flex;
+>     }
+>   </style>
+>   ```
+
 ### Breaking
 
-- Drop support against end-of-lifed Node.js versions (v16 and earlier) ([#359](https://github.com/marp-team/marp-core/pull/359))
+- Drop support against end-of-lifed Node.js versions (v16 and earlier), and now v18+ are required ([#359](https://github.com/marp-team/marp-core/pull/359))
+- The slide container of built-in themes became the block element and adopted safe centering ([#382](https://github.com/marp-team/marp-core/pull/382))
 
 ### Added
 
@@ -17,7 +43,7 @@
   - Support for CSS nesting (`cssNesting` constructor option)
 - Use simpler CSS minification when `minifyCSS` option is enabled ([#381](https://github.com/marp-team/marp-core/pull/381))
 
-* Upgrade development Node.js to v18 LTS ([#359](https://github.com/marp-team/marp-core/pull/359))
+* Upgrade development Node.js to v20 LTS ([#359](https://github.com/marp-team/marp-core/pull/359))
 * Upgrade dependent packages to the latest version ([#380](https://github.com/marp-team/marp-core/pull/380))
 * Switch package manager from yarn to npm ([#379](https://github.com/marp-team/marp-core/pull/379))
 
