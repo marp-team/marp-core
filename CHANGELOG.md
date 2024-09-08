@@ -30,7 +30,7 @@
 ### Breaking
 
 - Drop support against end-of-lifed Node.js versions (v16 and earlier), and now v18+ are required ([#359](https://github.com/marp-team/marp-core/pull/359))
-- The slide container of built-in themes became the block element and adopted safe centering ([#382](https://github.com/marp-team/marp-core/pull/382))
+- The slide container of built-in themes became the block element and adopted safe centering ([#372](https://github.com/marp-team/marp-core/issues/372), [#382](https://github.com/marp-team/marp-core/pull/382))
 
 ### Added
 
