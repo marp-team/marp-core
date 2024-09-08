@@ -41,7 +41,7 @@ _We will only explain features extended in marp-core._ Please refer to [Marpit f
   - Enabled [inline SVG slide](https://marpit.marp.app/inline-svg), [CSS container query support and loose YAML parsing](https://marpit-api.marp.app/marpit#Marpit) by default.
 
 * **CommonMark**
-  - For making secure, we will deny most of HTML tags used in Markdown by default. Allowed HTML tags are `<br>` only for now.
+  - For making secure, using some insecure HTML elements and attributes are denied by default.
   - Support [table](https://github.github.com/gfm/#tables-extension-) and [strikethrough](https://github.github.com/gfm/#strikethrough-extension-) syntax, based on [GitHub Flavored Markdown](https://github.github.com/gfm/).
   - Line breaks in paragraph will convert to `<br>` tag.
   - Slugification for headings (assigning auto-generated `id` attribute for `<h1>` - `<h6>`) is enabled by default.
