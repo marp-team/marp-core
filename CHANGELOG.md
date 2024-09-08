@@ -42,6 +42,7 @@
   - Bump markdown-it to [v14.1.0](https://github.com/markdown-it/markdown-it/blob/master/CHANGELOG.md#1410---2024-03-19), and follow the latest spec of [CommonMark 0.31.2](https://spec.commonmark.org/0.31.2/)
   - Support for CSS nesting (`cssNesting` constructor option)
 - Use simpler CSS minification when `minifyCSS` option is enabled ([#381](https://github.com/marp-team/marp-core/pull/381))
+- Relax HTML allowlist: Allowed a lot of HTML elements and attributes by default ([#301](https://github.com/marp-team/marp-core/issues/301), [#383](https://github.com/marp-team/marp-core/pull/383))
 
 * Upgrade development Node.js to v20 LTS ([#359](https://github.com/marp-team/marp-core/pull/359))
 * Upgrade dependent packages to the latest version ([#380](https://github.com/marp-team/marp-core/pull/380))
