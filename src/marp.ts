@@ -9,12 +9,12 @@ import * as autoScalingPlugin from './auto-scaling'
 import * as customElements from './custom-elements'
 import * as emojiPlugin from './emoji/emoji'
 import { generateHighlightJSInstance } from './highlightjs'
+import { defaultHTMLAllowList, type HTMLAllowList } from './html/allowlist'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
 import * as scriptPlugin from './script/script'
 import * as sizePlugin from './size/size'
 import * as slugPlugin from './slug/slug'
-import { defaultHTMLAllowList, type HTMLAllowList } from './html/allowlist'
 
 export interface MarpOptions extends Options {
   emoji?: emojiPlugin.EmojiOptions
