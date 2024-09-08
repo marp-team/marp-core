@@ -1,4 +1,4 @@
-import { browser } from '../src/browser' /* eslint-disable-line import-x/no-unresolved */
+import { browser } from '../src/browser'  
 
 const script = document.currentScript
 
