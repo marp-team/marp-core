@@ -3,7 +3,7 @@ import postcssSelectorParser from 'postcss-selector-parser'
 const defaultThemeMatcher = /@theme +default/
 const colorThemeMatcher = /prefers-color-scheme:\s+(light|dark)/i
 
-const plugin = () => {
+export const postcssOptimizeDefaultTheme = () => {
   let shouldProcess = false
 
   return {
@@ -57,6 +57,4 @@ const plugin = () => {
   }
 }
 
-plugin.postcss = true
-
-export default plugin
+postcssOptimizeDefaultTheme.postcss = true
