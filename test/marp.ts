@@ -228,14 +228,140 @@ describe('Marp', () => {
 
   describe('html option', () => {
     describe('with default option', () => {
-      it('sanitizes HTML tag by default', () => {
-        const { html } = marp().render('<b>abc</b>')
-        expect(load(html)('b')).toHaveLength(0)
+      it('allows known HTML tags by default', () => {
+        const $b = load(marp().render('<b>abc</b>').html)
+        expect($b('b')).toHaveLength(1)
+
+        const $span = load(marp().render('<span>abc</span>').html)
+        expect($span('span')).toHaveLength(1)
+
+        const $div = load(marp().render('<div class="test">abc</div>').html)
+        expect($div('div.test')).toHaveLength(1)
+
+        const $br = load(marp().render('allow<br>break').html)
+        expect($br('br')).toHaveLength(1)
+
+        const $aHref = load(
+          marp().render('<a href="https://example.com/">link</a>').html,
+        )
+        expect($aHref('a[href="https://example.com/"]')).toHaveLength(1)
+
+        const $img = load(
+          marp().render(
+            '<img src="https://example.com/hello.jpg" alt="Hello" />',
+          ).html,
+        )
+        expect(
+          $img('img[src="https://example.com/hello.jpg"][alt="Hello"]'),
+        ).toHaveLength(1)
+
+        const $imgLocal = load(
+          marp().render('<img src="./hello.jpg" alt="Hello" />').html,
+        )
+        expect($imgLocal('img[src="./hello.jpg"][alt="Hello"]')).toHaveLength(1)
+
+        const $imgAbsolute = load(
+          marp().render('<img src="/hello.jpg" alt="Hello" />').html,
+        )
+        expect($imgAbsolute('img[src="/hello.jpg"][alt="Hello"]')).toHaveLength(
+          1,
+        )
+
+        const $imgSameSchema = load(
+          marp().render('<img src="//example.com/hello.jpg" alt="Hello" />')
+            .html,
+        )
+        expect(
+          $imgSameSchema('img[src="//example.com/hello.jpg"][alt="Hello"]'),
+        ).toHaveLength(1)
+
+        const $imgData = load(
+          marp().render(
+            `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" alt="Hello" />`,
+          ).html,
+        )
+        expect(
+          $imgData('img[src^="data:image/svg+xml"][alt="Hello"]'),
+        ).toHaveLength(1)
+
+        const $imgSrcSet = load(
+          marp().render(
+            '<img src="hello.jpg" alt="Hello" srcset="hello@2x.jpg 2x, data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 3x" />',
+          ).html,
+        )
+        expect(
+          $imgSrcSet(
+            'img[src="hello.jpg"][srcset="hello@2x.jpg 2x, data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 3x"]',
+          ),
+        ).toHaveLength(1)
+
+        const $pDir = load(marp().render('<p dir="ltr">ltr</p>').html)
+        expect($pDir('p[dir="ltr"]')).toHaveLength(1)
+
+        const $pDirNormalize = load(marp().render('<p dir="LTR">ltr</p>').html)
+        expect($pDirNormalize('p[dir="ltr"]')).toHaveLength(1)
       })
 
-      it('allows <br> tag', () => {
-        const { html } = marp().render('allow<br>break')
-        expect(load(html)('br')).toHaveLength(1)
+      it('does not allow some insecure and invalid elements/attributes', () => {
+        // Insecure elements
+        expect(
+          load(
+            marp({ script: false }).render('<script>alert(1)</script>').html,
+          )('script'),
+        ).toHaveLength(0)
+        expect(load(marp().render('<input />').html)('input')).toHaveLength(0)
+        expect(load(marp().render('<button />').html)('button')).toHaveLength(0)
+
+        // Insecure attributes
+        const $onclick = load(
+          marp().render('<a href="#" onclick="alert(1)">test</a>').html,
+        )
+        expect($onclick('a')).toHaveLength(1)
+        expect($onclick('a[onclick]')).toHaveLength(0)
+
+        const $javascriptSchema = load(
+          marp().render('<a href="javascript:alert(1)">test</a>').html,
+        )
+        expect($javascriptSchema('a[href]')).toHaveLength(1)
+        expect($javascriptSchema('a[href^="javascript:"]')).toHaveLength(0)
+
+        const $dataSchema = load(
+          marp().render(
+            "<a href='data:text/html,<script>alert(1)</script>'>test</a>",
+          ).html,
+        )
+        expect($dataSchema('a[href]')).toHaveLength(1)
+        expect($dataSchema('a[href^="data:text/html"]')).toHaveLength(0)
+
+        // Invalid schema
+        const $ftpSchema = load(
+          marp().render('<a href="ftp://example.com">test</a>').html,
+        )
+        expect($ftpSchema('a[href]')).toHaveLength(1)
+        expect($ftpSchema('a[href^="ftp:"]')).toHaveLength(0)
+
+        const $mailtoSchema = load(
+          marp().render("<a href='mailto:test@example.com'>mail</a>").html,
+        )
+        expect($mailtoSchema('a[href]')).toHaveLength(1)
+        expect($mailtoSchema('a[href^="mailto:"]')).toHaveLength(0)
+
+        const $imgSrcSet = load(
+          marp().render(
+            '<img src="hello.jpg" alt="Hello" srcset="hello@2x.jpg 2x, unknown:unknown.jpg 2x" />',
+          ).html,
+        )
+        expect($imgSrcSet('img[src="hello.jpg"]')).toHaveLength(1)
+        expect(
+          $imgSrcSet('img[src="hello.jpg"][srcset*="unknown"]'),
+        ).toHaveLength(0)
+
+        // Invalid attributes
+        const $pDirUnknown = load(
+          marp().render('<p dir="unknown">unknown</p>').html,
+        )
+        expect($pDirUnknown('p[dir]')).toHaveLength(1)
+        expect($pDirUnknown('p[dir="unknown"]')).toHaveLength(0)
       })
 
       it('renders void element with normalized', () => {
@@ -243,13 +369,21 @@ describe('Marp', () => {
         expect(marp().render('<br  >').html).toContain('<br />')
         expect(marp().render('<br/>').html).toContain('<br />')
         expect(marp().render('<br />').html).toContain('<br />')
-        expect(marp().render('<br class="sanitize">').html).toContain('<br />')
+        expect(marp().render('<br class="sanitize">').html).toContain(
+          '<br class="sanitize" />',
+        )
+        expect(marp().render("<br class='sanitize'>").html).toContain(
+          '<br class="sanitize" />',
+        )
+        expect(marp().render(`<br class='"sanitize"'>`).html).toContain(
+          '<br class="&quot;sanitize&quot;" />',
+        )
         expect(marp().render('<br></br>').html).toContain('<br /><br />')
         expect(marp().render('<BR >').html).toContain('<br />')
       })
 
-      // https://github.com/yhatt/marp/issues/243
       it('does not sanitize header and footer', () => {
+        // https://github.com/yhatt/marp/issues/243
         const markdown = '<!--\nheader: "**header**"\nfooter: "*footer*"\n-->'
         const $ = load(marp().render(markdown).html)
 
@@ -311,7 +445,7 @@ function matchwo(a,b)
     describe('with true', () => {
       const m = marp({ html: true })
 
-      it('allows HTML tag', () => {
+      it('allows any HTML tag', () => {
         const { html } = m.render('<b data-custom="test">abc</b>')
         expect(load(html)('b[data-custom="test"]')).toHaveLength(1)
       })
@@ -323,14 +457,16 @@ function matchwo(a,b)
         expect(m.render('<br />').html).toContain('<br />')
         expect(m.render('<br></br>').html).toContain('<br /><br />')
         expect(m.render('<BR >').html).toContain('<br />')
-        expect(m.render('<br  class="normalize">').html).toContain(
-          '<br class="normalize" />',
+
+        // Pass through quotes for attributes
+        expect(m.render("<br  class='normalize'>").html).toContain(
+          "<br class='normalize' />",
         )
       })
     })
 
     describe('with false', () => {
-      it('sanitizes <br> tag', () => {
+      it('sanitizes tags', () => {
         const { html } = marp({ html: false }).render('sanitize<br>break')
         expect(load(html)('br')).toHaveLength(0)
       })
@@ -389,7 +525,12 @@ function matchwo(a,b)
       it('does not normalize void element', () => {
         expect(m.render('<br>').html).toContain('<br>')
         expect(m.render('<br />').html).toContain('<br />')
-        expect(m.render('<br class="sanitize">').html).toContain('<br>')
+        expect(m.render('<br class="sanitize">').html).toContain(
+          '<br class="sanitize">',
+        )
+        expect(m.render("<br class='sanitize'>").html).toContain(
+          '<br class="sanitize">',
+        )
         expect(m.render('<br></br>').html).toContain('<br></br>')
       })
     })

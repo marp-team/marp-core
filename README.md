@@ -243,6 +243,7 @@ const marp = new Marp({
 
 Setting whether to render raw HTML in Markdown. It's an alias to `markdown.html` ([markdown-it option](https://markdown-it.github.io/markdown-it/#MarkdownIt.new)) but has additional feature about HTML allowlist.
 
+- (default): Use Marp's default allowlist.
 - `true`: The all HTML will be allowed.
 - `false`: All HTML except supported in Marpit Markdown will be disallowed.
 
@@ -265,7 +266,7 @@ By passing `object`, you can set the allowlist to specify allowed tags and attri
 }
 ```
 
-Marp core allows only `<br>` tag by default. That is defined in [a readonly `html` member in `Marp` class](https://github.com/marp-team/marp-core/blob/38fb33680c5837f9c48d8a88ac94b9f0862ab6c7/src/marp.ts#L34).
+By default, Marp Core allows known HTML elements and attributes that are considered as safe. That is defined as a readonly `html` member in `Marp` class. [See the full default allowlist in the source code.](src/html/allowlist.ts)
 
 > [!NOTE]
 > Whatever any option is selected, `<!-- HTML comment -->` and `<style>` tags are always parsed by Marpit for directives / tweaking style.

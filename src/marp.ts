@@ -9,6 +9,7 @@ import * as autoScalingPlugin from './auto-scaling'
 import * as customElements from './custom-elements'
 import * as emojiPlugin from './emoji/emoji'
 import { generateHighlightJSInstance } from './highlightjs'
+import { defaultHTMLAllowList, type HTMLAllowList } from './html/allowlist'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
 import * as scriptPlugin from './script/script'
@@ -17,13 +18,7 @@ import * as slugPlugin from './slug/slug'
 
 export interface MarpOptions extends Options {
   emoji?: emojiPlugin.EmojiOptions
-  html?:
-    | boolean
-    | {
-        [tag: string]:
-          | string[]
-          | { [attr: string]: boolean | ((value: string) => string) }
-      }
+  html?: boolean | HTMLAllowList
   markdown?: object
   math?: mathPlugin.MathOptions
   minifyCSS?: boolean
@@ -36,7 +31,7 @@ export class Marp extends Marpit {
 
   private _highlightjs: HLJSApi | undefined
 
-  static readonly html = { br: [] }
+  static readonly html = defaultHTMLAllowList
 
   constructor(opts: MarpOptions = {}) {
     const mdOpts: Record<string, any> = {
