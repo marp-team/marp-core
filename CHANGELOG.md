@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.0.0 - 2024-09-09
+
 > [!IMPORTANT]
 > The new slide container styles, `block` container and safe centering, produce breaking changes to existing slide layouts. ([#382](https://github.com/marp-team/marp-core/pull/382))
 >
