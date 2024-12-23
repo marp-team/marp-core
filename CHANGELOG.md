@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Security
+
+- Improper neutralization of HTML sanitization by comments
+
 ## v4.0.0 - 2024-09-09
 
 > [!IMPORTANT]
