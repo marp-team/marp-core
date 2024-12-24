@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use 'sass:meta';
 
 /*!
  * Marp / Marpit Gaia theme.
@@ -17,7 +18,7 @@ $color-primary: #0288d1;
 $color-secondary: #81d4fa;
 
 @import 'https://fonts.bunny.net/css?family=Lato:400,900|Roboto+Mono:400,700&display=swap';
-@import '~highlight.js/styles/sunburst';
+@include meta.load-css('pkg:highlight.js/styles/sunburst.css');
 
 @mixin color-scheme($bg, $text, $highlight) {
   --color-background: #{$bg};

@@ -1,4 +1,4 @@
-import katex from 'katex'
+import { renderToString } from 'katex'
 import { version } from 'katex/package.json'
 import { isEnabledAutoScaling } from '../auto-scaling/utils'
 import { getMathContext } from './context'
@@ -15,7 +15,7 @@ export const inline = (marpit: any) => (tokens, idx) => {
   } = getMathContext(marpit)
 
   try {
-    return katex.renderToString(content, {
+    return renderToString(content, {
       throwOnError: false,
       ...(katexOption || {}),
       macros: katexMacroContext,
@@ -35,7 +35,7 @@ export const block = (marpit: any) => (tokens, idx) => {
   } = getMathContext(marpit)
 
   try {
-    let rendered = katex.renderToString(content, {
+    let rendered = renderToString(content, {
       throwOnError: false,
       ...(katexOption || {}),
       macros: katexMacroContext,
