@@ -586,6 +586,14 @@ function complex(a,b)
           )
           expect($attrAndScript).toContain('<script type="text/javascript">')
           expect($attrAndScript).toContain('console.log(2 > 1 && 1 < 2)')
+
+          // Including incorrect closing (may be malicious)
+          const { html: $incorrectClosing } = m.render(
+            '<script></script><b>bypass whitelist</b></script>',
+          )
+          expect($incorrectClosing).toContain(
+            '&lt;b&gt;bypass whitelist&lt;/b&gt;',
+          )
         })
 
         it('does escape JavaScript special character if <script> HTML block has trailing contents', () => {

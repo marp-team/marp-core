@@ -24,7 +24,14 @@ const xhtmlOutFilter = new FilterXSS({
 // end the HTML block with `</script>`, that will not exclude from sanitizing.
 //
 const scriptBlockRegexp =
-  /^<script(?:>|[ \t\r\n][\s\S]*?>)[\s\S]*<\/script>[ \t\r\n]*$/i
+  /^<script(?:>|[ \t\f\n\r][\s\S]*?>)([\s\S]*)<\/script>[ \t\f\n\r]*$/i
+
+const scriptBlockContentUnexpectedCloseRegexp = /<\/script[>/\t\f\n\r ]/i
+
+const isValidScriptBlock = (htmlBlockContent: string) => {
+  const m = htmlBlockContent.match(scriptBlockRegexp)
+  return !!(m && !scriptBlockContentUnexpectedCloseRegexp.test(m[1]))
+}
 
 export function markdown(md): void {
   const { html_inline, html_block } = md.renderer.rules
@@ -91,7 +98,7 @@ export function markdown(md): void {
 
     // If the entire content of HTML block is consisted of script tag when the
     // script tag is allowed, we will not escape the content of the script tag.
-    if (scriptAllowAttrs && scriptBlockRegexp.test(ret)) {
+    if (scriptAllowAttrs && isValidScriptBlock(ret)) {
       const scriptFilter = new FilterXSS({
         allowList: { script: scriptAllowAttrs || [] },
         allowCommentTag: true,
