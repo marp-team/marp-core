@@ -1,5 +1,5 @@
-/* stylelint-disable-next-line scss/at-import-partial-extension */
-@import '~katex/dist/katex.min';
+@use 'sass:meta';
+@include meta.load-css('pkg:katex/dist/katex.min.css');
 
 .katex-display {
   margin: 0;

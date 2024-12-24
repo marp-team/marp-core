@@ -1454,7 +1454,7 @@ function complex(a,b)
 
       expect(instance.highlightjs.highlight).toBeInstanceOf(Function)
       expect(instance.highlightjs.versionString).toMatchInlineSnapshot(
-        `"11.10.0"`,
+        `"11.11.0"`,
       )
     })
 

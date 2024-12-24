@@ -11,7 +11,8 @@
  * @size 4:3 960px 720px
  */
 
-@import '~github-markdown-css';
+@use 'sass:meta';
+@include meta.load-css('pkg:github-markdown-css/github-markdown.css');
 
 h1 {
   border-bottom: none;
@@ -196,6 +197,17 @@ section {
   --header-footer-color: #{rgba(#666, 0.75)};
   --heading-strong-color: #48c;
   --paginate-color: #777;
+
+  /*
+   * GitHub Markdown CSS has defined space sizes with the rem unit. The root
+   * font size was changed by `font-size` property on `section` element so we
+   * have to revert them to the default value.
+   */
+  --base-size-4: 4px;
+  --base-size-8: 8px;
+  --base-size-16: 16px;
+  --base-size-24: 24px;
+  --base-size-40: 40px;
 
   display: block;
   place-content: safe center center;
