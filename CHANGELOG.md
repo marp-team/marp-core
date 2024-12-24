@@ -4,7 +4,7 @@
 
 ### Security
 
-- Improper neutralization of HTML sanitization by comments may lead to XSS (by [@Ry0taK](https://github.com/Ry0taK))
+- Fixed: Improper neutralization of HTML sanitization by comments that may lead to XSS (by [@Ry0taK](https://github.com/Ry0taK))
 
 ### Changed
 
