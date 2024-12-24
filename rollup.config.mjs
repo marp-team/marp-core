@@ -12,7 +12,8 @@ import cssnano from 'cssnano'
 import postcssUrl from 'postcss-url'
 import postcss from 'rollup-plugin-postcss'
 import { string } from 'rollup-plugin-string'
-import { postcssOptimizeDefaultTheme } from './scripts/postcss-optimize-default-theme.mjs' // eslint-disable-line import-x/namespace -- false positive?
+import { NodePackageImporter } from 'sass'
+import { postcssOptimizeDefaultTheme } from './scripts/postcss-optimize-default-theme.mjs'
 
 const require = createRequire(import.meta.url)
 const pkg = require('./package.json')
@@ -34,6 +35,14 @@ const plugins = ({ browser = false } = {}) => [
   typescript(),
   postcss({
     inject: false,
+    use: [
+      [
+        'sass',
+        {
+          pkgImporter: new NodePackageImporter(),
+        },
+      ],
+    ],
     plugins: [
       postcssOptimizeDefaultTheme(),
       postcssUrl({
