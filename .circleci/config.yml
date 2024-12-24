@@ -135,6 +135,6 @@ jobs:
 workflows:
   test:
     jobs:
-      - test-node14:
-      - test-node16:
-      - test-node18:
+      - test-node14
+      - test-node16
+      - test-node18
