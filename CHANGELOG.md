@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.0.1 - 2024-12-24
+
 ### Security
 
 - Fixed: Improper neutralization of HTML sanitization by comments that may lead to XSS (by [@Ry0taK](https://github.com/Ry0taK))
