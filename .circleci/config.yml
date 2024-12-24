@@ -135,13 +135,6 @@ jobs:
 workflows:
   test:
     jobs:
-      # - audit
       - test-node14:
-          # requires:
-          #   - audit
       - test-node16:
-          # requires:
-          #   - audit
       - test-node18:
-          # requires:
-          #   - audit
