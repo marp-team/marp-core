@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Upgrade Marpit to [v3.1.2](https://github.com/marp-team/marpit/releases/v3.1.2) ([#390](https://github.com/marp-team/marp-core/pull/390))
 - Upgrade development Node.js LTS and dependent packages to the latest version ([#391](https://github.com/marp-team/marp-core/pull/391))
 
 ## v4.0.0 - 2024-09-09
