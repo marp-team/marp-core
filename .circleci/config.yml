@@ -49,7 +49,7 @@ commands:
       - checkout
       - install:
           postinstall:
-            - run: yarn -s check:audit
+            - run: yarn audit
 
   prepare:
     parameters:

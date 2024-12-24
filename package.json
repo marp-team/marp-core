@@ -38,7 +38,7 @@
   },
   "scripts": {
     "build": "yarn -s clean && rollup -c",
-    "check:audit": "yarn audit",
+    "_check:audit": "yarn audit",
     "check:format": "yarn -s format -c",
     "check:ts": "tsc --noEmit",
     "clean": "rimraf lib",
