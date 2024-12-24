@@ -1,6 +1,6 @@
 import selfClosingTags from 'self-closing-tags'
-import { FilterXSS } from 'xss'
-import { friendlyAttrValue, escapeAttrValue } from 'xss/lib/default'
+import { FilterXSS, friendlyAttrValue, escapeAttrValue } from 'xss'
+import type { SafeAttrValueHandler, IWhiteList } from 'xss'
 import { MarpOptions } from '../marp'
 
 const selfClosingRegexp = /\s*\/?>$/
@@ -15,82 +15,103 @@ const xhtmlOutFilter = new FilterXSS({
   whiteList: {},
 })
 
+// Prevent breaking JavaScript special characters such as `<` and `>` by HTML
+// escape process only if the entire content of HTML block is consisted of
+// script tag (The case of matching the case 1 of https://spec.commonmark.org/0.31.2/#html-blocks,
+// with special condition for <script> tag)
+//
+// For cases like https://spec.commonmark.org/0.31.2/#example-178, which do not
+// end the HTML block with `</script>`, that will not exclude from sanitizing.
+//
+const scriptBlockRegexp =
+  /^<script(?:>|[ \t\f\n\r][\s\S]*?>)([\s\S]*)<\/script>[ \t\f\n\r]*$/i
+
+const scriptBlockContentUnexpectedCloseRegexp = /<\/script[>/\t\f\n\r ]/i
+
+const isValidScriptBlock = (htmlBlockContent: string) => {
+  const m = htmlBlockContent.match(scriptBlockRegexp)
+  return !!(m && !scriptBlockContentUnexpectedCloseRegexp.test(m[1]))
+}
+
 export function markdown(md): void {
   const { html_inline, html_block } = md.renderer.rules
 
-  const sanitizedRenderer =
-    (original: (...args: any[]) => string) =>
-    (...args) => {
-      const ret = original(...args)
+  const fetchHtmlOption = (): MarpOptions['html'] => md.options.html
+  const fetchAllowList = (html = fetchHtmlOption()): IWhiteList => {
+    const allowList: IWhiteList = Object.create(null)
 
-      // Pick comments
-      const splitted: string[] = []
-      let pos = 0
+    if (typeof html === 'object') {
+      for (const tag of Object.keys(html)) {
+        const attrs = html[tag]
 
-      while (pos < ret.length) {
-        const startIdx = ret.indexOf('<!--', pos)
-        let endIdx = startIdx !== -1 ? ret.indexOf('-->', startIdx + 4) : -1
-
-        if (endIdx === -1) {
-          splitted.push(ret.slice(pos))
-          break
-        }
-
-        endIdx += 3
-        splitted.push(ret.slice(pos, startIdx), ret.slice(startIdx, endIdx))
-        pos = endIdx
-      }
-
-      // Apply filter to each contents by XSS
-      const allowList = {}
-      const html: MarpOptions['html'] = md.options.html
-
-      if (typeof html === 'object') {
-        for (const tag of Object.keys(html)) {
-          const attrs = html[tag]
-
-          if (Array.isArray(attrs)) {
-            allowList[tag] = attrs
-          } else if (typeof attrs === 'object') {
-            allowList[tag] = Object.keys(attrs).filter(
-              (attr) => attrs[attr] !== false,
-            )
-          }
+        if (Array.isArray(attrs)) {
+          allowList[tag] = attrs
+        } else if (typeof attrs === 'object') {
+          allowList[tag] = Object.keys(attrs).filter(
+            (attr) => attrs[attr] !== false,
+          )
         }
       }
+    }
+    return allowList
+  }
 
-      const filter = new FilterXSS({
-        whiteList: allowList,
-        onIgnoreTag: (_, rawHtml) => (html === true ? rawHtml : undefined),
-        safeAttrValue: (tag, attr, value) => {
-          let ret = friendlyAttrValue(value)
+  const generateSafeAttrValueHandler =
+    (html = fetchHtmlOption()): SafeAttrValueHandler =>
+    (tag, attr, value) => {
+      let ret = friendlyAttrValue(value)
 
-          if (
-            typeof html === 'object' &&
-            html[tag] &&
-            !Array.isArray(html[tag]) &&
-            typeof html[tag][attr] === 'function'
-          ) {
-            ret = html[tag][attr](ret)
-          }
+      if (
+        typeof html === 'object' &&
+        html[tag] &&
+        !Array.isArray(html[tag]) &&
+        typeof html[tag][attr] === 'function'
+      ) {
+        ret = html[tag][attr](ret)
+      }
 
-          return escapeAttrValue(ret)
-        },
-      })
-
-      return splitted
-        .map((part, idx) => {
-          if (idx % 2 === 1) return part
-
-          const sanitized = filter.process(part)
-
-          return md.options.xhtmlOut
-            ? xhtmlOutFilter.process(sanitized)
-            : sanitized
-        })
-        .join('')
+      return escapeAttrValue(ret)
     }
 
-  md.renderer.rules.html_inline = sanitizedRenderer(html_inline)
-  md.renderer.rules.html_block = sanitizedRenderer(html_block)
+  const sanitize = (ret: string) => {
+    const html = fetchHtmlOption()
+    const filter = new FilterXSS({
+      allowList: fetchAllowList(html),
+      onIgnoreTag: (_, rawHtml) => (html === true ? rawHtml : undefined),
+      safeAttrValue: generateSafeAttrValueHandler(html),
+    })
+
+    const sanitized = filter.process(ret)
+    return md.options.xhtmlOut ? xhtmlOutFilter.process(sanitized) : sanitized
+  }
+
+  md.renderer.rules.html_inline = (...args) => sanitize(html_inline(...args))
+  md.renderer.rules.html_block = (...args) => {
+    const ret = html_block(...args)
+    const html = fetchHtmlOption()
+
+    const scriptAllowAttrs = (() => {
+      if (html === true) return []
+      if (typeof html === 'object' && html['script'])
+        return fetchAllowList({ script: html.script }).script
+    })()
+
+    // If the entire content of HTML block is consisted of script tag when the
+    // script tag is allowed, we will not escape the content of the script tag.
+    if (scriptAllowAttrs && isValidScriptBlock(ret)) {
+      const scriptFilter = new FilterXSS({
+        allowList: { script: scriptAllowAttrs || [] },
+        allowCommentTag: true,
+        onIgnoreTagAttr: (_, name, value) => {
+          if (html === true) return `${name}="${escapeAttrValue(value)}"`
+        },
+        escapeHtml: (s) => s,
+        safeAttrValue: generateSafeAttrValueHandler(html),
+      })
+
+      return scriptFilter.process(ret)
+    }
+
+    return sanitize(ret)
+  }
 }

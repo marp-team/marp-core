@@ -254,44 +254,6 @@ describe('Marp', () => {
         expect($('footer > em')).toHaveLength(1)
       })
 
-      it('keeps raw HTML comments within valid HTML block', () => {
-        const { html: $script, comments: comments$script } = marp().render(
-          "<script><!--\nconst script = '<b>test</b>'\n--></script>",
-        )
-        expect($script).toContain("const script = '<b>test</b>'")
-        expect(comments$script[0]).toHaveLength(0)
-
-        // Complex comment
-        const complexComment = `
-<!--
-function matchwo(a,b)
-{
-
-  if (a < b && a < 0) then {
-    return 1;
-
-  } else {
-
-    return 0;
-  }
-}
-
-// ex
--->
-`.trim()
-        const { html: $complex } = marp().render(
-          `<script>${complexComment}</script>`,
-        )
-        expect($complex).toContain(complexComment)
-
-        // NOTE: Marpit framework will collect the comment block if the whole of HTML block was comment
-        const { html: $comment, comments: comments$comment } = marp().render(
-          "<!--\nconst script = '<b>test</b>'\n-->",
-        )
-        expect($comment).not.toContain("const script = '<b>test</b>'")
-        expect(comments$comment[0]).toHaveLength(1)
-      })
-
       it('sanitizes CDATA section', () => {
         // HTML Living Standard denys using CDATA in HTML context so must be sanitized
         const cdata = `
@@ -322,6 +284,66 @@ function matchwo(a,b)
         expect(m.render('<BR >').html).toContain('<br />')
         expect(m.render('<br  class="normalize">').html).toContain(
           '<br class="normalize" />',
+        )
+      })
+
+      it('does not escape JavaScript special character within valid <script> HTML block', () => {
+        const { html: $script, comments: comments$script } = m.render(
+          "<script><!--\nconst script = '<b>test</b>'\n--></script>",
+        )
+        expect($script).toContain("const script = '<b>test</b>'")
+        expect(comments$script[0]).toHaveLength(0)
+
+        // Complex comment
+        const complexComment = `
+<!--
+function complex(a,b)
+{
+
+  if (a < b && a < 0) then {
+    return 1;
+
+  } else {
+
+    return 0;
+  }
+}
+
+// ex
+>
+`.trim()
+        const { html: $complex } = m.render(
+          `<script>${complexComment}</script>`,
+        )
+        expect($complex).toContain(complexComment)
+
+        // Case-insensitive tag names, attributes, and script without comment
+        const attrsAndScriptWithoutComment = `
+<SCRIPT
+  type="text/javascript"
+  data-script="true">
+    console.log(2 > 1 && 1 < 2)
+</Script>
+`.trim()
+        const { html: $attrAndScript } = m.render(attrsAndScriptWithoutComment)
+        expect($attrAndScript).toContain(
+          '<script type="text/javascript" data-script="true">',
+        )
+        expect($attrAndScript).toContain('console.log(2 > 1 && 1 < 2)')
+      })
+
+      it('does escape JavaScript special character if <script> HTML block has trailing contents', () => {
+        // ref: https://spec.commonmark.org/0.31.2/#example-178
+        const withTrailingContents = `
+<script>
+  console.log(2 > 1);
+</script> trailing <a href="https://example.com">link</a>
+`.trim()
+        const { html } = m.render(withTrailingContents)
+
+        expect(html).toContain('console.log(2 &gt; 1);')
+        expect(html).toContain(
+          '</script> trailing <a href="https://example.com">link</a>',
         )
       })
     })
@@ -376,6 +398,79 @@ function matchwo(a,b)
           const { html } = instance.render('<p id></p>')
 
           expect(html).toContain('<p id="sanitized"></p>')
+        })
+      })
+
+      describe('when <script> tag is allowed', () => {
+        const m = marp({ html: { script: ['type'] } })
+
+        it('does not escape JavaScript special character within valid <script> HTML block', () => {
+          const { html: $script, comments: comments$script } = m.render(
+            "<script><!--\nconst script = '<b>test</b>'\n--></script>",
+          )
+          expect($script).toContain("const script = '<b>test</b>'")
+          expect(comments$script[0]).toHaveLength(0)
+
+          // Complex comment
+          const complexComment = `
+  <!--
+  function complex(a,b)
+  {
+
+    if (a < b && a < 0) then {
+      return 1;
+
+    } else {
+
+      return 0;
+    }
+  }
+
+  // ex
+  >
+  `.trim()
+          const { html: $complex } = m.render(
+            `<script>${complexComment}</script>`,
+          )
+          expect($complex).toContain(complexComment)
+
+          // Case-insensitive tag names, attributes w/ filter, and script without comment
+          const attrsAndScriptWithoutComment = `
+<SCRIPT
+  type="text/javascript"
+  data-script="true">
+    console.log(2 > 1 && 1 < 2)
+</Script>
+`.trim()
+          const { html: $attrAndScript } = m.render(
+            attrsAndScriptWithoutComment,
+          )
+          expect($attrAndScript).toContain('<script type="text/javascript">')
+          expect($attrAndScript).toContain('console.log(2 > 1 && 1 < 2)')
+
+          // Including incorrect closing (may be malicious)
+          const { html: $incorrectClosing } = m.render(
+            '<script></script><b>bypass whitelist</b></script>',
+          )
+          expect($incorrectClosing).toContain(
+            '&lt;b&gt;bypass whitelist&lt;/b&gt;',
+          )
+        })
+
+        it('does escape JavaScript special character if <script> HTML block has trailing contents', () => {
+          // ref: https://spec.commonmark.org/0.31.2/#example-178
+          const withTrailingContents = `
+  <script>
+    console.log(2 > 1);
+  </script> trailing <a href="https://example.com">link</a>
+  `.trim()
+          const { html } = m.render(withTrailingContents)
+
+          expect(html).toContain('console.log(2 &gt; 1);')
+          expect(html).toContain(
+            // Follow allowlist
+            '</script> trailing &lt;a href="https://example.com"&gt;link&lt;/a&gt;',
+          )
         })
       })
     })
