@@ -6,7 +6,7 @@
 
 ### Security
 
-- Fixed: Improper neutralization of HTML sanitization by comments that may lead to XSS (by [@Ry0taK](https://github.com/Ry0taK))
+- Fixed: Improper neutralization of HTML sanitization by comments that may lead to XSS ([CVE-2024-56510](https://github.com/marp-team/marp-core/security/advisories/GHSA-x52f-h5g4-8qv5) reported by [@Ry0taK](https://github.com/Ry0taK))
 
 ### Changed
 
@@ -66,6 +66,12 @@
 ### Fixed
 
 - Suppress uncaught `DOMException` error while upgrading `<marp-pre>` Web Component elements in Firefox ([#370](https://github.com/marp-team/marp-core/issues/370), [#384](https://github.com/marp-team/marp-core/pull/384))
+
+## v3.9.1 - 2024-12-24
+
+### Security
+
+- Improper neutralization of HTML sanitization by comments may lead to XSS ([CVE-2024-56510](https://github.com/marp-team/marp-core/security/advisories/GHSA-x52f-h5g4-8qv5) reported by [@Ry0taK](https://github.com/Ry0taK))
 
 ## v3.9.0 - 2023-10-15
 
