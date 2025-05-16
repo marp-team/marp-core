@@ -197,7 +197,7 @@ describe('Marp', () => {
 
       it('uses SVG via jsDelivr CDN by default', () => {
         expect(emojiSrc(':ok_hand:')).toMatchInlineSnapshot(
-          `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f44c.svg"`,
+          `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f44c.svg"`,
         )
       })
 
@@ -211,7 +211,7 @@ describe('Marp', () => {
           expect(
             emojiSrc(':+1:', instance({ base: undefined })),
           ).toMatchInlineSnapshot(
-            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f44d.svg"`,
+            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f44d.svg"`,
           ))
       })
 
@@ -220,7 +220,7 @@ describe('Marp', () => {
           expect(
             emojiSrc(':+1:', instance({ ext: 'png' })),
           ).toMatchInlineSnapshot(
-            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/72x72/1f44d.png"`,
+            `"https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/72x72/1f44d.png"`,
           ))
       })
     })
@@ -1454,7 +1454,7 @@ function complex(a,b)
 
       expect(instance.highlightjs.highlight).toBeInstanceOf(Function)
       expect(instance.highlightjs.versionString).toMatchInlineSnapshot(
-        `"11.11.0"`,
+        `"11.11.1"`,
       )
     })
 

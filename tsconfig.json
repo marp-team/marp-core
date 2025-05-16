@@ -4,7 +4,8 @@
     "noImplicitAny": false,
     "resolveJsonModule": true,
     "rootDir": ".",
-    "sourceMap": true
+    "sourceMap": true,
+    "isolatedModules": true
   },
   "include": ["src"]
 }
