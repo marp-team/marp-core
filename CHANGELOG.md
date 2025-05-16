@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.1.0 - 2025-05-16
+
 ### Added
 
 - Transform Unicode 16 emojis into Twemoji images ([#399](https://github.com/marp-team/marp-core/pull/399))
