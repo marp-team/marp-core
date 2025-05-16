@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+### Added
+
+- Transform Unicode 16 emojis into Twemoji images ([#399](https://github.com/marp-team/marp-core/pull/399))
+- Test against Node.js 24 ([#399](https://github.com/marp-team/marp-core/pull/399))
+
+### Changed
+
+- Upgrade Marpit to [v3.1.3](https://github.com/marp-team/marpit/releases/v3.1.3) ([#398](https://github.com/marp-team/marp-core/pull/398), [#399](https://github.com/marp-team/marp-core/pull/399))
+- Upgrade development Node.js LTS and dependent packages to the latest version ([#399](https://github.com/marp-team/marp-core/pull/399))
+
 ## v4.0.1 - 2024-12-24
 
 ### Security
