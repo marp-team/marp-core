@@ -1430,7 +1430,7 @@ function complex(a,b)
       })
     })
 
-    describe('with overriden #highlighter', () => {
+    describe('with overridden #highlighter', () => {
       const instance = marp()
 
       instance.highlighter = (code, lang, attrs) => {
