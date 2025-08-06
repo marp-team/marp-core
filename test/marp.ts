@@ -392,7 +392,7 @@ describe('Marp', () => {
       })
 
       it('sanitizes CDATA section', () => {
-        // HTML Living Standard denys using CDATA in HTML context so must be sanitized
+        // HTML Living Standard denies using CDATA in HTML context so must be sanitized
         const cdata = `
 <![CDATA[
   <p>XSS</p>
