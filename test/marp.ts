@@ -242,7 +242,7 @@ describe('Marp', () => {
         expect($br('br')).toHaveLength(1)
 
         const $aHref = load(
-          marp().render('<a href="https://example.com/">link</a>').html,
+          marp().render('<a href="https://example.com/">example.com</a>').html,
         )
         expect($aHref('a[href="https://example.com/"]')).toHaveLength(1)
 
@@ -476,13 +476,13 @@ function complex(a,b)
         const withTrailingContents = `
 <script>
   console.log(2 > 1);
-</script> trailing <a href="https://example.com">link</a>
+</script> trailing <a href="https://example.com">example.com</a>
 `.trim()
         const { html } = m.render(withTrailingContents)
 
         expect(html).toContain('console.log(2 &gt; 1);')
         expect(html).toContain(
-          '</script> trailing <a href="https://example.com">link</a>',
+          '</script> trailing <a href="https://example.com">example.com</a>',
         )
       })
     })
@@ -601,14 +601,14 @@ function complex(a,b)
           const withTrailingContents = `
   <script>
     console.log(2 > 1);
-  </script> trailing <a href="https://example.com">link</a>
+  </script> trailing <a href="https://example.com">example.com</a>
   `.trim()
           const { html } = m.render(withTrailingContents)
 
           expect(html).toContain('console.log(2 &gt; 1);')
           expect(html).toContain(
             // Follow allowlist
-            '</script> trailing &lt;a href="https://example.com"&gt;link&lt;/a&gt;',
+            '</script> trailing &lt;a href="https://example.com"&gt;example.com&lt;/a&gt;',
           )
         })
       })
