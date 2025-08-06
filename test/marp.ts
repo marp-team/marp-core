@@ -1040,7 +1040,7 @@ function complex(a,b)
         expect($('h1').attr('id')).toBe('1-1')
       })
 
-      it('recongizes custom anchor generation', () => {
+      it('recognizes custom anchor generation', () => {
         const { html } = marp({ anchor: (i) => `slide-${i + 1}` }).render(
           '# Slide 1',
         )
