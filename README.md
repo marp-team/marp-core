@@ -50,7 +50,7 @@ _We will only explain features extended in marp-core._ Please refer to [Marpit f
 
 ### [Built-in official themes][themes]
 
-We provide bulit-in official themes for Marp. See more details in [themes].
+We provide built-in official themes for Marp. See more details in [themes].
 
 |                Default                |                 Gaia                  |                Uncover                |
 | :-----------------------------------: | :-----------------------------------: | :-----------------------------------: |
@@ -74,7 +74,7 @@ size: 4:3
 # A traditional 4:3 slide
 ```
 
-[Bulit-in themes for Marp][themes] have provided `16:9` (1280x720) and `4:3` (960x720) preset sizes.
+[Built-in themes for Marp][themes] have provided `16:9` (1280x720) and `4:3` (960x720) preset sizes.
 
 #### Define size presets in custom theme CSS
 
