@@ -26,4 +26,4 @@ Marp core has some built-in official themes in `themes` folder. They should load
 
 #### Requirements
 
-- All of built-in theme have to support `invert` class. It provides an inverted color scheme from default color. Please also see [yhatt/marp#77](https://github.com/yhatt/marp/issues/77).
+- All of built-in theme have to support `invert` class to provide an inverted color scheme for the default color. See [Support backgroundColor and color local directives](https://github.com/marp-team/marpit/pull/32) and [Support header, footer and invert class on default theme](https://github.com/marp-team/marp-core/pull/7).
