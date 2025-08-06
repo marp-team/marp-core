@@ -84,11 +84,11 @@ export const markdown = marpitPlugin((md) => {
 
               newChildren.push(
                 ...splittedByEmoji.reduce(
-                  (splitedArr, text, idx) =>
+                  (splitArr, text, idx) =>
                     text.length === 0
-                      ? splitedArr
+                      ? splitArr
                       : [
-                          ...splitedArr,
+                          ...splitArr,
                           Object.assign(new Token(), {
                             ...t,
                             content: text,
