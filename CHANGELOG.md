@@ -595,7 +595,7 @@
 
 ### Removed
 
-- Remove dollar prefix plugin for obsolated syntax ([#127](https://github.com/marp-team/marp-core/pull/127))
+- Remove dollar prefix plugin for obsoleted syntax ([#127](https://github.com/marp-team/marp-core/pull/127))
 
 ## v0.15.0 - 2019-11-05
 
