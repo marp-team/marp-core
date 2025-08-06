@@ -62,7 +62,7 @@ describe('Size plugin', () => {
       )
       m.themeSet.add('/* @theme c *//* @size test 6px 4px */\n@import "a";')
       m.themeSet.add(
-        '/* @theme d *//* @size test false *//* @size test2 - invalid defintion */\n@import "b";',
+        '/* @theme d *//* @size test false *//* @size test2 - invalid definition */\n@import "b";',
       )
     }
 
