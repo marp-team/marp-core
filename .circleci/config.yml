@@ -127,7 +127,7 @@ jobs:
   test-node24:
     executor:
       name: node
-      version: '24.11'
+      version: '24.10'
     steps:
       - prepare
       - lint
