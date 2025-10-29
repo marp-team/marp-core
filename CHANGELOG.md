@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Marpit to [v3.2.0](https://github.com/marp-team/marpit/releases/v3.2.0) ([#403](https://github.com/marp-team/marp-core/pull/403), [#404](https://github.com/marp-team/marp-core/pull/404))
+  - PostCSS plugin support by `use()` instance method
+- Upgrade development Node.js LTS and dependent packages to the latest version ([#404](https://github.com/marp-team/marp-core/pull/404))
+
 ## v4.1.0 - 2025-05-16
 
 ### Added
