@@ -202,7 +202,7 @@ section {
   letter-spacing: 1.25px;
   padding: 70px;
   width: 1280px;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 
   @include color-scheme($color-light, $color-dark, $color-primary);
 
