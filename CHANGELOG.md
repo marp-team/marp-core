@@ -8,6 +8,7 @@
   - PostCSS plugin support by `use()` instance method
 - Upgrade development Node.js LTS and dependent packages to the latest version ([#404](https://github.com/marp-team/marp-core/pull/404))
 - Update PostCSS integrations to use Marpit's PostCSS plugin support ([#406](https://github.com/marp-team/marp-core/issues/406), [#407](https://github.com/marp-team/marp-core/pull/407))
+- Use `color-scheme` and `light-dark()` to define color scheme in built-in themes ([#396](https://github.com/marp-team/marp-core/issues/396), [#408](https://github.com/marp-team/marp-core/pull/408))
 
 ## v4.1.0 - 2025-05-16
 
