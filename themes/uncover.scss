@@ -113,6 +113,7 @@ section {
   :where(.hljs-deletion),
   :where(.hljs-variable) {
     color: light-dark(#88f, #ab875d);
+  }
 
   :where(.hljs-doctag) {
     color: light-dark(#3182bd, unset);
@@ -154,9 +155,10 @@ section {
     font-style: italic;
   }
 
-  :where(.invert .hljs-strong) {
+  &:where(.invert) :where(.hljs-strong) {
     font-weight: 700; /* This style demands to define "invert" class */
   }
+  /* End of highlight.js */
 
   > *:first-child,
   &[data-header] > :nth-child(2) {
