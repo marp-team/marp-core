@@ -42,7 +42,7 @@ export const postcssOptimizeDefaultTheme = () => {
         const matched = rule.params.match(colorThemeMatcher)
 
         if (matched) {
-          rule.walkDecls(/^--\b./, (decl) => {
+          rule.walkDecls(/^--./, (decl) => {
             colors[matched[1].toLowerCase()].declarations.set(
               decl.prop,
               decl.value,
