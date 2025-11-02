@@ -158,6 +158,7 @@ section {
   &:where(.invert) :where(.hljs-strong) {
     font-weight: 700; /* This style demands to define "invert" class */
   }
+
   /* End of highlight.js */
 
   > *:first-child,
