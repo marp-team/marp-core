@@ -12,21 +12,30 @@
  * @size 4:3 960px 720px
  */
 
-@mixin color-scheme($bg: #fdfcff, $text: #202228, $highlight: #009dd5) {
-  --color-background: #{$bg};
-  --color-background-code: #{color.mix($bg, $text, 95%)};
-  --color-background-paginate: #{rgba($text, 0.05)};
-  --color-foreground: #{$text};
-  --color-highlight: #{$highlight};
-  --color-highlight-hover: #{color.mix($text, $highlight, 25%)};
-  --color-highlight-heading: #{color.mix(#fff, $highlight, 20%)};
-  --color-header: #{rgba($text, 0.4)};
-  --color-header-shadow: #{rgba($bg, 0.8)};
-}
-
 section {
-  @include color-scheme;
+  --color-background: light-dark(#fdfcff, #202228);
+  --color-background-code: light-dark(
+    #{color.mix(#fdfcff, #202228, 95%)},
+    #{color.mix(#202228, #fff, 95%)}
+  );
+  --color-background-paginate: light-dark(
+    #{rgba(#202228, 0.05)},
+    #{rgba(#fff, 0.05)}
+  );
+  --color-foreground: light-dark(#202228, #fff);
+  --color-highlight: #009dd5;
+  --color-highlight-hover: light-dark(
+    #{color.mix(#202228, #009dd5, 25%)},
+    #{color.mix(#fff, #009dd5, 25%)}
+  );
+  --color-highlight-heading: #{color.mix(#fff, #009dd5, 20%)};
+  --color-header: light-dark(#{rgba(#202228, 0.4)}, #{rgba(#fff, 0.4)});
+  --color-header-shadow: light-dark(
+    #{rgba(#fdfcff, 0.8)},
+    #{rgba(#202228, 0.8)}
+  );
 
+  color-scheme: light;
   background: var(--color-background);
   color: var(--color-foreground);
   display: block;
@@ -45,7 +54,7 @@ section {
   overflow-wrap: break-word;
   z-index: 0;
 
-  /* Definitions for classic bhavior: Users can adopt flex centering by tweaking style `section { display: flex }` */
+  /* Definitions for classic behavior: Users can adopt flex centering by tweaking style `section { display: flex }` */
   flex-flow: column nowrap;
   align-items: stretch;
 
@@ -68,14 +77,89 @@ section {
     width: 80px;
   }
 
-  &:where(:not(.invert)) {
-    @include meta.load-css('pkg:highlight.js/styles/color-brewer.css');
+  &:where(.invert) {
+    color-scheme: dark;
   }
 
-  &:where(.invert) {
-    @include color-scheme(#202228, #fff, #60d0f0);
-    @include meta.load-css('pkg:highlight.js/styles/codepen-embed.css');
+  /* highlight.js (light: color-brewer, dark: codepen-embed) */
+  :where(.hljs-addition),
+  :where(.hljs-string) {
+    color: light-dark(#756bb1, #8f9c6c);
   }
+
+  :where(.hljs-attribute) {
+    color: light-dark(#e6550d, #9b869b);
+  }
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  :where(.hljs-built_in),
+  :where(.hljs-tag) {
+    color: light-dark(#3182bd, #ab875d);
+  }
+
+  :where(.hljs-bullet),
+  :where(.hljs-link),
+  :where(.hljs-literal),
+  :where(.hljs-number),
+  :where(.hljs-regexp) {
+    color: light-dark(#31a354, #ab875d);
+  }
+
+  :where(.hljs-comment),
+  :where(.hljs-quote) {
+    color: light-dark(#636363, #777);
+  }
+
+  :where(.hljs-deletion),
+  :where(.hljs-variable) {
+    color: light-dark(#88f, #ab875d);
+  }
+
+  :where(.hljs-doctag) {
+    color: light-dark(#3182bd, unset);
+  }
+
+  :where(.hljs-keyword),
+  :where(.hljs-selector-tag) {
+    color: light-dark(#3182bd, #8f9c6c);
+  }
+
+  :where(.hljs-meta),
+  :where(.hljs-symbol),
+  :where(.hljs-template-variable) {
+    color: light-dark(#756bb1, #ab875d);
+  }
+
+  :where(.hljs-name),
+  :where(.hljs-section),
+  :where(.hljs-selector-class),
+  :where(.hljs-selector-id),
+  :where(.hljs-title),
+  :where(.hljs-type) {
+    color: light-dark(#3182bd, #9b869b);
+  }
+
+  :where(.hljs-params) {
+    color: light-dark(currentcolor, #ab875d);
+  }
+
+  :where(.hljs-template-tag) {
+    color: light-dark(#756bb1, currentcolor);
+  }
+
+  :where(.hljs-strong) {
+    color: light-dark(#3182bd, currentcolor);
+  }
+
+  :where(.hljs-emphasis) {
+    font-style: italic;
+  }
+
+  &:where(.invert) :where(.hljs-strong) {
+    font-weight: 700; /* This style demands to define "invert" class */
+  }
+
+  /* End of highlight.js */
 
   > *:first-child,
   &[data-header] > :nth-child(2) {

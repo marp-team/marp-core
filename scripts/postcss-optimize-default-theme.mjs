@@ -3,13 +3,37 @@ import postcssSelectorParser from 'postcss-selector-parser'
 const defaultThemeMatcher = /@theme +default/
 const colorThemeMatcher = /prefers-color-scheme:\s+(light|dark)/i
 
+/** @return {import('postcss').Plugin} */
 export const postcssOptimizeDefaultTheme = () => {
   let shouldProcess = false
+  let colors
 
   return {
     postcssPlugin: 'postcss-optimize-default-theme',
     Once: (css) => {
+      colors = {
+        light: { atRule: null, declarations: new Map() },
+        dark: { atRule: null, declarations: new Map() },
+      }
       shouldProcess = defaultThemeMatcher.test(css.source.input.css)
+    },
+    OnceExit: (css) => {
+      if (!shouldProcess) return
+
+      const decls = new Set([
+        ...colors.light.declarations.keys(),
+        ...colors.dark.declarations.keys(),
+      ])
+
+      css.prepend({
+        selector: 'section',
+        nodes: Array.from(decls).map((prop) => ({
+          prop,
+          value: `light-dark(${colors.light.declarations.get(prop) || ''}, ${
+            colors.dark.declarations.get(prop) || ''
+          })`,
+        })),
+      })
     },
     AtRule: {
       media: (rule) => {
@@ -18,6 +42,14 @@ export const postcssOptimizeDefaultTheme = () => {
         const matched = rule.params.match(colorThemeMatcher)
 
         if (matched) {
+          rule.walkDecls(/^--./, (decl) => {
+            colors[matched[1].toLowerCase()].declarations.set(
+              decl.prop,
+              decl.value,
+            )
+            decl.remove()
+          })
+
           if (matched[1] === 'dark') {
             rule.walkRules((rule) => {
               postcssSelectorParser((selectorRoot) => {
@@ -39,6 +71,7 @@ export const postcssOptimizeDefaultTheme = () => {
             // Append a rule of dark theme after the light theme
             rule.next().after(rule.nodes)
           }
+
           rule.replaceWith(rule.nodes)
         }
       },
