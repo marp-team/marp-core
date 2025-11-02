@@ -291,7 +291,7 @@ section {
   &:where(.lead) {
     place-content: safe center center;
 
-    /* Definitions for classic bhavior: Users can adopt flex centering by tweaking style `section.lead { display: flex }` */
+    /* Definitions for classic behavior: Users can adopt flex centering by tweaking style `section.lead { display: flex }` */
     flex-flow: column nowrap;
     align-items: stretch;
 
