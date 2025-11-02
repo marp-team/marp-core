@@ -1,7 +1,6 @@
 import postcssMinify from '@csstools/postcss-minify'
 import { Marpit, Options, ThemeSetPackOptions } from '@marp-team/marpit'
 import type { HLJSApi } from 'highlight.js'
-import postcss, { AcceptedPlugin } from 'postcss'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
@@ -75,6 +74,17 @@ export class Marp extends Marpit {
     this.themeSet.default = this.themeSet.add(defaultTheme)
     this.themeSet.add(gaiaTheme)
     this.themeSet.add(uncoverTheme)
+
+    // PostCSS plugins
+    this.use(customElements.css).use(
+      Object.assign(
+        () => ({
+          ...(this.options.minifyCSS ? postcssMinify() : {}),
+          postcssPlugin: 'marp-core-minify-css',
+        }),
+        { postcss: true as const },
+      ),
+    )
   }
 
   protected applyMarkdownItPlugins(md) {
@@ -105,18 +115,6 @@ export class Marp extends Marpit {
       }).value
     }
     return ''
-  }
-
-  protected renderStyle(theme?: string): string {
-    const original = super.renderStyle(theme)
-    const postprocessorPlugins: AcceptedPlugin[] = [
-      customElements.css,
-      ...(this.options.minifyCSS ? [postcssMinify()] : []),
-    ]
-
-    const postprocessor = postcss(postprocessorPlugins)
-
-    return postprocessor.process(original).css
   }
 
   protected themeSetPackOptions(): ThemeSetPackOptions {

@@ -97,6 +97,7 @@
     "nodemon": "^3.1.10",
     "npm-check-updates": "^19.1.2",
     "npm-run-all2": "^8.0.4",
+    "postcss": "^8.5.6",
     "postcss-url": "^10.1.3",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
@@ -118,7 +119,6 @@
     "highlight.js": "^11.11.1",
     "katex": "^0.16.25",
     "mathjax-full": "^3.2.2",
-    "postcss": "^8.5.6",
     "postcss-selector-parser": "^7.1.0",
     "xss": "^1.0.15"
   },
