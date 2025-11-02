@@ -20,14 +20,6 @@ $color-secondary: #81d4fa;
 @import 'https://fonts.bunny.net/css?family=Lato:400,900|Roboto+Mono:400,700&display=swap';
 @include meta.load-css('pkg:highlight.js/styles/sunburst.css');
 
-@mixin color-scheme($bg, $text, $highlight) {
-  --color-background: #{$bg};
-  --color-background-stripe: #{rgba($text, 0.1)};
-  --color-foreground: #{$text};
-  --color-dimmed: #{color.mix($text, $bg, 80%)};
-  --color-highlight: #{$highlight};
-}
-
 h1,
 h2,
 h3,
@@ -185,6 +177,19 @@ footer {
 }
 
 section {
+  --color-background: light-dark(#{$color-light}, #{$color-dark});
+  --color-background-stripe: light-dark(
+    #{rgba($color-dark, 0.1)},
+    #{rgba($color-light, 0.1)}
+  );
+  --color-foreground: light-dark(#{$color-dark}, #{$color-light});
+  --color-dimmed: light-dark(
+    #{color.mix($color-dark, $color-light, 80%)},
+    #{color.mix($color-light, $color-dark, 80%)}
+  );
+  --color-highlight: light-dark(#{$color-primary}, #{$color-secondary});
+
+  color-scheme: light;
   background-color: var(--color-background);
   background-image: linear-gradient(
     135deg,
@@ -203,8 +208,6 @@ section {
   padding: 70px;
   width: 1280px;
   overflow-wrap: break-word;
-
-  @include color-scheme($color-light, $color-dark, $color-primary);
 
   &::after {
     right: 0;
@@ -274,11 +277,15 @@ section {
   }
 
   &:where(.invert) {
-    @include color-scheme($color-dark, $color-light, $color-secondary);
+    color-scheme: dark;
   }
 
   &:where(.gaia) {
-    @include color-scheme($color-primary, $color-light, $color-secondary);
+    --color-background: #{$color-primary};
+    --color-background-stripe: #{rgba($color-light, 0.1)};
+    --color-foreground: #{$color-light};
+    --color-dimmed: #{color.mix($color-light, $color-primary, 80%)};
+    --color-highlight: #{$color-secondary};
   }
 
   &:where(.lead) {
