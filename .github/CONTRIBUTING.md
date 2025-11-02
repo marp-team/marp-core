@@ -20,10 +20,10 @@ npm run sandbox
 npm run types
 ```
 
-### Official theme
+### Official themes
 
 Marp core has some built-in official themes in `themes` folder. They should load when Marp class is initialized.
 
 #### Requirements
 
-- All of built-in theme have to support `invert` class. It provides an inverted color scheme from default color. Please also see [yhatt/marp#77](https://github.com/yhatt/marp/issues/77).
+- All built-in themes have to support `invert` class that provides a color scheme inverted from the default. Usually, this becomes a dark theme.

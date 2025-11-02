@@ -106,14 +106,14 @@ export const markdown = marpitPlugin((md) => {
       const { enabled } = getMathContext(marp)
       if (!enabled) return
 
-      const preffered: MathPreferredLibrary | undefined = (marp as any)
+      const preferred: MathPreferredLibrary | undefined = (marp as any)
         .lastGlobalDirectives.math
 
       setMathContext(marp, (ctx) => ({
         ...ctx,
         options: {
           ...ctx.options,
-          lib: preffered ?? parsedOpts.lib ?? defaultLibrary,
+          lib: preferred ?? parsedOpts.lib ?? defaultLibrary,
         },
       }))
     },

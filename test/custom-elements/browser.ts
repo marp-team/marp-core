@@ -99,7 +99,7 @@ describe('The hydration script for custom elements', () => {
       expect(() => browser.applyCustomElements()).not.toThrow()
     })
 
-    it.skip('throws error if unknown error occured while upgrading <pre is="marp-pre"> to <marp-pre>', () => {
+    it.skip('throws error if unknown error occurred while upgrading <pre is="marp-pre"> to <marp-pre>', () => {
       document.body.innerHTML = '<pre is="marp-pre">1</pre>'
 
       jest.spyOn(console, 'error').mockImplementation(() => {})

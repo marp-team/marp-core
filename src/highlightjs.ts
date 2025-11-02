@@ -2,7 +2,7 @@
 import hljsCore from 'highlight.js/lib/core'
 
 export const generateHighlightJSInstance = () => {
-  // Create a new instance to avoid polluation to global highlight.js module by users.
+  // Create a new instance to avoid pollution to global highlight.js module by users.
   const hljs = hljsCore.newInstance()
 
   // Ported from highlight.js/lib/index.js
