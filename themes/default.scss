@@ -193,10 +193,10 @@ section {
   /* stylelint-disable-next-line scss/at-extend-no-missing-placeholder */
   @extend .markdown-body;
 
-  --h1-color: #246;
-  --header-footer-color: #{rgba(#666, 0.75)};
-  --heading-strong-color: #48c;
-  --paginate-color: #777;
+  --h1-color: light-dark(#246, #cee7ff);
+  --header-footer-color: light-dark(#{rgba(#666, 0.75)}, #{rgba(#999, 0.75)});
+  --heading-strong-color: light-dark(#48c, #7bf);
+  --paginate-color: light-dark(#777, #999);
 
   /*
    * GitHub Markdown CSS has defined space sizes with the rem unit. The root
@@ -210,22 +210,15 @@ section {
   --base-size-40: 40px;
 
   display: block;
-  place-content: safe center center;
   font-size: 29px;
   height: 720px;
   padding: 78.5px;
+  place-content: safe center center;
   width: 1280px;
 
   /* Definitions for classic bhavior: Users can adopt flex centering by tweaking style `section { display: flex }` */
   flex-flow: column nowrap;
   align-items: stretch;
-
-  &:where(.invert) {
-    --h1-color: #cee7ff;
-    --header-footer-color: #{rgba(#999, 0.75)};
-    --heading-strong-color: #7bf;
-    --paginate-color: #999;
-  }
 
   > *:last-child,
   &[data-footer] > :nth-last-child(2) {
