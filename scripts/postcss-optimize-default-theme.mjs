@@ -40,10 +40,7 @@ export const postcssOptimizeDefaultTheme = () => {
 
       // Remove fallback declarations that would override the merged light-dark() vars
       css.walkDecls(/^--./, (decl) => {
-        if (
-          decl.parent !== mergedColorRuleNode &&
-          decls.has(decl.prop)
-        ) {
+        if (decl.parent !== mergedColorRuleNode && decls.has(decl.prop)) {
           decl.remove()
         }
       })
