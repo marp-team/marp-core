@@ -1,5 +1,5 @@
 {
-  "extends": ["@tsconfig/recommended/tsconfig", "@tsconfig/node20/tsconfig"],
+  "extends": ["@tsconfig/recommended/tsconfig", "@tsconfig/node18/tsconfig"],
   "compilerOptions": {
     "noImplicitAny": false,
     "resolveJsonModule": true,
