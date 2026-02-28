@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### Added
+
+- Unicode 17 emoji support by Twemoji ([#411](https://github.com/marp-team/marp-core/pull/411))
+
+### Changed
+
+- Upgrade Marpit to [v3.2.1](https://github.com/marp-team/marpit/releases/v3.2.1) ([#411](https://github.com/marp-team/marp-core/pull/411))
+- Upgrade development Node.js LTS and dependent packages to the latest version ([#411](https://github.com/marp-team/marp-core/pull/411))
+
 ## v4.2.0 - 2025-11-02
 
 ### Changed

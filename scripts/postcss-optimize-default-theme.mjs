@@ -25,7 +25,7 @@ export const postcssOptimizeDefaultTheme = () => {
         ...colors.dark.declarations.keys(),
       ])
 
-      css.prepend({
+      const mergedColorRule = {
         selector: 'section',
         nodes: Array.from(decls).map((prop) => ({
           prop,
@@ -33,6 +33,16 @@ export const postcssOptimizeDefaultTheme = () => {
             colors.dark.declarations.get(prop) || ''
           })`,
         })),
+      }
+
+      css.prepend(mergedColorRule)
+      const mergedColorRuleNode = css.first
+
+      // Remove fallback declarations that would override the merged light-dark() vars
+      css.walkDecls(/^--./, (decl) => {
+        if (decl.parent !== mergedColorRuleNode && decls.has(decl.prop)) {
+          decl.remove()
+        }
       })
     },
     AtRule: {
