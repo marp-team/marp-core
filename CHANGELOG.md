@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.3.0 - 2026-02-28
+
 ### Added
 
 - Unicode 17 emoji support by Twemoji ([#411](https://github.com/marp-team/marp-core/pull/411))
