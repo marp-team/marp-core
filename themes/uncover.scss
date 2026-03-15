@@ -35,6 +35,22 @@ section {
     #{rgba(#202228, 0.8)}
   );
 
+  /* Colors for Shiki highlighter */
+  --marp-shiki-foreground: var(--color-foreground);
+  --marp-shiki-background: transparent;
+  --marp-shiki-token-link: light-dark(#31a354, #ab875d);
+  --marp-shiki-token-string: light-dark(#756bb1, #8f9c6c);
+  --marp-shiki-token-comment: light-dark(#636363, #777);
+  --marp-shiki-token-constant: light-dark(#31a354, #ab875d);
+  --marp-shiki-token-keyword: light-dark(#3182bd, #8f9c6c);
+  --marp-shiki-token-parameter: light-dark(currentcolor, #ab875d);
+  --marp-shiki-token-function: light-dark(#3182bd, #9b869b);
+  --marp-shiki-token-string-expression: light-dark(#756bb1, #8f9c6c);
+  --marp-shiki-token-punctuation: var(--marp-shiki-foreground);
+  --marp-shiki-token-inserted: light-dark(#31a354, #8f9c6c);
+  --marp-shiki-token-deleted: #e6550d;
+  --marp-shiki-token-changed: #d59f62;
+
   color-scheme: light;
   background: var(--color-background);
   color: var(--color-foreground);
@@ -80,86 +96,6 @@ section {
   &:where(.invert) {
     color-scheme: dark;
   }
-
-  /* highlight.js (light: color-brewer, dark: codepen-embed) */
-  :where(.hljs-addition),
-  :where(.hljs-string) {
-    color: light-dark(#756bb1, #8f9c6c);
-  }
-
-  :where(.hljs-attribute) {
-    color: light-dark(#e6550d, #9b869b);
-  }
-
-  /* stylelint-disable-next-line selector-class-pattern */
-  :where(.hljs-built_in),
-  :where(.hljs-tag) {
-    color: light-dark(#3182bd, #ab875d);
-  }
-
-  :where(.hljs-bullet),
-  :where(.hljs-link),
-  :where(.hljs-literal),
-  :where(.hljs-number),
-  :where(.hljs-regexp) {
-    color: light-dark(#31a354, #ab875d);
-  }
-
-  :where(.hljs-comment),
-  :where(.hljs-quote) {
-    color: light-dark(#636363, #777);
-  }
-
-  :where(.hljs-deletion),
-  :where(.hljs-variable) {
-    color: light-dark(#88f, #ab875d);
-  }
-
-  :where(.hljs-doctag) {
-    color: light-dark(#3182bd, unset);
-  }
-
-  :where(.hljs-keyword),
-  :where(.hljs-selector-tag) {
-    color: light-dark(#3182bd, #8f9c6c);
-  }
-
-  :where(.hljs-meta),
-  :where(.hljs-symbol),
-  :where(.hljs-template-variable) {
-    color: light-dark(#756bb1, #ab875d);
-  }
-
-  :where(.hljs-name),
-  :where(.hljs-section),
-  :where(.hljs-selector-class),
-  :where(.hljs-selector-id),
-  :where(.hljs-title),
-  :where(.hljs-type) {
-    color: light-dark(#3182bd, #9b869b);
-  }
-
-  :where(.hljs-params) {
-    color: light-dark(currentcolor, #ab875d);
-  }
-
-  :where(.hljs-template-tag) {
-    color: light-dark(#756bb1, currentcolor);
-  }
-
-  :where(.hljs-strong) {
-    color: light-dark(#3182bd, currentcolor);
-  }
-
-  :where(.hljs-emphasis) {
-    font-style: italic;
-  }
-
-  &:where(.invert) :where(.hljs-strong) {
-    font-weight: 700; /* This style demands to define "invert" class */
-  }
-
-  /* End of highlight.js */
 
   > *:first-child,
   &[data-header] > :nth-child(2) {
@@ -289,6 +225,18 @@ section {
     &::part(auto-scaling) {
       max-height: 570px;
     }
+
+    .line.highlighted {
+      border-image: conic-gradient(
+          color-mix(
+              in srgb,
+              var(--color-highlight) 20%,
+              var(--color-background-code)
+            )
+            0 0
+        )
+        fill 0/ /0 10000vw;
+    }
   }
 
   pre > code {
@@ -299,6 +247,7 @@ section {
     margin: 0 auto;
     min-width: 456px; // (Slide width - padding * 2) * 40%
     padding: 0.4em 0.6em;
+    contain: paint;
   }
 
   &[data-size='4:3'] pre > code {

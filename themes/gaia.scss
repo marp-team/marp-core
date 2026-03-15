@@ -19,8 +19,6 @@ $color-secondary: #81d4fa;
 
 @import 'https://fonts.bunny.net/css?family=Lato:400,900|Roboto+Mono:400,700&display=swap';
 
-// @include meta.load-css('pkg:highlight.js/styles/sunburst.css');
-
 h1,
 h2,
 h3,
@@ -92,6 +90,7 @@ pre {
   display: block;
   margin: 1em 0 0;
   overflow: visible;
+  contain: paint;
 
   code {
     box-sizing: border-box;
@@ -103,6 +102,10 @@ pre {
 
   &::part(auto-scaling) {
     max-height: calc(580px - 1em);
+  }
+
+  .line.highlighted {
+    border-image: conic-gradient(var(--color-dimmed) 0 0) fill 0/ /0 10000vw;
   }
 }
 
@@ -190,6 +193,22 @@ section {
   );
   --color-highlight: light-dark(#{$color-primary}, #{$color-secondary});
 
+  /* Colors for Shiki highlighter */
+  --marp-shiki-foreground: var(--color-background);
+  --marp-shiki-background: var(--color-foreground);
+  --marp-shiki-token-link: #e9c062;
+  --marp-shiki-token-string: light-dark(#daefa3, #65b042);
+  --marp-shiki-token-comment: #aeaeae;
+  --marp-shiki-token-constant: light-dark(#65a0ee, #3e87e3);
+  --marp-shiki-token-keyword: #e28964;
+  --marp-shiki-token-parameter: var(--marp-shiki-foreground);
+  --marp-shiki-token-function: light-dark(#89bdff, #65a0ee);
+  --marp-shiki-token-string-expression: light-dark(#daefa3, #65b042);
+  --marp-shiki-token-punctuation: var(--marp-shiki-foreground);
+  --marp-shiki-token-inserted: light-dark(#daefa3, #65b042);
+  --marp-shiki-token-deleted: #e28964;
+  --marp-shiki-token-changed: #e9c062;
+
   color-scheme: light;
   background-color: var(--color-background);
   background-image: linear-gradient(
@@ -226,6 +245,10 @@ section {
     color: var(--color-background);
   }
 
+  pre > code {
+    background: transparent;
+  }
+
   h1,
   h2,
   h3,
@@ -235,14 +258,6 @@ section {
     strong {
       color: var(--color-highlight);
     }
-  }
-
-  pre {
-    background: var(--color-foreground);
-  }
-
-  pre > code {
-    background: transparent;
   }
 
   header,
@@ -287,6 +302,11 @@ section {
     --color-foreground: #{$color-light};
     --color-dimmed: #{color.mix($color-light, $color-primary, 80%)};
     --color-highlight: #{$color-secondary};
+    --marp-shiki-token-constant: #3e87e3;
+    --marp-shiki-token-function: #65a0ee;
+    --marp-shiki-token-inserted: #65b042;
+    --marp-shiki-token-string-expression: #65b042;
+    --marp-shiki-token-string: #65b042;
   }
 
   &:where(.lead) {

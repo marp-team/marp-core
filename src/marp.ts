@@ -10,6 +10,7 @@ import { defaultHTMLAllowList, type HTMLAllowList } from './html/allowlist'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
 import * as scriptPlugin from './script/script'
+import { render as renderShiki } from './shiki'
 import * as sizePlugin from './size/size'
 import * as slugPlugin from './slug/slug'
 
@@ -95,9 +96,8 @@ export class Marp extends Marpit {
       .use(slugPlugin.markdown)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   highlighter(code: string, lang: string, attrs: string): string {
-    return ''
+    return renderShiki(code, lang, attrs)
   }
 
   protected themeSetPackOptions(): ThemeSetPackOptions {

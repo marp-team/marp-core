@@ -34,7 +34,7 @@
     "browser.d.ts"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=20.19"
   },
   "scripts": {
     "build": "npm -s run clean && rollup -c",
@@ -72,7 +72,8 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.3.0",
-    "@tsconfig/node18": "^18.2.6",
+    "@shikijs/transformers": "^4.0.2",
+    "@tsconfig/node20": "^20.1.9",
     "@tsconfig/recommended": "^1.0.13",
     "@twemoji/api": "^17.0.2",
     "@types/jest": "^30.0.0",
@@ -119,6 +120,7 @@
     "katex": "^0.16.38",
     "mathjax-full": "^3.2.2",
     "postcss-selector-parser": "^7.1.1",
+    "shiki": "^4.0.2",
     "xss": "^1.0.15"
   },
   "overrides": {
