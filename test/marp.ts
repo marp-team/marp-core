@@ -1397,16 +1397,30 @@ function complex(a,b)
       })
     })
 
-    // Plain text rendering
-    for (const lang of ['text', 'plain', 'noHighlight', 'no-highlight']) {
-      describe(`when fence is rendered with ${lang} lang`, () => {
-        const $ = load(marp().markdown.render(`\`\`\`${lang}\n# test\n\`\`\``))
+    describe(`when fence is rendered with unexpected lang`, () => {
+      const $ = load(marp().markdown.render(`\`\`\`unexpected\n# test\n\`\`\``))
 
-        it('disables highlight', () => {
-          expect($('pre.shiki')).toHaveLength(0)
-        })
+      it('disables highlight', () => {
+        expect($('pre.shiki')).toHaveLength(0)
       })
-    }
+    })
+
+    describe(`when fence is rendered with text lang`, () => {
+      const $ = load(marp().markdown.render(`\`\`\`text\n# test\n\`\`\``))
+
+      it('enables highlight', () => {
+        expect($('pre.shiki')).toHaveLength(1)
+      })
+    })
+
+    describe(`when fence is rendered with text lang with attributes`, () => {
+      const $ = load(marp().markdown.render(`\`\`\`text {1}\n# test\n\`\`\``))
+
+      it('enables highlight with a highlighted line', () => {
+        expect($('pre.shiki')).toHaveLength(1)
+        expect($('pre.shiki .line.highlighted')).toHaveLength(1)
+      })
+    })
 
     describe('with highlight markdown option', () => {
       const instance = marp({ markdown: { highlight: () => 'CUSTOM' } })

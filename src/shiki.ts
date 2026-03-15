@@ -7,10 +7,12 @@ import type {
 } from 'shiki/core'
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
 import { bundledLanguagesInfo } from 'shiki/langs'
+import { langLoaders } from './generated/shiki-lang-loaders'
 
 let _shiki: HighlighterCore | null = null
 
 const supportedLangs: Record<string, string> = {}
+const textLangs = ['text', 'txt', 'plain']
 
 bundledLanguagesInfo.map(({ id, aliases }) => {
   if (aliases && aliases.length > 0) {
@@ -60,16 +62,15 @@ export const render = (
   code: string,
   { lang, attrs, transformers = defaultTransformers }: RenderOptions,
 ): string => {
-  if (!supportedLangs[lang]) return ''
+  const resolvedLang = textLangs.includes(lang) ? 'text' : supportedLangs[lang]
+  if (!resolvedLang) return ''
 
   const shikiInstance = shiki()
 
   // Lazy-loading languages to reduce initial loading time
-  if (!shikiInstance.getLoadedLanguages().includes(lang)) {
-    shikiInstance.loadLanguageSync(
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      require(`@shikijs/langs/${supportedLangs[lang]}`).default,
-    )
+  if (!shikiInstance.getLoadedLanguages().includes(resolvedLang)) {
+    const langLoader = langLoaders[resolvedLang]
+    if (langLoader) shikiInstance.loadLanguageSync(langLoader())
   }
 
   const options = {
