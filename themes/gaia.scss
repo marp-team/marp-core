@@ -18,7 +18,8 @@ $color-primary: #0288d1;
 $color-secondary: #81d4fa;
 
 @import 'https://fonts.bunny.net/css?family=Lato:400,900|Roboto+Mono:400,700&display=swap';
-@include meta.load-css('pkg:highlight.js/styles/sunburst.css');
+
+// @include meta.load-css('pkg:highlight.js/styles/sunburst.css');
 
 h1,
 h2,
