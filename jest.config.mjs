@@ -19,7 +19,7 @@ const esModules = [
 /** @type {import('jest').Config} */
 const config = {
   ...tsJestPreset,
-  collectCoverageFrom: ['src/**/*.{j,t}s'],
+  collectCoverageFrom: ['src/**/*.{j,t}s', '!src/generated/**/*'],
   coveragePathIgnorePatterns: ['/node_modules/', '.*\\.d\\.ts'],
   coverageThreshold: { global: { lines: 95 } },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
