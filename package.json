@@ -65,6 +65,7 @@
     "exec": "npx @marp-team/marp-cli@latest -y"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.29.0",
     "@csstools/postcss-minify": "^2.0.5",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^29.0.2",

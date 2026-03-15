@@ -1382,16 +1382,18 @@ function complex(a,b)
     describe('when fence is rendered without lang', () => {
       const $ = load(marp().markdown.render('```\n# test\n```'))
 
-      it('does not highlight code', () =>
-        expect($('code [class^="hljs-"]')).toHaveLength(0))
+      it('does not highlight code', () => {
+        expect($('pre.shiki')).toHaveLength(0)
+      })
     })
 
     describe('when fence is rendered with specified lang', () => {
       const $ = load(marp().markdown.render('```markdown\n# test\n```'))
 
       it('highlights code with specified lang', () => {
-        expect($('code.language-markdown')).toHaveLength(1)
-        expect($('code .hljs-section')).toHaveLength(1)
+        expect($('pre.shiki')).toHaveLength(1)
+        expect($('pre.shiki code.language-markdown')).toHaveLength(1)
+        expect($('pre.shiki [style*="font-weight:bold"]')).toHaveLength(1)
       })
     })
 
@@ -1400,8 +1402,9 @@ function complex(a,b)
       describe(`when fence is rendered with ${lang} lang`, () => {
         const $ = load(marp().markdown.render(`\`\`\`${lang}\n# test\n\`\`\``))
 
-        it('disables highlight', () =>
-          expect($('code [class^="hljs-"]')).toHaveLength(0))
+        it('disables highlight', () => {
+          expect($('pre.shiki')).toHaveLength(0)
+        })
       })
     }
 
@@ -1423,10 +1426,15 @@ function complex(a,b)
         return '<b class="customized">customized</b>'
       }
 
-      const $ = load(instance.markdown.render('```markdown {attrs}\ntest\n```'))
+      it('highlights with custom highlighter', () => {
+        expect.assertions(4)
 
-      it('highlights with custom highlighter', () =>
-        expect($('code .customized')).toHaveLength(1))
+        const $ = load(
+          instance.markdown.render('```markdown {attrs}\ntest\n```'),
+        )
+
+        expect($('code .customized')).toHaveLength(1)
+      })
     })
   })
 })
