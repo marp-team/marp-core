@@ -41,20 +41,25 @@ const shiki = (): HighlighterCore => {
   return _shiki
 }
 
-const transformers: ShikiTransformer[] = [
-  transformerMetaHighlight(),
-  {
-    name: '@marp-team/marp-core:highlighter',
-    pre(node) {
-      delete node.properties.tabindex
-    },
-    code(node) {
-      this.addClassToHast(node, `language-${this.options.lang}`)
-    },
-  },
-]
+export const defaultTransformers = [transformerMetaHighlight()]
 
-export const render = (code: string, lang: string, attrs: string): string => {
+const bultinTransformer = {
+  name: '@marp-team/marp-core:highlighter',
+  code(node) {
+    this.addClassToHast(node, `language-${this.options.lang}`)
+  },
+} as const satisfies ShikiTransformer
+
+interface RenderOptions {
+  lang: string
+  attrs: string
+  transformers?: ShikiTransformer[]
+}
+
+export const render = (
+  code: string,
+  { lang, attrs, transformers = defaultTransformers }: RenderOptions,
+): string => {
   if (!supportedLangs[lang]) return ''
 
   const shikiInstance = shiki()
@@ -70,8 +75,9 @@ export const render = (code: string, lang: string, attrs: string): string => {
   const options = {
     lang,
     theme: themeName,
-    transformers,
+    transformers: [bultinTransformer, ...transformers],
     meta: { __raw: attrs },
+    tabindex: false,
   } as const satisfies CodeToHastOptions
 
   return shikiInstance.codeToHtml(code, options)

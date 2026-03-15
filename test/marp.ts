@@ -1437,4 +1437,21 @@ function complex(a,b)
       })
     })
   })
+
+  describe('shikiTransformers field', () => {
+    it('allows to add custom Shiki transformer', () => {
+      const instance = marp()
+
+      instance.shikiTransformers.push({
+        code(node) {
+          this.addClassToHast(node, 'transformed')
+        },
+      })
+
+      const $ = load(instance.markdown.render('```md\ntest\n```'))
+
+      expect($('pre.shiki code.language-md')).toHaveLength(1)
+      expect($('pre.shiki code.language-md.transformed')).toHaveLength(1)
+    })
+  })
 })

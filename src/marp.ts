@@ -1,5 +1,6 @@
 import postcssMinify from '@csstools/postcss-minify'
 import { Marpit, Options, ThemeSetPackOptions } from '@marp-team/marpit'
+import type { ShikiTransformer } from 'shiki'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
@@ -10,7 +11,7 @@ import { defaultHTMLAllowList, type HTMLAllowList } from './html/allowlist'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
 import * as scriptPlugin from './script/script'
-import { render as renderShiki } from './shiki'
+import * as shiki from './shiki'
 import * as sizePlugin from './size/size'
 import * as slugPlugin from './slug/slug'
 
@@ -26,6 +27,8 @@ export interface MarpOptions extends Options {
 
 export class Marp extends Marpit {
   declare readonly options: Required<MarpOptions>
+
+  shikiTransformers: ShikiTransformer[] = [...shiki.defaultTransformers]
 
   static readonly html = defaultHTMLAllowList
 
@@ -97,7 +100,11 @@ export class Marp extends Marpit {
   }
 
   highlighter(code: string, lang: string, attrs: string): string {
-    return renderShiki(code, lang, attrs)
+    return shiki.render(code, {
+      lang,
+      attrs,
+      transformers: this.shikiTransformers,
+    })
   }
 
   protected themeSetPackOptions(): ThemeSetPackOptions {
