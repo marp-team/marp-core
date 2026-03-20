@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Upgrade dependent packages ([#412](https://github.com/marp-team/marp-core/pull/412))
+- Upgrade dependent packages ([#412](https://github.com/marp-team/marp-core/pull/412), [#414](https://github.com/marp-team/marp-core/pull/414))
 
 ## v4.3.0 - 2026-02-28
 
