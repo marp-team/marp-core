@@ -26,6 +26,27 @@ By using `invert` class, you can change to use the inverted color scheme.
 <!-- class: invert -->
 ```
 
+#### CSS variables for syntax highlighting
+
+All themes define CSS variables for [Shiki](https://shiki.style/) syntax highlighter:
+
+- `--marp-shiki-foreground`: Foreground color for code block.
+- `--marp-shiki-background`: Background color for code block.
+- `--marp-shiki-line-highlight`: Background color for highlighted line in code block.
+
+* Colors for Shiki syntax tokens:
+  - `--marp-shiki-token-constant`
+  - `--marp-shiki-token-string`
+  - `--marp-shiki-token-comment`
+  - `--marp-shiki-token-keyword`
+  - `--marp-shiki-token-parameter`
+  - `--marp-shiki-token-function`
+  - `--marp-shiki-token-string-expression`
+  - `--marp-shiki-token-punctuation`
+  - `--marp-shiki-token-link`
+
+See also https://shiki.style/guide/theme-colors#css-variables-theme.
+
 ---
 
 ## Default

@@ -52,12 +52,68 @@ _We will only explain features extended in marp-core._ Please refer to [Marpit f
 
 We provide built-in official themes for Marp. See more details in [themes].
 
-|                Default                |                 Gaia                  |                Uncover                |
-| :-----------------------------------: | :-----------------------------------: | :-----------------------------------: |
-| [![](https://bit.ly/2Op7Bp6)][themes] | [![](https://bit.ly/2QhDq4S)][themes] | [![](https://bit.ly/2DqZvvh)][themes] |
-|       `<!-- theme: default -->`       |        `<!-- theme: gaia -->`         |       `<!-- theme: uncover -->`       |
+|           Default            |           Gaia            |           Uncover            |
+| :--------------------------: | :-----------------------: | :--------------------------: |
+| [![][default-theme]][themes] | [![][gaia-theme]][themes] | [![][uncover-theme]][themes] |
+|  `<!-- theme: default -->`   |  `<!-- theme: gaia -->`   |  `<!-- theme: uncover -->`   |
 
 [themes]: ./themes/
+[default-theme]: https://user-images.githubusercontent.com/3993388/48039490-53be1b80-e1b8-11e8-8179-0e6c11d285e2.png
+[gaia-theme]: https://user-images.githubusercontent.com/3993388/48039493-5456b200-e1b8-11e8-9c49-dd5d66d76c0d.png
+[uncover-theme]: https://user-images.githubusercontent.com/3993388/48039495-5456b200-e1b8-11e8-8c82-ca7f7842b34d.png
+
+---
+
+### Syntax highlighting
+
+Marp Core has built-in syntax highlighting for code fences powered by [Shiki](https://shiki.style/). Define language identifier as [a info string of code fence](https://spec.commonmark.org/0.31.2/#info-string), such as ` ```js `.
+
+````markdown
+```js
+import { Marp } from '@marp-team/marp-core'
+
+// Convert Markdown slide deck into HTML and CSS
+const marp = new Marp()
+const { html, css } = marp.render('# Hello, marp-core!')
+```
+````
+
+<p align="center"><img src="./docs/assets/syntax-highlighting.webp" alt="Syntax highlighting" width="640" /></p>
+
+Please see [Shiki's "Languages" page](https://shiki.style/languages) for supported languages and identifiers.
+
+#### Line highlighting
+
+You can also highlight specific lines by adding a space-separated extra attribute `{}`, just like `{1,4-5}` (means highlight 1st, and 4th to 5th lines).
+
+````markdown
+```js {1,4-5}
+import { Marp } from '@marp-team/marp-core'
+
+// Convert Markdown slide deck into HTML and CSS
+const marp = new Marp()
+const { html, css } = marp.render('# Hello, marp-core!')
+```
+````
+
+<p align="center"><img src="./docs/assets/line-highlighting.webp" alt="Line highlighting" width="640" /></p>
+
+#### Color customization
+
+Colors for syntax higlighting are defined in the theme CSS as `--marp-shiki-*` CSS variables. If you want to customize the color, [you can tweak the style by `<style>` tag](https://marpit.marp.app/theme-css?id=tweak-style-through-markdown).
+
+```html
+<style>
+  :root {
+    --marp-shiki-foreground: #224466;
+    --marp-shiki-background: #eeefff;
+    --marp-shiki-line-highlight: #dddeee;
+    /* ... and more variables (See the theme documentation for details) */
+  }
+</style>
+```
+
+For theme authors compatible with Marp Core, [the full list of CSS variables for syntax highlighting is available in the theme documentation.](./themes#css-variables-for-syntax-highlighting)
 
 ---
 
