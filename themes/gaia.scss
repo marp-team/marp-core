@@ -243,12 +243,17 @@ section {
   }
 
   code {
-    background: var(--color-dimmed);
+    background-color: var(--color-dimmed);
     color: var(--color-background);
   }
 
+  pre {
+    background-color: var(--marp-shiki-background);
+    color: var(--marp-shiki-foreground);
+  }
+
   pre > code {
-    background: transparent;
+    background-color: transparent;
   }
 
   h1,
