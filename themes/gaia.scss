@@ -297,16 +297,13 @@ section {
   }
 
   &:where(.gaia) {
+    color-scheme: dark;
+
     --color-background: #{$color-primary};
     --color-background-stripe: #{rgba($color-light, 0.1)};
     --color-foreground: #{$color-light};
     --color-dimmed: #{color.mix($color-light, $color-primary, 80%)};
     --color-highlight: #{$color-secondary};
-    --marp-shiki-token-constant: #3e87e3;
-    --marp-shiki-token-function: #65a0ee;
-    --marp-shiki-token-inserted: #65b042;
-    --marp-shiki-token-string-expression: #65b042;
-    --marp-shiki-token-string: #65b042;
   }
 
   &:where(.lead) {
