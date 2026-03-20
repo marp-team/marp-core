@@ -55,12 +55,12 @@ const bultinTransformer = {
 interface RenderOptions {
   lang: string
   attrs: string
-  transformers?: ShikiTransformer[]
+  transformers: ShikiTransformer[]
 }
 
 export const render = (
   code: string,
-  { lang, attrs, transformers = defaultTransformers }: RenderOptions,
+  { lang, attrs, transformers }: RenderOptions,
 ): string => {
   const resolvedLang = textLangs.includes(lang) ? 'text' : supportedLangs[lang]
   if (!resolvedLang) return ''
