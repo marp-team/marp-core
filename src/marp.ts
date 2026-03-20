@@ -100,7 +100,7 @@ export class Marp extends Marpit {
   }
 
   highlighter(code: string, lang: string, attrs: string): string {
-    return shiki.render(code, {
+    return shiki.render(code.endsWith('\n') ? code.slice(0, -1) : code, {
       lang,
       attrs,
       transformers: this.shikiTransformers,
