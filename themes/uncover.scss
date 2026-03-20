@@ -37,7 +37,12 @@ section {
 
   /* Colors for Shiki highlighter */
   --marp-shiki-foreground: var(--color-foreground);
-  --marp-shiki-background: transparent;
+  --marp-shiki-background: var(--color-background-code);
+  --marp-shiki-line-highlight: color-mix(
+    in srgb,
+    var(--color-highlight) 20%,
+    var(--marp-shiki-background)
+  );
   --marp-shiki-token-link: light-dark(#31a354, #ab875d);
   --marp-shiki-token-string: light-dark(#756bb1, #8f9c6c);
   --marp-shiki-token-comment: light-dark(#636363, #777);
@@ -216,6 +221,7 @@ section {
   pre {
     --preserve-aspect-ratio: xMidYMid meet;
 
+    background-color: transparent !important; /* Override Shiki's background definiton because it is defined in the child <code> */
     filter: drop-shadow(0 4px 4px rgba(#000, 0.2));
     font-size: 70%;
     line-height: 1.15;
@@ -227,22 +233,14 @@ section {
     }
 
     .line.highlighted {
-      border-image: conic-gradient(
-          color-mix(
-              in srgb,
-              var(--color-highlight) 20%,
-              var(--color-background-code)
-            )
-            0 0
-        )
-        fill 0/ /0 10000vw;
+      border-image: conic-gradient(var(--marp-shiki-line-highlight) 0 0) fill
+        0/ /0 10000vw;
     }
   }
 
   pre > code {
-    background: var(--color-background-code);
     box-sizing: content-box;
-    color: var(--color-foreground);
+    background-color: var(--marp-shiki-background);
     display: block;
     margin: 0 auto;
     min-width: 456px; // (Slide width - padding * 2) * 40%

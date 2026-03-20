@@ -105,7 +105,8 @@ pre {
   }
 
   .line.highlighted {
-    border-image: conic-gradient(var(--color-dimmed) 0 0) fill 0/ /0 10000vw;
+    border-image: conic-gradient(var(--marp-shiki-line-highlight) 0 0) fill
+      0/ /0 10000vw;
   }
 }
 
@@ -196,6 +197,7 @@ section {
   /* Colors for Shiki highlighter */
   --marp-shiki-foreground: var(--color-background);
   --marp-shiki-background: var(--color-foreground);
+  --marp-shiki-line-highlight: var(--color-dimmed);
   --marp-shiki-token-link: #e9c062;
   --marp-shiki-token-string: light-dark(#daefa3, #65b042);
   --marp-shiki-token-comment: #aeaeae;

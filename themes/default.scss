@@ -85,8 +85,8 @@ pre {
   }
 
   .line.highlighted {
-    border-image: conic-gradient(var(--bgColor-attention-muted) 0 0) fill 0/ /0
-      10000vw;
+    border-image: conic-gradient(var(--marp-shiki-line-highlight) 0 0) fill
+      0/ /0 10000vw;
   }
 }
 
@@ -130,6 +130,7 @@ section {
   /* Colors for Shiki highlighter */
   --marp-shiki-foreground: var(--fgColor-default);
   --marp-shiki-background: var(--bgColor-muted);
+  --marp-shiki-line-highlight: var(--bgColor-attention-muted);
   --marp-shiki-token-link: var(
     --color-prettylights-syntax-constant-other-reference-link
   );
