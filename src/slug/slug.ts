@@ -1,4 +1,4 @@
-import marpitPlugin from '@marp-team/marpit/plugin'
+import marpitPlugin from '@marp-team/marpit/plugin.js'
 import type { Marp } from '../marp'
 
 export type Slugifier = (text: string) => string

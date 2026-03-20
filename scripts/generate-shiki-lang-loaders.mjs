@@ -16,7 +16,7 @@ const lines = [
   'export const langLoaders = {',
   ...langIds.map(
     (id) =>
-      `  ${JSON.stringify(id)}: () => require(${JSON.stringify(`@shikijs/langs/${id}`)}).default,`,
+      `  ${JSON.stringify(id)}: () => require(${JSON.stringify(`shiki/langs/${id}.mjs`)}).default,`,
   ),
   '} as const',
   '',

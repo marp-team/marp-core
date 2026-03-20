@@ -1,4 +1,4 @@
-import marpitPlugin from '@marp-team/marpit/plugin'
+import marpitPlugin from '@marp-team/marpit/plugin.js'
 import { codeBlockPlugin } from './code-block'
 import { fittingHeaderPlugin } from './fitting-header'
 

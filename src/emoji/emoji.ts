@@ -1,8 +1,8 @@
-import marpitPlugin from '@marp-team/marpit/plugin'
+import marpitPlugin from '@marp-team/marpit/plugin.js'
 import twemoji from '@twemoji/api'
 import emojiRegex from 'emoji-regex'
 import { full as markdownItEmoji } from 'markdown-it-emoji'
-import twemojiCSS from './twemoji.scss'
+import twemojiCSS from './twemoji.scss?inline'
 
 export interface EmojiOptions {
   shortcode?: boolean | 'twemoji'
