@@ -108,6 +108,10 @@ pre {
     border-image: conic-gradient(var(--marp-shiki-line-highlight) 0 0) fill
       0/ /0 10000vw;
   }
+
+  &:has(code.language-mermaid) {
+    background-color: transparent;
+  }
 }
 
 blockquote {

@@ -1,4 +1,3 @@
-import { createRequire } from 'node:module'
 import path from 'node:path'
 import url from 'node:url'
 import alias from '@rollup/plugin-alias'
@@ -13,10 +12,9 @@ import postcssUrl from 'postcss-url'
 import postcss from 'rollup-plugin-postcss'
 import { string } from 'rollup-plugin-string'
 import { NodePackageImporter } from 'sass'
+import pkg from './package.json' with { type: 'json' }
 import { postcssOptimizeDefaultTheme } from './scripts/postcss-optimize-default-theme.mjs'
 
-const require = createRequire(import.meta.url)
-const pkg = require('./package.json')
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
 const plugins = ({ browser = false } = {}) => [

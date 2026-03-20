@@ -10,6 +10,7 @@ import * as emojiPlugin from './emoji/emoji'
 import { defaultHTMLAllowList, type HTMLAllowList } from './html/allowlist'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
+import * as mermaid from './mermaid'
 import * as scriptPlugin from './script/script'
 import * as shiki from './shiki'
 import * as sizePlugin from './size/size'
@@ -100,6 +101,8 @@ export class Marp extends Marpit {
   }
 
   highlighter(code: string, lang: string, attrs: string): string {
+    if (lang === 'mermaid') return mermaid.render(code)
+
     return shiki.render(code.endsWith('\n') ? code.slice(0, -1) : code, {
       lang,
       attrs,
