@@ -34,7 +34,7 @@
     "browser.d.ts"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=20.19"
   },
   "scripts": {
     "build": "npm -s run clean && rollup -c",
@@ -44,9 +44,11 @@
     "clean": "rimraf lib",
     "format": "prettier \"**/*.{css,js,json,md,mjs,scss,ts,yaml,yml}\"",
     "format:write": "npm -s run format -- --write",
+    "gen:shiki": "node scripts/generate-shiki-lang-loaders.mjs",
     "lint:js": "eslint --cache",
     "lint:css": "stylelint \"{src,themes}/**/*.{css,scss}\"",
-    "prepack": "npm-run-all --parallel check:* lint:* test:coverage --parallel build types",
+    "prepare": "run-p gen:*",
+    "prepack": "npm-run-all gen:* --parallel check:* lint:* test:coverage --parallel build types",
     "preversion": "run-p check:* lint:* test:coverage",
     "sandbox": "run-p watch sandbox:watch",
     "sandbox:watch": "mkdirp lib && nodemon",
@@ -65,6 +67,7 @@
     "exec": "npx @marp-team/marp-cli@latest -y"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.29.0",
     "@csstools/postcss-minify": "^2.0.5",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^29.0.2",
@@ -72,7 +75,8 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.3.0",
-    "@tsconfig/node18": "^18.2.6",
+    "@shikijs/transformers": "^4.0.2",
+    "@tsconfig/node20": "^20.1.9",
     "@tsconfig/recommended": "^1.0.13",
     "@twemoji/api": "^17.0.2",
     "@types/jest": "^30.0.0",
@@ -116,10 +120,10 @@
   "dependencies": {
     "@marp-team/marpit": "^3.2.1",
     "@marp-team/marpit-svg-polyfill": "^2.1.0",
-    "highlight.js": "^11.11.1",
     "katex": "^0.16.38",
     "mathjax-full": "^3.2.2",
     "postcss-selector-parser": "^7.1.1",
+    "shiki": "^4.0.2",
     "xss": "^1.0.15"
   },
   "overrides": {

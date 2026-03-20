@@ -1,6 +1,5 @@
 import { Marpit } from '@marp-team/marpit'
 import { load, CheerioOptions } from 'cheerio'
-import highlightjs from 'highlight.js'
 import postcss, { Rule } from 'postcss'
 import { elements } from '../src/custom-elements/definitions'
 import { EmojiOptions } from '../src/emoji/emoji'
@@ -1383,51 +1382,51 @@ function complex(a,b)
     describe('when fence is rendered without lang', () => {
       const $ = load(marp().markdown.render('```\n# test\n```'))
 
-      it('does not highlight code', () =>
-        expect($('code [class^="hljs-"]')).toHaveLength(0))
+      it('does not highlight code', () => {
+        expect($('pre.shiki')).toHaveLength(0)
+      })
     })
 
     describe('when fence is rendered with specified lang', () => {
       const $ = load(marp().markdown.render('```markdown\n# test\n```'))
 
       it('highlights code with specified lang', () => {
-        expect($('code.language-markdown')).toHaveLength(1)
-        expect($('code .hljs-section')).toHaveLength(1)
+        expect($('pre.shiki')).toHaveLength(1)
+        expect($('pre.shiki code.language-markdown')).toHaveLength(1)
+        expect($('pre.shiki [style*="font-weight:bold"]')).toHaveLength(1)
       })
     })
 
-    // Plain text rendering
-    for (const lang of ['text', 'plain', 'noHighlight', 'no-highlight']) {
-      describe(`when fence is rendered with ${lang} lang`, () => {
-        const $ = load(marp().markdown.render(`\`\`\`${lang}\n# test\n\`\`\``))
+    describe(`when fence is rendered with unexpected lang`, () => {
+      const $ = load(marp().markdown.render(`\`\`\`unexpected\n# test\n\`\`\``))
 
-        it('disables highlight', () =>
-          expect($('code [class^="hljs-"]')).toHaveLength(0))
+      it('disables highlight', () => {
+        expect($('pre.shiki')).toHaveLength(0)
       })
-    }
+    })
+
+    describe(`when fence is rendered with text lang`, () => {
+      const $ = load(marp().markdown.render(`\`\`\`text\n# test\n\`\`\``))
+
+      it('enables highlight', () => {
+        expect($('pre.shiki')).toHaveLength(1)
+      })
+    })
+
+    describe(`when fence is rendered with text lang with attributes`, () => {
+      const $ = load(marp().markdown.render(`\`\`\`text {1}\n# test\n\`\`\``))
+
+      it('enables highlight with a highlighted line', () => {
+        expect($('pre.shiki')).toHaveLength(1)
+        expect($('pre.shiki .line.highlighted')).toHaveLength(1)
+      })
+    })
 
     describe('with highlight markdown option', () => {
       const instance = marp({ markdown: { highlight: () => 'CUSTOM' } })
 
       it('allows overriding highlighter', () =>
         expect(instance.markdown.render('```\ntest\n```')).toContain('CUSTOM'))
-    })
-
-    describe('with customized highlightjs instance', () => {
-      const instance = marp()
-
-      instance.highlightjs.registerAliases('marp-test', {
-        languageName: 'javascript',
-      })
-
-      const $ = load(
-        instance.markdown.render('```marp-test\nconst a = 1;\n```'),
-      )
-
-      it('highlights code with customized highlightjs', () => {
-        expect($('code.language-marp-test')).toHaveLength(1)
-        expect($('code .hljs-keyword')).toHaveLength(1)
-      })
     })
 
     describe('with overriden #highlighter', () => {
@@ -1441,44 +1440,32 @@ function complex(a,b)
         return '<b class="customized">customized</b>'
       }
 
-      const $ = load(instance.markdown.render('```markdown {attrs}\ntest\n```'))
+      it('highlights with custom highlighter', () => {
+        expect.assertions(4)
 
-      it('highlights with custom highlighter', () =>
-        expect($('code .customized')).toHaveLength(1))
+        const $ = load(
+          instance.markdown.render('```markdown {attrs}\ntest\n```'),
+        )
+
+        expect($('code .customized')).toHaveLength(1)
+      })
     })
   })
 
-  describe('get #highlightjs', () => {
-    it('returns highlight.js instance', () => {
+  describe('shikiTransformers field', () => {
+    it('allows to add custom Shiki transformer', () => {
       const instance = marp()
 
-      expect(instance.highlightjs.highlight).toBeInstanceOf(Function)
-      expect(instance.highlightjs.versionString).toMatchInlineSnapshot(
-        `"11.11.1"`,
-      )
-    })
-
-    it('has registered all highlight languages as same as highlight.js module', () => {
-      const instance = marp()
-
-      const moduleLanguages = highlightjs.listLanguages()
-      const languages = instance.highlightjs.listLanguages()
-
-      expect(languages).toHaveLength(moduleLanguages.length)
-      moduleLanguages.forEach((lang) => expect(languages).toContain(lang))
-    })
-
-    it('does not pollute global highlight.js instance even if extended an instance of highlight.js resolved by #highlightjs', () => {
-      const instance = marp()
-
-      instance.highlightjs.registerAliases('marp-test', {
-        languageName: 'javascript',
+      instance.shikiTransformers.push({
+        code(node) {
+          this.addClassToHast(node, 'transformed')
+        },
       })
 
-      expect(instance.highlightjs.getLanguage('marp-test')?.name).toBe(
-        'JavaScript',
-      )
-      expect(highlightjs.getLanguage('marp-test')?.name).toBeUndefined()
+      const $ = load(instance.markdown.render('```md\ntest\n```'))
+
+      expect($('pre.shiki code.language-md')).toHaveLength(1)
+      expect($('pre.shiki code.language-md.transformed')).toHaveLength(1)
     })
   })
 })

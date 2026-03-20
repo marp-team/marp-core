@@ -1,17 +1,17 @@
 import postcssMinify from '@csstools/postcss-minify'
 import { Marpit, Options, ThemeSetPackOptions } from '@marp-team/marpit'
-import type { HLJSApi } from 'highlight.js'
+import type { ShikiTransformer } from 'shiki'
 import defaultTheme from '../themes/default.scss'
 import gaiaTheme from '../themes/gaia.scss'
 import uncoverTheme from '../themes/uncover.scss'
 import * as autoScalingPlugin from './auto-scaling'
 import * as customElements from './custom-elements'
 import * as emojiPlugin from './emoji/emoji'
-import { generateHighlightJSInstance } from './highlightjs'
 import { defaultHTMLAllowList, type HTMLAllowList } from './html/allowlist'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
 import * as scriptPlugin from './script/script'
+import * as shiki from './shiki'
 import * as sizePlugin from './size/size'
 import * as slugPlugin from './slug/slug'
 
@@ -28,7 +28,7 @@ export interface MarpOptions extends Options {
 export class Marp extends Marpit {
   declare readonly options: Required<MarpOptions>
 
-  private _highlightjs: HLJSApi | undefined
+  shikiTransformers: ShikiTransformer[] = [...shiki.defaultTransformers]
 
   static readonly html = defaultHTMLAllowList
 
@@ -99,22 +99,12 @@ export class Marp extends Marpit {
       .use(slugPlugin.markdown)
   }
 
-  get highlightjs() {
-    if (!this._highlightjs) {
-      this._highlightjs = generateHighlightJSInstance()
-    }
-    return this._highlightjs
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   highlighter(code: string, lang: string, attrs: string): string {
-    if (lang && this.highlightjs.getLanguage(lang)) {
-      return this.highlightjs.highlight(code, {
-        language: lang,
-        ignoreIllegals: true,
-      }).value
-    }
-    return ''
+    return shiki.render(code.endsWith('\n') ? code.slice(0, -1) : code, {
+      lang,
+      attrs,
+      transformers: this.shikiTransformers,
+    })
   }
 
   protected themeSetPackOptions(): ThemeSetPackOptions {
