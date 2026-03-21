@@ -1,5 +1,7 @@
+import { exactRegex } from '@rolldown/pluginutils'
 import type { OutputBundle, OutputChunk, Plugin } from 'rolldown'
-import type { TsdownHooks } from 'tsdown'
+import { mergeConfig } from 'tsdown'
+import type { TsdownHooks, UserConfig } from 'tsdown'
 
 const sourceMapCommentRegexp = /(?:\r?\n)?\/\/# sourceMappingURL=.*$/
 
@@ -21,18 +23,6 @@ export interface RolldownChunkStringTargetPluginOptions {
   virtualId?: string
 }
 
-const createDeferred = <T>() => {
-  let resolve!: (value: T) => void
-  let reject!: (reason?: unknown) => void
-
-  const promise = new Promise<T>((res, rej) => {
-    resolve = res
-    reject = rej
-  })
-
-  return { promise, resolve, reject }
-}
-
 const defaultPickChunk = (bundle: OutputBundle) =>
   Object.values(bundle).find(
     (item): item is OutputChunk => item.type === 'chunk' && item.isEntry,
@@ -47,7 +37,7 @@ export const createRolldownChunkStringContext = ({
   pickChunk = defaultPickChunk,
   stripSourceMapComment = true,
 }: RolldownChunkStringContextOptions) => {
-  let deferred = createDeferred<ChunkStringResult>()
+  let deferred = Promise.withResolvers<ChunkStringResult>()
 
   const serializeChunk =
     stringifyChunk ||
@@ -74,7 +64,7 @@ export const createRolldownChunkStringContext = ({
   return {
     hooks: {
       'build:prepare': () => {
-        deferred = createDeferred<ChunkStringResult>()
+        deferred = Promise.withResolvers<ChunkStringResult>()
       },
     } satisfies Partial<TsdownHooks>,
 
@@ -96,21 +86,30 @@ export const createRolldownChunkStringContext = ({
     }: RolldownChunkStringTargetPluginOptions): Plugin {
       return {
         name: `${name}-target`,
-        resolveId(source) {
-          return source === importSource ? virtualId : null
+        resolveId: {
+          filter: { id: exactRegex(importSource) },
+          handler: () => virtualId,
         },
-        async load(id) {
-          if (id !== virtualId) return null
+        load: {
+          filter: { id: exactRegex(virtualId) },
+          async handler() {
+            const { code, watchFiles } = await deferred.promise
+            for (const file of watchFiles) this.addWatchFile(file)
 
-          const { code, watchFiles } = await deferred.promise
-
-          for (const file of watchFiles) {
-            this.addWatchFile(file)
-          }
-
-          return `export default ${JSON.stringify(code)}`
+            return `export default ${JSON.stringify(code)}`
+          },
         },
       }
+    },
+
+    withTarget(
+      base: Omit<UserConfig, 'hooks'>,
+      targetOptions: RolldownChunkStringTargetPluginOptions,
+    ) {
+      return mergeConfig(base, {
+        hooks: this.hooks,
+        plugins: [this.targetPlugin(targetOptions)],
+      })
     },
   }
 }

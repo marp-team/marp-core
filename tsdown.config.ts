@@ -29,21 +29,12 @@ const baseConfig: UserConfig = {
         }),
         autoprefixer(),
         cssnano({
-          preset: [
-            'default',
-            {
-              // Whitespace normalizer will apply on runtime to make debug easily (minifyCSS option)
-              normalizeWhitespace: false,
-            },
-          ],
+          // Whitespace normalizer will apply on runtime to make debug easily (minifyCSS option)
+          preset: ['default', { normalizeWhitespace: false }],
         }),
       ],
     },
-    preprocessorOptions: {
-      scss: {
-        importers: [new NodePackageImporter()],
-      },
-    },
+    preprocessorOptions: { scss: { importers: [new NodePackageImporter()] } },
   },
 }
 
@@ -71,16 +62,13 @@ export default defineConfig([
   },
 
   // Main bundle
-  {
-    ...baseConfig,
-    name: 'Marp Core',
-    entry: 'src/marp.ts',
-    format: ['esm', 'cjs'],
-    hooks: browserScriptContext.hooks,
-    plugins: [
-      browserScriptContext.targetPlugin({
-        importSource: './browser-script',
-      }),
-    ],
-  },
+  browserScriptContext.withTarget(
+    {
+      ...baseConfig,
+      name: 'Marp Core',
+      entry: 'src/marp.ts',
+      format: ['esm', 'cjs'],
+    },
+    { importSource: './browser-script' },
+  ),
 ])
