@@ -1,4 +1,4 @@
-import marpitPlugin from '@marp-team/marpit/plugin'
+import marpitPlugin from '@marp-team/marpit/plugin.js'
 import { Marp } from '../marp'
 import { getMathContext, setMathContext } from './context'
 import * as katex from './katex'

@@ -1,7 +1,10 @@
 import selfClosingTags from 'self-closing-tags'
-import { FilterXSS, friendlyAttrValue, escapeAttrValue } from 'xss'
+import * as xss from 'xss'
 import type { SafeAttrValueHandler, IWhiteList } from 'xss'
 import { MarpOptions } from '../marp'
+
+// NOTE: Rolldown MJS build will fail if used named import directly
+const { FilterXSS, friendlyAttrValue, escapeAttrValue } = xss
 
 const selfClosingRegexp = /\s*\/?>$/
 const xhtmlOutFilter = new FilterXSS({
