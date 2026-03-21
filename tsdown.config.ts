@@ -4,7 +4,7 @@ import postcssUrl from 'postcss-url'
 import { NodePackageImporter } from 'sass-embedded'
 import { defineConfig } from 'tsdown'
 import type { UserConfig } from 'tsdown'
-import { postcssOptimizeDefaultTheme } from './scripts/postcss-optimize-default-theme.mjs'
+import { postcssOptimizeDefaultTheme } from './scripts/postcss-optimize-default-theme.ts'
 import { createRolldownChunkStringContext } from './scripts/rolldown-chunk-string-context-plugin.ts'
 
 const browserScriptContext = createRolldownChunkStringContext({
