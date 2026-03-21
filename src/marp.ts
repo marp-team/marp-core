@@ -105,7 +105,9 @@ export class Marp extends Marpit {
     // Mermaid renderer
     if (lang === 'mermaid') {
       try {
-        return mermaid.render(code)
+        return mermaid.render(code, {
+          interactive: /\binteractive\b/.test(attrs),
+        })
       } catch (err) {
         console.warn(err)
       }

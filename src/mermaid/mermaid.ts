@@ -1,9 +1,25 @@
-import { shikiTheme } from '../shiki'
 import { getBeautifulMermaid } from './loader'
 
-export const render = (diagram: string): string => {
-  const { fromShikiTheme, renderMermaidSVG } = getBeautifulMermaid()
-  const colors = fromShikiTheme(shikiTheme())
+export interface MermaidRenderOptions {
+  interactive?: boolean
+}
 
-  return renderMermaidSVG(diagram, { ...colors, transparent: true, padding: 0 })
+export const render = (
+  mermaid: string,
+  { interactive = false }: MermaidRenderOptions = {},
+): string => {
+  const { renderMermaidSVG } = getBeautifulMermaid()
+
+  return renderMermaidSVG(mermaid, {
+    transparent: true,
+    padding: 4,
+    interactive,
+    bg: 'var(--marp-mermaid-background, var(--marp-shiki-background))',
+    fg: 'var(--marp-mermaid-foreground, var(--marp-shiki-foreground))',
+    line: 'var(--marp-mermaid-line)',
+    accent: 'var(--marp-mermaid-accent, var(--marp-shiki-token-keyword))',
+    muted: 'var(--marp-mermaid-muted, var(--marp-shiki-token-comment))',
+    surface: 'var(--marp-mermaid-surface, var(--marp-shiki-background))',
+    border: 'var(--marp-mermaid-border)',
+  })
 }

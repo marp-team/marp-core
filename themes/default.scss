@@ -157,6 +157,9 @@ section {
     --color-prettylights-syntax-markup-changed-text
   );
 
+  /* Colors for Mermaid diagrams */
+  --marp-mermaid-border: var(--borderColor-default);
+
   display: block;
   font-size: 29px;
   height: 720px;
