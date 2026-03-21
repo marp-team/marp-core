@@ -22,7 +22,7 @@ const config = {
   collectCoverageFrom: ['src/**/*.{j,t}s', '!src/generated/**/*'],
   coveragePathIgnorePatterns: ['/node_modules/', '.*\\.d\\.ts'],
   coverageThreshold: { global: { lines: 95 } },
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  moduleNameMapper: { '^(.*\\.s[ac]ss)\\?inline$': '$1' },
   testEnvironment: 'node',
   testRegex: '(/(test|__tests__)/(?![_.]).*|(\\.|/)(test|spec))\\.[jt]s$',
   transform: {

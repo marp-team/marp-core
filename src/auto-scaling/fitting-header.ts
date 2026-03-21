@@ -1,4 +1,4 @@
-import marpitPlugin from '@marp-team/marpit/plugin'
+import marpitPlugin from '@marp-team/marpit/plugin.js'
 import { isEnabledAutoScaling } from './utils'
 
 export const fittingHeaderPlugin = marpitPlugin((md) => {

@@ -7,7 +7,7 @@ import { Marp, MarpOptions } from '../src/marp'
 import browserScript from '../src/script/browser-script'
 
 jest.mock('../src/observer')
-jest.mock('../src/math/katex.scss')
+jest.mock('../src/math/katex.scss?inline')
 
 afterEach(() => jest.restoreAllMocks())
 
@@ -949,7 +949,7 @@ function complex(a,b)
           expect(script).toHaveLength(1)
           expect(script.html()).toBe('')
           expect(script.attr('src')).toMatch(
-            /^https:\/\/cdn\.jsdelivr\.net\/npm\/@marp-team\/marp-core@.+\/lib\/browser\.js$/,
+            /^https:\/\/cdn\.jsdelivr\.net\/npm\/@marp-team\/marp-core@.+\/lib\/browser-iife\.iife\.js$/,
           )
           expect(script.attr('defer')).toBeDefined()
         })
