@@ -1,7 +1,8 @@
-import marpitPlugin from '@marp-team/marpit/plugin.js'
 import twemoji from '@twemoji/api'
 import emojiRegex from 'emoji-regex'
+import type MarkdownIt from 'markdown-it'
 import { full as markdownItEmoji } from 'markdown-it-emoji'
+import { marpPlugin } from '../plugin'
 import twemojiCSS from './twemoji.scss?inline'
 
 export interface EmojiOptions {
@@ -22,7 +23,7 @@ export const css = (opts: EmojiOptions) =>
     ? twemojiCSS
     : undefined
 
-export const markdown = marpitPlugin((md) => {
+export const markdown = marpPlugin((md) => {
   const opts: EmojiOptions = md.marpit.options.emoji
   const twemojiOpts = opts.twemoji || {}
   const twemojiExt = twemojiOpts.ext || 'svg'
@@ -35,8 +36,8 @@ export const markdown = marpitPlugin((md) => {
       size: twemojiExt === 'svg' ? 'svg' : undefined,
     })
 
-  const twemojiRenderer = (token: any[], idx: number): string =>
-    twemojiParse(token[idx].content)
+  const twemojiRenderer: MarkdownIt.Renderer.RenderRule = (tokens, idx) =>
+    twemojiParse(tokens[idx].content)
 
   if (opts.shortcode) {
     // Pick rules to avoid collision with other markdown-it plugin
@@ -47,8 +48,8 @@ export const markdown = marpitPlugin((md) => {
           after: (_, __, rule) => (picker.rule = rule), // for markdown-it-emoji >= v2.0.1
         },
       },
-      renderer: { rules: { emoji: () => {} } },
-      rule: (() => {}) as (...args: any[]) => void,
+      renderer: { rules: { emoji: (): string => '' } },
+      rule: (() => {}) as MarkdownIt.Core.RuleCore,
       utils: md.utils,
     }
 
@@ -58,9 +59,9 @@ export const markdown = marpitPlugin((md) => {
     md.core.ruler.push('marp_emoji', (state) => {
       const { Token } = state
 
-      state.Token = function replacedToken(name, ...args) {
-        return new Token(name === 'emoji' ? 'marp_emoji' : name, ...args)
-      }
+      state.Token = function replacedToken(type, tag, nesting) {
+        return new Token(type === 'emoji' ? 'marp_emoji' : type, tag, nesting)
+      } as unknown as typeof Token
 
       picker.rule(state)
       state.Token = Token
@@ -76,20 +77,20 @@ export const markdown = marpitPlugin((md) => {
     md.core.ruler.after('inline', 'marp_unicode_emoji', ({ tokens, Token }) => {
       for (const token of tokens) {
         if (token.type === 'inline') {
-          const newChildren: any[] = []
+          const newChildren: MarkdownIt.Token[] = []
 
-          for (const t of token.children) {
+          for (const t of token.children ?? []) {
             if (t.type === 'text') {
               const splittedByEmoji = t.content.split(regexForSplit)
 
               newChildren.push(
-                ...splittedByEmoji.reduce(
+                ...splittedByEmoji.reduce<MarkdownIt.Token[]>(
                   (splitArr, text, idx) =>
                     text.length === 0
                       ? splitArr
                       : [
                           ...splitArr,
-                          Object.assign(new Token(), {
+                          Object.assign(new Token(t.type, t.tag, t.nesting), {
                             ...t,
                             content: text,
                             type: idx % 2 ? 'marp_unicode_emoji' : 'text',
@@ -109,14 +110,14 @@ export const markdown = marpitPlugin((md) => {
     })
 
     md.renderer.rules.marp_unicode_emoji = (
-      token: any[],
+      token: MarkdownIt.Token[],
       idx: number,
     ): string => token[idx].content
 
     const { code_block, code_inline, fence } = md.renderer.rules
 
     if (opts.unicode === 'twemoji') {
-      const wrap = (text) =>
+      const wrap = (text: string): string =>
         text
           .split(/(<[^>]*>)/g)
           .reduce(
@@ -133,9 +134,24 @@ export const markdown = marpitPlugin((md) => {
 
       md.renderer.rules.marp_unicode_emoji = twemojiRenderer
 
-      md.renderer.rules.code_inline = (...args) => wrap(code_inline(...args))
-      md.renderer.rules.code_block = (...args) => wrap(code_block(...args))
-      md.renderer.rules.fence = (...args) => wrap(fence(...args))
+      md.renderer.rules.code_inline = (tokens, idx, options, env, self) =>
+        wrap(
+          code_inline
+            ? code_inline(tokens, idx, options, env, self)
+            : self.renderToken(tokens, idx, options),
+        )
+      md.renderer.rules.code_block = (tokens, idx, options, env, self) =>
+        wrap(
+          code_block
+            ? code_block(tokens, idx, options, env, self)
+            : self.renderToken(tokens, idx, options),
+        )
+      md.renderer.rules.fence = (tokens, idx, options, env, self) =>
+        wrap(
+          fence
+            ? fence(tokens, idx, options, env, self)
+            : self.renderToken(tokens, idx, options),
+        )
     }
   }
 })

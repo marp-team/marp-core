@@ -1,5 +1,5 @@
-import marpitPlugin from '@marp-team/marpit/plugin.js'
 import { Marp } from '../marp'
+import { marpPlugin } from '../plugin'
 import { getMathContext, setMathContext } from './context'
 import * as katex from './katex'
 import * as mathjax from './mathjax'
@@ -17,7 +17,7 @@ export type MathOptions = boolean | MathPreferredLibrary | MathOptionsInterface
 const defaultLibrary = 'mathjax' as const
 const getLibrary = (opts: MathOptionsInterface) => opts.lib ?? defaultLibrary
 
-export const markdown = marpitPlugin((md) => {
+export const markdown = marpPlugin((md) => {
   const marp: Marp = md.marpit
   const opts: MathOptions | undefined = marp.options.math
 

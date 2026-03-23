@@ -1,15 +1,19 @@
-import marpitPlugin from '@marp-team/marpit/plugin.js'
+import type MarkdownIt from 'markdown-it'
+import { marpPlugin } from '../plugin'
 import { isEnabledAutoScaling } from './utils'
 
 const codeMatcher = /^(<pre[^>]*?><code[^>]*?>)([\s\S]*)(<\/code><\/pre>\n*)$/
 
-export const codeBlockPlugin = marpitPlugin((md) => {
+export const codeBlockPlugin = marpPlugin((md) => {
   const { code_block, fence } = md.renderer.rules
 
   const replacedRenderer =
-    (func: (...args: any[]) => string) =>
-    (...args: any[]) => {
-      const rendered = func(...args)
+    (func?: MarkdownIt.Renderer.RenderRule): MarkdownIt.Renderer.RenderRule =>
+    (tokens, idx, options, env, self) => {
+      const rendered = func
+        ? func(tokens, idx, options, env, self)
+        : self.renderToken(tokens, idx, options)
+
       const shouldScale =
         md.marpit.options.inlineSVG && isEnabledAutoScaling(md.marpit, 'code')
 
