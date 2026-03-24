@@ -1,7 +1,3 @@
-import { createJsWithBabelEsmPreset } from 'ts-jest'
-
-const tsJestPreset = createJsWithBabelEsmPreset()
-
 const esModules = [
   '@shikijs/',
   'ccount',
@@ -18,7 +14,6 @@ const esModules = [
 
 /** @type {import('jest').Config} */
 const config = {
-  ...tsJestPreset,
   collectCoverageFrom: ['src/**/*.{j,t}s', '!src/generated/**/*'],
   coveragePathIgnorePatterns: ['/node_modules/', '.*\\.d\\.ts'],
   coverageThreshold: { global: { lines: 95 } },
@@ -26,7 +21,7 @@ const config = {
   testEnvironment: 'node',
   testRegex: '(/(test|__tests__)/(?![_.]).*|(\\.|/)(test|spec))\\.[jt]s$',
   transform: {
-    ...tsJestPreset.transform,
+    '^.+\\.[mc]?[tj]s$': 'babel-jest',
     '^.*\\.s[ac]ss$': '<rootDir>/test/_transformers/sass.js',
   },
   transformIgnorePatterns: [`/node_modules/(?!${esModules.join('|')})`],
