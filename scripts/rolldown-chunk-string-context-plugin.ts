@@ -1,3 +1,7 @@
+// `Promise.withResolvers` is required this line. Although it is not supported in Node.js v20 (the version supported by
+// Marp Core), it is permitted because the build environment is always expected to use the latest Node.js LTS.
+/// <reference lib="es2024" />
+
 import { exactRegex } from '@rolldown/pluginutils'
 import type { OutputBundle, OutputChunk, Plugin } from 'rolldown'
 import { mergeConfig } from 'tsdown'
