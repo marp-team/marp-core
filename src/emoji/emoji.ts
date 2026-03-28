@@ -48,7 +48,7 @@ export const markdown = marpPlugin((md) => {
         },
       },
       renderer: { rules: {} as { emoji: () => string } },
-      rule: (() => void 0) as MarkdownIt.Core.RuleCore,
+      rule: null as unknown as MarkdownIt.Core.RuleCore,
       utils: md.utils,
     }
 
