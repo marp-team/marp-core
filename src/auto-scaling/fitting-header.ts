@@ -1,13 +1,14 @@
-import marpitPlugin from '@marp-team/marpit/plugin.js'
+import type MarkdownIt from 'markdown-it'
+import { marpPlugin } from '../plugin'
 import { isEnabledAutoScaling } from './utils'
 
-export const fittingHeaderPlugin = marpitPlugin((md) => {
+export const fittingHeaderPlugin = marpPlugin((md) => {
   const { heading_open } = md.renderer.rules
 
   md.core.ruler.after('inline', 'marp_fitting_header', ({ tokens }) => {
     if (!md.marpit.options.inlineSVG) return
 
-    let target: any = undefined
+    let target: MarkdownIt.Token | undefined
 
     for (const token of tokens) {
       if (!target && token.type === 'heading_open') target = token
@@ -16,7 +17,7 @@ export const fittingHeaderPlugin = marpitPlugin((md) => {
         if (token.type === 'inline') {
           let autoScalingRequired = false
 
-          for (const t of token.children) {
+          for (const t of token.children ?? []) {
             if (t.type === 'marpit_comment' && t.content === 'fit') {
               autoScalingRequired = true
 
