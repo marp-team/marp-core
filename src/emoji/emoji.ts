@@ -48,7 +48,7 @@ export const markdown = marpPlugin((md) => {
         },
       },
       renderer: { rules: {} as { emoji: () => string } },
-      rule: (() => {}) as MarkdownIt.Core.RuleCore,
+      rule: (() => void 0) as MarkdownIt.Core.RuleCore,
       utils: md.utils,
     }
 
@@ -133,24 +133,10 @@ export const markdown = marpPlugin((md) => {
 
       md.renderer.rules.marp_unicode_emoji = twemojiRenderer
 
-      md.renderer.rules.code_inline = (tokens, idx, options, env, self) =>
-        wrap(
-          code_inline
-            ? code_inline(tokens, idx, options, env, self)
-            : self.renderToken(tokens, idx, options),
-        )
-      md.renderer.rules.code_block = (tokens, idx, options, env, self) =>
-        wrap(
-          code_block
-            ? code_block(tokens, idx, options, env, self)
-            : self.renderToken(tokens, idx, options),
-        )
-      md.renderer.rules.fence = (tokens, idx, options, env, self) =>
-        wrap(
-          fence
-            ? fence(tokens, idx, options, env, self)
-            : self.renderToken(tokens, idx, options),
-        )
+      // markdown-it has default renderer rules for code_inline, code_block and fence, so we can treat them as non-nullable
+      md.renderer.rules.code_inline = (...rest) => wrap(code_inline!(...rest))
+      md.renderer.rules.code_block = (...rest) => wrap(code_block!(...rest))
+      md.renderer.rules.fence = (...rest) => wrap(fence!(...rest))
     }
   }
 })
