@@ -1,12 +1,12 @@
+import type { Plugin } from 'postcss'
 import postcssSelectorParser from 'postcss-selector-parser'
 
 const defaultThemeMatcher = /@theme +default/
 const colorThemeMatcher = /prefers-color-scheme:\s+(light|dark)/i
 
-/** @return {import('postcss').Plugin} */
-export const postcssOptimizeDefaultTheme = () => {
+export const postcssOptimizeDefaultTheme = (): Plugin => {
   let shouldProcess = false
-  let colors
+  let colors: Record<string, { atRule: any; declarations: Map<string, string> }>
 
   return {
     postcssPlugin: 'postcss-optimize-default-theme',
@@ -15,7 +15,7 @@ export const postcssOptimizeDefaultTheme = () => {
         light: { atRule: null, declarations: new Map() },
         dark: { atRule: null, declarations: new Map() },
       }
-      shouldProcess = defaultThemeMatcher.test(css.source.input.css)
+      shouldProcess = defaultThemeMatcher.test(css.source!.input.css)
     },
     OnceExit: (css) => {
       if (!shouldProcess) return
@@ -67,8 +67,9 @@ export const postcssOptimizeDefaultTheme = () => {
                   const normalizedTagName = tag.value.toLowerCase()
 
                   if (normalizedTagName === 'section') {
-                    tag.parent.insertAfter(
+                    tag.parent!.insertAfter(
                       tag,
+                      // eslint-disable-next-line import-x/no-named-as-default-member
                       postcssSelectorParser.pseudo({
                         value: ':where(.invert)',
                       }),
@@ -79,7 +80,7 @@ export const postcssOptimizeDefaultTheme = () => {
             })
 
             // Append a rule of dark theme after the light theme
-            rule.next().after(rule.nodes)
+            rule.next()?.after(rule.nodes)
           }
 
           rule.replaceWith(rule.nodes)

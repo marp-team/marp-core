@@ -1,4 +1,5 @@
 /* stylelint-disable no-descending-specificity -- https://github.com/stylelint/stylelint/issues/5065 */
+/* stylelint-disable custom-property-pattern -- GitHub CSS variables are used as-is */
 
 /*!
  * Marp default theme.
@@ -67,109 +68,26 @@ img {
 }
 
 pre {
-  /* stylelint-disable-next-line custom-property-pattern */
   border: 1px solid var(--borderColor-default);
   line-height: 1.15;
   overflow: visible;
+  padding: 0;
+  contain: paint;
 
   &::part(auto-scaling) {
     // Slide height - padding * 2 - code's padding * 3 - code's border * 2
     max-height: 529px;
   }
 
-  // GitHub's prettylights -> Highlight.js
-  /* stylelint-disable selector-class-pattern */
-  :where(.hljs) {
-    color: var(--color-prettylights-syntax-storage-modifier-import);
+  code {
+    display: block;
+    padding: var(--base-size-16);
   }
 
-  :where(.hljs-doctag),
-  :where(.hljs-keyword),
-  :where(.hljs-meta .hljs-keyword),
-  :where(.hljs-template-tag),
-  :where(.hljs-template-variable),
-  :where(.hljs-type),
-  :where(.hljs-variable.language_) {
-    color: var(--color-prettylights-syntax-keyword);
+  .line.highlighted {
+    border-image: conic-gradient(var(--marp-shiki-line-highlight) 0 0) fill
+      0/ /0 10000vw;
   }
-
-  :where(.hljs-title),
-  :where(.hljs-title.class_),
-  :where(.hljs-title.class_.inherited__),
-  :where(.hljs-title.function_) {
-    color: var(--color-prettylights-syntax-entity);
-  }
-
-  :where(.hljs-attr),
-  :where(.hljs-attribute),
-  :where(.hljs-literal),
-  :where(.hljs-meta),
-  :where(.hljs-number),
-  :where(.hljs-operator),
-  :where(.hljs-selector-attr),
-  :where(.hljs-selector-class),
-  :where(.hljs-selector-id),
-  :where(.hljs-variable) {
-    color: var(--color-prettylights-syntax-constant);
-  }
-
-  :where(.hljs-string),
-  :where(.hljs-meta .hljs-string),
-  :where(.hljs-regexp) {
-    color: var(--color-prettylights-syntax-string);
-  }
-
-  :where(.hljs-built_in),
-  :where(.hljs-symbol) {
-    color: var(--color-prettylights-syntax-variable);
-  }
-
-  :where(.hljs-code),
-  :where(.hljs-comment),
-  :where(.hljs-formula) {
-    color: var(--color-prettylights-syntax-comment);
-  }
-
-  :where(.hljs-name),
-  :where(.hljs-quote),
-  :where(.hljs-selector-pseudo),
-  :where(.hljs-selector-tag) {
-    color: var(--color-prettylights-syntax-entity-tag);
-  }
-
-  :where(.hljs-subst) {
-    color: var(--color-prettylights-syntax-storage-modifier-import);
-  }
-
-  :where(.hljs-section) {
-    font-weight: bold;
-    color: var(--color-prettylights-syntax-markup-heading);
-  }
-
-  :where(.hljs-bullet) {
-    color: var(--color-prettylights-syntax-markup-list);
-  }
-
-  :where(.hljs-emphasis) {
-    font-style: italic;
-    color: var(--color-prettylights-syntax-markup-italic);
-  }
-
-  :where(.hljs-strong) {
-    font-weight: bold;
-    color: var(--color-prettylights-syntax-markup-bold);
-  }
-
-  :where(.hljs-addition) {
-    color: var(--color-prettylights-syntax-markup-inserted-text);
-    background-color: var(--color-prettylights-syntax-markup-inserted-bg);
-  }
-
-  :where(.hljs-deletion) {
-    color: var(--color-prettylights-syntax-markup-deleted-text);
-    background-color: var(--color-prettylights-syntax-markup-deleted-bg);
-  }
-  /* stylelint-enable selector-class-pattern */
 }
 
 header,
@@ -208,6 +126,31 @@ section {
   --base-size-16: 16px;
   --base-size-24: 24px;
   --base-size-40: 40px;
+
+  /* Colors for Shiki highlighter */
+  --marp-shiki-foreground: var(--fgColor-default);
+  --marp-shiki-background: var(--bgColor-muted);
+  --marp-shiki-line-highlight: var(--bgColor-attention-muted);
+  --marp-shiki-token-link: var(
+    --color-prettylights-syntax-constant-other-reference-link
+  );
+  --marp-shiki-token-string: var(--color-prettylights-syntax-string);
+  --marp-shiki-token-comment: var(--color-prettylights-syntax-comment);
+  --marp-shiki-token-constant: var(--color-prettylights-syntax-constant);
+  --marp-shiki-token-keyword: var(--color-prettylights-syntax-keyword);
+  --marp-shiki-token-parameter: var(--marp-shiki-foreground);
+  --marp-shiki-token-function: var(--color-prettylights-syntax-entity);
+  --marp-shiki-token-string-expression: var(--color-prettylights-syntax-string);
+  --marp-shiki-token-punctuation: var(--marp-shiki-foreground);
+  --marp-shiki-token-inserted: var(
+    --color-prettylights-syntax-markup-inserted-text
+  );
+  --marp-shiki-token-deleted: var(
+    --color-prettylights-syntax-markup-deleted-text
+  );
+  --marp-shiki-token-changed: var(
+    --color-prettylights-syntax-markup-changed-text
+  );
 
   display: block;
   font-size: 29px;

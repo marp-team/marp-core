@@ -1,5 +1,5 @@
-import marpitPlugin from '@marp-team/marpit/plugin'
 import type { Marp } from '../marp'
+import { marpPlugin } from '../plugin'
 
 export type Slugifier = (text: string) => string
 export type PostSlugify = (slug: string, index: number) => string
@@ -42,7 +42,7 @@ const parseSlugOptions = (
     : { ...defaultSlugOptions, ...options }
 }
 
-export const markdown = marpitPlugin((md) => {
+export const markdown = marpPlugin((md) => {
   const marp: Marp = md.marpit
 
   md.core.ruler.push('marp_slug', (state) => {
