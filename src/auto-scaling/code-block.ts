@@ -8,12 +8,9 @@ export const codeBlockPlugin = marpPlugin((md) => {
   const { code_block, fence } = md.renderer.rules
 
   const replacedRenderer =
-    (func?: MarkdownIt.Renderer.RenderRule): MarkdownIt.Renderer.RenderRule =>
+    (func: MarkdownIt.Renderer.RenderRule): MarkdownIt.Renderer.RenderRule =>
     (tokens, idx, options, env, self) => {
-      const rendered = func
-        ? func(tokens, idx, options, env, self)
-        : self.renderToken(tokens, idx, options)
-
+      const rendered = func(tokens, idx, options, env, self)
       const shouldScale =
         md.marpit.options.inlineSVG && isEnabledAutoScaling(md.marpit, 'code')
 
@@ -29,6 +26,9 @@ export const codeBlockPlugin = marpPlugin((md) => {
       )
     }
 
-  md.renderer.rules.code_block = replacedRenderer(code_block)
-  md.renderer.rules.fence = replacedRenderer(fence)
+  // markdown-it has default renderer rules for code_block and fence, so we can treat them as non-nullable
+  // https://github.com/markdown-it/markdown-it/blob/a6d1d484e521ec37a671ae4d07c09169f9a8f9af/lib/renderer.mjs#L21
+  // https://github.com/markdown-it/markdown-it/blob/a6d1d484e521ec37a671ae4d07c09169f9a8f9af/lib/renderer.mjs#L29
+  md.renderer.rules.code_block = replacedRenderer(code_block!)
+  md.renderer.rules.fence = replacedRenderer(fence!)
 })

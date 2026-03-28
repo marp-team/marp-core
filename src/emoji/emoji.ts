@@ -44,11 +44,10 @@ export const markdown = marpPlugin((md) => {
     const picker = {
       core: {
         ruler: {
-          push: (_, rule) => (picker.rule = rule), // for markdown-it-emoji <= v2.0.0
-          after: (_, __, rule) => (picker.rule = rule), // for markdown-it-emoji >= v2.0.1
+          after: (_, __, rule) => (picker.rule = rule),
         },
       },
-      renderer: { rules: { emoji: (): string => '' } },
+      renderer: { rules: {} as { emoji: () => string } },
       rule: (() => {}) as MarkdownIt.Core.RuleCore,
       utils: md.utils,
     }
