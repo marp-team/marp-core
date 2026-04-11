@@ -1,6 +1,6 @@
 import { Theme } from '@marp-team/marpit'
-import marpitPlugin from '@marp-team/marpit/plugin.js'
 import { Marp } from '../marp'
+import { marpPlugin } from '../plugin'
 
 interface DefinedSize {
   width: string
@@ -14,7 +14,7 @@ interface RestorableThemes {
 
 const sizePluginSymbol = Symbol('marp-size-plugin')
 
-export const markdown = marpitPlugin((md) => {
+export const markdown = marpPlugin((md) => {
   const marp: Marp = md.marpit
   const { render } = marp
 

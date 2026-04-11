@@ -85,7 +85,8 @@
     "@tsdown/css": "^0.21.4",
     "@twemoji/api": "^17.0.2",
     "@types/jest": "^30.0.0",
-    "@typescript-eslint/parser": "^8.57.2",
+    "@types/markdown-it": "^14.1.2",
+    "@typescript-eslint/parser": "^8.58.1",
     "autoprefixer": "^10.4.27",
     "babel-jest": "^30.3.0",
     "cheerio": "^1.2.0",
@@ -95,7 +96,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import-x": "^4.16.2",
-    "eslint-plugin-jest": "^29.15.0",
+    "eslint-plugin-jest": "^29.15.2",
     "github-markdown-css": "5.9.0",
     "globals": "^17.4.0",
     "jest": "^30.3.0",
@@ -115,9 +116,9 @@
     "self-closing-tags": "^1.0.1",
     "stylelint": "^17.4.0",
     "stylelint-config-standard-scss": "^17.0.0",
-    "tsdown": "^0.21.4",
+    "tsdown": "^0.21.7",
     "typescript": "^6.0.2",
-    "typescript-eslint": "^8.57.1"
+    "typescript-eslint": "^8.58.1"
   },
   "dependencies": {
     "@marp-team/marpit": "^3.2.1",
