@@ -1,20 +1,9 @@
 import { elements } from '../definitions'
 import { MarpAutoScaling } from './marp-auto-scaling'
 import { createMarpCustomElement } from './marp-custom-element'
-
-let _isSupportedCustomizedBuiltInElements: boolean | undefined
+import { isSupportedCustomizedBuiltInElements } from './support'
 
 export const marpCustomElementsRegisteredSymbol = Symbol()
-
-export const isSupportedCustomizedBuiltInElements = () =>
-  _isSupportedCustomizedBuiltInElements ??
-  (() => {
-    _isSupportedCustomizedBuiltInElements = !!document
-      .createElement('div', { is: 'marp-auto-scaling' })
-      .outerHTML.startsWith('<div is')
-
-    return _isSupportedCustomizedBuiltInElements
-  })()
 
 export const applyCustomElements = (target: ParentNode = document) => {
   const defined = window[marpCustomElementsRegisteredSymbol]
