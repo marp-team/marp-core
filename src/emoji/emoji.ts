@@ -5,6 +5,10 @@ import { full as markdownItEmoji } from 'markdown-it-emoji'
 import { marpPlugin } from '../plugin'
 import twemojiCSS from './twemoji.scss?inline'
 
+type RenderRule = NonNullable<MarkdownIt['renderer']['rules'][string]>
+type RuleCore = Parameters<MarkdownIt['core']['ruler']['push']>[1]
+type Token = ReturnType<MarkdownIt['parse']>[number]
+
 export interface EmojiOptions {
   shortcode?: boolean | 'twemoji'
   twemoji?: TwemojiOptions
@@ -36,7 +40,7 @@ export const markdown = marpPlugin((md) => {
       size: twemojiExt === 'svg' ? 'svg' : undefined,
     })
 
-  const twemojiRenderer: MarkdownIt.Renderer.RenderRule = (tokens, idx) =>
+  const twemojiRenderer: RenderRule = (tokens, idx) =>
     twemojiParse(tokens[idx].content)
 
   if (opts.shortcode) {
@@ -48,7 +52,7 @@ export const markdown = marpPlugin((md) => {
         },
       },
       renderer: { rules: {} as { emoji: () => string } },
-      rule: null as unknown as MarkdownIt.Core.RuleCore,
+      rule: null as unknown as RuleCore,
       utils: md.utils,
     }
 
@@ -76,14 +80,14 @@ export const markdown = marpPlugin((md) => {
     md.core.ruler.after('inline', 'marp_unicode_emoji', ({ tokens, Token }) => {
       for (const token of tokens) {
         if (token.type === 'inline') {
-          const newChildren: MarkdownIt.Token[] = []
+          const newChildren: Token[] = []
 
           for (const t of token.children ?? []) {
             if (t.type === 'text') {
               const splittedByEmoji = t.content.split(regexForSplit)
 
               newChildren.push(
-                ...splittedByEmoji.reduce<MarkdownIt.Token[]>(
+                ...splittedByEmoji.reduce<Token[]>(
                   (splitArr, text, idx) =>
                     text.length === 0
                       ? splitArr
@@ -109,7 +113,7 @@ export const markdown = marpPlugin((md) => {
     })
 
     md.renderer.rules.marp_unicode_emoji = (
-      token: MarkdownIt.Token[],
+      token: Token[],
       idx: number,
     ): string => token[idx].content
 
