@@ -16,6 +16,7 @@
 ### Changed
 
 - Migrate the build system from rollup to tsdown ([#416](https://github.com/marp-team/marp-core/pull/416))
+- Upgrade TypeScript to v6 ([#419](https://github.com/marp-team/marp-core/pull/419))
 - Upgrade dependent packages ([#412](https://github.com/marp-team/marp-core/pull/412), [#414](https://github.com/marp-team/marp-core/pull/414))
 
 ### Removed

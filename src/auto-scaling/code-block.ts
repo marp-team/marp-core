@@ -2,13 +2,15 @@ import type MarkdownIt from 'markdown-it'
 import { marpPlugin } from '../plugin'
 import { isEnabledAutoScaling } from './utils'
 
+type RenderRule = NonNullable<MarkdownIt['renderer']['rules'][string]>
+
 const codeMatcher = /^(<pre[^>]*?><code[^>]*?>)([\s\S]*)(<\/code><\/pre>\n*)$/
 
 export const codeBlockPlugin = marpPlugin((md) => {
   const { code_block, fence } = md.renderer.rules
 
   const replacedRenderer =
-    (func: MarkdownIt.Renderer.RenderRule): MarkdownIt.Renderer.RenderRule =>
+    (func: RenderRule): RenderRule =>
     (tokens, idx, options, env, self) => {
       const rendered = func(tokens, idx, options, env, self)
       const shouldScale =

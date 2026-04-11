@@ -1,11 +1,11 @@
 {
   "extends": ["@tsconfig/recommended/tsconfig", "@tsconfig/node20/tsconfig"],
   "compilerOptions": {
+    "isolatedModules": true,
+    "module": "preserve",
+    "moduleResolution": "bundler",
     "noImplicitAny": false,
-    "resolveJsonModule": true,
-    "rootDir": ".",
-    "sourceMap": true,
-    "isolatedModules": true
+    "types": ["jest", "node"]
   },
-  "include": ["src"]
+  "include": ["src", "test", "scripts"]
 }

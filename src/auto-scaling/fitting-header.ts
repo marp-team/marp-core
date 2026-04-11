@@ -2,13 +2,15 @@ import type MarkdownIt from 'markdown-it'
 import { marpPlugin } from '../plugin'
 import { isEnabledAutoScaling } from './utils'
 
+type Token = ReturnType<MarkdownIt['parse']>[number]
+
 export const fittingHeaderPlugin = marpPlugin((md) => {
   const { heading_open } = md.renderer.rules
 
   md.core.ruler.after('inline', 'marp_fitting_header', ({ tokens }) => {
     if (!md.marpit.options.inlineSVG) return
 
-    let target: MarkdownIt.Token | undefined
+    let target: Token | undefined
 
     for (const token of tokens) {
       if (!target && token.type === 'heading_open') target = token
