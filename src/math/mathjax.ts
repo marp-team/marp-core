@@ -1,11 +1,14 @@
-import { liteAdaptor, LiteAdaptor } from 'mathjax-full/js/adaptors/liteAdaptor'
-import { RegisterHTMLHandler } from 'mathjax-full/js/handlers/html'
-import { TeX } from 'mathjax-full/js/input/tex'
-import { AllPackages } from 'mathjax-full/js/input/tex/AllPackages'
-import { mathjax } from 'mathjax-full/js/mathjax'
-import { SVG } from 'mathjax-full/js/output/svg'
+import {
+  liteAdaptor,
+  LiteAdaptor,
+} from 'mathjax-full/js/adaptors/liteAdaptor.js'
+import { RegisterHTMLHandler } from 'mathjax-full/js/handlers/html.js'
+import { AllPackages } from 'mathjax-full/js/input/tex/AllPackages.js'
+import { TeX } from 'mathjax-full/js/input/tex.js'
+import { mathjax } from 'mathjax-full/js/mathjax.js'
+import { SVG } from 'mathjax-full/js/output/svg.js'
 import { getMathContext, setMathContext } from './context'
-import mathjaxScss from './mathjax.scss'
+import mathjaxScss from './mathjax.scss?inline'
 
 interface MathJaxContext {
   adaptor: LiteAdaptor

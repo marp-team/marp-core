@@ -26,6 +26,27 @@ By using `invert` class, you can change to use the inverted color scheme.
 <!-- class: invert -->
 ```
 
+#### CSS variables for syntax highlighting
+
+All themes define CSS variables for [Shiki](https://shiki.style/) syntax highlighter:
+
+- `--marp-shiki-foreground`: Foreground color for code block.
+- `--marp-shiki-background`: Background color for code block.
+- `--marp-shiki-line-highlight`: Background color for highlighted line in code block.
+
+* Colors for Shiki syntax tokens:
+  - `--marp-shiki-token-constant`
+  - `--marp-shiki-token-string`
+  - `--marp-shiki-token-comment`
+  - `--marp-shiki-token-keyword`
+  - `--marp-shiki-token-parameter`
+  - `--marp-shiki-token-function`
+  - `--marp-shiki-token-string-expression`
+  - `--marp-shiki-token-punctuation`
+  - `--marp-shiki-token-link`
+
+See also https://shiki.style/guide/theme-colors#css-variables-theme.
+
 ---
 
 ## Default
@@ -39,15 +60,15 @@ The default theme of Marp. It is based on [GitHub markdown style](https://github
 <!-- theme: default -->
 ```
 
-### Custom color (CSS variables)
+### Customize color
 
 The default theme has followed GitHub style provided by [`github-markdown-css` package](https://github.com/sindresorhus/github-markdown-css), and the most of CSS variables are defined in the upstream. [Please refer to the source code of that to inspect appliable variables.](https://github.com/sindresorhus/github-markdown-css/blob/main/github-markdown.css)
 
 ```html
 <style>
   :root {
-    --color-fg-default: #eff;
-    --color-canvas-default: #246;
+    --fgColor-default: #eff;
+    --bgColor-default: #246;
     /* ... */
   }
 </style>
@@ -118,7 +139,7 @@ Gaia theme supports an additional color scheme by `gaia` class.
 > # Lead + gaia
 > ```
 
-### Custom color (CSS variables)
+### Customize color
 
 Color scheme for Gaia theme has defined by CSS variables. You also can use the custom color scheme by inline style.
 
@@ -144,7 +165,7 @@ Uncover theme has three design concepts: simple, minimal, and modern. It's inspi
 <!-- theme: uncover -->
 ```
 
-### Custom color (CSS variables)
+### Customize color
 
 Color scheme for Uncover theme has defined by CSS variables. You also can use the custom color scheme by inline style.
 

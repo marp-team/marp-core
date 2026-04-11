@@ -2,9 +2,26 @@
 
 ## [Unreleased]
 
+### Breaking
+
+- Node.js v20.19 and later is now required
+- Code highlight styling with `.hljs-*` classes is no longer supported in favor of `--marp-shiki-*` CSS variables ([#413](https://github.com/marp-team/marp-core/pull/413))
+
+### Added
+
+- Integrate new code highlighter [Shiki](https://shiki.style/) for the code fence ([#296](https://github.com/marp-team/marp-core/issues/296), [#413](https://github.com/marp-team/marp-core/pull/413))
+  - Simplified color styling in the theme by `--marp-shiki-*` CSS variables
+  - Highlight lines based on the attribute of the code fence, like ` ```markdown {1,3-5} `
+
 ### Changed
 
+- Migrate the build system from rollup to tsdown ([#416](https://github.com/marp-team/marp-core/pull/416))
+- Upgrade TypeScript to v6 ([#419](https://github.com/marp-team/marp-core/pull/419))
 - Upgrade dependent packages ([#412](https://github.com/marp-team/marp-core/pull/412), [#414](https://github.com/marp-team/marp-core/pull/414))
+
+### Removed
+
+- Removed `highlightjs` getter from `Marp` class ([#413](https://github.com/marp-team/marp-core/pull/413))
 
 ## v4.3.0 - 2026-02-28
 
