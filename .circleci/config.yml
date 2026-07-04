@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  codecov: codecov/codecov@5.0.3
+  codecov: codecov/codecov@6.0.0
 
 executors:
   node:
@@ -75,17 +75,24 @@ commands:
           command: npm run lint:css
 
   test:
+    parameters:
+      junit:
+        type: boolean
+        default: true
     steps:
       - run:
           name: Jest
-          command: npm run test:coverage -- --ci --maxWorkers=2 --reporters=default --reporters=jest-junit
+          command: npm run test:coverage -- --ci --maxWorkers=2 --reporters=default <<# parameters.junit >>--reporters=jest-junit<</ parameters.junit >>
           environment:
             JEST_JUNIT_OUTPUT_DIR: tmp/test-results
 
       - codecov/upload
 
-      - store_test_results:
-          path: tmp/test-results
+      - when:
+          condition: << parameters.junit >>
+          steps:
+            - store_test_results:
+                path: tmp/test-results
 
       - store_artifacts:
           path: ./coverage
@@ -104,7 +111,8 @@ jobs:
     steps:
       - prepare:
           force: true
-      - test
+      - test:
+          junit: false
 
   test-node20:
     executor:
@@ -118,7 +126,7 @@ jobs:
   test-node22:
     executor:
       name: node
-      version: '22.22.0' # Specify LTS version for development 22.22.0
+      version: '22.23'
     steps:
       - prepare
       - lint
@@ -127,7 +135,16 @@ jobs:
   test-node24:
     executor:
       name: node
-      version: '24.14'
+      version: '24.18'
+    steps:
+      - prepare
+      - lint
+      - test
+
+  test-node26:
+    executor:
+      name: node
+      version: '26.4.0' # Specify LTS version for development 26.4.0
     steps:
       - prepare
       - lint
@@ -147,5 +164,8 @@ workflows:
           requires:
             - audit
       - test-node24:
+          requires:
+            - audit
+      - test-node26:
           requires:
             - audit
