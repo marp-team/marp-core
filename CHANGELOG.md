@@ -4,7 +4,9 @@
 
 ### Changed
 
-- Upgrade dependent packages ([#412](https://github.com/marp-team/marp-core/pull/412), [#414](https://github.com/marp-team/marp-core/pull/414))
+- Upgrade Marpit to [v3.2.2](https://github.com/marp-team/marpit/releases/v3.2.2) ([#423](https://github.com/marp-team/marp-core/pull/423))
+- Upgrade development Node.js LTS to v26 ([#423](https://github.com/marp-team/marp-core/pull/423))
+- Upgrade dependent packages ([#412](https://github.com/marp-team/marp-core/pull/412), [#414](https://github.com/marp-team/marp-core/pull/414), [#423](https://github.com/marp-team/marp-core/pull/423))
 
 ## v4.3.0 - 2026-02-28
 
