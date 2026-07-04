@@ -121,16 +121,22 @@ describe('The hydration script for custom elements', () => {
     })
 
     describe('when the browser is not supported "is" attribute for customized built-in elements', () => {
-      beforeEach(() => {
-        jest
-          .spyOn(browser, 'isSupportedCustomizedBuiltInElements')
-          .mockReturnValue(false)
+      let unsupportedBrowser: typeof browser
+
+      beforeEach(async () => {
+        await jest.isolateModulesAsync(async () => {
+          jest.doMock('../../src/custom-elements/browser/support', () => ({
+            ...jest.requireActual('../../src/custom-elements/browser/support'),
+            isSupportedCustomizedBuiltInElements: jest.fn(() => false),
+          }))
+
+          unsupportedBrowser =
+            await import('../../src/custom-elements/browser/index')
+        })
       })
 
       afterEach(() => {
-        ;(
-          browser.isSupportedCustomizedBuiltInElements as jest.Mock
-        ).mockRestore()
+        jest.dontMock('../../src/custom-elements/browser/support')
       })
 
       it('replaces all of elements that are using "is" attribute to the standalone custom element', () => {
@@ -138,7 +144,7 @@ describe('The hydration script for custom elements', () => {
           .map((elm) => `<${elm} is="marp-${elm}"></${elm}>`)
           .join('\n')
 
-        browser.applyCustomElements()
+        unsupportedBrowser.applyCustomElements()
         expect(document.body.innerHTML).toMatchInlineSnapshot(`
           "<marp-h1 is="marp-h1" role="heading" aria-level="1"></marp-h1>
           <marp-h2 is="marp-h2" role="heading" aria-level="2"></marp-h2>
