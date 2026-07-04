@@ -66,11 +66,11 @@
   },
   "devDependencies": {
     "@csstools/postcss-minify": "^2.0.5",
-    "@rollup/plugin-alias": "^5.1.1",
+    "@rollup/plugin-alias": "^6.0.0",
     "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-terser": "^1.0.0",
     "@rollup/plugin-typescript": "^12.3.0",
     "@tsconfig/node18": "^18.2.6",
     "@tsconfig/recommended": "^1.0.13",
@@ -78,7 +78,7 @@
     "@types/jest": "^30.0.0",
     "autoprefixer": "^10.5.2",
     "cheerio": "^1.2.0",
-    "cssnano": "^7.1.9",
+    "cssnano": "^8.0.2",
     "emoji-regex": "10.6.0",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
@@ -95,7 +95,7 @@
     "markdown-it-emoji": "^3.0.0",
     "mkdirp": "^3.0.1",
     "nodemon": "^3.1.14",
-    "npm-check-updates": "^19.6.6",
+    "npm-check-updates": "^22.2.7",
     "npm-run-all2": "^8.0.4",
     "postcss": "^8.5.15",
     "postcss-url": "^10.1.4",
@@ -121,11 +121,6 @@
     "mathjax-full": "^3.2.2",
     "postcss-selector-parser": "^7.1.4",
     "xss": "^1.0.15"
-  },
-  "overrides": {
-    "@rollup/plugin-terser": {
-      "serialize-javascript": "^7.0.3"
-    }
   },
   "publishConfig": {
     "access": "public"
