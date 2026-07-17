@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade development Node.js and dependent packages ([#425](https://github.com/marp-team/marp-core/pull/425))
+
 ### Fixed
 
 - Mitigate incomplete PDF rendering on the `gaia` theme ([#424](https://github.com/marp-team/marp-core/pull/424))
