@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Mitigate incomplete PDF rendering on the `gaia` theme ([#424](https://github.com/marp-team/marp-core/pull/424))
+
+> [!NOTE]
+> The background color no longer changes when applying only the `background-color` style to the `gaia` theme. Use the `background` shorthand style, [`--color-background` CSS variable for the `gaia` theme](./themes/README.md#custom-color-css-variables-1), or [`backgroundColor` Markdown directive](https://marpit.marp.app/directives?id=backgrounds) instead.
+
 ## v4.3.1 - 2026-07-04
 
 ### Changed
