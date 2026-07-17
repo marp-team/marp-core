@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.4.0 - 2026-07-17
+
 ### Changed
 
 - Upgrade development Node.js and dependent packages ([#425](https://github.com/marp-team/marp-core/pull/425))
