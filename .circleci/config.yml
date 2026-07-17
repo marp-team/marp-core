@@ -144,7 +144,7 @@ jobs:
   test-node26:
     executor:
       name: node
-      version: '26.4.0' # Specify LTS version for development 26.4.0
+      version: '26.5.0' # Specify LTS version for development 26.5.0
     steps:
       - prepare
       - lint
