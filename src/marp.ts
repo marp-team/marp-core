@@ -10,6 +10,8 @@ import * as emojiPlugin from './emoji/emoji'
 import { defaultHTMLAllowList, type HTMLAllowList } from './html/allowlist'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
+import * as mermaid from './mermaid/mermaid'
+import { mermaidShikiTransformer } from './mermaid/shikiTransformer'
 import * as scriptPlugin from './script/script'
 import * as shiki from './shiki'
 import * as sizePlugin from './size/size'
@@ -100,11 +102,30 @@ export class Marp extends Marpit {
   }
 
   highlighter(code: string, lang: string, attrs: string): string {
-    return shiki.render(code.endsWith('\n') ? code.slice(0, -1) : code, {
-      lang,
-      attrs,
-      transformers: this.shikiTransformers,
-    })
+    // Mermaid renderer
+    if (lang === 'mermaid') {
+      try {
+        return mermaid.render(code, {
+          interactive: /\binteractive\b/.test(attrs),
+        })
+      } catch (err) {
+        console.warn(err)
+      }
+    }
+
+    // Mermaid fallback
+    if (lang === 'mermaid' || lang === 'mermaid-raw') {
+      // Use `mmd` alias to `mermaid`. `mermaid` should not use because of
+      // `.language-mermaid` class is required to style the diagram by built-in
+      // themes.
+      lang = 'mmd'
+    }
+
+    // markdown-it-shiki compatible
+    if (code.endsWith('\n')) code = code.slice(0, -1)
+
+    const transformers = [...this.shikiTransformers, mermaidShikiTransformer]
+    return shiki.render(code, { lang, attrs, transformers })
   }
 
   protected themeSetPackOptions(): ThemeSetPackOptions {

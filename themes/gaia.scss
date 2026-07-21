@@ -98,6 +98,19 @@ pre {
     min-width: 100%;
     padding: 0.5em;
     font-size: 0.7em;
+
+    &.language-mermaid svg {
+      [data-shape='state-start'],
+      [data-shape='state-end'] {
+        /* stylelint-disable-next-line custom-property-pattern */
+        --_text: var(--color-foreground);
+      }
+
+      &[data-xychart-colors] {
+        --marp-mermaid-background: transparent;
+        --marp-mermaid-foreground: var(--color-foreground);
+      }
+    }
   }
 
   &::part(auto-scaling) {
@@ -107,6 +120,10 @@ pre {
   .line.highlighted {
     border-image: conic-gradient(var(--marp-shiki-line-highlight) 0 0) fill
       0/ /0 10000vw;
+  }
+
+  &:has(code.language-mermaid) {
+    background-color: transparent;
   }
 }
 
@@ -311,6 +328,7 @@ section {
     --color-foreground: #{$color-light};
     --color-dimmed: #{color.mix($color-light, $color-primary, 80%)};
     --color-highlight: #{$color-secondary};
+    --marp-mermaid-muted: #{color.mix($color-light, $color-primary, 50%)};
   }
 
   &:where(.lead) {

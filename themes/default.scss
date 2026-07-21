@@ -88,6 +88,11 @@ pre {
     border-image: conic-gradient(var(--marp-shiki-line-highlight) 0 0) fill
       0/ /0 10000vw;
   }
+
+  &:has(code.language-mermaid) {
+    border: none;
+    background-color: transparent;
+  }
 }
 
 header,
@@ -151,6 +156,9 @@ section {
   --marp-shiki-token-changed: var(
     --color-prettylights-syntax-markup-changed-text
   );
+
+  /* Colors for Mermaid diagrams */
+  --marp-mermaid-border: var(--borderColor-default);
 
   display: block;
   font-size: 29px;
