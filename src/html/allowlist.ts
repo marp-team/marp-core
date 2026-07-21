@@ -1,7 +1,6 @@
 export type HTMLAllowList = {
   [tag: string]:
-    | string[]
-    | { [attr: string]: boolean | ((value: string) => string) }
+    string[] | { [attr: string]: boolean | ((value: string) => string) }
 }
 
 const globalAttrs = {

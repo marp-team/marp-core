@@ -212,7 +212,7 @@ function parseMathBlock(state, start, end, silent) {
   if (found) firstLine = firstLine.trim().slice(0, -2)
 
   let next = start
-  for (; !found; ) {
+  for (; !found;) {
     next += 1
     if (next >= end) break
 

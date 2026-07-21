@@ -19,7 +19,8 @@ const config = {
   coverageThreshold: { global: { lines: 95 } },
   moduleNameMapper: { '^(.*\\.s[ac]ss)\\?inline$': '$1' },
   testEnvironment: 'node',
-  testRegex: '(/(test|__tests__)/(?![_.]).*|(\\.|/)(test|spec))\\.[jt]s$',
+  testRegex:
+    '(/(test|__tests__)/(?![_.]).*|(\\.|/)(test|spec))(?<!\\.d)\\.[jt]s$',
   transform: {
     '^.+\\.[mc]?[tj]s$': 'babel-jest',
     '^.*\\.s[ac]ss$': '<rootDir>/test/_transformers/sass.js',

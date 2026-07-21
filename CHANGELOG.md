@@ -23,6 +23,27 @@
 
 - Removed `highlightjs` getter from `Marp` class ([#413](https://github.com/marp-team/marp-core/pull/413))
 
+## v4.4.0 - 2026-07-17
+
+### Changed
+
+- Upgrade development Node.js and dependent packages ([#425](https://github.com/marp-team/marp-core/pull/425))
+
+### Fixed
+
+- Mitigate incomplete PDF rendering on the `gaia` theme ([#424](https://github.com/marp-team/marp-core/pull/424))
+
+> [!NOTE]
+> The background color no longer changes when applying only the `background-color` style to the `gaia` theme. Use the `background` shorthand style, [`--color-background` CSS variable for the `gaia` theme](./themes/README.md#custom-color-css-variables-1), or [`backgroundColor` Markdown directive](https://marpit.marp.app/directives?id=backgrounds) instead.
+
+## v4.3.1 - 2026-07-04
+
+### Changed
+
+- Upgrade Marpit to [v3.2.2](https://github.com/marp-team/marpit/releases/v3.2.2) ([#423](https://github.com/marp-team/marp-core/pull/423))
+- Upgrade development Node.js LTS to v26 ([#423](https://github.com/marp-team/marp-core/pull/423))
+- Upgrade dependent packages ([#412](https://github.com/marp-team/marp-core/pull/412), [#414](https://github.com/marp-team/marp-core/pull/414), [#423](https://github.com/marp-team/marp-core/pull/423))
+
 ## v4.3.0 - 2026-02-28
 
 ### Added
