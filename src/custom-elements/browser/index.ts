@@ -5,6 +5,8 @@ import { isSupportedCustomizedBuiltInElements } from './support'
 
 export const marpCustomElementsRegisteredSymbol = Symbol()
 
+export { isSupportedCustomizedBuiltInElements } from './support'
+
 export const applyCustomElements = (target: ParentNode = document) => {
   const defined = window[marpCustomElementsRegisteredSymbol]
   if (!defined) customElements.define('marp-auto-scaling', MarpAutoScaling)

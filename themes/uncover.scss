@@ -96,6 +96,18 @@ section {
     text-align: right;
     text-shadow: 0 0 5px var(--color-background);
     width: 80px;
+
+    /* Workaround: Firefox drops gradient alpha when exporting PDF
+     * https://bugzilla.mozilla.org/show_bug.cgi?id=1529152 */
+    @media print {
+      /* -moz-context-properties is only enabled if `svg.context-properties.content.enabled` is `true` in `about:config`.
+       * Marp CLI's Puppeteer should set this preference to `true` for getting correct PDF output. */
+      @supports (-moz-context-properties: fill) {
+        -moz-context-properties: fill;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"><path d="M0 1h1V0Z" fill="context-fill"/></svg>');
+        fill: var(--color-background-paginate);
+      }
+    }
   }
 
   &:where(.invert) {

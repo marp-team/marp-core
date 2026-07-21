@@ -232,10 +232,10 @@ section {
   background-color: var(--color-background);
   background-image: linear-gradient(
     135deg,
-    rgba(#888, 0),
-    rgba(#888, 0.02) 50%,
-    rgba(#fff, 0) 50%,
-    rgba(#fff, 0.05)
+    var(--color-background),
+    color-mix(in srgb, var(--color-background) 98%, #888 2%) 50%,
+    var(--color-background) 50%,
+    color-mix(in srgb, var(--color-background) 95%, #fff 5%)
   );
   color: var(--color-foreground);
   font-size: 35px;
