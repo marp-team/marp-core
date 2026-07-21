@@ -18,7 +18,6 @@ $color-primary: #0288d1;
 $color-secondary: #81d4fa;
 
 @import 'https://fonts.bunny.net/css?family=Lato:400,900|Roboto+Mono:400,700&display=swap';
-@include meta.load-css('pkg:highlight.js/styles/sunburst.css');
 
 h1,
 h2,
@@ -91,6 +90,7 @@ pre {
   display: block;
   margin: 1em 0 0;
   overflow: visible;
+  contain: paint;
 
   code {
     box-sizing: border-box;
@@ -102,6 +102,11 @@ pre {
 
   &::part(auto-scaling) {
     max-height: calc(580px - 1em);
+  }
+
+  .line.highlighted {
+    border-image: conic-gradient(var(--marp-shiki-line-highlight) 0 0) fill
+      0/ /0 10000vw;
   }
 }
 
@@ -189,6 +194,23 @@ section {
   );
   --color-highlight: light-dark(#{$color-primary}, #{$color-secondary});
 
+  /* Colors for Shiki highlighter */
+  --marp-shiki-foreground: var(--color-background);
+  --marp-shiki-background: var(--color-foreground);
+  --marp-shiki-line-highlight: var(--color-dimmed);
+  --marp-shiki-token-link: #e9c062;
+  --marp-shiki-token-string: light-dark(#daefa3, #65b042);
+  --marp-shiki-token-comment: #aeaeae;
+  --marp-shiki-token-constant: light-dark(#65a0ee, #3e87e3);
+  --marp-shiki-token-keyword: #e28964;
+  --marp-shiki-token-parameter: var(--marp-shiki-foreground);
+  --marp-shiki-token-function: light-dark(#89bdff, #65a0ee);
+  --marp-shiki-token-string-expression: light-dark(#daefa3, #65b042);
+  --marp-shiki-token-punctuation: var(--marp-shiki-foreground);
+  --marp-shiki-token-inserted: light-dark(#daefa3, #65b042);
+  --marp-shiki-token-deleted: #e28964;
+  --marp-shiki-token-changed: #e9c062;
+
   color-scheme: light;
   background-color: var(--color-background);
   background-image: linear-gradient(
@@ -221,8 +243,17 @@ section {
   }
 
   code {
-    background: var(--color-dimmed);
+    background-color: var(--color-dimmed);
     color: var(--color-background);
+  }
+
+  pre {
+    background-color: var(--marp-shiki-background);
+    color: var(--marp-shiki-foreground);
+  }
+
+  pre > code {
+    background-color: transparent;
   }
 
   h1,
@@ -234,14 +265,6 @@ section {
     strong {
       color: var(--color-highlight);
     }
-  }
-
-  pre {
-    background: var(--color-foreground);
-  }
-
-  pre > code {
-    background: transparent;
   }
 
   header,
@@ -281,6 +304,8 @@ section {
   }
 
   &:where(.gaia) {
+    color-scheme: dark;
+
     --color-background: #{$color-primary};
     --color-background-stripe: #{rgba($color-light, 0.1)};
     --color-foreground: #{$color-light};

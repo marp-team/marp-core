@@ -3,6 +3,7 @@
 coverage/
 lib/
 sandbox/
+src/generated/
 types/
 tmp/
 node_modules

@@ -53,6 +53,7 @@ export default tseslint.config(
       'lib/**/*',
       'node_modules/**/*',
       'sandbox/**/*',
+      'src/generated/**/*',
       'tmp/**/*',
       'types/**/*',
     ],

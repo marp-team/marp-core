@@ -11,7 +11,7 @@ const countMath = (stt) => stt.split('class="katex"').length - 1
 const countBlockMath = (stt) => stt.split('class="katex-display"').length - 1
 
 describe('markdown-it math plugin for KaTeX', () => {
-  const md = new MarkdownIt()
+  const md = new MarkdownIt() as MarkdownIt & { marpit: any }
 
   md.marpit = { options: { math: 'katex' } }
 

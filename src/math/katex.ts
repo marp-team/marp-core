@@ -1,8 +1,7 @@
-import { renderToString } from 'katex'
-import { version } from 'katex/package.json'
+import { renderToString, version } from 'katex'
 import { isEnabledAutoScaling } from '../auto-scaling/utils'
 import { getMathContext } from './context'
-import katexScss from './katex.scss'
+import katexScss from './katex.scss?inline'
 
 const convertedCSS = Object.create(null)
 const katexMatcher = /url\(['"]?fonts\/(.*?)['"]?\)/g
