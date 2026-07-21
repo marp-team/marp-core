@@ -1,4 +1,4 @@
-import { getBeautifulMermaid } from './loader'
+import { getDepsLoader } from '../deps'
 
 export interface MermaidRenderOptions {
   interactive?: boolean
@@ -8,7 +8,7 @@ export const render = (
   mermaid: string,
   { interactive = false }: MermaidRenderOptions = {},
 ): string => {
-  const { renderMermaidSVG } = getBeautifulMermaid()
+  const { renderMermaidSVG } = getDepsLoader().getBeautifulMermaid()
 
   return renderMermaidSVG(mermaid, {
     transparent: true,

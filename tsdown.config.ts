@@ -61,6 +61,15 @@ export default defineConfig([
     format: ['esm', 'cjs'],
   },
 
+  // Lazy dependencies loader (ESM only)
+  {
+    ...baseConfig,
+    dts: false,
+    entry: 'src/_deps-loader.ts',
+    name: 'Lazy dependencies loader',
+    format: 'esm',
+  },
+
   // Main bundle
   browserScriptContext.withTarget(
     {
