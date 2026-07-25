@@ -61,12 +61,13 @@ export default defineConfig([
     format: ['esm', 'cjs'],
   },
 
-  // Lazy dependencies loader (ESM only)
+  // beautiful-mermaid MJS wrapper
   {
     ...baseConfig,
     dts: false,
-    entry: 'src/_deps-loader.ts',
-    name: 'Lazy dependencies loader',
+    entry: { _beautifulMermaid: 'src/_beautiful-mermaid.ts' },
+    name: 'beautiful-mermaid wrapper',
+    deps: { neverBundle: ['beautiful-mermaid'] },
     format: 'esm',
   },
 
@@ -77,6 +78,7 @@ export default defineConfig([
       name: 'Marp Core',
       entry: 'src/marp.ts',
       format: ['esm', 'cjs'],
+      deps: { neverBundle: [/^\#/] },
     },
     { importSource: './browser-script' },
   ),

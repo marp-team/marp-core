@@ -25,6 +25,9 @@
     "type": "git",
     "url": "https://github.com/marp-team/marp-core"
   },
+  "imports": {
+    "#beautiful-mermaid": "./lib/_beautifulMermaid.mjs"
+  },
   "exports": {
     ".": {
       "types": "./lib/marp.d.mts",
