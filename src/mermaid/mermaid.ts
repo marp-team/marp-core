@@ -1,10 +1,10 @@
 export interface MermaidRenderOptions {
-  interactive?: boolean
+  interactive: boolean
 }
 
 export const render = (
   mermaid: string,
-  { interactive = false }: MermaidRenderOptions = {},
+  { interactive }: MermaidRenderOptions,
 ): string => {
   const { renderMermaidSVG } =
     require('#beautiful-mermaid') as typeof import('beautiful-mermaid')

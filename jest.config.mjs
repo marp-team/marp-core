@@ -1,5 +1,6 @@
 const esModules = [
   '@shikijs/',
+  'beautiful-mermaid',
   'ccount',
   'character-entities-',
   'comma-separated-tokens',
@@ -17,7 +18,12 @@ const config = {
   collectCoverageFrom: ['src/**/*.{j,t}s', '!src/generated/**/*'],
   coveragePathIgnorePatterns: ['/node_modules/', '.*\\.d\\.ts'],
   coverageThreshold: { global: { lines: 95 } },
-  moduleNameMapper: { '^(.*\\.s[ac]ss)\\?inline$': '$1' },
+  moduleNameMapper: {
+    '^(.*\\.s[ac]ss)\\?inline$': '$1',
+    '^#beautiful-mermaid$': '<rootDir>/src/_beautiful-mermaid.ts',
+    '^beautiful-mermaid$':
+      '<rootDir>/node_modules/beautiful-mermaid/dist/index.js',
+  },
   testEnvironment: 'node',
   testRegex:
     '(/(test|__tests__)/(?![_.]).*|(\\.|/)(test|spec))(?<!\\.d)\\.[jt]s$',

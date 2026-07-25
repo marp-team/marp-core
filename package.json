@@ -67,7 +67,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "version": "curl https://raw.githubusercontent.com/marp-team/actions/v1/lib/scripts/version.js | node && git add -A CHANGELOG.md",
-    "watch": "tsdown -w --no-clean"
+    "watch": "npm -s run clean && tsdown -w --no-clean"
   },
   "prettier": {
     "semi": false,
@@ -85,7 +85,7 @@
     "@shikijs/transformers": "^4.0.2",
     "@tsconfig/node20": "^20.1.9",
     "@tsconfig/recommended": "^1.0.13",
-    "@tsdown/css": "^0.21.7",
+    "@tsdown/css": "^0.22.9",
     "@twemoji/api": "^17.0.3",
     "@types/jest": "^30.0.0",
     "@types/markdown-it": "^14.1.2",
@@ -121,7 +121,7 @@
     "self-closing-tags": "^1.0.1",
     "stylelint": "^17.14.0",
     "stylelint-config-standard-scss": "^17.0.0",
-    "tsdown": "^0.21.7",
+    "tsdown": "^0.22.9",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-eslint": "^8.63.0"
   },
