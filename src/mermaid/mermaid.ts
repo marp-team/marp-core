@@ -7,6 +7,7 @@ export const render = (
   { interactive }: MermaidRenderOptions,
 ): string => {
   const { renderMermaidSVG } =
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     require('#beautiful-mermaid') as typeof import('beautiful-mermaid')
 
   return renderMermaidSVG(mermaid, {

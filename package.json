@@ -134,6 +134,10 @@
     "shiki": "^4.0.2",
     "xss": "^1.0.15"
   },
+  "overrides": {
+    "brace-expansion": "^5.0.8",
+    "fast-uri": "^3.1.4"
+  },
   "publishConfig": {
     "access": "public"
   }
