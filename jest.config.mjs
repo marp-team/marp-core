@@ -1,4 +1,5 @@
 const esModules = [
+  '@mathjax/',
   '@shikijs/',
   'beautiful-mermaid',
   'ccount',
@@ -6,6 +7,7 @@ const esModules = [
   'comma-separated-tokens',
   'hast-util-',
   'html-void-elements',
+  'mhchemparser',
   'property-information',
   'shiki',
   'space-separated-tokens',
