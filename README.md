@@ -117,6 +117,164 @@ For theme authors compatible with Marp Core, [the full list of CSS variables for
 
 ---
 
+### Mermaid diagrams
+
+Marp Core can render some of diagram types written in [Mermaid]. Put the diagram code in a code fence with `mermaid` info string.
+
+> [!NOTE]
+> Since Marp Core uses an alternative Mermaid renderer [`beautiful-mermaid`][beautiful-mermaid] for deterministic server-side output, certain diagram types, syntax, and options from [the original Mermaid][mermaid] might not be supported.
+>
+> You can see the full example of supported diagrams in https://agents.craft.do/mermaid.
+
+> [!TIP]
+>
+> - The color of diagrams will be automatically adjusted to [the syntax highlight color](#color-customization) of the current theme.
+> - If you want to just highlight the mermaid code without rendering the diagram, you can use `mermaid-raw` or `mmd` info string instead of `mermaid`.
+
+[mermaid]: https://github.com/mermaid-js/mermaid
+[beautiful-mermaid]: https://github.com/lukilabs/beautiful-mermaid
+
+#### [Flowchart (Graph)](https://mermaid.ai/open-source/syntax/flowchart.html)
+
+<img align="right" width="280" src="./docs/assets/mermaid/flowchart.webp" alt="Flowchart" />
+
+````markdown
+```mermaid
+graph LR
+  M[Marpit framework] --> C{Marp Core}
+  C --> CLI[Marp CLI]
+  C --> VS[Marp for VS Code]
+  C --> O[[Your own app]]
+```
+````
+
+#### [Sequence Diagram](https://mermaid.ai/open-source/syntax/sequenceDiagram.html)
+
+<img align="right" width="280" src="./docs/assets/mermaid/sequence.webp" alt="Sequence Diagram" />
+
+````markdown
+```mermaid
+sequenceDiagram
+  actor U as User
+  participant M as Marp
+  participant P as Markdown parser
+  U->>+M: Request render
+  M->>P: Parse Markdown
+  P-->>M: Parsed result
+  M-->>-U: Output
+```
+````
+
+#### [State Diagram](https://mermaid.ai/open-source/syntax/stateDiagram.html)
+
+<img align="right" width="280" src="./docs/assets/mermaid/state.webp" alt="State Diagram" />
+
+````markdown
+```mermaid
+stateDiagram
+  direction LR
+  [*]-->Draft
+  Draft-->FeedbackLoop
+  state FeedbackLoop {
+    Edit-->Preview
+    Preview-->Edit
+  }
+  FeedbackLoop-->Export
+  Export-->[*]: Present
+```
+````
+
+#### [Class Diagram](https://mermaid.ai/open-source/syntax/classDiagram.html)
+
+<img align="right" width="280" src="./docs/assets/mermaid/class.webp" alt="Class Diagram" />
+
+````markdown
+```mermaid
+classDiagram
+  class Marp {
+    +constructor(options: MarpOptions)
+  }
+  class Marpit {
+    +constructor(options: Marpit.Options)
+    +render(markdown: string, env?: object) RenderResult
+  }
+  Marp <|-- Marpit
+```
+````
+
+#### [Entity Relationship Diagram (ERD)](https://mermaid.ai/open-source/syntax/entityRelationshipDiagram.html)
+
+<img align="right" width="280" src="./docs/assets/mermaid/erd.webp" alt="Entity Relationship Diagram (ERD)" />
+
+````markdown
+```mermaid
+erDiagram
+  User ||--o{ MarpDocument : owns
+  User ||--o{ Theme : owns
+  User ||--o{ Asset : owns
+  MarpDocument o{--o| Theme : uses
+  MarpDocument o{..o{ Asset : uses
+  User {
+    int id
+    string name
+  }
+  MarpDocument {
+    int id
+    string markdown
+  }
+  Theme {
+    int id
+    string css
+  }
+  Asset {
+    int id
+    string url
+  }
+```
+````
+
+#### [Charts (XY Chart)](https://mermaid.ai/open-source/syntax/xyChart.html)
+
+##### Bar chart
+
+<img align="right" width="280" src="./docs/assets/mermaid/bar-chart.webp" alt="Bar Chart" />
+
+````markdown
+```mermaid
+xychart
+  title "npm Downloads (2025-08 to 2026-07)"
+  x-axis [Aug, Sep, Oct, Nov, Dec, Jan, Feb, Mar, Apr, May, Jun, Jul]
+  y-axis "Downloads" 0 --> 500000
+  bar [30958, 40546, 46111, 52399, 59409, 67686, 120845, 270062, 390907, 477828, 298524, 298974]
+```
+````
+
+##### Line chart
+
+<img align="right" width="280" src="./docs/assets/mermaid/line-chart.webp" alt="Line Chart" />
+
+````markdown
+```mermaid
+xychart
+  title "npm Downloads (2025-08 to 2026-07)"
+  x-axis [Aug, Sep, Oct, Nov, Dec, Jan, Feb, Mar, Apr, May, Jun, Jul]
+  y-axis "Downloads" 0 --> 500000
+  line [30958, 40546, 46111, 52399, 59409, 67686, 120845, 270062, 390907, 477828, 298524, 298974]
+```
+````
+
+> [!TIP]
+> You can use `mermaid interactive` code fence to enable the interactive mode of `beautiful-mermaid`. In charts, it will show the tooltip when hovering the bar or line.
+>
+> ````markdown
+> ```mermaid interactive
+> xychart
+>   ...
+> ```
+> ````
+
+---
+
 ### `size` global directive
 
 Do you want a traditional 4:3 slide size? Marp Core adds the support of `size` global directive. The extended theming system can switch the slide size easier.
