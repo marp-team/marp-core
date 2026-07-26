@@ -224,7 +224,7 @@ section {
 
   & > code,
   *:not(pre) > code {
-    background: var(--color-background-code);
+    background-color: var(--color-background-code);
     color: var(--color-foreground);
     margin: -0.2em 0.2em 0.2em;
     padding: 0.2em;
@@ -248,6 +248,10 @@ section {
       border-image: conic-gradient(var(--marp-shiki-line-highlight) 0 0) fill
         0/ /0 10000vw;
     }
+
+    &:has(code.language-mermaid) {
+      filter: none;
+    }
   }
 
   pre > code {
@@ -258,6 +262,11 @@ section {
     min-width: 456px; // (Slide width - padding * 2) * 40%
     padding: 0.4em 0.6em;
     contain: paint;
+
+    &.language-mermaid {
+      background-color: transparent;
+      min-width: 0 !important;
+    }
   }
 
   &[data-size='4:3'] pre > code {

@@ -12,6 +12,7 @@
 - Integrate new code highlighter [Shiki](https://shiki.style/) for the code fence ([#296](https://github.com/marp-team/marp-core/issues/296), [#413](https://github.com/marp-team/marp-core/pull/413))
   - Simplified color styling in the theme by `--marp-shiki-*` CSS variables
   - Highlight lines based on the attribute of the code fence, like ` ```markdown {1,3-5} `
+- Mermaid diagrams for the `mermaid` code fence, powered by [`beautiful-mermaid`](https://github.com/lukilabs/beautiful-mermaid) ([#139](https://github.com/marp-team/marp-core/issues/139), [#420](https://github.com/marp-team/marp-core/pull/420))
 
 ### Changed
 

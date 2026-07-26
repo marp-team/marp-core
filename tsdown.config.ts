@@ -61,6 +61,16 @@ export default defineConfig([
     format: ['esm', 'cjs'],
   },
 
+  // beautiful-mermaid ESM wrapper
+  {
+    ...baseConfig,
+    dts: false,
+    entry: { _beautifulMermaid: 'src/_beautiful-mermaid.ts' },
+    name: 'beautiful-mermaid ESM wrapper',
+    deps: { neverBundle: ['beautiful-mermaid'] },
+    format: 'esm',
+  },
+
   // Main bundle
   browserScriptContext.withTarget(
     {
@@ -68,6 +78,7 @@ export default defineConfig([
       name: 'Marp Core',
       entry: 'src/marp.ts',
       format: ['esm', 'cjs'],
+      deps: { neverBundle: '#beautiful-mermaid' },
     },
     { importSource: './browser-script' },
   ),

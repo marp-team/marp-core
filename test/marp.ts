@@ -4,6 +4,7 @@ import postcss, { Rule } from 'postcss'
 import { elements } from '../src/custom-elements/definitions'
 import { EmojiOptions } from '../src/emoji/emoji'
 import { Marp, MarpOptions } from '../src/marp'
+import * as mermaid from '../src/mermaid/mermaid'
 import browserScript from '../src/script/browser-script'
 
 jest.mock('../src/observer')
@@ -1419,6 +1420,64 @@ function complex(a,b)
       it('enables highlight with a highlighted line', () => {
         expect($('pre.shiki')).toHaveLength(1)
         expect($('pre.shiki .line.highlighted')).toHaveLength(1)
+      })
+    })
+
+    describe('Mermaid diagram', () => {
+      const diagram = 'flowchart TD\nA --> B\n'
+
+      describe('when fence is rendered with mermaid lang', () => {
+        it('renders Mermaid diagram', () => {
+          const render = jest.spyOn(mermaid, 'render')
+          const $ = load(
+            marp().markdown.render(`\`\`\`mermaid\n${diagram}\`\`\``),
+          )
+
+          expect(render).toHaveBeenCalledWith(diagram, { interactive: false })
+          expect($('code.language-mermaid > svg')).toHaveLength(1)
+        })
+
+        it('enables interactive rendering through fence attributes', () => {
+          const render = jest.spyOn(mermaid, 'render')
+          const $ = load(
+            marp().markdown.render(
+              `\`\`\`mermaid interactive\n${diagram}\`\`\``,
+            ),
+          )
+
+          expect(render).toHaveBeenCalledWith(diagram, { interactive: true })
+          expect($('code.language-mermaid > svg')).toHaveLength(1)
+        })
+
+        it('falls back to regular syntax highlighting when Mermaid rendering fails', () => {
+          const err = new Error('Failed to render Mermaid diagram')
+
+          jest.spyOn(mermaid, 'render').mockImplementation(() => {
+            throw err
+          })
+
+          const warn = jest.spyOn(console, 'warn').mockImplementation()
+          const $ = load(
+            marp().markdown.render(`\`\`\`mermaid\n${diagram}\`\`\``),
+          )
+
+          expect(warn).toHaveBeenCalledWith(err)
+          expect($('pre.shiki code.language-mmd')).toHaveLength(1)
+          expect($('code').text()).toBe(diagram.trimEnd())
+        })
+      })
+
+      describe('when fence is rendered with mermaid-raw lang', () => {
+        it('highlights Mermaid syntax without rendering a diagram', () => {
+          const render = jest.spyOn(mermaid, 'render')
+          const $ = load(
+            marp().markdown.render(`\`\`\`mermaid-raw\n${diagram}\n\`\`\``),
+          )
+
+          expect(render).not.toHaveBeenCalled()
+          expect($('pre.shiki code.language-mmd')).toHaveLength(1)
+          expect($('code').text()).toBe(diagram)
+        })
       })
     })
 

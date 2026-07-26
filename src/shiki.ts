@@ -1,9 +1,10 @@
 import { transformerMetaHighlight } from '@shikijs/transformers'
 import { createHighlighterCoreSync, createCssVariablesTheme } from 'shiki/core'
 import type {
-  HighlighterCore,
   CodeToHastOptions,
+  HighlighterCore,
   ShikiTransformer,
+  ThemeRegistration,
 } from 'shiki/core'
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
 import { bundledLanguagesInfo } from 'shiki/langs'
@@ -25,17 +26,19 @@ bundledLanguagesInfo.map(({ id, aliases }) => {
 
 const themeName = 'marp-shiki' as const
 
+export const shikiTheme = (): ThemeRegistration => {
+  return createCssVariablesTheme({
+    name: themeName,
+    variablePrefix: '--marp-shiki-',
+  })
+}
+
 const shiki = (): HighlighterCore => {
   if (!_shiki) {
-    const theme = createCssVariablesTheme({
-      name: themeName,
-      variablePrefix: '--marp-shiki-',
-    })
-
     const engine = createJavaScriptRegexEngine({ forgiving: true })
 
     _shiki = createHighlighterCoreSync({
-      themes: [theme],
+      themes: [shikiTheme()],
       langs: [],
       engine,
     })
