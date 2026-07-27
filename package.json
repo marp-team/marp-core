@@ -30,9 +30,9 @@
   },
   "exports": {
     ".": {
-      "types": "./lib/marp.d.mts",
-      "import": "./lib/marp.mjs",
-      "default": "./lib/marp.cjs"
+      "types": "./lib/index.d.mts",
+      "import": "./lib/index.mjs",
+      "default": "./lib/index.cjs"
     },
     "./browser": {
       "types": "./lib/browser.d.mts",

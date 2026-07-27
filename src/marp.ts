@@ -134,17 +134,13 @@ export class Marp extends Marpit {
 
   protected themeSetPackOptions(): ThemeSetPackOptions {
     const base = { ...super.themeSetPackOptions() }
-    const prepend = (css) =>
-      css && (base.before = `${css}\n${base.before || ''}`)
-    const { emoji } = this.options
 
-    prepend(emojiPlugin.css(emoji))
+    const emojiCSS = emojiPlugin.css(this.options.emoji)
+    if (emojiCSS) base.before = emojiCSS + '\n' + (base.before || '')
 
     const mathCss = mathPlugin.css(this)
-    if (mathCss) prepend(mathCss)
+    if (mathCss) base.before = mathCss + '\n' + (base.before || '')
 
     return base
   }
 }
-
-export default Marp

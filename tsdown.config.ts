@@ -76,7 +76,7 @@ export default defineConfig([
     {
       ...baseConfig,
       name: 'Marp Core',
-      entry: 'src/marp.ts',
+      entry: 'src/index.ts',
       format: ['esm', 'cjs'],
       deps: { neverBundle: '#beautiful-mermaid' },
       dts: { resolver: 'tsc' },
