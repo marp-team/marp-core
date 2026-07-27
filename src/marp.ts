@@ -1,5 +1,6 @@
 import postcssMinify from '@csstools/postcss-minify'
 import { Marpit, Options, ThemeSetPackOptions } from '@marp-team/marpit'
+import type { Options as MarkdownItOptions } from 'markdown-it'
 import type { ShikiTransformer } from 'shiki'
 import defaultTheme from '../themes/default.scss?inline'
 import gaiaTheme from '../themes/gaia.scss?inline'
@@ -17,10 +18,14 @@ import * as shiki from './shiki'
 import * as sizePlugin from './size/size'
 import * as slugPlugin from './slug/slug'
 
+interface MarpMarkdownItOptions extends Omit<MarkdownItOptions, 'html'> {
+  html?: boolean | HTMLAllowList
+}
+
 export interface MarpOptions extends Options {
   emoji?: emojiPlugin.EmojiOptions
   html?: boolean | HTMLAllowList
-  markdown?: object
+  markdown?: MarpMarkdownItOptions
   math?: mathPlugin.MathOptions
   minifyCSS?: boolean
   script?: boolean | scriptPlugin.ScriptOptions
@@ -35,7 +40,7 @@ export class Marp extends Marpit {
   static readonly html = defaultHTMLAllowList
 
   constructor(opts: MarpOptions = {}) {
-    const mdOpts: Record<string, any> = {
+    const mdOpts: MarpMarkdownItOptions = {
       breaks: true,
       linkify: true,
       highlight: (code, lang, attrs) => this.highlighter(code, lang, attrs),
@@ -63,9 +68,8 @@ export class Marp extends Marpit {
     this.markdown.enable(['table', 'linkify', 'strikethrough'])
     this.markdown.linkify.set({ fuzzyLink: false })
 
-    if (mdOpts.typographer) {
+    if (mdOpts.typographer)
       this.markdown.enable(['replacements', 'smartquotes'])
-    }
 
     // Theme support
     this.themeSet.metaType = Object.freeze({

@@ -6,8 +6,8 @@ import { markdown as emojiPlugin } from '../../src/emoji/emoji'
 import type { MarpOptions } from '../../src/marp'
 
 describe('Emoji plugin', () => {
-  const instance = (opts: MarpOptions = {}) =>
-    new Marpit(opts as MarpitOptions).use(emojiPlugin)
+  const instance = (opts: MarpitOptions & Pick<MarpOptions, 'emoji'> = {}) =>
+    new Marpit(opts).use(emojiPlugin)
 
   it('converts shortcode to unicode emoji', () => {
     const marpit = instance({ emoji: { shortcode: true } })

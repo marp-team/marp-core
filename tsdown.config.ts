@@ -79,6 +79,7 @@ export default defineConfig([
       entry: 'src/marp.ts',
       format: ['esm', 'cjs'],
       deps: { neverBundle: '#beautiful-mermaid' },
+      dts: { resolver: 'tsc' },
     },
     { importSource: './browser-script' },
   ),
