@@ -17,6 +17,8 @@
 ### Changed
 
 - Migrate the build system from rollup to tsdown ([#416](https://github.com/marp-team/marp-core/pull/416))
+- Publish as dual package for ESM and CJS ([#416](https://github.com/marp-team/marp-core/pull/416))
+- Upgrade MathJax to v4 ([#405](https://github.com/marp-team/marp-core/issues/405), [#425](https://github.com/marp-team/marp-core/pull/425))
 
 ### Removed
 
