@@ -11,8 +11,8 @@ const browserScriptContext = createRolldownChunkStringContext({
   name: 'marp-core-browser-script',
 })
 
-const baseConfig: UserConfig = {
-  minify: true,
+const baseConfig = {
+  // minify: true,
   outDir: 'lib',
   outputOptions: { exports: 'named' },
   sourcemap: true,
@@ -36,7 +36,12 @@ const baseConfig: UserConfig = {
     },
     preprocessorOptions: { scss: { importers: [new NodePackageImporter()] } },
   },
-}
+  deps: {
+    neverBundle: /^#marp-/,
+    dts: { alwaysBundle: ['markdown-it'] },
+  },
+  dts: { resolver: 'tsc' },
+} as const satisfies UserConfig
 
 const browserBaseConfig: UserConfig = {
   ...baseConfig,
@@ -61,6 +66,31 @@ export default defineConfig([
     format: ['esm', 'cjs'],
   },
 
+  // Internals (ESM only)
+  {
+    ...baseConfig,
+    dts: false,
+    entry: {
+      'internals/*': ['src/internals/*.ts', '!src/internals/shiki-theme.ts'],
+    },
+    format: 'esm',
+  },
+  {
+    ...baseConfig,
+    dts: false,
+    entry: { 'internals/shiki-theme': 'src/internals/shiki-theme.ts' },
+    deps: { ...baseConfig.deps, alwaysBundle: () => true },
+    format: 'esm',
+  },
+
+  // Plugins
+  {
+    ...baseConfig,
+    name: 'Plugins',
+    entry: { 'plugins/*': 'src/plugins/*/index.ts' },
+    format: ['esm', 'cjs'],
+  },
+
   // beautiful-mermaid ESM wrapper
   {
     ...baseConfig,
@@ -76,10 +106,15 @@ export default defineConfig([
     {
       ...baseConfig,
       name: 'Marp Core',
-      entry: 'src/index.ts',
+      entry: ['src/index.ts', 'src/full.ts'],
       format: ['esm', 'cjs'],
-      deps: { neverBundle: '#beautiful-mermaid' },
-      dts: { resolver: 'tsc' },
+      deps: {
+        ...baseConfig.deps,
+        dts: {
+          ...baseConfig.deps.dts,
+          alwaysBundle: [...baseConfig.deps.dts.alwaysBundle, 'shiki'],
+        },
+      },
     },
     { importSource: './browser-script' },
   ),

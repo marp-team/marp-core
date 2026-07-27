@@ -8,7 +8,7 @@ export const render = (
 ): string => {
   const { renderMermaidSVG } =
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    require('#beautiful-mermaid') as typeof import('beautiful-mermaid')
+    require('#marp-beautiful-mermaid') as typeof import('beautiful-mermaid')
 
   return renderMermaidSVG(mermaid, {
     transparent: true,
