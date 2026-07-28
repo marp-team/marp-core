@@ -1,4 +1,3 @@
-import { renderToString, version } from 'katex'
 import type { KatexOptions } from 'katex'
 import { isEnabledAutoScaling } from '../../auto-scaling/utils'
 import { getMathLibrary, registerMathLibrary } from '../../math/context'
@@ -6,6 +5,7 @@ import type { MathLibraryObject } from '../../math/context'
 import { normalizeMathOptions } from '../../math/options'
 import { marpPlugin } from '../../plugin'
 import katexScss from './katex.scss?inline'
+import { katex } from '#marp-katex'
 
 export interface KaTeXMarpCorePluginOptions {
   options?: KatexOptions
@@ -26,12 +26,12 @@ export const katexMarpCorePlugin = ({
       return (opts && (opts.katexOption as KatexOptions)) || undefined
     }
 
-    const render: typeof renderToString = (tex, opts) => {
+    const render: typeof katex.renderToString = (tex, opts) => {
       const lib = getMathLibrary(marp, 'katex') as MathLibraryObject<{
         macros?: KatexOptions['macros']
       }>
 
-      return renderToString(tex, {
+      return katex.renderToString(tex, {
         throwOnError: false,
         ...getKaTeXOptions(),
         macros: lib?.context?.macros || {},
@@ -52,7 +52,7 @@ export const katexMarpCorePlugin = ({
 
         const newFontPath =
           fontPathOption ||
-          `https://cdn.jsdelivr.net/npm/katex@${version}/dist/fonts/`
+          `https://cdn.jsdelivr.net/npm/katex@${katex.version}/dist/fonts/`
 
         return katexScss.replace(
           katexUrlMatcher,

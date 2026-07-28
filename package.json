@@ -27,6 +27,10 @@
   },
   "imports": {
     "#marp-beautiful-mermaid": "./lib/internals/beautiful-mermaid.mjs",
+    "#marp-katex": {
+      "node": "./lib/internals/katex.node.cjs",
+      "default": "./lib/internals/katex.mjs"
+    },
     "#marp-mermaid": {
       "node": "./lib/internals/mermaid.node.cjs",
       "default": "./lib/internals/mermaid.mjs"
