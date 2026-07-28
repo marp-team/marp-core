@@ -53,6 +53,11 @@
       "script": "./lib/browser-iife.iife.js",
       "default": "./lib/browser.js"
     },
+    "./plugins/katex": {
+      "types": "./lib/plugins/katex/index.d.mts",
+      "import": "./lib/plugins/katex/index.mjs",
+      "default": "./lib/plugins/katex/index.cjs"
+    },
     "./plugins/mermaid": {
       "types": "./lib/plugins/mermaid/index.d.mts",
       "import": "./lib/plugins/mermaid/index.mjs",
@@ -132,6 +137,7 @@
     "jest-environment-jsdom": "^30.4.1",
     "jest-junit": "^17.0.0",
     "jest-plugin-context": "^2.9.0",
+    "katex": "^0.17.0",
     "markdown-it": "^14.3.0",
     "markdown-it-emoji": "^3.0.0",
     "nodemon": "^3.1.14",
@@ -158,16 +164,19 @@
     "@mathjax/mathjax-dsfont-font-extension": "^4.1.3",
     "@mathjax/mathjax-mhchem-font-extension": "^4.1.3",
     "@mathjax/src": "^4.1.3",
-    "katex": "^0.17.0",
     "postcss-selector-parser": "^7.1.4",
     "xss": "^1.0.15"
   },
   "peerDependencies": {
     "beautiful-mermaid": "^1.1.3",
+    "katex": "^0.17.0",
     "shiki": "^4.0.2"
   },
   "peerDependenciesMeta": {
     "beautiful-mermaid": {
+      "optional": true
+    },
+    "katex": {
       "optional": true
     },
     "shiki": {
