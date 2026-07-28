@@ -1,4 +1,5 @@
 import { Marp as MarpBase } from './marp'
+import mermaidPlugin from './plugins/mermaid'
 import shikiPlugin from './plugins/shiki'
 
 export class Marp extends MarpBase {
@@ -6,6 +7,7 @@ export class Marp extends MarpBase {
     super(...rest)
 
     this.use(shikiPlugin())
+    this.use(mermaidPlugin())
   }
 }
 

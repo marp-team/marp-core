@@ -26,7 +26,11 @@
     "url": "https://github.com/marp-team/marp-core"
   },
   "imports": {
-    "#marp-beautiful-mermaid": "./lib/_beautifulMermaid.mjs",
+    "#marp-beautiful-mermaid": "./lib/internals/beautiful-mermaid.mjs",
+    "#marp-mermaid": {
+      "node": "./lib/internals/mermaid.node.cjs",
+      "default": "./lib/internals/mermaid.mjs"
+    },
     "#marp-shiki": {
       "node": "./lib/internals/shiki.node.mjs",
       "default": "./lib/internals/shiki.mjs"
@@ -48,6 +52,11 @@
       "import": "./lib/browser.mjs",
       "script": "./lib/browser-iife.iife.js",
       "default": "./lib/browser.js"
+    },
+    "./plugins/mermaid": {
+      "types": "./lib/plugins/mermaid/index.d.mts",
+      "import": "./lib/plugins/mermaid/index.mjs",
+      "default": "./lib/plugins/mermaid/index.cjs"
     },
     "./plugins/shiki": {
       "types": "./lib/plugins/shiki/index.d.mts",
@@ -154,9 +163,13 @@
     "xss": "^1.0.15"
   },
   "peerDependencies": {
+    "beautiful-mermaid": "^1.1.3",
     "shiki": "^4.0.2"
   },
   "peerDependenciesMeta": {
+    "beautiful-mermaid": {
+      "optional": true
+    },
     "shiki": {
       "optional": true
     }

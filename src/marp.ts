@@ -11,8 +11,6 @@ import * as emojiPlugin from './emoji/emoji'
 import { defaultHTMLAllowList, type HTMLAllowList } from './html/allowlist'
 import * as htmlPlugin from './html/html'
 import * as mathPlugin from './math/math'
-// import * as mermaid from './mermaid/mermaid'
-// import { mermaidShikiTransformer } from './mermaid/shikiTransformer'
 import * as scriptPlugin from './script/script'
 import * as sizePlugin from './size/size'
 import * as slugPlugin from './slug/slug'
@@ -106,16 +104,6 @@ export class Marp extends Marpit {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   highlighter(code: string, lang: string, attrs: string): string {
-    // // Mermaid renderer
-    // if (lang === 'mermaid') {
-    //   try {
-    //     return mermaid.render(code, {
-    //       interactive: /\binteractive\b/.test(attrs),
-    //     })
-    //   } catch (err) {
-    //     console.warn(err)
-    //   }
-    // }
     return ''
   }
 

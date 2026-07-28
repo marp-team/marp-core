@@ -4,8 +4,11 @@ import postcssUrl from 'postcss-url'
 import { NodePackageImporter } from 'sass-embedded'
 import { defineConfig } from 'tsdown'
 import type { UserConfig } from 'tsdown'
+import packageJson from './package.json' with { type: 'json' }
 import { postcssOptimizeDefaultTheme } from './scripts/postcss-optimize-default-theme.ts'
 import { createRolldownChunkStringContext } from './scripts/rolldown-chunk-string-context-plugin.ts'
+
+const { peerDependencies } = packageJson
 
 const browserScriptContext = createRolldownChunkStringContext({
   name: 'marp-core-browser-script',
@@ -49,6 +52,8 @@ const browserBaseConfig: UserConfig = {
   deps: { alwaysBundle: () => true },
 }
 
+const internalConfig: UserConfig = { ...baseConfig, dts: false }
+
 export default defineConfig([
   // Browser helpers
   {
@@ -66,22 +71,11 @@ export default defineConfig([
     format: ['esm', 'cjs'],
   },
 
-  // Internals (ESM only)
+  // Internals
   {
-    ...baseConfig,
-    dts: false,
+    ...internalConfig,
     entry: { 'internals/*': 'src/internals/*.ts' },
-    format: 'esm',
-  },
-
-  // beautiful-mermaid ESM wrapper
-  {
-    ...baseConfig,
-    dts: false,
-    entry: { _beautifulMermaid: 'src/_beautiful-mermaid.ts' },
-    name: 'beautiful-mermaid ESM wrapper',
-    deps: { neverBundle: ['beautiful-mermaid'] },
-    format: 'esm',
+    format: ['esm', 'cjs'],
   },
 
   // Main bundle
@@ -98,7 +92,10 @@ export default defineConfig([
         ...baseConfig.deps,
         dts: {
           ...baseConfig.deps.dts,
-          alwaysBundle: [...baseConfig.deps.dts.alwaysBundle, 'shiki'],
+          alwaysBundle: [
+            ...baseConfig.deps.dts.alwaysBundle,
+            ...Object.keys(peerDependencies),
+          ],
         },
       },
     },

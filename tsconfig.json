@@ -7,7 +7,9 @@
     "noImplicitAny": false,
     "types": ["jest", "node"],
     "paths": {
-      "#marp-shiki": ["./src/internals/shiki.ts"]
+      "#marp-shiki": ["./src/internals/shiki.ts"],
+      "#marp-mermaid": ["./src/internals/mermaid.ts"],
+      "#marp-beautiful-mermaid": ["./src/internals/beautiful-mermaid.ts"]
     }
   },
   "include": ["src", "test", "scripts"]
