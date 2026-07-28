@@ -12,7 +12,7 @@ const browserScriptContext = createRolldownChunkStringContext({
 })
 
 const baseConfig = {
-  // minify: true,
+  minify: true,
   outDir: 'lib',
   outputOptions: { exports: 'named' },
   sourcemap: true,
@@ -70,25 +70,8 @@ export default defineConfig([
   {
     ...baseConfig,
     dts: false,
-    entry: {
-      'internals/*': ['src/internals/*.ts', '!src/internals/shiki-theme.ts'],
-    },
+    entry: { 'internals/*': 'src/internals/*.ts' },
     format: 'esm',
-  },
-  {
-    ...baseConfig,
-    dts: false,
-    entry: { 'internals/shiki-theme': 'src/internals/shiki-theme.ts' },
-    deps: { ...baseConfig.deps, alwaysBundle: () => true },
-    format: 'esm',
-  },
-
-  // Plugins
-  {
-    ...baseConfig,
-    name: 'Plugins',
-    entry: { 'plugins/*': 'src/plugins/*/index.ts' },
-    format: ['esm', 'cjs'],
   },
 
   // beautiful-mermaid ESM wrapper
@@ -105,8 +88,11 @@ export default defineConfig([
   browserScriptContext.withTarget(
     {
       ...baseConfig,
-      name: 'Marp Core',
-      entry: ['src/index.ts', 'src/full.ts'],
+      entry: {
+        index: 'src/index.ts',
+        full: 'src/full.ts',
+        'plugins/*': 'src/plugins/*/index.ts',
+      },
       format: ['esm', 'cjs'],
       deps: {
         ...baseConfig.deps,

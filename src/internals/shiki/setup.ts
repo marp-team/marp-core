@@ -1,7 +1,6 @@
 import type { HighlighterCore, LanguageRegistration } from 'shiki/core'
-import { createHighlighterCoreSync } from 'shiki/core'
+import { createHighlighterCoreSync, createCssVariablesTheme } from 'shiki/core'
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
-import { theme } from '#marp-shiki-theme'
 
 export const setupShiki = (
   langLoaders: Record<string, () => LanguageRegistration[]>,
@@ -12,6 +11,11 @@ export const setupShiki = (
     get highlighter() {
       if (!_highlighter) {
         const engine = createJavaScriptRegexEngine({ forgiving: true })
+
+        const theme = createCssVariablesTheme({
+          name: 'marp-shiki',
+          variablePrefix: '--marp-shiki-',
+        })
 
         _highlighter = createHighlighterCoreSync({
           themes: [theme],

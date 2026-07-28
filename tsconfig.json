@@ -7,9 +7,7 @@
     "noImplicitAny": false,
     "types": ["jest", "node"],
     "paths": {
-      "#marp-shiki-plugin": ["./src/plugins/shiki/index.ts"],
-      "#marp-shiki": ["./src/internals/shiki.ts"],
-      "#marp-shiki-theme": ["./src/internals/shiki-theme.ts"]
+      "#marp-shiki": ["./src/internals/shiki.ts"]
     }
   },
   "include": ["src", "test", "scripts"]

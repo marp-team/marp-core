@@ -27,15 +27,10 @@
   },
   "imports": {
     "#marp-beautiful-mermaid": "./lib/_beautifulMermaid.mjs",
-    "#marp-shiki-plugin": {
-      "import": "./lib/plugins/shiki/index.mjs",
-      "default": "./lib/plugins/shiki/index.cjs"
-    },
     "#marp-shiki": {
       "node": "./lib/internals/shiki.node.mjs",
       "default": "./lib/internals/shiki.mjs"
-    },
-    "#marp-shiki-theme": "./lib/internals/shiki-theme.mjs"
+    }
   },
   "exports": {
     ".": {
