@@ -13,11 +13,11 @@ describe('Generated MathJax TeX packages', () => {
   ]
 
   it('lists every directly linkable TeX package', () => {
-    expect(texPackages.packages).toEqual(expectedPackages)
+    expect(texPackages.loadTexPackages().packages).toEqual(expectedPackages)
   })
 
   it('loads the font extensions required by TeX packages', () => {
-    const fontExtensions = texPackages.loadFontExtensions()
+    const { fontExtensions } = texPackages.loadTexPackages()
 
     expect(fontExtensions.map(({ name }) => name)).toEqual([
       // https://docs.mathjax.org/en/v4.0/upgrading/whats-new-4.0/fonts.html
@@ -29,10 +29,10 @@ describe('Generated MathJax TeX packages', () => {
   })
 
   it('defines lazy requires for every directly linkable TeX package', () => {
-    expect(lazyTexPackages.packages).toEqual(expectedPackages)
-    expect(
-      lazyTexPackages.loadFontExtensions().map(({ name }) => name),
-    ).toEqual([
+    const { packages, fontExtensions } = lazyTexPackages.loadTexPackages()
+
+    expect(packages).toEqual(expectedPackages)
+    expect(fontExtensions.map(({ name }) => name)).toEqual([
       'mathjax-bbm',
       'mathjax-bboldx',
       'mathjax-dsfont',

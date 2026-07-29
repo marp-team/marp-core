@@ -91,7 +91,7 @@ const header = [
 ]
 
 const packageList = [
-  'export const packages = [',
+  'const packages = [',
   ...packageNames.map((packageName) => `  ${JSON.stringify(packageName)},`),
   ']',
   '',
@@ -108,10 +108,13 @@ const staticLines = [
   ),
   '',
   ...packageList,
-  'export const loadFontExtensions = () => {',
-  '  return [',
-  ...fontExtensions.map(({ exportName }) => `    ${exportName},`),
-  '  ]',
+  'export const loadTexPackages = () => {',
+  '  return {',
+  '    packages,',
+  '    fontExtensions: [',
+  ...fontExtensions.map(({ exportName }) => `      ${exportName},`),
+  '    ],',
+  '  }',
   '}',
   '',
 ]
@@ -119,7 +122,7 @@ const staticLines = [
 const lazyLines = [
   ...header,
   ...packageList,
-  'export const loadFontExtensions = () => {',
+  'export const loadTexPackages = () => {',
   ...fontExtensions.map(
     ({ exportName, moduleName }) =>
       `  const { ${exportName} } = require(${JSON.stringify(moduleName)}) as typeof import(${JSON.stringify(moduleName)})`,
@@ -129,9 +132,12 @@ const lazyLines = [
     (moduleName) => `  require(${JSON.stringify(moduleName)})`,
   ),
   '',
-  '  return [',
-  ...fontExtensions.map(({ exportName }) => `    ${exportName},`),
-  '  ]',
+  '  return {',
+  '    packages,',
+  '    fontExtensions: [',
+  ...fontExtensions.map(({ exportName }) => `      ${exportName},`),
+  '    ],',
+  '  }',
   '}',
   '',
 ]

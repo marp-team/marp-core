@@ -772,13 +772,13 @@ function complex(a,b)
 
       describe('when math typesetting syntax is not using', () => {
         it('does not initialize MathJax', () => {
-          const loadFontExtensions = jest.spyOn(
+          const loadTexPackages = jest.spyOn(
             generatedMathJax,
-            'loadFontExtensions',
+            'loadTexPackages',
           )
 
           marp({ math: 'mathjax' }).render('plain text')
-          expect(loadFontExtensions).not.toHaveBeenCalled()
+          expect(loadTexPackages).not.toHaveBeenCalled()
         })
 
         it('does not inject MathJax css', () =>

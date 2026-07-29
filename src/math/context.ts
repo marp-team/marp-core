@@ -63,13 +63,16 @@ export const getMathContext = (target: object): MathContext => ({
 export const registerMathLibrary = (
   target: Marp,
   name: MathLibrary,
-  lib: Omit<MathLibraryObject<unknown>, 'context'>,
+  lib: Omit<MathLibraryObject<unknown>, 'context'> & { context?: unknown },
 ) =>
   setMathContext(target, (ctx) => ({
     ...ctx,
     libs: {
       ...ctx.libs,
-      [name]: { ...lib, context: lib.initializeContext?.(target) },
+      [name]: {
+        ...lib,
+        context: lib.context ?? lib.initializeContext?.(target),
+      },
     },
   }))
 
