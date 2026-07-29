@@ -66,6 +66,11 @@
       "import": "./lib/plugins/katex/index.mjs",
       "default": "./lib/plugins/katex/index.cjs"
     },
+    "./plugins/mathjax": {
+      "types": "./lib/plugins/mathjax/index.d.mts",
+      "import": "./lib/plugins/mathjax/index.mjs",
+      "default": "./lib/plugins/mathjax/index.cjs"
+    },
     "./plugins/mermaid": {
       "types": "./lib/plugins/mermaid/index.d.mts",
       "import": "./lib/plugins/mermaid/index.mjs",
@@ -101,6 +106,7 @@
     "preversion": "run-p check:* lint:* test:coverage",
     "sandbox": "run-p watch sandbox:watch",
     "sandbox:watch": "node -e \"fs.mkdirSync('lib',{recursive:true})\" && nodemon",
+    "sandbox:light": "MARP_LIGHT=1 npm -s run sandbox",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "version": "curl https://raw.githubusercontent.com/marp-team/actions/v1/lib/scripts/version.js | node && git add -A CHANGELOG.md",

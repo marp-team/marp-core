@@ -18,7 +18,14 @@ export const katexMarpCorePlugin = ({
 }: KaTeXMarpCorePluginOptions = {}) => {
   const katexUrlMatcher = /url\(['"]?fonts\/(.*?)['"]?\)/g
 
-  return marpPlugin(({ marpit: marp }) => {
+  return marpPlugin((md) => {
+    const { marpit: marp } = md
+
+    const fallback = (tokens, idx) => {
+      const { content, markup } = tokens[idx]
+      return md.utils.escapeHtml(`${markup}${content}${markup}`)
+    }
+
     const getKaTeXOptions = () => {
       if (options) return options
 
@@ -66,7 +73,7 @@ export const katexMarpCorePlugin = ({
           return render(content, { displayMode: false })
         } catch (e) {
           console.warn(e)
-          return content
+          return fallback(tokens, idx)
         }
       },
       blockRenderer: () => (tokens, idx) => {
@@ -85,7 +92,7 @@ export const katexMarpCorePlugin = ({
           return `<p>${rendered}</p>`
         } catch (e) {
           console.warn(e)
-          return `<p>${content}</p>`
+          return `<p>${fallback(tokens, idx)}</p>`
         }
       },
       initializeContext: () => ({
