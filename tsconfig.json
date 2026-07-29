@@ -8,6 +8,7 @@
     "types": ["jest", "node"],
     "paths": {
       "#marp-katex": ["./src/internals/katex.ts"],
+      "#marp-mathjax": ["./src/internals/mathjax.ts"],
       "#marp-shiki": ["./src/internals/shiki.ts"],
       "#marp-mermaid": ["./src/internals/mermaid.ts"],
       "#marp-beautiful-mermaid": ["./src/internals/beautiful-mermaid.ts"]

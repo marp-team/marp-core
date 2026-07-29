@@ -31,12 +31,16 @@
       "node": "./lib/internals/katex.node.cjs",
       "default": "./lib/internals/katex.mjs"
     },
+    "#marp-mathjax": {
+      "node": "./lib/internals/mathjax.node.cjs",
+      "default": "./lib/internals/mathjax.mjs"
+    },
     "#marp-mermaid": {
       "node": "./lib/internals/mermaid.node.cjs",
       "default": "./lib/internals/mermaid.mjs"
     },
     "#marp-shiki": {
-      "node": "./lib/internals/shiki.node.mjs",
+      "node": "./lib/internals/shiki.node.cjs",
       "default": "./lib/internals/shiki.mjs"
     }
   },

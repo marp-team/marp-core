@@ -1,5 +1,4 @@
-import fs from 'node:fs'
-import path from 'node:path'
+import { langLoaders as lazyLangLoaders } from '../../src/generated/shiki-lang-lazy-loaders'
 import { langLoaders } from '../../src/generated/shiki-lang-loaders'
 import { languageIds } from '../../src/generated/shiki-language-ids'
 
@@ -14,24 +13,16 @@ describe('Generated Shiki loaders', () => {
   })
 
   it('defines lazy loaders for every bundled Shiki language', () => {
-    // Jest cannot parse nodeRequire directly, so we check the generated source code instead
-    const lazyLoaderSource = fs.readFileSync(
-      path.resolve(__dirname, '../../src/generated/shiki-lang-lazy-loaders.ts'),
-      'utf8',
-    )
-    const lazyLangs = [
-      ...lazyLoaderSource.matchAll(
-        /^\s*"([^"]+)": \(\) => nodeRequire\("shiki\/langs\/[^"]+"\)/gm,
-      ),
-    ].map((match) => match[1])
+    const lazyLoaderKeys = Object.keys(lazyLangLoaders)
 
-    expect(lazyLangs).toEqual(expect.arrayContaining(expectedLangs))
-    expect(lazyLangs).toHaveLength(expectedLangs.length)
+    expect(lazyLoaderKeys).toEqual(expect.arrayContaining(expectedLangs))
+    expect(lazyLoaderKeys).toHaveLength(expectedLangs.length)
   })
 
   it('defines each loader as a function', () => {
-    expect(Object.values(langLoaders)).toEqual(
-      expect.arrayOf(expect.any(Function)),
-    )
+    expect([
+      ...Object.values(langLoaders),
+      ...Object.values(lazyLangLoaders),
+    ]).toEqual(expect.arrayOf(expect.any(Function)))
   })
 })
