@@ -32,15 +32,15 @@ export interface MarpOptions extends Options {
 export class Marp extends Marpit {
   declare readonly options: Required<MarpOptions>
 
-  shikiTransformers: ShikiTransformer[] = []
-
   static readonly html = defaultHTMLAllowList
 
   constructor(opts: MarpOptions = {}) {
     const mdOpts: MarpMarkdownItOptions = {
       breaks: true,
       linkify: true,
-      highlight: (code, lang, attrs) => this.highlighter(code, lang, attrs),
+      highlight: (code, lang, attrs) =>
+        this.diagramRenderer(code, lang, attrs) ||
+        this.highlighter(code, lang, attrs),
       html: opts.html ?? Marp.html,
       ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
     }
@@ -102,11 +102,6 @@ export class Marp extends Marpit {
       .use(slugPlugin.markdown)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  highlighter(code: string, lang: string, attrs: string): string {
-    return ''
-  }
-
   protected themeSetPackOptions(): ThemeSetPackOptions {
     const base = { ...super.themeSetPackOptions() }
 
@@ -118,4 +113,16 @@ export class Marp extends Marpit {
 
     return base
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  diagramRenderer(code: string, lang: string, attrs: string): string {
+    return ''
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  highlighter(code: string, lang: string, attrs: string): string {
+    return ''
+  }
+
+  shikiTransformers: ShikiTransformer[] = []
 }

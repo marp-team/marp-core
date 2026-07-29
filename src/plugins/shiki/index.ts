@@ -38,14 +38,19 @@ export const shikiMarpCorePlugin = () => {
     marp.shikiTransformers.push(transformerMetaHighlight())
 
     marp.highlighter = (code: string, lang: string, attrs: string) => {
+      if (lang === 'mermaid' || lang === 'mermaid-raw') {
+        // Use `mmd` alias to `mermaid`. `mermaid` should not use because of
+        // `.language-mermaid` class is required to style the diagram by themes.
+        lang = 'mmd'
+      }
+
       // markdown-it-shiki compatible
       if (code.endsWith('\n')) code = code.slice(0, -1)
 
-      // Render Shiki
       const targetLang = textLangs.includes(lang) ? 'text' : languageIds[lang]
       if (!targetLang) return ''
 
-      // Lazy-loading languages to reduce initial loading time
+      // Lazy-loading languages
       if (!shiki.highlighter.getLoadedLanguages().includes(targetLang)) {
         const langLoader = shiki.resolveLang(targetLang)
         if (langLoader) shiki.highlighter.loadLanguageSync(langLoader())

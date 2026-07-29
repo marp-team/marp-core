@@ -24,9 +24,9 @@ export const mermaidMarpCorePlugin = () => {
     })
 
   return marpPlugin(({ marpit: marp }) => {
-    const originalHighlighter = marp.highlighter.bind(marp)
+    const originalDiagramRenderer = marp.diagramRenderer.bind(marp)
 
-    marp.highlighter = (code: string, lang: string, attrs: string) => {
+    marp.diagramRenderer = (code: string, lang: string, attrs: string) => {
       if (lang === 'mermaid') {
         try {
           return render(code, { interactive: /\binteractive\b/.test(attrs) })
@@ -34,16 +34,7 @@ export const mermaidMarpCorePlugin = () => {
           console.warn(err)
         }
       }
-
-      // Fallback
-      if (lang === 'mermaid' || lang === 'mermaid-raw') {
-        // Use `mmd` alias to `mermaid`. `mermaid` should not use because of
-        // `.language-mermaid` class is required to style the diagram by built-in
-        // themes.
-        lang = 'mmd'
-      }
-
-      return originalHighlighter(code, lang, attrs)
+      return originalDiagramRenderer(code, lang, attrs)
     }
   })
 }
