@@ -249,7 +249,7 @@ section {
         0/ /0 10000vw;
     }
 
-    &:has(code.language-mermaid) {
+    &:has(code.language-mermaid svg) {
       filter: none;
     }
   }
@@ -263,9 +263,10 @@ section {
     padding: 0.4em 0.6em;
     contain: paint;
 
-    &.language-mermaid {
+    &.language-mermaid:has(svg) {
       background-color: transparent;
       min-width: 0 !important;
+      padding: 0;
     }
   }
 
