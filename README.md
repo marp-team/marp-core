@@ -5,27 +5,123 @@
 [![npm](https://img.shields.io/npm/v/@marp-team/marp-core.svg?style=flat-square&logo=npm)](https://www.npmjs.com/package/@marp-team/marp-core)
 [![LICENSE](https://img.shields.io/github/license/marp-team/marp-core.svg?style=flat-square)](./LICENSE)
 
-**The core of [Marp](https://github.com/marp-team/marp) converter.**
+**The core of [Marp] converter.**
 
-In order to use on Marp tools, we have extended from the slide deck framework **[Marpit](https://github.com/marp-team/marpit)**. You can use the practical Markdown syntax, advanced features, and official themes.
+In order to use on Marp tools, we have extended from the slide deck framework **[Marpit]**. You can use the practical Markdown syntax, advanced features, official themes, and optional core plugins.
+
+[marp]: https://marp.app
+[marpit]: https://marpit.marp.app
 
 ## Install
 
-```bash
+Marp Core supports Node.js 20.19 or later, but highly recommend to use [actively supported Node.js versions](https://nodejs.org/en/about/releases/).
+
+```
 npm install --save @marp-team/marp-core
+```
+
+## Entrypoints
+
+Since v5, Marp Core has been split into a lightweight core and [optional core plugins](#core-plugins).
+
+| Entrypoint                      | Description                                                                             | Bundled size\* |
+| ------------------------------- | --------------------------------------------------------------------------------------- | -------------- |
+| **`@marp-team/marp-core`**      | Lightweight core with Marp's essential features                                         | 0.5MB          |
+| **`@marp-team/marp-core/full`** | Full build with all core plugins<br />_(requires installing all optional dependencies)_ | 11.4MB         |
+
+###### \*: Rough estimates. Build for browser with ESM, minified, before gzip, and includes all optional dependencies in the full entry.
+
+We provide the full build for consistent experience of Marp toolchain, but we recommend using the lightweight core and only installing the optional plugins you need, to reduce the bundle size of your application.
+
+<details>
+<summary>About the browser helper <code>@marp-team/marp-core/browser</code></summary>
+<a name="browser-helper" id="browser-helper"></a>
+
+To show the slides correctly in the browser, Marp Core injects a helper `<script>` for the browser at the end of the slide deck by default.
+
+If you want to control the script injection, you can disable auto injection by `browser: false` option, and can use the helper script from `@marp-team/marp-core/browser` manually.
+
+> Don't confuse `@marp-team/marp-core/browser` with [main entrypoints](#entrypoints); It's not a conversion logic for the browser, just only provides the helper script. If you need a core feature for the browser, please bundle the main entrypoint for the browser with JavaScript bundler.
+
+</details>
+
+## Core plugins
+
+Marp Core also provides optional plugins for several core features. These often require optional dependencies along with Marp Core.
+
+| Plugin                                     | Description                                        | Optional dependency                                                                                                                                                                         |
+| ------------------------------------------ | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`@marp-team/marp-core/plugins/shiki`**   | Syntax highlighting powered by [Shiki]             | `shiki`                                                                                                                                                                                     |
+| **`@marp-team/marp-core/plugins/mermaid`** | [Mermaid] rendering powered by [beautiful-mermaid] | `beautiful-mermaid`                                                                                                                                                                         |
+| **`@marp-team/marp-core/plugins/katex`**   | Math typesetting powered by [KaTeX]                | `katex`                                                                                                                                                                                     |
+| **`@marp-team/marp-core/plugins/mathjax`** | Math typesetting powered by [MathJax]              | `@mathjax/src`<br>`@mathjax/mathjax-bbm-font-extension`<br>`@mathjax/mathjax-bboldx-font-extension`<br>`@mathjax/mathjax-dsfont-font-extension`<br>`@mathjax/mathjax-mhchem-font-extension` |
+
+[beautiful-mermaid]: https://github.com/lukilabs/beautiful-mermaid
+[katex]: https://khan.github.io/KaTeX/
+[mathjax]: https://www.mathjax.org/
+[mermaid]: https://github.com/mermaid-js/mermaid
+[shiki]: https://shiki.style/
+
+To use the full build `@marp-team/marp-core/full`, please install all optional dependencies along with Marp Core:
+
+```
+npm install --save \
+  @marp-team/marp-core \
+  shiki \
+  beautiful-mermaid \
+  katex \
+  @mathjax/src \
+  @mathjax/mathjax-bbm-font-extension \
+  @mathjax/mathjax-bboldx-font-extension \
+  @mathjax/mathjax-dsfont-font-extension \
+  @mathjax/mathjax-mhchem-font-extension
 ```
 
 ## Usage
 
-We provide `Marp` class, that is inherited from [Marpit](https://github.com/marp-team/marpit).
+Marp Core provides the **`Marp`** class, inherited from [Marpit], so the usage is almost the same as Marpit.
 
 ```javascript
-import { Marp } from '@marp-team/marp-core'
+import { Marp } from '@marp-team/marp-core' // or '@marp-team/marp-core/full' for full build
 
-// Convert Markdown slide deck into HTML and CSS
 const marp = new Marp()
 const { html, css } = marp.render('# Hello, marp-core!')
 ```
+
+For more details, please refer to [Marpit usage documentation](https://marpit.marp.app/usage).
+
+### With plugins
+
+Add the optional core plugins selectively by chaining [`use()`](https://marpit.marp.app/usage?id=extend-by-plugins).
+
+```javascript
+import { Marp } from '@marp-team/marp-core'
+import katexPlugin from '@marp-team/marp-core/plugins/katex'
+import shikiPlugin from '@marp-team/marp-core/plugins/shiki'
+
+const marp = new Marp().use(shikiPlugin()).use(katexPlugin())
+```
+
+Of course, you can also add Marpit compatible plugins.
+
+<!--
+#### [TODO] Move to "Options" section
+
+The KaTeX plugin accepts these options:
+
+```javascript
+marp.use(
+  katexPlugin({
+    // Passed to KaTeX's renderToString()
+    options: { strict: true },
+
+    // Base URL or path for KaTeX fonts (must end with "/"). Set false to keep
+    // KaTeX's original relative URLs. Defaults to the jsDelivr CDN.
+    fontPath: '/assets/katex/fonts/',
+  }),
+)
+```
+-->
 
 ## Features
 
@@ -66,7 +162,7 @@ We provide built-in official themes for Marp. See more details in [themes].
 
 ### Syntax highlighting
 
-Marp Core has built-in syntax highlighting for code fences powered by [Shiki](https://shiki.style/). Define language identifier as [a info string of code fence](https://spec.commonmark.org/0.31.2/#info-string), such as ` ```js `.
+With the [Shiki plugin](#core-plugins), Marp Core supports syntax highlighting for code fences. Define language identifier as [an info string of code fence](https://spec.commonmark.org/0.31.2/#info-string), such as ` ```js `.
 
 ````markdown
 ```js
@@ -119,10 +215,10 @@ For theme authors compatible with Marp Core, [the full list of CSS variables for
 
 ### Mermaid diagrams
 
-Marp Core can render some of diagram types written in [Mermaid]. Put the diagram code in a code fence with `mermaid` info string.
+With the [Mermaid plugin](#core-plugins), Marp Core can render some diagram types written in [Mermaid]. Put the diagram code in a code fence with `mermaid` info string.
 
 > [!NOTE]
-> Since Marp Core uses an alternative Mermaid renderer [`beautiful-mermaid`][beautiful-mermaid] for deterministic server-side output, certain diagram types, syntax, and options from [the original Mermaid][mermaid] might not be supported.
+> Since Marp Core uses an alternative Mermaid renderer [beautiful-mermaid] for deterministic server-side output, certain diagram types, syntax, and options from [the original Mermaid][mermaid] might not be supported.
 >
 > You can see the full example of supported diagrams in https://agents.craft.do/mermaid.
 
@@ -130,9 +226,6 @@ Marp Core can render some of diagram types written in [Mermaid]. Put the diagram
 >
 > - The color of diagrams will be automatically adjusted to [the syntax highlight color](#color-customization) of the current theme.
 > - If you want to just highlight the mermaid code without rendering the diagram, you can use `mermaid-raw` or `mmd` info string instead of `mermaid`.
-
-[mermaid]: https://github.com/mermaid-js/mermaid
-[beautiful-mermaid]: https://github.com/lukilabs/beautiful-mermaid
 
 #### [Flowchart (Graph)](https://mermaid.ai/open-source/syntax/flowchart.html)
 
@@ -264,7 +357,7 @@ xychart
 ````
 
 > [!TIP]
-> You can use `mermaid interactive` code fence to enable the interactive mode of `beautiful-mermaid`. In charts, it will show the tooltip when hovering the bar or line.
+> You can also use `mermaid interactive` code fence to enable the interactive mode of `beautiful-mermaid`. In charts, it will show the tooltip when hovering the bar or line.
 >
 > ````markdown
 > ```mermaid interactive
@@ -302,24 +395,17 @@ Theme author does not have to worry an unintended design being used with unexpec
 
 ### Emoji support
 
-Emoji shortcode (like `:smile:`) and Unicode emoji 😄 will convert into the SVG vector image provided by [twemoji](https://github.com/jdecked/twemoji) <img src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f604.svg" alt="😄" width="16" height="16" />. It could render emoji with high resolution.
+Emoji shortcode (like `:smile:`) and Unicode emoji 😄 will convert into the SVG vector image provided by [twemoji](https://github.com/jdecked/twemoji) <img src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f604.svg" alt="😄" width="16" height="16" />.
+
+It could always render emoji with high resolution, and gets deterministic rendering in every format.
 
 ---
 
 ### Math typesetting
 
-We have [Pandoc's Markdown style](https://pandoc.org/MANUAL.html#math) math typesetting support. Surround your formula by `$...$` to render math as inline, and `$$...$$` to render as block.
+With the [KaTeX or MathJax plugin](#core-plugins), Marp Core supports [Pandoc's Markdown style](https://pandoc.org/MANUAL.html#math) math typesetting. Surround your formula by `$...$` to render math as inline, and `$$...$$` to render as block.
 
-<table>
-<thead>
-<tr>
-<th style="text-align:center;width:50%;">Markdown</th>
-<th style="text-align:center;width:50%;">Rendered slide</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
+<img align="right" width="280" src="https://user-images.githubusercontent.com/3993388/142782335-15bce585-68f1-4c89-8747-8d11533f3ca6.png" alt="Math typesetting support" />
 
 ```tex
 Render inline math such as $ax^2+bc+c$.
@@ -333,20 +419,13 @@ f(x) = \int_{-\infty}^\infty
 $$
 ```
 
-</td>
-<td>
+You can choose between [MathJax] and [KaTeX] in the [`math` global directive](#math-global-directive) or [JS constructor option](#math-constructor-option). If added both plugins, Marp Core uses the first registered plugin as the default library.
 
-![Math typesetting support](https://user-images.githubusercontent.com/3993388/142782335-15bce585-68f1-4c89-8747-8d11533f3ca6.png)
-
-</td>
-</tbody>
-</table>
-
-You can choose using library for math from [MathJax](https://www.mathjax.org/) and [KaTeX](https://khan.github.io/KaTeX/) in [`math` global directive](#math-global-directive) (or [JS constructor option](#math-constructor-option)). By default, we prefer MathJax for better rendering and syntax support, but KaTeX is faster rendering if you had a lot of formulas.
+In the full build, MathJax is preferred by default for better rendering and syntax support, while KaTeX is faster if you have a lot of formulas.
 
 #### `math` global directive
 
-Through `math` global directive, Marp Core is supporting to declare math library that will be used within current Markdown.
+Through the `math` global directive, Marp Core supports declaring the math library to use in the current Markdown. The selected library must have already been registered through its plugin.
 
 Set **`mathjax`** or **`katex`** in the `math` global directive like this:
 
@@ -364,7 +443,7 @@ x &= 1+1 \tag{1} \\
 $$
 ```
 
-If not declared, Marp Core will use MathJax to render math. But we recommend to declare the library whenever to use math typesetting.
+For deterministic rendering, we recommend declaring the library whenever you use math typesetting.
 
 > [!WARNING]
 > The declaration of math library is given priority over [`math` JS constructor option](#math-constructor-option), but you cannot turn on again via `math` global directive if disabled math typesetting by the constructor.
@@ -376,22 +455,11 @@ If not declared, Marp Core will use MathJax to render math. But we recommend to 
 Marp Core has some auto-scaling features:
 
 - [**Fitting header**](#fitting-header): Get bigger heading that fit onto the slide by `# <!--fit-->`.
-- [**Auto-shrink the code block and KaTeX block**](#auto-shrink-block): Prevent sticking out the block from the right of the slide.
+- [**Auto-shrink the block**](#auto-shrink-the-block): Prevent sticking out the some block elements from the right of the slide.
+  - Code block: ` ``` `
+  - KaTeX math block: `$$...$$`
 
-Auto-scaling is available if defined [`@auto-scaling` metadata][metadata] in an using theme CSS.
-
-```css
-/*
- * @theme foobar
- * @auto-scaling true
- */
-```
-
-All of [Marp Core's built-in themes][themes] are ready to use full-featured auto scalings. If you're the theme author, you can control target elements which enable auto-scaling [by using metadata keyword(s).][metadata]
-
-This feature depends to inline SVG, so note that it will not working if disabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) by setting `inlineSVG: false` in constructor option.
-
-> [!WARNING]
+> [!NOTE]
 > Auto-scaling is designed for horizontal scaling. In vertical, the scaled element still may stick out from bottom of slide if there are a lot of contents around it.
 
 #### Fitting header
@@ -408,13 +476,22 @@ This syntax is similar to [Deckset's `[fit]` keyword](https://docs.decksetapp.co
 
 Some of blocks will be shrunk to fit onto the slide. It is useful preventing stuck out the block from the right of the slide.
 
-|                      |              Traditional rendering               |              Auto-scaling               |
-| :------------------: | :----------------------------------------------: | :-------------------------------------: |
-|    **Code block**    | ![Traditional rendering](https://bit.ly/2LyEnmi) | ![Auto-scaling](https://bit.ly/2N4yWQZ) |
-| **KaTeX math block** | ![Traditional rendering](https://bit.ly/2NXoHuW) | ![Auto-scaling](https://bit.ly/2M6LyCk) |
+#### How to enable
 
-> [!NOTE]
-> MathJax math block will always be scaled without even setting `@auto-scaling` metadata.
+Auto-scaling is available only if defined [`@auto-scaling` metadata][metadata] in an using theme CSS, for making controllable expected style and DOM structure by theme author.
+
+```css
+/*
+ * @theme foobar
+ * @auto-scaling true
+ */
+```
+
+If you're the theme author, you can control target elements which enable auto-scaling [by using metadata keyword(s).][metadata]
+
+All of [Marp Core's built-in themes][themes] are ready to use full-featured auto scalings. If you created a theme based on built-in themes by `@import`, you can use auto-scaling features without any additional settings.
+
+This feature depends to inline SVG, so note that it will not working if disabled [Marpit's `inlineSVG` mode](https://github.com/marp-team/marpit#inline-svg-slide-experimental) by setting `inlineSVG: false` in constructor option.
 
 ---
 
@@ -504,20 +581,18 @@ Setting about emoji conversions.
 
 > **For developers:** When you setting `unicode` option as `true`, Markdown parser will convert Unicode emoji into tokens internally. The rendering result is same as in `false`.
 
-### `math`: _`boolean` | `"mathjax"` | `"katex"` | `object`_ <a name="math-constructor-option" id="math-constructor-option"></a>
+### `math`: _`boolean` | `"mathjax"` | `"katex"`_ <a name="math-constructor-option" id="math-constructor-option"></a>
 
-Enable or disable [math typesetting](#math-typesetting) syntax and [`math` global directive](#math-global-directive).
+Enable or disable [math typesetting](#math-typesetting) syntax and [`math` global directive](#math-global-directive). `true` by default, but it requires at least one of the math core plugins to be registered.
 
-You can choose the default library for math by passing **`"mathjax"`** (default) or **`"katex"`**, and modify more settings by passing an object of sub-options.
+If enabled, Marp Core uses the first registered math plugin as the default library. You can choose the default library by passing **`"mathjax"`** or **`"katex"`** (The full build prefers MathJax).
 
+<!--
 - **`lib`**: _`"mathjax"` | `"katex"`_
-  - Choose the default library for math typesetting. _(`mathjax` by default)_
+  - Choose the default library for math typesetting. If omitted, Marp Core uses the first registered math plugin.
 
-* **`katexOption`**: _`object`_
-  - Options that will be passed to KaTeX. Please refer to [KaTeX document](https://khan.github.io/KaTeX/docs/options.html).
-
-- **`katexFontPath`**: _`string` | `false`_
-  - By default, Marp Core will use [online web-font resources through jsDelivr CDN](https://cdn.jsdelivr.net/npm/katex@latest/dist/fonts/). You have to set path to fonts directory if you want to use local resources. If you set `false`, we will not manipulate the path (Use KaTeX's original path: `fonts/KaTeX_***-***.woff2`).
+Configure KaTeX itself through [`katexPlugin()` options](#core-plugins).
+-->
 
 ### `minifyCSS`: _`boolean`_
 
@@ -528,7 +603,7 @@ Enable or disable minification for rendered CSS. `true` by default.
 Setting about an injected helper script for the browser context. This script is necessary for applying [WebKit polyfill](https://github.com/marp-team/marpit-svg-polyfill) and rendering [auto-scaled elements](#auto-scaling-features) correctly.
 
 - **`true` (default)**: Inject the inline helper script into after the last of slides.
-- **`false`**: Don't inject helper script. Developer must execute a helper script manually, exported in [`@marp-team/marp-core/browser`](src/browser.ts). Requires bundler such as [webpack](https://webpack.js.org/). It's suitable to the fully-controlled tool such as [Marp Web](https://github.com/marp-team/marp-web).
+- **`false`**: Don't inject helper script. Developer must execute a helper script manually, exported in [`@marp-team/marp-core/browser`](#browser-helper). It's suitable to the fully-controlled web application.
 
 You can control details of behavior by passing `object`.
 
