@@ -110,6 +110,10 @@ pre {
         --marp-mermaid-background: transparent;
         --marp-mermaid-foreground: var(--color-foreground);
       }
+
+      .xychart-tip-text {
+        --bg: var(--color-background);
+      }
     }
   }
 
