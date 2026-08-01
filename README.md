@@ -41,7 +41,28 @@ To show the slides correctly in the browser, Marp Core injects a helper `<script
 
 If you want to control the script injection, you can disable auto injection by `browser: false` option, and can use the helper script from `@marp-team/marp-core/browser` manually.
 
-> Don't confuse `@marp-team/marp-core/browser` with [main entrypoints](#entrypoints); It's not a conversion logic for the browser, just only provides the helper script. If you need a core feature for the browser, please bundle the main entrypoint for the browser with JavaScript bundler.
+```javascript
+// Server-side
+import { Marp } from '@marp-team/marp-core'
+
+const marp = new Marp({ script: false })
+
+export const rendered = marp.render('# <!--fit--> Hello!')
+```
+
+```javascript
+'use client' // Client-side
+
+import rendered from './rendered'
+import { browser } from '@marp-team/marp-core/browser'
+
+document.body.innerHTML = `<style>${rendered.css}</style>${rendered.html}`
+browser() // Execute the helper script for the browser after updating the DOM
+```
+
+> Don't confuse `@marp-team/marp-core/browser` with [main entrypoints](#entrypoints)! It's not a conversion logic for the browser, just only provides the helper script.
+>
+> If you need a core feature for the browser, please bundle the main entrypoint for the browser with JavaScript bundler.
 
 </details>
 
