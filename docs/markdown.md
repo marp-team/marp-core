@@ -38,17 +38,31 @@ Applications can change these defaults through [constructor options](./configura
 
 ## [Themes]
 
+[themes]: #themes
+
 Marp Core includes 3 built-in themes:
 
-|           Default            |           Gaia            |           Uncover            |
-| :--------------------------: | :-----------------------: | :--------------------------: |
-| [![][default-theme]][themes] | [![][gaia-theme]][themes] | [![][uncover-theme]][themes] |
-|  `<!-- theme: default -->`   |  `<!-- theme: gaia -->`   |  `<!-- theme: uncover -->`   |
-
-[themes]: ../themes/
-[default-theme]: https://user-images.githubusercontent.com/3993388/48039490-53be1b80-e1b8-11e8-8179-0e6c11d285e2.png
-[gaia-theme]: https://user-images.githubusercontent.com/3993388/48039493-5456b200-e1b8-11e8-9c49-dd5d66d76c0d.png
-[uncover-theme]: https://user-images.githubusercontent.com/3993388/48039495-5456b200-e1b8-11e8-8c82-ca7f7842b34d.png
+<table>
+  <thead>
+    <tr>
+      <th align="center">Default</th>
+      <th align="center">Gaia</th>
+      <th align="center">Uncover</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><img src="./assets/themes/default.png" width="180" alt="Default theme" /></td>
+      <td align="center"><img src="./assets/themes/gaia.png" width="180" alt="Gaia theme" /></td>
+      <td align="center"><img src="./assets/themes/uncover.png" width="180" alt="Uncover theme" /></td>
+    </tr>
+    <tr>
+      <td align="center"><code>&lt;!-- theme: default --&gt;</code></td>
+      <td align="center"><code>&lt;!-- theme: gaia --&gt;</code></td>
+      <td align="center"><code>&lt;!-- theme: uncover --&gt;</code></td>
+    </tr>
+  </tbody>
+</table>
 
 See [themes documentation][themes] for details.
 

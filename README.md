@@ -26,8 +26,8 @@ Since v5, Marp Core has been split into a lightweight core and [optional core pl
 
 | Entrypoint                      | Description                                                                             | Bundled size\* |
 | ------------------------------- | --------------------------------------------------------------------------------------- | -------------- |
-| **`@marp-team/marp-core`**      | Lightweight core with Marp's essential features                                         | 0.5MB          |
-| **`@marp-team/marp-core/full`** | Full build with all core plugins<br />_(requires installing all optional dependencies)_ | 11.4MB         |
+| **`@marp-team/marp-core`**      | Lightweight core with Marp's essential features                                         | 0.5MiB         |
+| **`@marp-team/marp-core/full`** | Full build with all core plugins<br />_(requires installing all optional dependencies)_ | 11.4MiB        |
 
 ###### \*: Rough estimates for a minified browser ESM build before gzip. The full entrypoint includes all optional dependencies.
 
