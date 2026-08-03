@@ -87,13 +87,13 @@ size: 4:3
 
 Every [built-in theme][themes] provides **`16:9`** (1280×720: default) and **`4:3`** (960×720) presets.
 
-Theme authors can [define additional presets](./theme-authoring.md#slide-size-presets).
+Theme authors can [define custom presets](./theme-authoring.md#slide-size-presets).
 
 ## Auto-scaling
 
-The auto-scaling feature helps block content fit seamlessly into your slides. While this feature depends on theme support, it is natively supported by all [built-in themes][themes].
+The auto-scaling feature helps block content fit seamlessly into your slides.
 
-Theme authors should see [how to enable auto scaling](./theme-authoring.md#auto-scaling) by setting the required metadata.
+While this feature depends on theme support, it is natively supported by all [built-in themes][themes]. Theme authors should see [how to enable auto scaling](./theme-authoring.md#auto-scaling) by setting `@auto-scaling` metadata.
 
 ### Fitting header
 
@@ -139,6 +139,8 @@ const { html, css } = marp.render('# Hello, Marp!')
 
 Refer to [Shiki's language list](https://shiki.style/languages) for supported identifiers.
 
+Colors for syntax highlighting can be customized with [CSS variables](./theme-authoring.md#syntax-highlighting).
+
 ### Line highlighting
 
 Add a space-separated `{}` attribute after the language.
@@ -154,8 +156,6 @@ const { html, css } = marp.render('# Hello, Marp!')
 ````
 
 <p align="center"><img src="./assets/line-highlighting.webp" alt="Highlighted lines in a code block" width="640" /></p>
-
-The highlight color can be customized with [CSS variables](./theme-authoring.md#syntax-highlighting).
 
 ## Mermaid diagrams
 
@@ -338,9 +338,10 @@ xychart
 
 ## Math typesetting
 
-> - **Requirements** (At least one):
->   - **`@marp-team/marp-core/plugins/katex` plugin** and `katex` dependency (`npm install --save katex`)
->   - **`@marp-team/marp-core/plugins/mathjax` plugin** and MathJax dependencies (`npm install --save @mathjax/src @mathjax/mathjax-bbm-font-extension @mathjax/mathjax-bboldx-font-extension @mathjax/mathjax-dsfont-font-extension @mathjax/mathjax-mhchem-font-extension`)
+> **Requirements** (At least one):
+>
+> - **`@marp-team/marp-core/plugins/katex` plugin** and `katex` dependency (`npm install --save katex`)
+> - **`@marp-team/marp-core/plugins/mathjax` plugin** and MathJax dependencies (`npm install --save @mathjax/src @mathjax/mathjax-bbm-font-extension @mathjax/mathjax-bboldx-font-extension @mathjax/mathjax-dsfont-font-extension @mathjax/mathjax-mhchem-font-extension`)
 
 Marp Core supports [Pandoc-style math typesetting](https://pandoc.org/MANUAL.html#math), powered by [MathJax](https://www.mathjax.org/) and [KaTeX](https://katex.org/):
 
