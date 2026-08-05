@@ -72,6 +72,10 @@ Use the `invert` class in [Marpit's `class` local directive](https://marpit.marp
 
 # Theme-specific features
 
+> [!NOTE]
+>
+> For Marp Core common features such as color definitions, see [Theme authoring](../docs/theme-authoring.md).
+
 ## Default theme
 
 ### Customize color
