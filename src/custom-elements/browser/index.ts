@@ -1,5 +1,5 @@
 import { elements } from '../definitions'
-import { MarpAutoScaling } from './marp-auto-scaling'
+import { createMarpAutoScaling } from './marp-auto-scaling'
 import { createMarpCustomElement } from './marp-custom-element'
 import { isSupportedCustomizedBuiltInElements } from './support'
 
@@ -9,7 +9,13 @@ export { isSupportedCustomizedBuiltInElements } from './support'
 
 export const applyCustomElements = (target: ParentNode = document) => {
   const defined = window[marpCustomElementsRegisteredSymbol]
-  if (!defined) customElements.define('marp-auto-scaling', MarpAutoScaling)
+
+  if (!defined) {
+    customElements.define(
+      'marp-auto-scaling',
+      createMarpAutoScaling(HTMLElement),
+    )
+  }
 
   for (const tag of Object.keys(elements)) {
     const marpCustomElement = `marp-${tag}`

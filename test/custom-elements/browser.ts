@@ -1,6 +1,6 @@
 /** @jest-environment jsdom */
 import * as browser from '../../src/custom-elements/browser/index'
-import { MarpAutoScaling } from '../../src/custom-elements/browser/marp-auto-scaling'
+import type { MarpAutoScaling } from '../../src/custom-elements/browser/marp-auto-scaling'
 import { elements } from '../../src/custom-elements/definitions'
 
 beforeAll(() => {
