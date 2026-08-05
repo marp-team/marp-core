@@ -1,11 +1,15 @@
-let _isSupportedCustomizedBuiltInElements: boolean | undefined
+import type { View } from '../type'
 
-export const isSupportedCustomizedBuiltInElements = () =>
-  _isSupportedCustomizedBuiltInElements ??
-  (() => {
-    _isSupportedCustomizedBuiltInElements = !!document
-      .createElement('div', { is: 'marp-auto-scaling' })
-      .outerHTML.startsWith('<div is')
+const cachedResult = new WeakMap<View, boolean>()
 
-    return _isSupportedCustomizedBuiltInElements
-  })()
+export const isSupportedCustomizedBuiltInElements = (view: View) => {
+  const cached = cachedResult.get(view)
+  if (cached !== undefined) return cached
+
+  const result = !!view.document
+    .createElement('div', { is: 'marp-auto-scaling' })
+    .outerHTML.startsWith('<div is')
+
+  cachedResult.set(view, result)
+  return result
+}
