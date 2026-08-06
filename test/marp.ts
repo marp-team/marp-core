@@ -4,6 +4,7 @@ import { elements } from '../src/custom-elements/definitions'
 import { EmojiOptions } from '../src/emoji/emoji'
 import { Marp, MarpOptions } from '../src/full'
 import * as generatedMathJax from '../src/generated/mathjax-tex-packages'
+import { mathjax } from '../src/internals/mathjax'
 import * as mermaid from '../src/internals/mermaid'
 import { Marp as MarpBase } from '../src/marp'
 import browserScript from '../src/script/browser-script'
@@ -689,6 +690,67 @@ function complex(a,b)
         const notDefined = renderedMath('$\\foo$')
 
         expect(notDefined).not.toBe(plain)
+      })
+
+      describe('when rendering raises an error', () => {
+        const error = new Error('Failed to render math by MathJax')
+
+        beforeEach(() => {
+          const { handler } = mathjax()
+          const createDocument = handler.create.bind(handler)
+
+          jest.spyOn(handler, 'create').mockImplementation((...args) => {
+            const document = createDocument(...args)
+            jest.spyOn(document, 'convert').mockImplementation(() => {
+              throw error
+            })
+            return document
+          })
+        })
+
+        it('fallbacks to plain text', () => {
+          const warnSpy = jest.spyOn(console, 'warn').mockImplementation()
+          const instance = marp({ math: 'mathjax' })
+
+          const inlineHTML = instance.render('# Fallback to text $x$!').html
+          const $inline = load(inlineHTML)
+
+          expect(warnSpy).toHaveBeenCalledTimes(1)
+          expect($inline('h1').text()).toBe('Fallback to text $x$!')
+
+          const blockHTML = instance.render('$$\nx\n$$').html
+          const $block = load(blockHTML)
+
+          expect(warnSpy).toHaveBeenCalledTimes(2)
+          expect($block('p').text().trim()).toBe('$$x\n$$')
+        })
+
+        it('prevents rendering raw HTML when fallbacking to plain text', () => {
+          const warnSpy = jest.spyOn(console, 'warn').mockImplementation()
+          const instance = marp({ math: 'mathjax' })
+
+          const inlineHTML = instance.render(
+            '$<img src=x onerror="alert(1)">$',
+          ).html
+          const $inline = load(inlineHTML)
+
+          expect(warnSpy).toHaveBeenCalledTimes(1)
+          expect($inline('img')).toHaveLength(0)
+          expect($inline('p').text()).toContain('$')
+          expect($inline('p').text()).toContain(
+            '<img src=x onerror="alert(1)">',
+          )
+
+          const blockHTML = instance.render(
+            '$$<img src=x onerror="alert(1)">$$',
+          ).html
+          const $block = load(blockHTML)
+
+          expect(warnSpy).toHaveBeenCalledTimes(2)
+          expect($block('img')).toHaveLength(0)
+          expect($block('p').text()).toContain('$$')
+          expect($block('p').text()).toContain('<img src=x onerror="alert(1)">')
+        })
       })
 
       describe('TeX extensions', () => {
