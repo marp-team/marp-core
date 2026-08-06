@@ -374,8 +374,6 @@ shadowRoot.innerHTML = `<style>${rendered.css}</style>${rendered.html}`
 browser(shadowRoot)
 ```
 
-> [!WARNING]
->
 > Shadow DOM looks like an ideal way to isolate Marp rendering from the document, but actually Chromium cannot load and apply Web Fonts within a Shadow DOM, which can result in incorrect rendering (https://crbug.com/41085401).
 
 </details>

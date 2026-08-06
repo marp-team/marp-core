@@ -218,10 +218,6 @@
       "optional": true
     }
   },
-  "overrides": {
-    "brace-expansion": "^5.0.8",
-    "fast-uri": "^3.1.4"
-  },
   "publishConfig": {
     "access": "public"
   }
