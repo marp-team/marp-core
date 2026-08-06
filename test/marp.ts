@@ -1,4 +1,3 @@
-import { Marpit } from '@marp-team/marpit'
 import { load, CheerioOptions } from 'cheerio'
 import postcss, { Rule } from 'postcss'
 import { elements } from '../src/custom-elements/definitions'
@@ -6,9 +5,9 @@ import { EmojiOptions } from '../src/emoji/emoji'
 import { Marp, MarpOptions } from '../src/full'
 import * as generatedMathJax from '../src/generated/mathjax-tex-packages'
 import * as mermaid from '../src/internals/mermaid'
+import { Marp as MarpBase } from '../src/marp'
 import browserScript from '../src/script/browser-script'
 
-jest.mock('../src/observer')
 jest.mock('../src/plugins/katex/katex.scss?inline')
 
 afterEach(() => jest.restoreAllMocks())
@@ -26,7 +25,7 @@ describe('Marp (Full bundle)', () => {
       },
     })
 
-  it('extends Marpit', () => expect(marp()).toBeInstanceOf(Marpit))
+  it('extends base Marp class', () => expect(marp()).toBeInstanceOf(MarpBase))
 
   describe('markdown option', () => {
     it('renders breaks as <br> element', () => {
