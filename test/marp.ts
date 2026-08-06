@@ -1,4 +1,5 @@
 import { load, CheerioOptions } from 'cheerio'
+import MarkdownIt from 'markdown-it'
 import postcss, { Rule } from 'postcss'
 import { elements } from '../src/custom-elements/definitions'
 import { EmojiOptions } from '../src/emoji/emoji'
@@ -985,6 +986,56 @@ function complex(a,b)
       it('does not inject KaTeX css', () => {
         const { css } = instance.render(`${inline}\n\n${block}`)
         expect(css).not.toContain('.katex')
+      })
+    })
+
+    describe('Renderer fallback', () => {
+      it('falls back to plain text on block math rendering without Marp rendering context', () => {
+        const instance = marp()
+        const tokens = instance.markdown.parse('$$x^2$$', {})
+        const tokenMathBlockIdx = tokens.findIndex(
+          (t) => t.type === 'marp_math_block',
+        )
+
+        const anotherInstance = marp()
+        const rendered =
+          anotherInstance.markdown.renderer.rules.marp_math_block(
+            tokens,
+            tokenMathBlockIdx,
+            anotherInstance.options,
+            {},
+            anotherInstance,
+          )
+
+        const $ = load(rendered)
+        expect($('mjx-container')).toHaveLength(0)
+        expect($('p').text()).toMatchInlineSnapshot(`
+"$$x^2
+$$"
+`)
+      })
+
+      it('falls back to plain text on inline math rendering without Marp rendering context', () => {
+        const instance = marp()
+        const tokens = instance.markdown.parse('$x^2$', {})
+        const inlineTokens = tokens.find((t) => t.type === 'inline')
+        const inlineMathTokenIdx = inlineTokens.children.findIndex(
+          (t) => t.type === 'marp_math_inline',
+        )
+
+        const anotherInstance = marp()
+        const rendered =
+          anotherInstance.markdown.renderer.rules.marp_math_inline(
+            inlineTokens.children,
+            inlineMathTokenIdx,
+            anotherInstance.options,
+            {},
+            anotherInstance,
+          )
+
+        const $ = load(rendered)
+        expect($('mjx-container')).toHaveLength(0)
+        expect($.text()).toMatchInlineSnapshot(`"$x^2$"`)
       })
     })
   })
