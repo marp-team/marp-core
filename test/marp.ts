@@ -1,5 +1,4 @@
 import { load, CheerioOptions } from 'cheerio'
-import MarkdownIt from 'markdown-it'
 import postcss, { Rule } from 'postcss'
 import { elements } from '../src/custom-elements/definitions'
 import { EmojiOptions } from '../src/emoji/emoji'
