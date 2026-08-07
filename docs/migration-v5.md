@@ -6,7 +6,7 @@ This document describes the breaking changes introduced in Marp Core v5 and how 
 
 ### For Markdown and theme authors
 
-- **[highlight.js → Shiki](#highlightjs--shiki)**: Please review `.hljs-*` classes in your style for syntax highlighting, and replace them with `--marp-shiki-*` CSS variables definition. See [Color definitions](./theme-authoring.md#color-definitions) for more information.
+- **[highlight.js → Shiki](#highlightjs--shiki)**: Please review `.hljs-*` classes in your style for syntax highlighting, and replace them with `--marp-shiki-*` CSS variable definitions. See [Color definitions](./theme-authoring.md#color-definitions) for more information.
 
   ```diff
   -.hljs {
@@ -44,28 +44,29 @@ This document describes the breaking changes introduced in Marp Core v5 and how 
      @mathjax/mathjax-mhchem-font-extension
    ```
 
-2. Replace `@marp-team/marp-core` import with `@marp-team/marp-core/full` in your code:
+2. Change imports from `@marp-team/marp-core` to `@marp-team/marp-core/full`:
 
    ```diff
    - import { Marp } from '@marp-team/marp-core'
    + import { Marp } from '@marp-team/marp-core/full'
    ```
 
-This is the most frictionless way to migrate to v5. If you want to granularly control which features to include, please continue reading.
+This is the simplest way to migrate to v5. If you want fine-grained control over which features to include, please continue reading.
 
 ## Node.js 20.19 or later is required
 
 Marp Core v5 supports Node.js 20.19 or later.
 
-Please note that **Node.js 20 is no longer in active support.** For updating, we highly recommend using Node.js LTS or current version. Check out the [Node.js release schedule](https://nodejs.org/en/about/releases/) for more information.
+Please note that **Node.js 20 has already reached end-of-life.** We strongly recommend
+upgrading to a currently supported LTS or Current release. Check out the [Node.js release schedule](https://nodejs.org/en/about/releases/) for more information.
 
 ## `@marp-team/marp-core` is now a lightweight core
 
-Marp Core has included all features to be used in the Marp ecosystem toolchain. However, with the expansion of features, there is a concern about extreme bloat in bundle size.
+Until v4, Marp Core bundled all of its features into a single entry point. As features were added, however, the bundle grew significantly.
 
 <!-- Using [Marpit, a skinny framework](https://marpit.marp.app/), can be a solution to the size problem, but it's intended for developers of their own slide engines. For the Marp experience, using Marp Core is preferable. -->
 
-So v5 split the Marp Core into **a lightweight core and optional core plugins**. `@marp-team/marp-core` provides only the essential features, and developers can pick and choose optional plugins for the feature as needed.
+Marp Core v5 therefore splits these features between **a lightweight core and optional core plugins**. The default `@marp-team/marp-core` entry point provides only essential features, allowing developers to install and enable only the plugins they need.
 
 ```javascript
 import { Marp } from '@marp-team/marp-core'
@@ -77,9 +78,9 @@ const marp = new Marp().use(katexPlugin()).use(mermaidPlugin())
 
 ### `@marp-team/marp-core/full` entrypoint
 
-A new entrypoint `@marp-team/marp-core/full` includes all core plugin features. It is recommended to use it for developers who want to provide a consistent experience across the Marp ecosystem toolchain.
+A new entrypoint `@marp-team/marp-core/full` includes all core plugin features. We recommend it for developers who want to provide a consistent experience across the Marp ecosystem toolchain.
 
-For the migration, using `@marp-team/marp-core/full` is the closest migration path to the v4 feature set.
+For migrations from v4, `@marp-team/marp-core/full` provides the closest equivalent to the v4 feature set.
 
 ```diff
 - import { Marp } from '@marp-team/marp-core'
@@ -88,7 +89,7 @@ For the migration, using `@marp-team/marp-core/full` is the closest migration pa
 
 ## External libraries are now optional
 
-By separating core plugins, Marp Core v5 no longer includes external libraries for each feature. Developers can now control which external libraries to include in their project.
+In v5, the external libraries required by core plugins are optional peer dependencies rather than direct dependencies of Marp Core. Developers can therefore install only the libraries required by the features they use.
 
 | Plugin                                     | Optional dependency                                                                                                                                                                         |
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -103,7 +104,7 @@ For example, if you want to use KaTeX math typesetting and Mermaid rendering, yo
 npm install --save @marp-team/marp-core@5 katex beautiful-mermaid
 ```
 
-For using the full entrypoint `@marp-team/marp-core/full`, you need to install all optional dependencies.
+To use the full entrypoint `@marp-team/marp-core/full`, you need to install all optional dependencies.
 
 ```
 npm install --save \
@@ -121,10 +122,9 @@ npm install --save \
 
 Marp Core v5 switched the syntax highlighter from [highlight.js](https://highlightjs.org/) to [Shiki](https://shiki.style/).
 
-Shiki is a syntax highlighter that uses TextMate grammars, which are used in VS Code. It provides more accurate syntax highlighting and language support, compliant with the latest IDEs.
+Shiki uses TextMate grammars for syntax highlighting, as does VS Code. It provides accurate highlighting and broad language support.
 
-Marp also provides [color definitions for syntax highlighting based on CSS variables](./theme-authoring.md#color-definitions).
-The styling for highlight.js through `.hljs-*` could apply flexible style customization by CSS, but it was difficult to control in complex cases (custom color scheme class, inherited theme, and so on: [marp-team/marp#103](https://github.com/orgs/marp-team/discussions/103)). The new color definitions become simplified to a dozen of CSS variables and are easily controllable.
+Marp also provides [color definitions for syntax highlighting based on CSS variables](./theme-authoring.md#color-definitions). Styling highlight.js through `.hljs-*` classes allowed flexible customization, but became difficult to manage in complex cases such as custom color-scheme classes and theme inheritance (see [marp-team/marp#103](https://github.com/orgs/marp-team/discussions/103)). The new approach consolidates color customization into about a dozen CSS variables, making it easier to manage.
 
 ```css
 section {
@@ -143,8 +143,8 @@ section {
 }
 ```
 
-For Markdown and theme authors, please review your style for syntax highlighting and replace `.hljs-*` classes with `--marp-shiki-*` CSS variables definition. Check out [Color definitions](./theme-authoring.md#color-definitions) for more information.
+For Markdown and theme authors, please review your style for syntax highlighting and replace `.hljs-*` classes with `--marp-shiki-*` CSS variable definitions. Check out [Color definitions](./theme-authoring.md#color-definitions) for more information.
 
 > [!NOTE]
 >
-> The `highlightjs` getter also has been removed from the `Marp` class. To customize the output of syntax highlighting in v5, you can use a new [`shikiTransformers`](./configuration.md#shiki) member.
+> `Marp` instances no longer expose the `highlightjs` getter. To customize syntax-highlighting output in v5, use the new [`shikiTransformers`](./configuration.md#shiki) property.
