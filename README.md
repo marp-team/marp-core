@@ -104,6 +104,7 @@ Choose the guide that matches what you want to do:
 - **[Built-in themes](./themes/)** - All about the official themes
 - **[Theme authoring](./docs/theme-authoring.md)** - Create a custom theme suitable for Marp
 - **[Configuration](./docs/configuration.md)** - Integrate Marp Core into your project
+- **[Migration from v4 to v5](./docs/migration-v5.md)** - Changes in v5 and how to migrate
 
 ## Contributing
 
