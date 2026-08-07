@@ -1,19 +1,19 @@
-import { Marpit } from '@marp-team/marpit'
 import { load, CheerioOptions } from 'cheerio'
 import postcss, { Rule } from 'postcss'
 import { elements } from '../src/custom-elements/definitions'
 import { EmojiOptions } from '../src/emoji/emoji'
+import { Marp, MarpOptions } from '../src/full'
 import * as generatedMathJax from '../src/generated/mathjax-tex-packages'
-import { Marp, MarpOptions } from '../src/marp'
-import * as mermaid from '../src/mermaid/mermaid'
+import { mathjax } from '../src/internals/mathjax'
+import * as mermaid from '../src/internals/mermaid'
+import { Marp as MarpBase } from '../src/marp'
 import browserScript from '../src/script/browser-script'
 
-jest.mock('../src/observer')
-jest.mock('../src/math/katex.scss?inline')
+jest.mock('../src/plugins/katex/katex.scss?inline')
 
 afterEach(() => jest.restoreAllMocks())
 
-describe('Marp', () => {
+describe('Marp (Full bundle)', () => {
   const marp = (opts?: MarpOptions): Marp => new Marp(opts)
 
   const loadCheerio = (html: string, opts?: CheerioOptions) =>
@@ -26,7 +26,7 @@ describe('Marp', () => {
       },
     })
 
-  it('extends Marpit', () => expect(marp()).toBeInstanceOf(Marpit))
+  it('extends base Marp class', () => expect(marp()).toBeInstanceOf(MarpBase))
 
   describe('markdown option', () => {
     it('renders breaks as <br> element', () => {
@@ -692,6 +692,67 @@ function complex(a,b)
         expect(notDefined).not.toBe(plain)
       })
 
+      describe('when rendering raises an error', () => {
+        const error = new Error('Failed to render math by MathJax')
+
+        beforeEach(() => {
+          const { handler } = mathjax()
+          const createDocument = handler.create.bind(handler)
+
+          jest.spyOn(handler, 'create').mockImplementation((...args) => {
+            const document = createDocument(...args)
+            jest.spyOn(document, 'convert').mockImplementation(() => {
+              throw error
+            })
+            return document
+          })
+        })
+
+        it('fallbacks to plain text', () => {
+          const warnSpy = jest.spyOn(console, 'warn').mockImplementation()
+          const instance = marp({ math: 'mathjax' })
+
+          const inlineHTML = instance.render('# Fallback to text $x$!').html
+          const $inline = load(inlineHTML)
+
+          expect(warnSpy).toHaveBeenCalledTimes(1)
+          expect($inline('h1').text()).toBe('Fallback to text $x$!')
+
+          const blockHTML = instance.render('$$\nx\n$$').html
+          const $block = load(blockHTML)
+
+          expect(warnSpy).toHaveBeenCalledTimes(2)
+          expect($block('p').text().trim()).toBe('$$x\n$$')
+        })
+
+        it('prevents rendering raw HTML when fallbacking to plain text', () => {
+          const warnSpy = jest.spyOn(console, 'warn').mockImplementation()
+          const instance = marp({ math: 'mathjax' })
+
+          const inlineHTML = instance.render(
+            '$<img src=x onerror="alert(1)">$',
+          ).html
+          const $inline = load(inlineHTML)
+
+          expect(warnSpy).toHaveBeenCalledTimes(1)
+          expect($inline('img')).toHaveLength(0)
+          expect($inline('p').text()).toContain('$')
+          expect($inline('p').text()).toContain(
+            '<img src=x onerror="alert(1)">',
+          )
+
+          const blockHTML = instance.render(
+            '$$<img src=x onerror="alert(1)">$$',
+          ).html
+          const $block = load(blockHTML)
+
+          expect(warnSpy).toHaveBeenCalledTimes(2)
+          expect($block('img')).toHaveLength(0)
+          expect($block('p').text()).toContain('$$')
+          expect($block('p').text()).toContain('<img src=x onerror="alert(1)">')
+        })
+      })
+
       describe('TeX extensions', () => {
         const renderTeXExtension = (tex: string) => {
           const $ = load(marp({ math: 'mathjax' }).render(`$${tex}$`).html)
@@ -772,13 +833,13 @@ function complex(a,b)
 
       describe('when math typesetting syntax is not using', () => {
         it('does not initialize MathJax', () => {
-          const registerPackages = jest.spyOn(
+          const loadTexPackages = jest.spyOn(
             generatedMathJax,
-            'registerMathJaxTexPackages',
+            'loadTexPackages',
           )
 
           marp({ math: 'mathjax' }).render('plain text')
-          expect(registerPackages).not.toHaveBeenCalled()
+          expect(loadTexPackages).not.toHaveBeenCalled()
         })
 
         it('does not inject MathJax css', () =>
@@ -861,7 +922,7 @@ function complex(a,b)
           ).not.toContain('.katex'))
       })
 
-      describe('with katexOption', () => {
+      describe('[DEPRECATED] with katexOption', () => {
         it('renders KaTeX with specified option', () => {
           const instance = marp({
             math: {
@@ -895,19 +956,49 @@ function complex(a,b)
             const $inline = load(inlineHTML)
 
             expect(warnSpy.mock.calls).toHaveLength(1)
-            expect($inline('h1').text()).toBe('Fallback to text }!')
+            expect($inline('h1').text()).toBe('Fallback to text $}$!')
 
             const blockHTML = instance.render('$$\n}\n$$').html
             const $block = load(blockHTML)
             const blockText = $block('p').text()
 
             expect(warnSpy.mock.calls).toHaveLength(2)
-            expect(blockText.trim()).toBe('}')
+            expect(blockText.trim()).toBe('$$}\n$$')
+          })
+
+          it('prevents rendering raw HTML when fallbacking to plain text', () => {
+            const warnSpy = jest
+              .spyOn(console, 'warn')
+              .mockImplementation(() => {})
+
+            const inlineHTML = instance.render(
+              '$}<img src=x onerror="alert(1)">$',
+            ).html
+            const $inline = load(inlineHTML)
+
+            expect(warnSpy.mock.calls).toHaveLength(1)
+            expect($inline('img')).toHaveLength(0)
+            expect($inline('p').text()).toContain('$')
+            expect($inline('p').text()).toContain(
+              '<img src=x onerror="alert(1)">',
+            )
+
+            const blockHTML = instance.render(
+              '$$}<img src=x onerror="alert(1)">$$',
+            ).html
+            const $block = load(blockHTML)
+
+            expect(warnSpy.mock.calls).toHaveLength(2)
+            expect($block('img')).toHaveLength(0)
+            expect($block('p').text()).toContain('$$')
+            expect($block('p').text()).toContain(
+              '<img src=x onerror="alert(1)">',
+            )
           })
         })
       })
 
-      describe('with katexFontPath', () => {
+      describe('[DEPRECATED] with katexFontPath', () => {
         const katexFontPath = '/resources/fonts/'
 
         it('replaces KaTeX web font URL with specified path', () => {
@@ -956,6 +1047,56 @@ function complex(a,b)
       it('does not inject KaTeX css', () => {
         const { css } = instance.render(`${inline}\n\n${block}`)
         expect(css).not.toContain('.katex')
+      })
+    })
+
+    describe('Renderer fallback', () => {
+      it('falls back to plain text on block math rendering without Marp rendering context', () => {
+        const instance = marp()
+        const tokens = instance.markdown.parse('$$x^2$$', {})
+        const tokenMathBlockIdx = tokens.findIndex(
+          (t) => t.type === 'marp_math_block',
+        )
+
+        const anotherInstance = marp()
+        const rendered =
+          anotherInstance.markdown.renderer.rules.marp_math_block(
+            tokens,
+            tokenMathBlockIdx,
+            anotherInstance.options,
+            {},
+            anotherInstance,
+          )
+
+        const $ = load(rendered)
+        expect($('mjx-container')).toHaveLength(0)
+        expect($('p').text()).toMatchInlineSnapshot(`
+"$$x^2
+$$"
+`)
+      })
+
+      it('falls back to plain text on inline math rendering without Marp rendering context', () => {
+        const instance = marp()
+        const tokens = instance.markdown.parse('$x^2$', {})
+        const inlineTokens = tokens.find((t) => t.type === 'inline')
+        const inlineMathTokenIdx = inlineTokens.children.findIndex(
+          (t) => t.type === 'marp_math_inline',
+        )
+
+        const anotherInstance = marp()
+        const rendered =
+          anotherInstance.markdown.renderer.rules.marp_math_inline(
+            inlineTokens.children,
+            inlineMathTokenIdx,
+            anotherInstance.options,
+            {},
+            anotherInstance,
+          )
+
+        const $ = load(rendered)
+        expect($('mjx-container')).toHaveLength(0)
+        expect($.text()).toMatchInlineSnapshot(`"$x^2$"`)
       })
     })
   })
@@ -1474,31 +1615,37 @@ function complex(a,b)
 
       describe('when fence is rendered with mermaid lang', () => {
         it('renders Mermaid diagram', () => {
-          const render = jest.spyOn(mermaid, 'render')
+          const render = jest.spyOn(mermaid, 'beautifulMermaid')
           const $ = load(
             marp().markdown.render(`\`\`\`mermaid\n${diagram}\`\`\``),
           )
 
-          expect(render).toHaveBeenCalledWith(diagram, { interactive: false })
+          expect(render).toHaveBeenCalledWith(
+            diagram,
+            expect.objectContaining({ interactive: false }),
+          )
           expect($('code.language-mermaid > svg')).toHaveLength(1)
         })
 
         it('enables interactive rendering through fence attributes', () => {
-          const render = jest.spyOn(mermaid, 'render')
+          const render = jest.spyOn(mermaid, 'beautifulMermaid')
           const $ = load(
             marp().markdown.render(
               `\`\`\`mermaid interactive\n${diagram}\`\`\``,
             ),
           )
 
-          expect(render).toHaveBeenCalledWith(diagram, { interactive: true })
+          expect(render).toHaveBeenCalledWith(
+            diagram,
+            expect.objectContaining({ interactive: true }),
+          )
           expect($('code.language-mermaid > svg')).toHaveLength(1)
         })
 
         it('falls back to regular syntax highlighting when Mermaid rendering fails', () => {
           const err = new Error('Failed to render Mermaid diagram')
 
-          jest.spyOn(mermaid, 'render').mockImplementation(() => {
+          jest.spyOn(mermaid, 'beautifulMermaid').mockImplementation(() => {
             throw err
           })
 
@@ -1515,7 +1662,7 @@ function complex(a,b)
 
       describe('when fence is rendered with mermaid-raw lang', () => {
         it('highlights Mermaid syntax without rendering a diagram', () => {
-          const render = jest.spyOn(mermaid, 'render')
+          const render = jest.spyOn(mermaid, 'beautifulMermaid')
           const $ = load(
             marp().markdown.render(`\`\`\`mermaid-raw\n${diagram}\n\`\`\``),
           )

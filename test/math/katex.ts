@@ -6,6 +6,7 @@
 
 import MarkdownIt from 'markdown-it'
 import { markdown as mathPlugin } from '../../src/math/math'
+import katexPlugin from '../../src/plugins/katex'
 
 const countMath = (stt) => stt.split('class="katex"').length - 1
 const countBlockMath = (stt) => stt.split('class="katex-display"').length - 1
@@ -25,6 +26,7 @@ describe('markdown-it math plugin for KaTeX', () => {
       // no ops
     })
   })
+  md.use(katexPlugin())
   md.use(mathPlugin)
 
   it('renders simple inline math', () => {

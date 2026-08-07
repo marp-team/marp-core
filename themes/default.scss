@@ -89,9 +89,13 @@ pre {
       0/ /0 10000vw;
   }
 
-  &:has(code.language-mermaid) {
+  &:has(code.language-mermaid svg) {
     border: none;
     background-color: transparent;
+
+    code {
+      padding: 0;
+    }
   }
 }
 

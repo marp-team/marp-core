@@ -110,6 +110,10 @@ pre {
         --marp-mermaid-background: transparent;
         --marp-mermaid-foreground: var(--color-foreground);
       }
+
+      .xychart-tip-text {
+        --bg: var(--color-background);
+      }
     }
   }
 
@@ -122,8 +126,12 @@ pre {
       0/ /0 10000vw;
   }
 
-  &:has(code.language-mermaid) {
+  &:has(code.language-mermaid svg) {
     background-color: transparent;
+
+    code {
+      padding: 0;
+    }
   }
 }
 

@@ -22,7 +22,7 @@ const config = {
   coverageThreshold: { global: { lines: 95 } },
   moduleNameMapper: {
     '^(.*\\.s[ac]ss)\\?inline$': '$1',
-    '^#beautiful-mermaid$': '<rootDir>/src/_beautiful-mermaid.ts',
+    '^#marp-(.+)$': '<rootDir>/src/internals/$1.ts',
     '^beautiful-mermaid$':
       '<rootDir>/node_modules/beautiful-mermaid/dist/index.js',
   },

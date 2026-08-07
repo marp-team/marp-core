@@ -30,7 +30,7 @@ describe('Browser script', () => {
     expect(polyfillCleanup).toHaveBeenCalled()
   })
 
-  describe('with passed shadow root', () => {
+  describe('with passing shadow root', () => {
     it('calls polyfill observer and custom elements set-up with specific target', () => {
       const root = document.createElement('div').attachShadow({ mode: 'open' })
       const browserInterface = browser(root)

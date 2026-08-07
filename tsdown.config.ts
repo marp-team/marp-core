@@ -4,14 +4,17 @@ import postcssUrl from 'postcss-url'
 import { NodePackageImporter } from 'sass-embedded'
 import { defineConfig } from 'tsdown'
 import type { UserConfig } from 'tsdown'
+import packageJson from './package.json' with { type: 'json' }
 import { postcssOptimizeDefaultTheme } from './scripts/postcss-optimize-default-theme.ts'
 import { createRolldownChunkStringContext } from './scripts/rolldown-chunk-string-context-plugin.ts'
+
+const { peerDependencies } = packageJson
 
 const browserScriptContext = createRolldownChunkStringContext({
   name: 'marp-core-browser-script',
 })
 
-const baseConfig: UserConfig = {
+const baseConfig = {
   minify: true,
   outDir: 'lib',
   outputOptions: { exports: 'named' },
@@ -36,13 +39,20 @@ const baseConfig: UserConfig = {
     },
     preprocessorOptions: { scss: { importers: [new NodePackageImporter()] } },
   },
-}
+  deps: {
+    neverBundle: /^#marp-/,
+    dts: { alwaysBundle: ['markdown-it'] },
+  },
+  dts: { resolver: 'tsc' },
+} as const satisfies UserConfig
 
 const browserBaseConfig: UserConfig = {
   ...baseConfig,
   platform: 'browser',
   deps: { alwaysBundle: () => true },
 }
+
+const internalConfig: UserConfig = { ...baseConfig, dts: false }
 
 export default defineConfig([
   // Browser helpers
@@ -61,24 +71,33 @@ export default defineConfig([
     format: ['esm', 'cjs'],
   },
 
-  // beautiful-mermaid ESM wrapper
+  // Internals
   {
-    ...baseConfig,
-    dts: false,
-    entry: { _beautifulMermaid: 'src/_beautiful-mermaid.ts' },
-    name: 'beautiful-mermaid ESM wrapper',
-    deps: { neverBundle: ['beautiful-mermaid'] },
-    format: 'esm',
+    ...internalConfig,
+    entry: { 'internals/*': 'src/internals/*.ts' },
+    format: ['esm', 'cjs'],
   },
 
   // Main bundle
   browserScriptContext.withTarget(
     {
       ...baseConfig,
-      name: 'Marp Core',
-      entry: 'src/marp.ts',
+      entry: {
+        index: 'src/index.ts',
+        full: 'src/full.ts',
+        'plugins/*': 'src/plugins/*/index.ts',
+      },
       format: ['esm', 'cjs'],
-      deps: { neverBundle: '#beautiful-mermaid' },
+      deps: {
+        ...baseConfig.deps,
+        dts: {
+          ...baseConfig.deps.dts,
+          alwaysBundle: [
+            ...baseConfig.deps.dts.alwaysBundle,
+            ...Object.keys(peerDependencies),
+          ],
+        },
+      },
     },
     { importSource: './browser-script' },
   ),
