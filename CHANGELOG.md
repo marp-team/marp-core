@@ -5,20 +5,40 @@
 ### Breaking
 
 - Node.js v20.19 and later is now required
-- Code highlight styling with `.hljs-*` classes is no longer supported in favor of `--marp-shiki-*` CSS variables ([#413](https://github.com/marp-team/marp-core/pull/413))
+- `@marp-team/marp-core` entrypoint now provides a lightweight core, and some features are splitted into core plugins ([#427](https://github.com/marp-team/marp-core/pull/427))
+  - You can use `@marp-team/marp-core/full` for the full build
+- Some external libraries for core plugins are now optional peer dependencies and no longer installed by default ([#417](https://github.com/marp-team/marp-core/issues/417), [#427](https://github.com/marp-team/marp-core/pull/427))
+- The default code highlighter has been replaced from highlight.js to [Shiki](https://shiki.style/) ([#296](https://github.com/marp-team/marp-core/issues/296))
+  - Styling with `.hljs-*` classes is no longer supported in favor of `--marp-shiki-*` CSS variables ([#413](https://github.com/marp-team/marp-core/pull/413))
 
 ### Added
 
-- Integrate new code highlighter [Shiki](https://shiki.style/) for the code fence ([#296](https://github.com/marp-team/marp-core/issues/296), [#413](https://github.com/marp-team/marp-core/pull/413))
+- `@marp-team/marp-core/full` entrypoint with all core plugins enabled ([#427](https://github.com/marp-team/marp-core/pull/427))
+- Optional core plugin entrypoints ([#427](https://github.com/marp-team/marp-core/pull/427))
+  - `@marp-team/marp-core/plugins/shiki`
+  - `@marp-team/marp-core/plugins/mermaid`
+  - `@marp-team/marp-core/plugins/katex`
+  - `@marp-team/marp-core/plugins/mathjax`
+- Mermaid diagrams for the `mermaid` code fence, powered by [`beautiful-mermaid`](https://github.com/lukilabs/beautiful-mermaid) ([#139](https://github.com/marp-team/marp-core/issues/139), [#420](https://github.com/marp-team/marp-core/pull/420))
+- New code highlighter [Shiki](https://shiki.style/) for the code fence ([#296](https://github.com/marp-team/marp-core/issues/296), [#413](https://github.com/marp-team/marp-core/pull/413))
   - Simplified color styling in the theme by `--marp-shiki-*` CSS variables
   - Highlight lines based on the attribute of the code fence, like ` ```markdown {1,3-5} `
-- Mermaid diagrams for the `mermaid` code fence, powered by [`beautiful-mermaid`](https://github.com/lukilabs/beautiful-mermaid) ([#139](https://github.com/marp-team/marp-core/issues/139), [#420](https://github.com/marp-team/marp-core/pull/420))
 
 ### Changed
 
-- Migrate the build system from rollup to tsdown ([#416](https://github.com/marp-team/marp-core/pull/416))
 - Publish as dual package for ESM and CJS ([#416](https://github.com/marp-team/marp-core/pull/416))
 - Upgrade MathJax to v4 ([#405](https://github.com/marp-team/marp-core/issues/405), [#425](https://github.com/marp-team/marp-core/pull/425))
+- Lazy-load optional core dependencies in Node.js ([#427](https://github.com/marp-team/marp-core/pull/427))
+- Migrate the build system from rollup to tsdown ([#416](https://github.com/marp-team/marp-core/pull/416))
+- Rewrote the documentation, by splitting into multiple pages for purpose ([#427](https://github.com/marp-team/marp-core/pull/427))
+
+### Fixed
+
+- Improve the browser helper for SSR and cross-realm targets ([#427](https://github.com/marp-team/marp-core/pull/427))
+
+### Deprecated
+
+- Deprecate `math.katexOption` and `math.katexFontPath` constructor options in favor of options for the KaTeX core plugin ([#427](https://github.com/marp-team/marp-core/pull/427))
 
 ### Removed
 
