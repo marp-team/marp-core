@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+> [!IMPORTANT]
+>
+> Marp Core v5.0.0 is a release candidate. You can install it with the `next` tag:
+>
+> ```
+> npm install --save @marp-team/marp-core@next
+> ```
+>
+> If you are upgrading from v4, see the [v4-to-v5 migration guide](./docs/migration-v5.md).
+
 ### Breaking
 
 - Node.js v20.19 and later is now required

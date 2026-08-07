@@ -12,12 +12,16 @@ Marp Core extends the [Marpit] framework with practical Markdown syntax, advance
 [marp]: https://marp.app
 [marpit]: https://marpit.marp.app
 
+> [!IMPORTANT]
+>
+> **⚡️ Release Candidate:** Marp Core v5 is currently a release candidate, and this README documents v5. Current Marp tools may still use stable v4; see the [**`v4` branch**](https://github.com/marp-team/marp-core/tree/v4) for v4 documentation.
+
 ## Install
 
-Marp Core supports Node.js 20.19 or later, but we highly recommend using an [actively supported Node.js version](https://nodejs.org/en/about/releases/).
+Marp Core v5 supports Node.js 20.19 or later, but we highly recommend using an [actively supported Node.js version](https://nodejs.org/en/about/releases/).
 
 ```bash
-npm install --save @marp-team/marp-core
+npm install --save @marp-team/marp-core@next
 ```
 
 ## Entrypoints
@@ -56,7 +60,7 @@ To use `@marp-team/marp-core/full`, install every optional dependency along with
 
 ```bash
 npm install --save \
-  @marp-team/marp-core \
+  @marp-team/marp-core@next \
   shiki \
   beautiful-mermaid \
   katex \
