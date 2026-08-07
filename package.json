@@ -25,36 +25,92 @@
     "type": "git",
     "url": "https://github.com/marp-team/marp-core"
   },
-  "main": "lib/marp.js",
-  "types": "types/src/marp.d.ts",
+  "imports": {
+    "#marp-beautiful-mermaid": "./lib/internals/beautiful-mermaid.mjs",
+    "#marp-katex": {
+      "node": "./lib/internals/katex.node.cjs",
+      "default": "./lib/internals/katex.mjs"
+    },
+    "#marp-mathjax": {
+      "node": "./lib/internals/mathjax.node.cjs",
+      "default": "./lib/internals/mathjax.mjs"
+    },
+    "#marp-mermaid": {
+      "node": "./lib/internals/mermaid.node.cjs",
+      "default": "./lib/internals/mermaid.mjs"
+    },
+    "#marp-shiki": {
+      "node": "./lib/internals/shiki.node.cjs",
+      "default": "./lib/internals/shiki.mjs"
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.mts",
+      "import": "./lib/index.mjs",
+      "default": "./lib/index.cjs"
+    },
+    "./full": {
+      "types": "./lib/full.d.mts",
+      "import": "./lib/full.mjs",
+      "default": "./lib/full.cjs"
+    },
+    "./browser": {
+      "types": "./lib/browser.d.mts",
+      "import": "./lib/browser.mjs",
+      "script": "./lib/browser-iife.iife.js",
+      "default": "./lib/browser.js"
+    },
+    "./plugins/katex": {
+      "types": "./lib/plugins/katex/index.d.mts",
+      "import": "./lib/plugins/katex/index.mjs",
+      "default": "./lib/plugins/katex/index.cjs"
+    },
+    "./plugins/mathjax": {
+      "types": "./lib/plugins/mathjax/index.d.mts",
+      "import": "./lib/plugins/mathjax/index.mjs",
+      "default": "./lib/plugins/mathjax/index.cjs"
+    },
+    "./plugins/mermaid": {
+      "types": "./lib/plugins/mermaid/index.d.mts",
+      "import": "./lib/plugins/mermaid/index.mjs",
+      "default": "./lib/plugins/mermaid/index.cjs"
+    },
+    "./plugins/shiki": {
+      "types": "./lib/plugins/shiki/index.d.mts",
+      "import": "./lib/plugins/shiki/index.mjs",
+      "default": "./lib/plugins/shiki/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
-    "lib/",
-    "types/src",
-    "browser.js",
-    "browser.d.ts"
+    "lib/"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=20.19"
   },
   "scripts": {
-    "build": "npm -s run clean && rollup -c",
+    "build": "tsdown",
     "check:audit": "npm audit",
     "check:format": "npm -s run format -- -c",
     "check:ts": "node node_modules/@typescript/native/bin/tsc --noEmit",
     "clean": "node -e \"fs.rmSync('lib',{recursive:true,force:true})\"",
     "format": "prettier \"**/*.{css,js,json,md,mjs,scss,ts,yaml,yml}\"",
     "format:write": "npm -s run format -- --write",
+    "gen:mathjax": "node ./scripts/generate/mathjax-tex-packages.mjs",
+    "gen:shiki": "node ./scripts/generate/shiki-lang-loaders.mjs",
     "lint:js": "eslint --cache",
     "lint:css": "stylelint \"{src,themes}/**/*.{css,scss}\"",
-    "prepack": "npm-run-all --parallel check:* lint:* test:coverage --parallel build types",
+    "prepare": "run-p gen:*",
+    "prepack": "npm-run-all gen:* --parallel check:* lint:* test:coverage --parallel build",
     "preversion": "run-p check:* lint:* test:coverage",
     "sandbox": "run-p watch sandbox:watch",
-    "sandbox:watch": "mkdirp lib && nodemon",
+    "sandbox:watch": "node -e \"fs.mkdirSync('lib',{recursive:true})\" && nodemon",
+    "sandbox:light": "MARP_LIGHT=1 npm -s run sandbox",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "types": "node -e \"fs.rmSync('types',{recursive:true,force:true})\" && node node_modules/@typescript/native/bin/tsc --declaration --emitDeclarationOnly --outDir types",
     "version": "curl https://raw.githubusercontent.com/marp-team/actions/v1/lib/scripts/version.js | node && git add -A CHANGELOG.md",
-    "watch": "rollup -w -c"
+    "watch": "npm -s run clean && tsdown -w --no-clean"
   },
   "prettier": {
     "semi": false,
@@ -62,26 +118,31 @@
   },
   "nodemonConfig": {
     "watch": "./lib",
-    "exec": "npx @marp-team/marp-cli@latest -y"
+    "exec": "npx @marp-team/marp-cli@latest -y",
+    "delay": 2000
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",
     "@babel/preset-env": "^7.29.7",
     "@babel/preset-typescript": "^7.29.7",
     "@csstools/postcss-minify": "^2.0.5",
-    "@rollup/plugin-alias": "^6.0.0",
-    "@rollup/plugin-commonjs": "^29.0.3",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^1.0.0",
-    "@rollup/plugin-typescript": "^12.3.0",
-    "@tsconfig/node18": "^18.2.6",
+    "@mathjax/mathjax-bbm-font-extension": "^4.1.3",
+    "@mathjax/mathjax-bboldx-font-extension": "^4.1.3",
+    "@mathjax/mathjax-dsfont-font-extension": "^4.1.3",
+    "@mathjax/mathjax-mhchem-font-extension": "^4.1.3",
+    "@mathjax/src": "^4.1.3",
+    "@shikijs/transformers": "^4.0.2",
+    "@tsconfig/node20": "^20.1.9",
     "@tsconfig/recommended": "^1.0.13",
+    "@tsdown/css": "^0.22.9",
     "@twemoji/api": "^17.0.3",
     "@types/jest": "^30.0.0",
+    "@types/markdown-it": "^14.1.2",
+    "@typescript-eslint/parser": "^8.63.0",
     "@typescript/native": "npm:typescript@^7.0.2",
     "autoprefixer": "^10.5.2",
     "babel-jest": "^30.4.1",
+    "beautiful-mermaid": "^1.1.3",
     "cheerio": "^1.2.0",
     "cssnano": "^8.0.2",
     "emoji-regex": "10.6.0",
@@ -96,34 +157,66 @@
     "jest-environment-jsdom": "^30.4.1",
     "jest-junit": "^17.0.0",
     "jest-plugin-context": "^2.9.0",
+    "katex": "^0.17.0",
     "markdown-it": "^14.3.0",
     "markdown-it-emoji": "^3.0.0",
-    "mkdirp": "^3.0.1",
     "nodemon": "^3.1.14",
     "npm-check-updates": "^22.2.9",
     "npm-run-all2": "^8.0.4",
     "postcss": "^8.5.16",
+    "postcss-import": "^16.1.1",
     "postcss-url": "^10.1.4",
     "prettier": "^3.9.5",
-    "rollup": "^4.62.2",
-    "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-string": "^3.0.0",
-    "sass": "^1.101.0",
+    "sass-embedded": "^1.99.0",
     "self-closing-tags": "^1.0.1",
+    "shiki": "^4.0.2",
     "stylelint": "^17.14.0",
     "stylelint-config-standard-scss": "^17.0.0",
-    "tslib": "^2.8.1",
+    "tsdown": "^0.22.9",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-eslint": "^8.63.0"
   },
   "dependencies": {
     "@marp-team/marpit": "^3.2.2",
     "@marp-team/marpit-svg-polyfill": "^2.1.0",
-    "highlight.js": "^11.11.1",
-    "katex": "^0.17.0",
-    "mathjax-full": "^3.2.2",
     "postcss-selector-parser": "^7.1.4",
     "xss": "^1.0.15"
+  },
+  "peerDependencies": {
+    "@mathjax/mathjax-bbm-font-extension": "^4.1.3",
+    "@mathjax/mathjax-bboldx-font-extension": "^4.1.3",
+    "@mathjax/mathjax-dsfont-font-extension": "^4.1.3",
+    "@mathjax/mathjax-mhchem-font-extension": "^4.1.3",
+    "@mathjax/src": "^4.1.3",
+    "beautiful-mermaid": "^1.1.3",
+    "katex": "^0.17.0",
+    "shiki": "^4.0.2"
+  },
+  "peerDependenciesMeta": {
+    "@mathjax/mathjax-bbm-font-extension": {
+      "optional": true
+    },
+    "@mathjax/mathjax-bboldx-font-extension": {
+      "optional": true
+    },
+    "@mathjax/mathjax-dsfont-font-extension": {
+      "optional": true
+    },
+    "@mathjax/mathjax-mhchem-font-extension": {
+      "optional": true
+    },
+    "@mathjax/src": {
+      "optional": true
+    },
+    "beautiful-mermaid": {
+      "optional": true
+    },
+    "katex": {
+      "optional": true
+    },
+    "shiki": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "access": "public"

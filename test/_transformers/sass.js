@@ -1,6 +1,6 @@
-const { compile, compileAsync, NodePackageImporter } = require('sass')
+const { compile, compileAsync, NodePackageImporter } = require('sass-embedded')
 
-/** @type {import('sass').Options} */
+/** @type {import('sass-embedded').Options} */
 const sassOptions = {
   importers: [new NodePackageImporter()],
 }

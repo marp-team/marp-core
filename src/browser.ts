@@ -27,12 +27,14 @@ export interface MarpCoreBrowser {
   update: () => MarpCoreBrowser
 }
 
-export const browser = (target: ParentNode = document): MarpCoreBrowser => {
+export const browser = (target?: ParentNode): MarpCoreBrowser => {
   if (typeof window === 'undefined') {
     throw new Error(
       "Marp Core's browser script is valid only in browser context.",
     )
   }
+
+  target ??= document
 
   applyCustomElements(target) // Should call in every update of Marp rendering
 

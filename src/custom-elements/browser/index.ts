@@ -1,5 +1,5 @@
 import { elements } from '../definitions'
-import { MarpAutoScaling } from './marp-auto-scaling'
+import { createMarpAutoScaling } from './marp-auto-scaling'
 import { createMarpCustomElement } from './marp-custom-element'
 import { isSupportedCustomizedBuiltInElements } from './support'
 
@@ -7,19 +7,35 @@ export const marpCustomElementsRegisteredSymbol = Symbol()
 
 export { isSupportedCustomizedBuiltInElements } from './support'
 
-export const applyCustomElements = (target: ParentNode = document) => {
-  const defined = window[marpCustomElementsRegisteredSymbol]
-  if (!defined) customElements.define('marp-auto-scaling', MarpAutoScaling)
+export const applyCustomElements = (target?: ParentNode) => {
+  target ??= document
+
+  const currentDocument =
+    target.nodeType === Node.DOCUMENT_NODE
+      ? (target as Document)
+      : target.ownerDocument
+  const currentWindow = currentDocument?.defaultView || window
+  const defined = currentWindow[marpCustomElementsRegisteredSymbol]
+
+  if (!defined) {
+    currentWindow.customElements.define(
+      'marp-auto-scaling',
+      createMarpAutoScaling(currentWindow.HTMLElement),
+    )
+  }
 
   for (const tag of Object.keys(elements)) {
     const marpCustomElement = `marp-${tag}`
-    const proto: typeof HTMLElement = elements[tag].proto()
+    const proto: typeof HTMLElement = elements[tag].proto(currentWindow)
 
-    if (!isSupportedCustomizedBuiltInElements() || proto === HTMLElement) {
+    if (
+      !isSupportedCustomizedBuiltInElements(currentWindow) ||
+      proto === currentWindow.HTMLElement
+    ) {
       if (!defined) {
-        customElements.define(
+        currentWindow.customElements.define(
           marpCustomElement,
-          createMarpCustomElement(HTMLElement, elements[tag]),
+          createMarpCustomElement(currentWindow.HTMLElement, elements[tag]),
         )
       }
 
@@ -31,7 +47,7 @@ export const applyCustomElements = (target: ParentNode = document) => {
             .replace(new RegExp(`</${tag}>$`, 'i'), `</${marpCustomElement}>`)
         })
     } else if (!defined) {
-      customElements.define(
+      currentWindow.customElements.define(
         marpCustomElement,
         createMarpCustomElement(proto, { style: elements[tag].style }),
         { extends: tag },
@@ -39,5 +55,5 @@ export const applyCustomElements = (target: ParentNode = document) => {
     }
   }
 
-  window[marpCustomElementsRegisteredSymbol] = true
+  currentWindow[marpCustomElementsRegisteredSymbol] = true
 }

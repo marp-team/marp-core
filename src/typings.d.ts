@@ -1,6 +1,6 @@
-declare module '*.scss' {
-  const scss: string
-  export default scss
+declare module '*?inline' {
+  const source: string
+  export default source
 }
 
 declare module 'katex/package.json' {

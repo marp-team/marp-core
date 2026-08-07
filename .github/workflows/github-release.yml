@@ -14,3 +14,4 @@ jobs:
         with:
           task: release
           token: ${{ secrets.GITHUB_TOKEN }}
+          preRelease: true

@@ -1,53 +1,92 @@
 # Marp Core built-in themes
 
-We provide some nice built-in themes in Marp Core. You can choose a favorite theme by using [Marpit `theme` directive](https://marpit.marp.app/directives?id=theme) in your Markdown.
+We provide some nice built-in themes in Marp Core. You can choose a favorite theme by using [Marpit's `theme` global directive](https://marpit.marp.app/directives?id=theme) in your Markdown:
 
-<!-- Screenshots were taken from the rendered result of [an example][example]. -->
+[default]: #default
+[gaia]: #gaia
+[uncover]: #uncover
 
-[example]: example.md
+|     Theme     | How to use                | Supported classes        |
+| :-----------: | ------------------------- | ------------------------ |
+| **[Default]** | `<!-- theme: default -->` | `invert`                 |
+|  **[Gaia]**   | `<!-- theme: gaia -->`    | `invert`, `gaia`, `lead` |
+| **[Uncover]** | `<!-- theme: uncover -->` | `invert`                 |
 
-### Common feature
+To create your own theme with Marp Core features, see [Theme authoring](../docs/theme-authoring.md).
 
-These can use in the all of built-in themes.
-
-#### 4:3 slide
-
-We have `4:3` slide size preset (`960x720`) for a traditional presentation.
-
-```markdown
-<!-- size: 4:3 -->
-```
-
-#### `invert` class
-
-By using `invert` class, you can change to use the inverted color scheme.
-
-```markdown
-<!-- class: invert -->
-```
-
----
+<!-- Example for building screenshots for documentation: `npx -y @marp-team/marp-cli@latest --no-config --engine ./lib/full.mjs ./themes/example.md --theme default -o ./docs/assets/themes/default.png` -->
 
 ## Default
 
-[![](https://user-images.githubusercontent.com/3993388/48039490-53be1b80-e1b8-11e8-8179-0e6c11d285e2.png)][example]
-[![invert](https://user-images.githubusercontent.com/3993388/48039492-5456b200-e1b8-11e8-9975-c9e4029d9036.png)][example]
+<p><img src="../docs/assets/themes/default.png" width="180" hspace="8" alt="Default theme screenshot"><img src="../docs/assets/themes/default-invert.png" width="180" hspace="8" alt="Default theme with invert class screenshot"></p>
 
-The default theme of Marp. It is based on [GitHub markdown style](https://github.com/sindresorhus/github-markdown-css), but optimized to the slide deck. Slide contents will be always vertically centered.
+The default theme of Marp. It is based on [GitHub markdown style](https://github.com/sindresorhus/github-markdown-css), but optimized to the slide deck.
 
 ```markdown
 <!-- theme: default -->
 ```
 
-### Custom color (CSS variables)
+**[See theme specific features... →](#default-theme)**
+
+## Gaia
+
+<p><img src="../docs/assets/themes/gaia.png" width="180" hspace="8" alt="Gaia theme screenshot"><img src="../docs/assets/themes/gaia-invert.png" width="180" hspace="8" alt="Gaia theme with invert class screenshot"><img src="../docs/assets/themes/gaia-gaia.png" width="180" hspace="8" alt="Gaia theme with gaia class screenshot"></p>
+
+Gaia theme is based on the specific theme design of the [yhatt/marp](https://github.com/yhatt/marp) classic app.
+
+```markdown
+<!-- theme: gaia -->
+```
+
+**[See theme specific features... →](#gaia-theme)**
+
+## Uncover
+
+<p><img src="../docs/assets/themes/uncover.png" width="180" hspace="8" alt="Uncover theme screenshot"><img src="../docs/assets/themes/uncover-invert.png" width="180" hspace="8" alt="Uncover theme with invert class screenshot"></p>
+
+Uncover theme has 3 design concepts: simple, minimal, and modern. It's inspired from a lot of slide deck frameworks, especially [reveal.js](https://revealjs.com/).
+
+```markdown
+<!-- theme: uncover -->
+```
+
+**[See theme specific features... →](#uncover-theme)**
+
+# Common features
+
+## Slide size presets
+
+Built-in themes define **`16:9`** (default: 1280x720) and **`4:3`** (960x720) size presets. You can switch the slide size by using [`size` global directive](../docs/markdown.md#slide-size).
+
+```markdown
+<!-- size: 4:3 -->
+```
+
+## `invert` color scheme class
+
+Use the `invert` class in [Marpit's `class` local directive](https://marpit.marp.app/directives?id=class) to switch to the inverted color scheme.
+
+```markdown
+<!-- class: invert -->
+```
+
+# Theme-specific features
+
+> [!NOTE]
+>
+> For Marp Core common features such as color definitions, see [Theme authoring](../docs/theme-authoring.md).
+
+## Default theme
+
+### Customize color
 
 The default theme has followed GitHub style provided by [`github-markdown-css` package](https://github.com/sindresorhus/github-markdown-css), and the most of CSS variables are defined in the upstream. [Please refer to the source code of that to inspect appliable variables.](https://github.com/sindresorhus/github-markdown-css/blob/main/github-markdown.css)
 
 ```html
 <style>
   :root {
-    --color-fg-default: #eff;
-    --color-canvas-default: #246;
+    --fgColor-default: #eff;
+    --bgColor-default: #246;
     /* ... */
   }
 </style>
@@ -55,72 +94,35 @@ The default theme has followed GitHub style provided by [`github-markdown-css` p
 
 [We also have a little of additional variables to set colors for Marp specifics.](./default.scss)
 
-## Gaia
+## Gaia theme
 
-[![](https://user-images.githubusercontent.com/3993388/48039493-5456b200-e1b8-11e8-9c49-dd5d66d76c0d.png)][example]
-[![invert](https://user-images.githubusercontent.com/3993388/48039494-5456b200-e1b8-11e8-8bb5-f4a250e902e1.png)][example]
+### `gaia` color scheme class
 
-Gaia theme is based on the classic design of [yhatt/marp](https://github.com/yhatt/marp).
+<img src="../docs/assets/themes/gaia-gaia.png" width="160" align="right" alt="Gaia theme with gaia class screenshot">
 
-Originally, this theme was created for a maintainer to use, and it's inspired from [azusa-colors](https://github.com/sanographix/azusa-colors/) keynote template.
-
-```markdown
-<!-- theme: gaia -->
-```
-
-### Features
-
-#### `lead` class
-
-![lead](https://user-images.githubusercontent.com/3993388/48040058-c62ffb00-e1ba-11e8-876d-c182a30714c6.png)
-
-Contents of the slide will align to left-top by Gaia's default. But you can use `lead` class to be centering like [uncover theme](#uncover). It is useful for the leading page like a title slide.
-
-```markdown
-<!--
-theme: gaia
-class: lead
--->
-```
-
-> :information_source: Marpit's [scoped local directive](https://marpit.marp.app/directives?id=apply-to-a-single-page-spot-directives) would be useful to apply `lead` class only into a current page.
->
-> ```markdown
-> <!-- _class: lead -->
-> ```
-
-#### Color scheme
-
-![gaia](https://user-images.githubusercontent.com/3993388/48040059-c62ffb00-e1ba-11e8-8026-fa3511844ec7.png)
-
-Gaia theme supports an additional color scheme by `gaia` class.
+Gaia theme has an additional color scheme by `gaia` class:
 
 ```markdown
 <!-- class: gaia -->
 ```
 
-> :information_source: You may use multiple classes, by YAML array or separated string by space.
->
-> ```markdown
-> ---
-> theme: gaia
-> class:
->   - lead
->   - invert
-> ---
->
-> # Lead + invert
->
-> ---
->
-> <!-- class: lead gaia -->
->
-> # Lead + gaia
-> ```
+### `lead` layout class
 
-### Custom color (CSS variables)
+<img src="../docs/assets/themes/gaia-lead.png" width="160" align="right" alt="Gaia theme with gaia class screenshot">
 
-Color scheme for Gaia theme has defined by CSS variables. You also can use the custom color scheme by inline style.
+Contents of the slide will align to left-top by default, but you can change the alignment to center by using `lead` class. It is useful for the leading page like a title slide.
+
+```markdown
+<!-- class: lead -->
+```
+
+> [!TIP]
+>
+> You may use multiple classes, by YAML array or separated string by space (`<!-- class: lead gaia -->`).
+
+### Customize color
+
+Color scheme for `gaia` theme has defined by CSS variables. You can use the custom color scheme by inline style.
 
 ```html
 <style>
@@ -133,20 +135,11 @@ Color scheme for Gaia theme has defined by CSS variables. You also can use the c
 </style>
 ```
 
-## Uncover
+## Uncover theme
 
-[![](https://user-images.githubusercontent.com/3993388/48039495-5456b200-e1b8-11e8-8c82-ca7f7842b34d.png)][example]
-[![invert](https://user-images.githubusercontent.com/3993388/48039496-54ef4880-e1b8-11e8-9c22-f3309b101e3c.png)][example]
+### Customize color
 
-Uncover theme has three design concepts: simple, minimal, and modern. It's inspired from many slide deck frameworks, especially [reveal.js](https://revealjs.com/).
-
-```markdown
-<!-- theme: uncover -->
-```
-
-### Custom color (CSS variables)
-
-Color scheme for Uncover theme has defined by CSS variables. You also can use the custom color scheme by inline style.
+Color scheme for `uncover` theme has defined by CSS variables. You can use the custom color scheme by inline style.
 
 ```html
 <style>
@@ -162,75 +155,4 @@ Color scheme for Uncover theme has defined by CSS variables. You also can use th
     --color-header-shadow: transparent;
   }
 </style>
-```
-
-# Metadata for additional features
-
-Marp Core's extended theming system will recognize the metadata to be able to enable extra features whose a side effect to the original DOM structure/the slide design through the manipulation.
-
-In other words, the enabled feature requires taking care of the manipulated DOM and the view when styling.
-
-**_If you never want to think complex styling, it's better to define no extra metadata._** Your theme would work as same as a simple [Marpit theme CSS](https://marpit.marp.app/theme-css) if you do nothing.
-
-## `@auto-scaling [flag(s)]`
-
-Enable [auto-scaling features](https://github.com/marp-team/marp-core#auto-scaling-features).
-
-- `true`: Enable all features.
-- `fittingHeader`: Enable fitting header.
-- `math`: Enable scaling for KaTeX math block. _Please note that MathJax math block always will apply auto scaling down._
-- `code`: Enable scaling for code block.
-
-Through separating by comma, it can select multiple keywords for individual features.
-
-```css
-/**
- * @theme foobar
- * @auto-scaling fittingHeader,math
- */
-```
-
-## `@size [name] [width] [height]`
-
-Define size preset(s) for usable in [`size` global directive](https://github.com/marp-team/marp-core#size-global-directive).
-
-```css
-/**
- * @theme foobar
- * @size 4:3 960px 720px
- * @size 16:9 1280px 720px
- * @size 4K 3840px 2160px
- */
-
-section {
-  /* A way to define default size is as same as Marpit theme CSS. */
-  width: 960px;
-  height: 720px;
-}
-```
-
-User can choose a customized size of slide deck (`section`) from defined presets via `size` global directive.
-
-```markdown
----
-theme: foobar
-size: 4K
----
-
-# Slide deck for 4K screen (3840x2160)
-```
-
-When the imported theme through [`@import "foo";`](https://marpit.marp.app/theme-css?id=import-rule) or [`@import-theme "bar";`](https://marpit.marp.app/theme-css?id=import-theme-rule) has `@size` metadata(s), these presets still can use in an inherited theme.
-
-Or you can use `@size [name] false` in the inherited theme if you need to disable specific preset.
-
-```css
-/**
- * gaia-16-9 theme is based on Gaia theme, but 4:3 slide cannot use.
- *
- * @theme inherited-from-gaia
- * @size 4:3 false
- */
-
-@import 'gaia';
 ```

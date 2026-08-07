@@ -1,39 +1,22 @@
-import marpitPlugin from '@marp-team/marpit/plugin'
-import { Marp } from '../marp'
-import { getMathContext, setMathContext } from './context'
-import * as katex from './katex'
-import * as mathjax from './mathjax'
+import type { RenderRule } from 'markdown-it/lib/renderer.mjs'
+import type { Marp } from '../marp'
+import { marpPlugin } from '../plugin'
+import { getMathContext, setMathContext, getMathLibrary } from './context'
+import type { MathOptions, MathLibrary } from './options'
+import { normalizeMathOptions } from './options'
 
-export type MathPreferredLibrary = 'mathjax' | 'katex'
+export type { MathOptions }
 
-export interface MathOptionsInterface {
-  lib?: MathPreferredLibrary
-  katexOption?: Record<string, unknown>
-  katexFontPath?: string | false
-}
+export const markdown = marpPlugin((md) => {
+  const { marpit: marp } = md
 
-export type MathOptions = boolean | MathPreferredLibrary | MathOptionsInterface
-
-const defaultLibrary = 'mathjax' as const
-const getLibrary = (opts: MathOptionsInterface) => opts.lib ?? defaultLibrary
-
-export const markdown = marpitPlugin((md) => {
-  const marp: Marp = md.marpit
-  const opts: MathOptions | undefined = marp.options.math
-
+  const opts = normalizeMathOptions(marp.options.math)
   if (!opts) return
-
-  const parsedOpts =
-    typeof opts !== 'object'
-      ? { lib: typeof opts === 'string' ? opts : undefined }
-      : opts
 
   // Define `math` global directive to choose preferred library
   Object.defineProperty(marp.customDirectives.global, 'math', {
-    value: (math: unknown): { math?: MathPreferredLibrary } => {
-      if (math === 'katex' || math === 'mathjax') return { math }
-      return {}
-    },
+    value: (math: unknown): { math?: string } =>
+      typeof math === 'string' && getMathLibrary(marp, math) ? { math } : {},
   })
 
   // Initialize
@@ -42,14 +25,16 @@ export const markdown = marpitPlugin((md) => {
   const initializeMathContext = () => {
     if (getMathContext(marp).processing) return false
 
-    setMathContext(marp, () => ({
+    setMathContext(marp, (ctx) => ({
+      libs: Object.fromEntries(
+        Object.entries(ctx.libs).map(([name, lib]) => [
+          name,
+          { ...lib, context: lib.initializeContext?.(marp) },
+        ]),
+      ),
       enabled: false,
-      options: parsedOpts,
+      options: opts,
       processing: true,
-      katexMacroContext: {
-        ...((parsedOpts.katexOption?.macros as any) || {}),
-      },
-      mathjaxContext: null,
     }))
 
     return true
@@ -77,8 +62,12 @@ export const markdown = marpitPlugin((md) => {
   const enableMath = () =>
     setMathContext(marp, (ctx) => ({ ...ctx, enabled: true }))
 
+  const hasMathLibrary = () => Object.keys(getMathContext(marp).libs).length > 0
+
   // Inline
   md.inline.ruler.after('escape', 'marp_math_inline', (state, silent) => {
+    if (!hasMathLibrary()) return false
+
     const ret = parseInlineMath(state, silent)
     if (ret) enableMath()
 
@@ -90,6 +79,8 @@ export const markdown = marpitPlugin((md) => {
     'blockquote',
     'marp_math_block',
     (state, start, end, silent) => {
+      if (!hasMathLibrary()) return false
+
       const ret = parseMathBlock(state, start, end, silent)
       if (ret) enableMath()
 
@@ -106,41 +97,50 @@ export const markdown = marpitPlugin((md) => {
       const { enabled } = getMathContext(marp)
       if (!enabled) return
 
-      const preferred: MathPreferredLibrary | undefined = (marp as any)
-        .lastGlobalDirectives.math
+      const preferred: MathLibrary | undefined =
+        (marp as any).lastGlobalDirectives.math ?? opts.lib
 
       setMathContext(marp, (ctx) => ({
         ...ctx,
         options: {
           ...ctx.options,
-          lib: preferred ?? parsedOpts.lib ?? defaultLibrary,
+          lib:
+            preferred && ctx.libs[preferred]
+              ? preferred
+              : Object.keys(ctx.libs)[0],
         },
       }))
     },
   )
 
-  const getPreferredLibrary = () => {
-    const { options } = getMathContext(marp)
-    return getLibrary(options) === 'mathjax' ? mathjax : katex
-  }
+  const getRenderer =
+    (type: 'blockRenderer' | 'inlineRenderer'): RenderRule =>
+    (tokens, idx, ...rest) => {
+      const lib = getMathLibrary(marp)
 
-  const getRenderer = (type: 'inline' | 'block') => (tokens: any, idx: any) =>
-    getPreferredLibrary()[type](marp)(tokens, idx)
+      if (!lib) {
+        const token = tokens[idx]
+        const escaped = md.utils.escapeHtml(
+          `${token.markup}${token.content}${token.markup}`,
+        )
+        return token.block ? `<p>${escaped}</p>` : escaped
+      }
 
-  md.renderer.rules.marp_math_inline = getRenderer('inline')
-  md.renderer.rules.marp_math_block = getRenderer('block')
+      return lib[type](marp)(tokens, idx, ...rest)
+    }
+
+  md.renderer.rules.marp_math_inline = getRenderer('inlineRenderer')
+  md.renderer.rules.marp_math_block = getRenderer('blockRenderer')
 })
 
-export const css = (marpit: any): string | null => {
-  const { enabled, options } = getMathContext(marpit)
+export const css = (marp: Marp): string | null => {
+  const { enabled } = getMathContext(marp)
   if (!enabled) return null
 
-  switch (getLibrary(options)) {
-    case 'mathjax':
-      return mathjax.css(marpit)
-    case 'katex':
-      return katex.css(options.katexFontPath)
-  }
+  const lib = getMathLibrary(marp)
+  if (!lib) return null
+
+  return lib.css(marp)
 }
 
 // ---

@@ -1,6 +1,6 @@
 /** @jest-environment jsdom */
 import * as browser from '../../src/custom-elements/browser/index'
-import { MarpAutoScaling } from '../../src/custom-elements/browser/marp-auto-scaling'
+import type { MarpAutoScaling } from '../../src/custom-elements/browser/marp-auto-scaling'
 import { elements } from '../../src/custom-elements/definitions'
 
 beforeAll(() => {
@@ -118,6 +118,26 @@ describe('The hydration script for custom elements', () => {
 
       browser.applyCustomElements()
       expect(document.body.innerHTML).toBe(html)
+    })
+
+    describe('with element', () => {
+      it('applies custom elements only in the target view of specified element', () => {
+        const iframe = document.createElement('iframe')
+        document.body.appendChild(iframe)
+
+        const iframeElm = iframe.contentDocument!.createElement('div')
+        const iframeWindow = iframe.contentWindow!
+
+        expect(window.customElements.get('marp-pre')).toBeUndefined()
+        expect(iframeWindow.customElements.get('marp-pre')).toBeUndefined()
+
+        browser.applyCustomElements(document.createElement('div'))
+        expect(window.customElements.get('marp-pre')).toBeDefined()
+        expect(iframeWindow.customElements.get('marp-pre')).toBeUndefined()
+
+        browser.applyCustomElements(iframeElm)
+        expect(iframeWindow.customElements.get('marp-pre')).toBeDefined()
+      })
     })
 
     describe('when the browser is not supported "is" attribute for customized built-in elements', () => {

@@ -1,6 +1,7 @@
 lib/
 /sandbox/**
 !/sandbox/README.md
+src/generated/
 tmp/
 types/
 
