@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v5.0.0 - 2026-08-07
+
 > [!IMPORTANT]
 >
 > Marp Core v5.0.0 is a release candidate. You can install it with the `next` tag:
