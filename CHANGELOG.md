@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade KaTeX peer dependency to v0.18.x ([#430](https://github.com/marp-team/marp-core/issues/430), [#432](https://github.com/marp-team/marp-core/pull/432))
+
 ## v5.0.0 - 2026-08-07
 
 > [!IMPORTANT]
@@ -39,8 +43,8 @@
 ### Changed
 
 - Publish as dual package for ESM and CJS ([#416](https://github.com/marp-team/marp-core/pull/416))
-- Upgrade MathJax to v4 ([#405](https://github.com/marp-team/marp-core/issues/405), [#425](https://github.com/marp-team/marp-core/pull/425))
-- Lazy-load optional core dependencies in Node.js ([#427](https://github.com/marp-team/marp-core/pull/427))
+- Upgrade MathJax to v4 ([#405](https://github.com/marp-team/marp-core/issues/405), [#426](https://github.com/marp-team/marp-core/pull/426))
+- Lazy-load optional core dependencies in Node.js ([#417](https://github.com/marp-team/marp-core/issues/417), [#427](https://github.com/marp-team/marp-core/pull/427))
 - Migrate the build system from rollup to tsdown ([#416](https://github.com/marp-team/marp-core/pull/416))
 - Rewrote the documentation, by splitting into multiple pages for purpose ([#427](https://github.com/marp-team/marp-core/pull/427))
 
