@@ -38,9 +38,7 @@ export class Marp extends Marpit {
     const mdOpts: MarpMarkdownItOptions = {
       breaks: true,
       linkify: true,
-      highlight: (code, lang, attrs) =>
-        this.diagramRenderer(code, lang, attrs) ||
-        this.highlighter(code, lang, attrs),
+      highlight: (code, lang, attrs) => this.highlighter(code, lang, attrs),
       html: opts.html ?? Marp.html,
       ...(typeof opts.markdown === 'object' ? opts.markdown : {}),
     }
@@ -112,11 +110,6 @@ export class Marp extends Marpit {
     if (mathCss) base.before = mathCss + '\n' + (base.before || '')
 
     return base
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  diagramRenderer(code: string, lang: string, attrs: string): string {
-    return ''
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

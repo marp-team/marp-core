@@ -248,10 +248,6 @@ section {
       border-image: conic-gradient(var(--marp-shiki-line-highlight) 0 0) fill
         0/ /0 10000vw;
     }
-
-    &:has(code.language-mermaid svg) {
-      filter: none;
-    }
   }
 
   pre > code {
@@ -262,16 +258,16 @@ section {
     min-width: 456px; // (Slide width - padding * 2) * 40%
     padding: 0.4em 0.6em;
     contain: paint;
-
-    &.language-mermaid:has(svg) {
-      background-color: transparent;
-      min-width: 0 !important;
-      padding: 0;
-    }
   }
 
   &[data-size='4:3'] pre > code {
     min-width: 328px;
+  }
+
+  svg[data-marp-mermaid] {
+    letter-spacing: 0;
+    margin-inline: auto;
+    max-height: 570px;
   }
 
   table {

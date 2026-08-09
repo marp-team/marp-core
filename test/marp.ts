@@ -1614,6 +1614,17 @@ $$"
       const diagram = 'flowchart TD\nA --> B\n'
 
       describe('when fence is rendered with mermaid lang', () => {
+        it('converts the fence token into marp_mermaid token', () => {
+          const tokens = marp().markdown.parse(
+            `\`\`\`mermaid\n${diagram}\`\`\``,
+            {},
+          )
+
+          expect(tokens).toContainEqual(
+            expect.objectContaining({ tag: 'svg', type: 'marp_mermaid' }),
+          )
+        })
+
         it('renders Mermaid diagram', () => {
           const render = jest.spyOn(mermaid, 'beautifulMermaid')
           const $ = load(
@@ -1624,7 +1635,8 @@ $$"
             diagram,
             expect.objectContaining({ interactive: false }),
           )
-          expect($('code.language-mermaid > svg')).toHaveLength(1)
+          expect($('svg[data-marp-mermaid]')).toHaveLength(1)
+          expect($('pre, code')).toHaveLength(0)
         })
 
         it('enables interactive rendering through fence attributes', () => {
@@ -1639,7 +1651,8 @@ $$"
             diagram,
             expect.objectContaining({ interactive: true }),
           )
-          expect($('code.language-mermaid > svg')).toHaveLength(1)
+          expect($('svg[data-marp-mermaid]')).toHaveLength(1)
+          expect($('pre, code')).toHaveLength(0)
         })
 
         it('falls back to regular syntax highlighting when Mermaid rendering fails', () => {
@@ -1655,7 +1668,7 @@ $$"
           )
 
           expect(warn).toHaveBeenCalledWith(err)
-          expect($('pre.shiki code.language-mmd')).toHaveLength(1)
+          expect($('pre.shiki code.language-mermaid')).toHaveLength(1)
           expect($('code').text()).toBe(diagram.trimEnd())
         })
       })
@@ -1668,7 +1681,7 @@ $$"
           )
 
           expect(render).not.toHaveBeenCalled()
-          expect($('pre.shiki code.language-mmd')).toHaveLength(1)
+          expect($('pre.shiki code.language-mermaid')).toHaveLength(1)
           expect($('code').text()).toBe(diagram)
         })
       })

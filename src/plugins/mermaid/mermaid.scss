@@ -1,0 +1,6 @@
+:where(svg[data-marp-mermaid]) {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  height: auto;
+}

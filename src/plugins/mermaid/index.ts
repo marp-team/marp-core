@@ -1,4 +1,5 @@
 import { marpPlugin } from '../../plugin'
+import css from './mermaid.scss?inline'
 import { beautifulMermaid } from '#marp-mermaid'
 
 export interface MermaidRenderOptions {
@@ -23,18 +24,49 @@ export const mermaidMarpCorePlugin = () => {
       border: 'var(--marp-mermaid-border)',
     })
 
-  return marpPlugin(({ marpit: marp }) => {
-    const originalDiagramRenderer = marp.diagramRenderer.bind(marp)
+  return marpPlugin((md) => {
+    const parseInfo = (info: string): [lang: string, attrs: string] => {
+      const normalized = md.utils.unescapeAll(info).trim()
+      const [lang = ''] = normalized.split(/\s+/, 1)
 
-    marp.diagramRenderer = (code: string, lang: string, attrs: string) => {
-      if (lang === 'mermaid') {
-        try {
-          return render(code, { interactive: /\binteractive\b/.test(attrs) })
-        } catch (err) {
-          console.warn(err)
+      return [lang, normalized.slice(lang.length).trim()]
+    }
+
+    md.core.ruler.after('block', 'marp_mermaid', ({ tokens }) => {
+      for (const token of tokens || []) {
+        if (
+          token.type === 'fence' &&
+          parseInfo(token.info || '')[0] === 'mermaid'
+        ) {
+          token.type = 'marp_mermaid'
+          token.tag = 'svg'
         }
       }
-      return originalDiagramRenderer(code, lang, attrs)
+    })
+
+    md.renderer.rules.marp_mermaid = (tokens, idx, options, env, self) => {
+      const token = tokens[idx]
+      const [, attrs] = parseInfo(token.info)
+
+      try {
+        const svg = render(token.content, {
+          interactive: /\binteractive\b/.test(attrs),
+        }).replace(/^<svg\b/, '<svg data-marp-mermaid')
+
+        return `<p>${svg}</p>\n`
+      } catch (err) {
+        console.warn(err)
+        return self.rules.fence!(tokens, idx, options, env, self)
+      }
+    }
+
+    const marp = md.marpit as any
+    const { themeSetPackOptions } = marp
+
+    marp.themeSetPackOptions = function (...args) {
+      const base = themeSetPackOptions.apply(this, args)
+      base.before = css + '\n' + (base.before || '')
+      return base
     }
   })
 }
