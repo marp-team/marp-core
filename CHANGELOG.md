@@ -4,19 +4,20 @@
 
 ### Changed
 
-- Upgrade KaTeX peer dependency to v0.18.x ([#430](https://github.com/marp-team/marp-core/issues/430), [#432](https://github.com/marp-team/marp-core/pull/432))
-
-## v5.0.0 - 2026-08-07
-
 > [!IMPORTANT]
 >
-> Marp Core v5.0.0 is a release candidate. You can install it with the `next` tag:
+> Marp Core v5 is a release candidate. You can install it with the `next` tag:
 >
 > ```
 > npm install --save @marp-team/marp-core@next
 > ```
 >
 > If you are upgrading from v4, see the [v4-to-v5 migration guide](./docs/migration-v5.md).
+
+- Upgrade KaTeX peer dependency to v0.18.x ([#430](https://github.com/marp-team/marp-core/issues/430), [#432](https://github.com/marp-team/marp-core/pull/432))
+- Mermaid diagrams are no longer wrapped with `<pre>` and `<code>` ([#431](https://github.com/marp-team/marp-core/issues/431), [#433](https://github.com/marp-team/marp-core/pull/433))
+
+## v5.0.0 - 2026-08-07
 
 ### Breaking
 
