@@ -2,8 +2,6 @@
 
 ## [Unreleased]
 
-## v5.0.1 - 2026-08-09
-
 > [!IMPORTANT]
 >
 > Marp Core v5 is a release candidate. You can install it with the `next` tag:
@@ -13,6 +11,12 @@
 > ```
 >
 > If you are upgrading from v4, see the [v4-to-v5 migration guide](./docs/migration-v5.md).
+
+### Fixed
+
+- Rendering HTML with a class attribute throws a TypeError when using ESM ([#434](https://github.com/marp-team/marp-core/issues/434), [#435](https://github.com/marp-team/marp-core/pull/435) by [@nbifrye](https://github.com/nbifrye))
+
+## v5.0.1 - 2026-08-09
 
 ### Changed
 
