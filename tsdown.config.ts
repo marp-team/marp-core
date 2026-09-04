@@ -44,6 +44,15 @@ const baseConfig = {
     dts: { alwaysBundle: ['markdown-it'] },
   },
   dts: { resolver: 'tsc' },
+  inputOptions: {
+    resolve: {
+      alias: {
+        // https://github.com/marp-team/marp-core/issues/436
+        // https://github.com/jdecked/twemoji/issues/165
+        '@twemoji/api': '@twemoji/api/dist/twemoji.esm.js',
+      },
+    },
+  },
 } as const satisfies UserConfig
 
 const browserBaseConfig: UserConfig = {
