@@ -1,10 +1,11 @@
 import selfClosingTags from 'self-closing-tags'
-import * as xss from 'xss'
+import xss from 'xss'
 import type { SafeAttrValueHandler, IWhiteList } from 'xss'
 import { MarpOptions } from '../marp'
 
-// NOTE: Rolldown MJS build will fail if used named import directly
-const { FilterXSS, friendlyAttrValue, escapeAttrValue } = xss
+// The CommonJS default exposes named exports at runtime but not in its type.
+const { FilterXSS, friendlyAttrValue, escapeAttrValue } = xss as typeof xss &
+  typeof import('xss')
 
 const selfClosingRegexp = /\s*\/?>$/
 const xhtmlOutFilter = new FilterXSS({
