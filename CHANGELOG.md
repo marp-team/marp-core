@@ -12,6 +12,11 @@
 >
 > If you are upgrading from v4, see the [v4-to-v5 migration guide](./docs/migration-v5.md).
 
+### Changed
+
+- Upgrade Marpit to [v3.2.3](https://github.com/marp-team/marpit/releases/v3.2.3) ([#438](https://github.com/marp-team/marp-core/pull/438))
+- Upgrade Node.js and dependent packages ([#438](https://github.com/marp-team/marp-core/pull/438))
+
 ### Fixed
 
 - Rendering HTML with a class attribute throws a TypeError when using ESM ([#434](https://github.com/marp-team/marp-core/issues/434), [#435](https://github.com/marp-team/marp-core/pull/435) by [@nbifrye](https://github.com/nbifrye))

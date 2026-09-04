@@ -1,4 +1,5 @@
 const esModules = [
+  '@csstools/',
   '@mathjax/',
   '@shikijs/',
   'beautiful-mermaid',
