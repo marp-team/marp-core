@@ -20,6 +20,7 @@
 ### Fixed
 
 - Rendering HTML with a class attribute throws a TypeError when using ESM ([#434](https://github.com/marp-team/marp-core/issues/434), [#435](https://github.com/marp-team/marp-core/pull/435) by [@nbifrye](https://github.com/nbifrye))
+- Failure of import in non-server JS environments due to the bundled Twemoji CJS ([#436](https://github.com/marp-team/marp-core/issues/436), [#437](https://github.com/marp-team/marp-core/pull/437))
 
 ## v5.0.1 - 2026-08-09
 
