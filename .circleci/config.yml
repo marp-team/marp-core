@@ -125,7 +125,7 @@ jobs:
   test-node24:
     executor:
       name: node
-      version: '24.18'
+      version: '24.20'
     steps:
       - prepare
       - lint
@@ -134,7 +134,7 @@ jobs:
   test-node26:
     executor:
       name: node
-      version: '26.5.0' # Specify LTS version for development 26.5.0
+      version: '26.8.1' # Specify Node.js version for development
     steps:
       - prepare
       - lint
