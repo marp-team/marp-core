@@ -159,7 +159,7 @@ const { html, css } = marp.render('# Hello, Marp!')
 
 ## Mermaid diagrams
 
-> **Requirements: `@marp-team/marp-core/plugins/mermaid` plugin** and `beautiful-mermaid` dependency (`npm install --save beautiful-mermaid`)
+> **Requirements: `@marp-team/marp-core/plugins/mermaid` plugin** and `pele` dependency (`npm install --save pele`)
 
 Use a `mermaid` code fence to render [mermaid](https://mermaid.ai/open-source/) diagrams.
 
@@ -175,7 +175,7 @@ graph LR
 
 <p align="center"><img src="./assets/mermaid/flowchart.webp" alt="A Mermaid flowchart rendered by Marp Core" width="480" /></p>
 
-Marp Core uses [beautiful-mermaid](https://github.com/lukilabs/beautiful-mermaid) for deterministic server-side output. It supports the following diagram types:
+Marp Core uses [Pele](https://pele.run/) for deterministic SVG output. It supports the following diagram types:
 
 <details>
 <summary><b>Flowchart</b></summary>
@@ -318,23 +318,12 @@ xychart
 <p align="center"><img src="./assets/mermaid/line-chart.webp" alt="A Mermaid line chart rendered by Marp Core" width="480" /></p>
 </details>
 
-### Interactive diagrams
-
-Add `interactive` after the info string to enable beautiful-mermaid's interactive mode. For example, charts show a tooltip when hovering over a bar or line.
-
-````markdown
-```mermaid interactive
-xychart
-  x-axis [Jan, Feb, Mar]
-  bar [10, 15, 12]
-```
-````
-
 > [!NOTE]
 >
-> - Some Mermaid syntax may not be supported by `beautiful-mermaid` renderer. You can see the full list of supported diagrams in https://agents.craft.do/mermaid.
+> - Some diagram types in the latest [Mermaid](https://mermaid.ai/open-source/) may not be supported by `pele` renderer. You can see the full list of supported diagrams in https://pele.run/examples.
 > - To display source code instead of rendering a diagram, use `mermaid-raw` or `mmd` as the info string.
-> - Diagram colors follow the current theme of syntax highlighting. Theme authors can override them with [CSS variables](./theme-authoring.md#mermaid-diagrams).
+> - Base colors of diagrams follow the current theme of syntax highlighting. Theme authors can override them with [CSS variables](./theme-authoring.md#mermaid-diagrams).
+> - For context-free deterministic output, Marp Core always uses the result of [SVG rendering](https://pele.run/api#render) instead of [DOM mounting](https://pele.run/api#mount).
 
 ## Math typesetting
 

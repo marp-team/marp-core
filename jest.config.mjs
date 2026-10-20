@@ -8,6 +8,7 @@ const esModules = [
   'hast-util-',
   'html-void-elements',
   'mhchemparser',
+  'pele',
   'property-information',
   'shiki',
   'space-separated-tokens',

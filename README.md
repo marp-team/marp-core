@@ -43,17 +43,17 @@ About the `@marp-team/marp-core/browser` entrypoint, see the [browser helper](./
 
 Marp Core also provides optional plugins for several core features. These often require additional dependencies along with Marp Core.
 
-| Plugin                                     | Feature                                            | Optional dependency                                                                                                                                                                         |
-| ------------------------------------------ | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`@marp-team/marp-core/plugins/shiki`**   | Syntax highlighting powered by [Shiki]             | `shiki`                                                                                                                                                                                     |
-| **`@marp-team/marp-core/plugins/mermaid`** | [Mermaid] rendering powered by [beautiful-mermaid] | `beautiful-mermaid`                                                                                                                                                                         |
-| **`@marp-team/marp-core/plugins/katex`**   | Math typesetting powered by [KaTeX]                | `katex`                                                                                                                                                                                     |
-| **`@marp-team/marp-core/plugins/mathjax`** | Math typesetting powered by [MathJax]              | `@mathjax/src`<br>`@mathjax/mathjax-bbm-font-extension`<br>`@mathjax/mathjax-bboldx-font-extension`<br>`@mathjax/mathjax-dsfont-font-extension`<br>`@mathjax/mathjax-mhchem-font-extension` |
+| Plugin                                     | Feature                                | Optional dependency                                                                                                                                                                         |
+| ------------------------------------------ | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`@marp-team/marp-core/plugins/shiki`**   | Syntax highlighting powered by [Shiki] | `shiki`                                                                                                                                                                                     |
+| **`@marp-team/marp-core/plugins/mermaid`** | [Mermaid] rendering powered by [pele]  | `pele`                                                                                                                                                                                      |
+| **`@marp-team/marp-core/plugins/katex`**   | Math typesetting powered by [KaTeX]    | `katex`                                                                                                                                                                                     |
+| **`@marp-team/marp-core/plugins/mathjax`** | Math typesetting powered by [MathJax]  | `@mathjax/src`<br>`@mathjax/mathjax-bbm-font-extension`<br>`@mathjax/mathjax-bboldx-font-extension`<br>`@mathjax/mathjax-dsfont-font-extension`<br>`@mathjax/mathjax-mhchem-font-extension` |
 
-[beautiful-mermaid]: https://github.com/lukilabs/beautiful-mermaid
 [katex]: https://khan.github.io/KaTeX/
 [mathjax]: https://www.mathjax.org/
 [mermaid]: https://github.com/mermaid-js/mermaid
+[pele]: https://pele.run/
 [shiki]: https://shiki.style/
 
 To use `@marp-team/marp-core/full`, install every optional dependency along with Marp Core:
@@ -62,7 +62,7 @@ To use `@marp-team/marp-core/full`, install every optional dependency along with
 npm install --save \
   @marp-team/marp-core@next \
   shiki \
-  beautiful-mermaid \
+  pele \
   katex \
   @mathjax/src \
   @mathjax/mathjax-bbm-font-extension \

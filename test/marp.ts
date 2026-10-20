@@ -1626,39 +1626,20 @@ $$"
         })
 
         it('renders Mermaid diagram', () => {
-          const render = jest.spyOn(mermaid, 'beautifulMermaid')
+          const render = jest.spyOn(mermaid, 'pele')
           const $ = load(
             marp().markdown.render(`\`\`\`mermaid\n${diagram}\`\`\``),
           )
 
-          expect(render).toHaveBeenCalledWith(
-            diagram,
-            expect.objectContaining({ interactive: false }),
-          )
-          expect($('svg[data-marp-mermaid]')).toHaveLength(1)
-          expect($('pre, code')).toHaveLength(0)
-        })
-
-        it('enables interactive rendering through fence attributes', () => {
-          const render = jest.spyOn(mermaid, 'beautifulMermaid')
-          const $ = load(
-            marp().markdown.render(
-              `\`\`\`mermaid interactive\n${diagram}\`\`\``,
-            ),
-          )
-
-          expect(render).toHaveBeenCalledWith(
-            diagram,
-            expect.objectContaining({ interactive: true }),
-          )
-          expect($('svg[data-marp-mermaid]')).toHaveLength(1)
+          expect(render).toHaveBeenCalledWith(diagram, expect.any(Object))
+          expect($('svg.pele')).toHaveLength(1)
           expect($('pre, code')).toHaveLength(0)
         })
 
         it('falls back to regular syntax highlighting when Mermaid rendering fails', () => {
           const err = new Error('Failed to render Mermaid diagram')
 
-          jest.spyOn(mermaid, 'beautifulMermaid').mockImplementation(() => {
+          jest.spyOn(mermaid, 'pele').mockImplementation(() => {
             throw err
           })
 
@@ -1675,7 +1656,7 @@ $$"
 
       describe('when fence is rendered with mermaid-raw lang', () => {
         it('highlights Mermaid syntax without rendering a diagram', () => {
-          const render = jest.spyOn(mermaid, 'beautifulMermaid')
+          const render = jest.spyOn(mermaid, 'pele')
           const $ = load(
             marp().markdown.render(`\`\`\`mermaid-raw\n${diagram}\n\`\`\``),
           )

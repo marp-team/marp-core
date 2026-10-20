@@ -1,3 +1,3 @@
-import { renderMermaidSVG } from 'beautiful-mermaid'
+import { render } from 'pele'
 
-export const beautifulMermaid = renderMermaidSVG
+export const pele = render

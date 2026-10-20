@@ -1,9 +1,9 @@
-import type { renderMermaidSVG } from 'beautiful-mermaid'
+import type { render } from 'pele'
 
-export const beautifulMermaid: typeof renderMermaidSVG = (...args) => {
-  const bm =
+export const pele: typeof render = (...args) => {
+  const peleModule =
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    require('#marp-beautiful-mermaid') as typeof import('beautiful-mermaid')
+    require('pele') as typeof import('pele')
 
-  return bm.renderMermaidSVG(...args)
+  return peleModule.render(...args)
 }

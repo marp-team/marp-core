@@ -311,6 +311,31 @@ Set a path to [KaTeX font files](https://katex.org/docs/font). It is used in the
 > - You cannot pass options to the KaTeX plugin registered by a full build `@marp-team/marp-core/full`.
 > - `katexOption` and `katexFontPath` options in [the `math` option of the `Marp` constructor](#math), which were available up to v4, have been deprecated in favor of the plugin configuration.
 
+## Mermaid
+
+`mermaidPlugin()` accepts some [Pele options](https://pele.run/api#renderoptions):
+
+```javascript
+import { Marp } from '@marp-team/marp-core'
+import mermaidPlugin from '@marp-team/marp-core/plugins/mermaid'
+
+const marp = new Marp().use(
+  mermaidPlugin({
+    measurer: {
+      width: (text, size, style) => {
+        /* Return the width of the text */
+      },
+    },
+    links: true,
+    linkSchemes: ['http', 'https'],
+    images: true,
+    imageSchemes: ['http', 'https'],
+  }),
+)
+```
+
+All options are optional. See [Pele's render options](https://pele.run/api#renderoptions) for more details.
+
 ---
 
 # Browser helper
