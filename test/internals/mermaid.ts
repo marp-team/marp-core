@@ -14,35 +14,32 @@ describe('#marp-mermaid for Node.js', () => {
     expect(Object.keys(marpMermaidNode)).toStrictEqual(Object.keys(marpMermaid))
   })
 
-  it('requires beautiful-mermaid lazily only when used', async () => {
+  it('requires pele lazily only when used', async () => {
     const mockRenderMermaidSVG = jest.fn(() => '<svg>mermaid</svg>')
-    const mockBeautifulMermaid = jest.fn(() => ({
-      renderMermaidSVG: mockRenderMermaidSVG,
+    const mockPele = jest.fn(() => ({
+      render: mockRenderMermaidSVG,
     }))
 
-    jest.doMock('#marp-beautiful-mermaid', mockBeautifulMermaid)
+    jest.doMock('pele', mockPele)
 
     try {
       await jest.isolateModulesAsync(async () => {
-        const { beautifulMermaid } =
-          await import('../../src/internals/mermaid.node')
-        expect(mockBeautifulMermaid).not.toHaveBeenCalled()
+        const { pele } = await import('../../src/internals/mermaid.node')
+        expect(mockPele).not.toHaveBeenCalled()
 
-        // Load beautiful-mermaid lazily on first use
-        expect(beautifulMermaid('flowchart TD\nA --> B')).toBe(
-          '<svg>mermaid</svg>',
-        )
-        expect(mockBeautifulMermaid).toHaveBeenCalledTimes(1)
+        // Load pele lazily on first use
+        expect(pele('flowchart TD\nA --> B')).toBe('<svg>mermaid</svg>')
+        expect(mockPele).toHaveBeenCalledTimes(1)
         expect(mockRenderMermaidSVG).toHaveBeenCalledWith(
           'flowchart TD\nA --> B',
         )
 
-        beautifulMermaid('sequenceDiagram\nA ->> B: Hello')
-        expect(mockBeautifulMermaid).toHaveBeenCalledTimes(1) // beautiful-mermaid is loaded only once
+        pele('sequenceDiagram\nA ->> B: Hello')
+        expect(mockPele).toHaveBeenCalledTimes(1) // pele is loaded only once
         expect(mockRenderMermaidSVG).toHaveBeenCalledTimes(2)
       })
     } finally {
-      jest.dontMock('#marp-beautiful-mermaid')
+      jest.dontMock('pele')
     }
   })
 })

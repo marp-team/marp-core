@@ -35,7 +35,7 @@ This document describes the breaking changes introduced in Marp Core v5 and how 
    npm install --save \
      @marp-team/marp-core@5 \
      shiki \
-     beautiful-mermaid \
+     pele \
      katex \
      @mathjax/src \
      @mathjax/mathjax-bbm-font-extension \
@@ -94,14 +94,14 @@ In v5, the external libraries required by core plugins are optional peer depende
 | Plugin                                     | Optional dependency                                                                                                                                                                         |
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`@marp-team/marp-core/plugins/shiki`**   | `shiki`                                                                                                                                                                                     |
-| **`@marp-team/marp-core/plugins/mermaid`** | `beautiful-mermaid`                                                                                                                                                                         |
+| **`@marp-team/marp-core/plugins/mermaid`** | `pele`                                                                                                                                                                                      |
 | **`@marp-team/marp-core/plugins/katex`**   | `katex`                                                                                                                                                                                     |
 | **`@marp-team/marp-core/plugins/mathjax`** | `@mathjax/src`<br>`@mathjax/mathjax-bbm-font-extension`<br>`@mathjax/mathjax-bboldx-font-extension`<br>`@mathjax/mathjax-dsfont-font-extension`<br>`@mathjax/mathjax-mhchem-font-extension` |
 
-For example, if you want to use KaTeX math typesetting and Mermaid rendering, you can install only `katex` and `beautiful-mermaid` along with Marp Core:
+For example, if you want to use KaTeX math typesetting and Mermaid rendering, you can install only `katex` and `pele` along with Marp Core:
 
 ```
-npm install --save @marp-team/marp-core@5 katex beautiful-mermaid
+npm install --save @marp-team/marp-core@5 katex pele
 ```
 
 To use the full entrypoint `@marp-team/marp-core/full`, you need to install all optional dependencies.
@@ -109,7 +109,7 @@ To use the full entrypoint `@marp-team/marp-core/full`, you need to install all 
 ```
 npm install --save \
   shiki \
-  beautiful-mermaid \
+  pele \
   katex \
   @mathjax/src \
   @mathjax/mathjax-bbm-font-extension \

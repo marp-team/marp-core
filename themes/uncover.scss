@@ -56,6 +56,9 @@ section {
   --marp-shiki-token-deleted: #e6550d;
   --marp-shiki-token-changed: #d59f62;
 
+  /* Colors for mermaid */
+  --marp-mermaid-border: #888;
+
   color-scheme: light;
   background: var(--color-background);
   color: var(--color-foreground);
@@ -264,7 +267,7 @@ section {
     min-width: 328px;
   }
 
-  svg[data-marp-mermaid] {
+  svg.pele {
     letter-spacing: 0;
     margin-inline: auto;
     max-height: 570px;

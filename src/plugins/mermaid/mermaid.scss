@@ -1,4 +1,29 @@
-:where(svg[data-marp-mermaid]) {
+:where(svg.pele) {
+  --pele-bg: var(
+    --marp-mermaid-background,
+    var(--marp-shiki-background, light-dark(#fff, #1f1f1f))
+  );
+  --pele-fg: var(
+    --marp-mermaid-foreground,
+    var(--marp-shiki-foreground, light-dark(#1f1f1f, #fff))
+  );
+  --pele-muted: var(
+    --marp-mermaid-muted,
+    var(--marp-shiki-token-comment, light-dark(#6e6e6e, #999))
+  );
+  --pele-line: var(--marp-mermaid-line, var(--pele-fg));
+  --pele-surface: var(--marp-mermaid-surface, var(--pele-bg));
+  --pele-surface-alt: var(--marp-mermaid-surface-alt, var(--pele-bg));
+  --pele-border: var(--marp-mermaid-border, var(--pele-line));
+  --pele-accent: var(
+    --marp-mermaid-accent,
+    var(--marp-shiki-token-keyword, #5b7bd5)
+  );
+  --pele-critical: var(
+    --marp-mermaid-critical,
+    var(--marp-shiki-token-error, #e45756)
+  );
+
   display: block;
   width: fit-content;
   max-width: 100%;

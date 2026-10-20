@@ -110,24 +110,9 @@ pre {
   }
 }
 
-svg[data-marp-mermaid] {
+svg.pele {
   letter-spacing: 0;
   max-height: calc(580px - 1em);
-
-  [data-shape='state-start'],
-  [data-shape='state-end'] {
-    /* stylelint-disable-next-line custom-property-pattern */
-    --_text: var(--color-foreground);
-  }
-
-  &[data-xychart-colors] {
-    --marp-mermaid-background: transparent;
-    --marp-mermaid-foreground: var(--color-foreground);
-  }
-
-  .xychart-tip-text {
-    --bg: var(--color-background);
-  }
 }
 
 blockquote {
@@ -230,6 +215,17 @@ section {
   --marp-shiki-token-inserted: light-dark(#daefa3, #65b042);
   --marp-shiki-token-deleted: #e28964;
   --marp-shiki-token-changed: #e9c062;
+
+  /* Colors for Mermaid */
+  --marp-mermaid-background: var(--color-background);
+  --marp-mermaid-foreground: var(--color-foreground);
+  --marp-mermaid-muted: var(--color-dimmed);
+  --marp-mermaid-line: var(--color-foreground);
+  --marp-mermaid-surface: var(--color-background);
+  --marp-mermaid-surface-alt: light-dark(
+    #{color.mix($color-dark, $color-light, 10%)},
+    #{color.mix($color-light, $color-dark, 10%)}
+  );
 
   color-scheme: light;
   background-color: var(--color-background);
@@ -355,7 +351,7 @@ section {
       text-align: center;
     }
 
-    svg[data-marp-mermaid] {
+    svg.pele {
       margin-inline: auto;
     }
 
