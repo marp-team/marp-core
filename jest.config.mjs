@@ -2,7 +2,6 @@ const esModules = [
   '@csstools/',
   '@mathjax/',
   '@shikijs/',
-  'beautiful-mermaid',
   'ccount',
   'character-entities-',
   'comma-separated-tokens',
@@ -24,8 +23,6 @@ const config = {
   moduleNameMapper: {
     '^(.*\\.s[ac]ss)\\?inline$': '$1',
     '^#marp-(.+)$': '<rootDir>/src/internals/$1.ts',
-    '^beautiful-mermaid$':
-      '<rootDir>/node_modules/beautiful-mermaid/dist/index.js',
   },
   testEnvironment: 'node',
   testRegex:

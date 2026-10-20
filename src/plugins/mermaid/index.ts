@@ -1,6 +1,6 @@
 import { marpPlugin } from '../../plugin'
 import css from './mermaid.scss?inline'
-import { beautifulMermaid } from '#marp-mermaid'
+// import { beautifulMermaid } from '#marp-mermaid'
 
 export interface MermaidRenderOptions {
   interactive: boolean
@@ -8,21 +8,25 @@ export interface MermaidRenderOptions {
 
 export const mermaidMarpCorePlugin = () => {
   const render = (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     mermaid: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     { interactive }: MermaidRenderOptions,
-  ): string =>
-    beautifulMermaid(mermaid, {
-      transparent: true,
-      padding: 4,
-      interactive,
-      bg: 'var(--marp-mermaid-background, var(--marp-shiki-background))',
-      fg: 'var(--marp-mermaid-foreground, var(--marp-shiki-foreground))',
-      line: 'var(--marp-mermaid-line)',
-      accent: 'var(--marp-mermaid-accent, var(--marp-shiki-token-keyword))',
-      muted: 'var(--marp-mermaid-muted, var(--marp-shiki-token-comment))',
-      surface: 'var(--marp-mermaid-surface, var(--marp-shiki-background))',
-      border: 'var(--marp-mermaid-border)',
-    })
+  ): string => {
+    throw new Error('Mermaid rendering is not implemented.')
+    // beautifulMermaid(mermaid, {
+    //   transparent: true,
+    //   padding: 4,
+    //   interactive,
+    //   bg: 'var(--marp-mermaid-background, var(--marp-shiki-background))',
+    //   fg: 'var(--marp-mermaid-foreground, var(--marp-shiki-foreground))',
+    //   line: 'var(--marp-mermaid-line)',
+    //   accent: 'var(--marp-mermaid-accent, var(--marp-shiki-token-keyword))',
+    //   muted: 'var(--marp-mermaid-muted, var(--marp-shiki-token-comment))',
+    //   surface: 'var(--marp-mermaid-surface, var(--marp-shiki-background))',
+    //   border: 'var(--marp-mermaid-border)',
+    // })
+  }
 
   return marpPlugin((md) => {
     const parseInfo = (info: string): [lang: string, attrs: string] => {
